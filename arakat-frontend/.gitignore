@@ -1,0 +1,10 @@
+public/
+build/
+dist/
+node_modules/
+test_result/
+.vscode/
+.env
+*.log
+docs/
+yarn-error.log
