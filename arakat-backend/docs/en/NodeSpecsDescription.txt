@@ -1,0 +1,40 @@
+id: unique id assigned by UI
+node_id: id representing the node type
+name: name to show in UI
+category: category that the node belongs
+node_type: id representing high level node type
+family: id representing node_family
+parameters: parameters requested from user
+parameter_props: dsl for keeping info of parameters (their types, constraints, explanations etc.). This should be interpretable by UI.
+compatible_with_stream: whether the node can work with streaming dataframes
+compatible_stream_output_modes: if the node can work with streaming dataframes, which output modes it supports
+compatible_with_spark_pipeline: can be used as a stage in spark pipeline or not.
+is_splitter: does it produce a split such that incoming dataframe is splitted into several dataframes
+produces_model: produces a model or not
+---
+Additional specs for some of the nodes:
+
+can_infer_schema: can it take a "infer_scheme" parameter or not (e.g. csv())
+- BatchReadFromFile
+- BatchReadFromKafka
+- StreamReadFromFile
+- StreamReadFromKafka
+
+file_type: used when reading from one of the following (csv, orc, parquet)
+- BatchReadFromFile
+- BatchWriteToFile
+- StreamReadFromFile
+- StreamWriteToFile
+
+ddfo_name: the method's name to which we want to apply of the dataframe.
+- DDFO
+
+estimator_name: the estimator's name to which we want to instantinate.
+- Estimator
+
+evaluator_name: the evaluator's name to which we want to instantinate.
+- Evaluator
+
+transformer_name: the transformer's name to which we want to instantinate.
+- Transformer
+

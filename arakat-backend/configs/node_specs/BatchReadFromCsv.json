@@ -1,0 +1,25 @@
+{
+  "node_id": 47,
+  "name": "Batch Read from CSV",
+  "category": 0,
+  "node_type": 0,
+  "family": 0,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "can_infer_schema": true,
+  "file_type": "csv",
+  "parameter_props": {
+    "file_path": {"type": ["string"], "constraints":[], "default":"None"},
+    "schema": {"type": ["schema"], "constraints":[], "default":"None"},
+    "header": {"type": ["bool"], "constraints":[], "default":"False"},
+    "sep": {"type": ["char"], "constraints":[], "default":","},
+    "quote": {"type": ["char"], "constraints":[], "default":"\""}
+  },
+  "df_constraints": [
+
+  ],
+  "explanation": "Batch read from csv."
+}

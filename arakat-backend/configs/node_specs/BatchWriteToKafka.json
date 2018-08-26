@@ -1,0 +1,22 @@
+{
+  "node_id": 62,
+  "name": "Batch Write to Kafka Topic",
+  "category": 1,
+  "node_type": 0,
+  "family": 3,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "parameter_props": {
+    "host": {"type": ["string"], "constraints":[], "default":"None"},
+    "port": {"type": ["string"], "constraints":[], "default":"None"},
+    "topic": {"type": ["string"], "constraints":[], "default":"None"},
+    "unique_column_name": {"type": ["string"], "constraints":[], "default":"None"}
+  },
+  "df_constraints": [
+
+  ],
+  "explanation": "Batch write to Kafka Topic."
+}
