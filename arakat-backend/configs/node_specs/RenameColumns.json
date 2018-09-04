@@ -1,0 +1,27 @@
+{
+  "node_id": 43,
+  "name": "Rename Columns",
+  "category": 2,
+  "node_type": 0,
+  "family": 5,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "ddfo_name": "toDF",
+  "parameter_props": {
+    "*cols": {
+      "type": [
+        "string array"
+      ],
+      "constraints": [
+        20,
+        23
+      ],
+      "default": "None"
+    }
+
+  },
+  "explanation": "Giving new column-name .Does not change schema."
+}

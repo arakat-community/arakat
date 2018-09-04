@@ -1,0 +1,50 @@
+{
+  "node_id": 69,
+  "name": "One-hot Encoder",
+  "category": 8,
+  "node_type": 0,
+  "family": 18,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": false,
+  "transformer_name": "OneHotEncoder",
+  "parameter_props": {
+      "inputCols": {
+        "type": [
+          "string array"
+        ],
+        "constraints": [
+
+        ],
+        "default": "No default value, must be provided"
+      },
+      "outputCols": {
+        "type": [
+          "string array"
+        ],
+        "constraints": [
+
+        ],
+        "default": "No default value, must be provided"
+      },
+      "dropLast": {
+        "type": [
+          "boolean"
+        ],
+        "constraints": [
+
+        ],
+        "default": "True"
+      }
+    },
+    "df_constraints": [
+      0,
+      1,
+      2,
+      11
+    ],
+    "import": "from pyspark.ml.feature import OneHotEncoderEstimator",
+    "explanation": "Maps columnsof category indices tocolumns of binary vectors. If dropLast is True, then the last category index is represented as 0 vector. For n cat. indices if dropLast, vector is of size n-1; it is of size n otherwise.  Creates output columns of different type"
+}

@@ -1,0 +1,15 @@
+{
+  "node_id": 34,
+  "name": "Random Splitter",
+  "category": 2,
+  "node_type": 0,
+  "family": 13,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": true,
+  "produces_model": false,
+  "parameter_props": {"weights": {"type": ["double array"], "constraints":[], "default":"None"},"seed": {"type": ["int"], "constraints":[], "default":"None"}},
+  "df_constraints": [14],
+  "explanation": "Splits dataframe. Weights: list of doubles as weights with which to split the DataFrame. Weights will be normalized if they don’t sum up to 1.0."
+}
