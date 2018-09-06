@@ -31,7 +31,8 @@
             "parameters",
             "statements"
         ],
-        "class-name": true
+        "class-name": true,
+        "no-console": false
     },
     "rulesDirectory": []
 }
