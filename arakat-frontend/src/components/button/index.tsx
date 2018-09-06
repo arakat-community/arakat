@@ -36,7 +36,7 @@ type PropWithStyles = IButtonProps & WithStyles<"buttonProgress" | "wrapper">;
 
 const Button: React.SFC<IButtonProps> = ({
     classes,
-    ...props,
+    ...props
 }: PropWithStyles) => (
     <div className={classes.wrapper}>
           <MuiButton
