@@ -20,3 +20,4 @@ class NodeFamilyTypes(Enum):
     StreamWriteToFile = 16
     StreamWriteToKafka = 17
     Transformer = 18
+    ModelHolder = 19

@@ -1,13 +1,17 @@
 from Queue import Queue
 from domain import DomainUtils
 from domain.ErrorTypes import ErrorTypes
+from pipeline_generator.preprocessing.task import SpecialCaseHandler
 
 # No need to keep data/state, so I did not make it a class..
 # This will be safe for multi-thread use as well~
 
 # Improve this...
-def determine_generation_order(dependents_info, requireds_info, waiting_queue):
+def determine_generation_order(dependents_info, requireds_info, waiting_queue, special_edges):
     error_code = ErrorTypes.NO_ERROR
+
+    # Pass waiting queue in case any special cases needs to update it...
+    SpecialCaseHandler.update_dependents_and_requireds_for_special_cases(dependents_info, requireds_info, special_edges)
 
     generation_order=[]
 
@@ -59,7 +63,6 @@ def __add_dependents_info(current_node_id, dependent_node_id, dependents_info):
         dependents_info[current_node_id] = set()
 
     dependents_info[current_node_id].add(dependent_node_id)
-
 
 def __add_requireds_info(current_node_id, required_node_id, requireds_info):
     if (current_node_id not in requireds_info):

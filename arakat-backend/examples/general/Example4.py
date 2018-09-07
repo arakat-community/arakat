@@ -1,4 +1,4 @@
-from pipeline_generator import PipelineGenerator
+from pipeline_generator.generators import PipelineGenerator
 
 # Although UI may send all node-specs, in this example I will omit some of them...
 
@@ -386,44 +386,6 @@ graph={
                     "parameter_grid":{}
                 }
             },
-        "node22":
-            {
-                "id": "node22",
-                "parent": "task1",
-                "node_id": 49,
-                "name": "Batch Read from Parquet",
-                "category": 0,
-                "node_type": 0,
-                "family": 0,
-                "compatible_with_stream": False,
-                "compatible_stream_output_modes": [],
-                "compatible_with_spark_pipeline": False,
-                "is_splitter": False,
-                "produces_model": False,
-                "can_infer_schema": False,
-                "file_type": "parquet",
-                "parameters": {
-                    "file_path": "filepath2.parquet"
-                }
-            },
-        "node23":
-            {
-                "id": "node23",
-                "parent": "task1",
-                "node_id": 68,
-                "name": "Join",
-                "category": 2,
-                "node_type": 0,
-                "family": 8,
-                "compatible_with_stream": False,
-                "compatible_stream_output_modes": [],
-                "compatible_with_spark_pipeline": False,
-                "is_splitter": False,
-                "produces_model": False,
-                "parameters": {
-                    "join_column": "column_name_to_join"
-                }
-            },
         "task1": {
             "id": "task1",
             "parent": None,
@@ -436,9 +398,7 @@ graph={
         }
     },
     "edges": {
-        "node1-node23": {"type": "dataframe"},
-        "node22-node23": {"type": "dataframe"},
-        "node23-node2": {"type": "dataframe"},
+        "node1-node2": {"type": "dataframe"},
         "node2-node3": {"type": "dataframe"},
         "node3-node9": {"type": "portion", "portion_id": 0},
         "node4-node5": {"type": "pipeline"},

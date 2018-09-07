@@ -1,5 +1,6 @@
 from domain.ErrorTypes import ErrorTypes
 from domain.NodeFamilyTypes import NodeFamilyTypes
+from domain import DomainUtils
 
 def check_validity(pipeline_nodes, pipeline_edges):
     for node_id in pipeline_nodes:
@@ -41,7 +42,7 @@ def check_validity(pipeline_nodes, pipeline_edges):
 
     for elem in pipeline_order:
         cur_family=pipeline_nodes[elem]["family"]
-        if(not (cur_family == NodeFamilyTypes.Transformer.value or cur_family == NodeFamilyTypes.Estimator.value)):
+        if(not (cur_family == NodeFamilyTypes.Transformer.value or cur_family == NodeFamilyTypes.Estimator.value or DomainUtils.has_privilage_for_pipeline(pipeline_nodes[elem]["node_id"]))):
             return ErrorTypes.NOT_COMPATIBLE_NODES_IN_PIPELINE_ERROR, []
 
     return ErrorTypes.NO_ERROR, pipeline_order

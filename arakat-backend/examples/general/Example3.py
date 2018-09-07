@@ -1,4 +1,4 @@
-from pipeline_generator import PipelineGenerator
+from pipeline_generator.generators import PipelineGenerator
 
 # Although UI may send all node-specs, in this example I will omit some of them...
 
@@ -145,7 +145,7 @@ graph={
         "node8":
             {
                 "id": "node8",
-                "parent": "node21",
+                "parent": "node9",
                 "node_id": 32,
                 "name": "Random Forest Classifier",
                 "category": 11,
@@ -181,7 +181,7 @@ graph={
         "node10":
             {
                 "id": "node10",
-                "parent": "node21",
+                "parent": "task1",
                 "node_id": 25,
                 "name": "Multi-class Classification Evaluator",
                 "category": 12,
@@ -254,6 +254,25 @@ graph={
                     "metricName":"accuracy"
                 },
             },
+        "node14":
+            {
+                "id": "node14",
+                "parent": "task1",
+                "node_id": 60,
+                "name": "Batch Write to Orc",
+                "category": 1,
+                "node_type": 0,
+                "family": 2,
+                "compatible_with_stream": False,
+                "compatible_stream_output_modes": [],
+                "compatible_with_spark_pipeline": False,
+                "is_splitter": False,
+                "produces_model": False,
+                "file_type": "orc",
+                "parameters": {
+                    "file_path": "targetfilepathForEvalResult1.orc"
+                }
+            },
         "node15":
             {
                 "id": "node15",
@@ -309,7 +328,7 @@ graph={
                 "produces_model": True,
                 "parameters": {
                     "model_path": "pathToMyModel",
-                    "model_type": "CrossValidatorModel"
+                    "model_type": "PipelineModel"
                 }
             },
         "node18":
@@ -368,24 +387,6 @@ graph={
                     "file_path": "targetfilepathForEvalResult3.csv"
                 }
             },
-        "node21":
-            {
-                "id": "node21",
-                "parent": "task1",
-                "node_id": 66,
-                "name": "Cross Validator",
-                "category": 3,
-                "node_type": 3,
-                "family": 4,
-                "compatible_with_stream": False,
-                "compatible_stream_output_modes": [],
-                "compatible_with_spark_pipeline": False,
-                "is_splitter": False,
-                "produces_model": True,
-                "parameters": {
-                    "parameter_grid":{}
-                }
-            },
         "task1": {
             "id": "task1",
             "parent": None,
@@ -404,12 +405,13 @@ graph={
         "node4-node5": {"type": "pipeline"},
         "node5-node6": {"type": "pipeline"},
         "node6-node7": {"type": "pipeline"},
-        "node9-node21": {"type": "dataframe"},
-        "node8-node10": {"type": "cv"},
-        "node21-node11": {"type": "model"},
+        "node7-node8": {"type": "pipeline"},
+        "node9-node10": {"type": "dataframe"},
+        "node9-node11": {"type": "model"},
         "node3-node12": {"type": "portion", "portion_id": 1},
-        "node21-node12": {"type": "model"},
+        "node9-node12": {"type": "model"},
         "node12-node13": {"type": "dataframe"},
+        "node10-node14": {"type": "dataframe"},
         "node13-node15": {"type": "dataframe"},
         "node16-node18": {"type": "dataframe"},
         "node17-node18": {"type": "model"},

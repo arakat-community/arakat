@@ -34,7 +34,10 @@ def generate_code(args):
 def __generate_code_for_pipeline_instantination(pipeline_node, pipeline_order):
     code=['pipeline_'+pipeline_node["id"] + "=Pipeline(stages=["]
     for node_id in pipeline_order:
-        code.extend(["pipeline_stage_"+ node_id, ", "])
+        if(pipeline_node["nodes"][node_id]["family"] == NodeFamilyTypes.ModelHolder.value):
+            code.extend(["model_" + pipeline_node["nodes"][node_id]["model_provider_id"], ", "])
+        else:
+            code.extend(["pipeline_stage_"+ node_id, ", "])
 
     # Might be an unnecessary check
     if (len(pipeline_order) > 0):
@@ -49,7 +52,7 @@ def __generate_stages(nodes, pipeline_order):
     for node_id in pipeline_order:
         if (nodes[node_id]["family"] == NodeFamilyTypes.Estimator.value):
             code.extend(__generate_code_for_estimator_instantination(nodes[node_id]))
-        else:
+        elif (nodes[node_id]["family"] == NodeFamilyTypes.Transformer.value):
             code.extend(__generate_code_for_transformer_instantination(nodes[node_id]))
 
     return code

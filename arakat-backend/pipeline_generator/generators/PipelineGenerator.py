@@ -1,9 +1,10 @@
-import GraphPreprocessor
-import TaskGenerator
-import ScheduleGenerator
-from domain.ErrorTypes import ErrorTypes
-
 from pprint import pprint
+
+import ScheduleGenerator
+import TaskGenerator
+from domain.ErrorTypes import ErrorTypes
+from pipeline_generator.preprocessing.graph import GraphPreprocessor
+
 
 # No need to keep data/state, so I did not make it a class..
 # This will be safe for multi-thread use as well~
@@ -16,7 +17,7 @@ def generate_pipeline(graph, args):
     __add_app_id_to_task_nodes(task_nodes, args["scheduler_args"]["dag_args"]["app_id"])
     if(error == ErrorTypes.NO_ERROR):
         task_codes, task_errors = __generate_task_codes(task_nodes)
-        scheduler_code, scheduler_errors=ScheduleGenerator.generate_code(task_nodes, task_edges, args["scheduler_args"])
+        scheduler_code, scheduler_errors= ScheduleGenerator.generate_code(task_nodes, task_edges, args["scheduler_args"])
         print_codes(task_codes, scheduler_code)
 
         if(not (bool(task_errors) or bool(scheduler_errors))):

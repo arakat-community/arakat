@@ -1,4 +1,4 @@
-from pipeline_generator import PipelineGenerator
+from pipeline_generator.generators import PipelineGenerator
 
 graph={
     "nodes": {
