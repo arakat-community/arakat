@@ -1,0 +1,17 @@
+{
+  "node_id": 63,
+  "name": "Model Loader",
+  "category": 3,
+  "node_type": 0,
+  "family": 10,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": true,
+  "parameter_props": {
+	"model_path": {"type": ["string"], "constraints":[], "default":"None"},
+    "model_type": {"type": ["string"], "constraints":[], "default":"None"}
+  },
+  "explanation": "Loads model..."
+}

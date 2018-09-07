@@ -41,6 +41,7 @@ export interface IAppBarProps {
 type PropsWithStyle = IAppBarProps & WithStyles<"flex" | "toolbarRightItems" | "logo" | "navigation">;
 
 const AppBar: React.SFC<IAppBarProps> = ({classes, ...props}: PropsWithStyle) => (
+
     <MuiAppBar position = "absolute" color = "default">
         <Toolbar>
             <Button

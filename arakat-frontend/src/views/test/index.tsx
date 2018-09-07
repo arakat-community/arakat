@@ -5,6 +5,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Paper from "@material-ui/core/Paper";
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
+import CytoGraph from "../../components/cyto/cyto";
 import AppBar from "../../containers/appbar";
 import Content from "../../containers/content";
 import Drawer from "../../containers/drawer/index";

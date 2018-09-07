@@ -7,7 +7,7 @@ ARAKAT kapsamında iş zekası ve büyük veri analizi uygulamalarına temel te�
 
 ARAKAT temelde üç ana modülden oluşmaktadır. Birinci modül farklı veri kaynaklarından farklı hızlarda alınan verilerin işlenebilir hale getirilmesi (temizleme, maskeleme, vb...) işlerinin kapsandığı "Veri İçerme" modülüdür. İkinci modül, içerilen verilerin üzerinde istatistiksel modellerin ve veri yapılarının kurulabildiği "Veri Analiz" modülüdür. Üçüncü ve son modül ise yapılan analiz sonuçlarının kullanıcı dostu sunumlar halinde görüntülenmesini sağlayan "Veri Görselleştirme" modülüdür.
 
-## Anahtar Kelimler
+## Anahtar Kelimeler
 Büyük Veri, Veri Analizi, İş Zekası, Açık Kaynak, Makine Öğrenmesi, Dağıtık Sistemler
 
 ## Proje Kurgusu ve Detaylar

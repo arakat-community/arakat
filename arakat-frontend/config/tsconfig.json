@@ -4,15 +4,17 @@
         "jsx": "react",
         "module": "ESNext",
         "moduleResolution": "node",
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "sourceMap": true,
         "target": "es6",
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "typeRoots": [ "../types", "../node_modules/@types"]
     },
     "exclude": [
-        "../node_modules"
+        "../node_modules",
+        "../types"
     ],
     "include": [
         "../src/**/*"
-    ]  
+    ]
 }
