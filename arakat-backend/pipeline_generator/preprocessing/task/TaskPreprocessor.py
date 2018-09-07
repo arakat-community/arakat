@@ -10,8 +10,9 @@ from pipeline_generator.preprocessing.task import SpecialCaseHandler
 def determine_generation_order(dependents_info, requireds_info, waiting_queue, special_edges):
     error_code = ErrorTypes.NO_ERROR
 
-    # Pass waiting queue in case any special cases needs to update it...
-    SpecialCaseHandler.update_dependents_and_requireds_for_special_cases(dependents_info, requireds_info, special_edges)
+    if(special_edges is not None):
+        # Pass waiting queue in case any special cases needs to update it...
+        SpecialCaseHandler.update_dependents_and_requireds_for_special_cases(dependents_info, requireds_info, special_edges)
 
     generation_order=[]
 

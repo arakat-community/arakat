@@ -25,7 +25,7 @@ def generate_code(args):
             code.pop()
         code.extend([")", os.linesep])
 
-        code.extend(['model_' + node["id"] + "=" + 'estimator_' + node["id"] + ".fit(df_" + df_name + ")", os.linesep])
-        code.extend(['df_' + node["id"] + "=" + 'model_' + node["id"] + '.transform(df_' + df_name + ')', os.linesep])
+        code.extend(['model_' + node["id"] + "=" + 'estimator_' + node["id"] + ".fit(" + df_name + ")", os.linesep])
+        code.extend(['df_' + node["id"] + "=" + 'model_' + node["id"] + '.transform(' + df_name + ')', os.linesep])
 
     return code, error

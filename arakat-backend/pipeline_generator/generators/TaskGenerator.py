@@ -13,8 +13,11 @@ from utils import GeneralUtils
 def generate_code(graph):
     # Get task_args from task node itself
     dependents_info, requireds_info, waiting_queue = TaskPreprocessor.preprocess_graph(graph)
+    special_edges=None
+    if("special_edges" in graph):
+        special_edges=graph["special_edges"]
     requireds_info_clone=copy.deepcopy(requireds_info)
-    generation_order, error_code = TaskPreprocessor.determine_generation_order(dependents_info, requireds_info_clone, waiting_queue, graph["special_edges"])
+    generation_order, error_code = TaskPreprocessor.determine_generation_order(dependents_info, requireds_info_clone, waiting_queue, special_edges)
     # I do not want anyone to refer to these variables after ordering... Since they don't have the data they are ment to anymore...
     del dependents_info
     del requireds_info_clone
