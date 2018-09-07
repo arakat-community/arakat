@@ -49,7 +49,53 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
         this.addParent({
             data: {
                 id : "n0",
+                visibleName : "Parent 1",
               },
+        });
+
+        this.addParent({
+            data: {
+                id : "n1",
+                visibleName : "Parent 2",
+              },
+        });
+
+        this.addNode({
+            data: {
+                id : "n2",
+                nodeType: "DATASOURCE",
+                parent : "n0",
+                visibleName: "Cyto1",
+              },
+            style : {},
+        });
+
+        this.addNode({
+            data: {
+                id : "n4",
+                nodeType: "DATASOURCE",
+                parent : "n1",
+                visibleName: "Cyto2",
+              },
+            style : {},
+        });
+
+        this.addNode({
+            data: {
+                id : "n3",
+                nodeType: "DATASOURCE",
+                parent : "n0",
+                visibleName: "Cyto3",
+              },
+            style : {},
+        });
+        this.addNode({
+            data: {
+                id : "n5",
+                nodeType: "DATASOURCE",
+                visibleName: "Cyto4",
+              },
+            style : {},
         });
 
     }
@@ -144,7 +190,6 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
         const nodeID = this.cydyna.add({
             data : nodeData.data,
             group : "nodes",
-            style : nodeData.style,
         }).id();
 
         if (nodeData.selected) {
@@ -173,30 +218,16 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
 
     public addParent = (parentData) => {
         const parentID = this.cydyna.add({
-            "background-opacity" : 0.33,
-            "classes": "",
-            "data" : parentData.data,
-            "grabbable": true,
-            "grabbed": false,
-            "group" : "nodes",
-            "height" : 500,
-            "locked": false,
-            "nodeType": "PARENT",
-            "removed": false,
-            "selectable": true,
-            "selected": false,
-            "shape" : "rectangle",
-            "width" : 500,
+            data : {
+                id : parentData.data.id,
+                nodeType : "PARENT",
+                parent : parentData.data.parent,
+                visibleName : parentData.data.visibleName,
+            },
+            group : "nodes",
         });
 
         this.refreshLayout();
-
-        // style : {
-        //     "background-opacity" : 0.333,
-        //     "height" : 125,
-        //     "shape" : "rectangle",
-        //     "width" : 250,
-        // },
 
         return parentID;
     }
@@ -278,17 +309,17 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
         return check;
     }
 
-    public click = () => {
+    public setNodeParent = (parentID) => {
 
-        this.addNode({
-            data: {
-                id : "n0:n0",
-                nodeType: "DATASOURCE",
-                parent : "",
-                visibleName: "Cyto1",
-              },
-            style : {},
+        const selectedNodeList = this.getSelectedNodes();
+
+        selectedNodeList.forEach((node) => {
+            this.cydyna.$("#" + node.id()).move({
+                parent : parentID,
+            });
         });
+
+        this.refreshLayout();
     }
 
     /**
@@ -298,7 +329,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
         return (
             <>
                 <div id="cydyna"></div>
-                <button onClick = {this.click}>Tık</button>
+                <button onClick = {() => this.setNodeParent("n1")} >Tık</button>
             </>
         );
     }
