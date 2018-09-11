@@ -1,4 +1,4 @@
-import {Theme} from "@material-ui/core";
+import {Grid, Theme} from "@material-ui/core";
 import Collapse from "@material-ui/core/Collapse";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -25,8 +25,9 @@ const styles: any = (theme: Theme) => ({
   root: {
      backgroundColor: theme.palette.background.paper,
      float: "left",
-     maxWidth: 360 ,
+     maxWidth: 240 ,
      position: "relative",
+
   },
 
 });
@@ -70,14 +71,26 @@ this.state = {
 
       <div className="genel" >
 <div className={classes.root}>
-          <ListItem button>
+         <Grid> <ListItem button>
             <ListItemText inset primary="Catagory 1" />
-          </ListItem>
+          </ListItem></Grid>
 </div>
+<div className={classes.root}>
+         <Grid> <ListItem button>
+            <ListItemText inset primary="Catagory 2" />
+          </ListItem></Grid>
+</div>
+<div className={classes.root}>
+         <Grid> <ListItem button>
+            <ListItemText inset primary="Catagory 3" />
+          </ListItem></Grid>
+</div>
+
           <div className={classes.root}>
+          <Grid>
           <ListItem button onClick={this.handleClick2}>
 
-  <ListItemText inset primary="Catagory 2" />
+  <ListItemText inset primary="Catagory 4" />
   {this.state.open2 ? <ExpandLess /> : <ExpandMore />}
   </ListItem>
   <Collapse in={this.state.open2} timeout="auto" unmountOnExit>
@@ -92,12 +105,12 @@ this.state = {
   </ListItem>
 
 </List>
-</Collapse>
+</Collapse></Grid>
 </div>
 <div className={classes.root}>
           <ListItem button onClick={this.handleClick}>
 
-            <ListItemText inset primary="Catagory 3" />
+            <ListItemText inset primary="Catagory 5" />
             {this.state.open ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={this.state.open} timeout="auto" unmountOnExit>
@@ -111,7 +124,6 @@ this.state = {
                 <ListItemText inset primary="SubCatogary 2" />
               </ListItem>
               <ListItem button>
-
                 <ListItemText inset primary="SubCatogary 3" />
               </ListItem>
             </List>

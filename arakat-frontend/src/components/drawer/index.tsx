@@ -13,7 +13,7 @@ const drawerWidth = 240;
 const style: any = (theme: Theme) => ({
   content: {
      backgroundColor: theme.palette.background.default,
-     flexGrow: 1,
+     flexGrow: 0,
      minWidth: 0, // So the Typography noWrap works
      padding: theme.spacing.unit * 3,
 },
@@ -23,10 +23,11 @@ const style: any = (theme: Theme) => ({
   },
   root: {
     display: "flex",
-    flexGrow: 1,
+    flexGrow: 0,
     height: 975,
-    overflow: "hidden",
+
     position: "relative",
+
     zIndex: 1,
   },
   toolbar: theme.mixins.toolbar,
@@ -51,8 +52,8 @@ const drawer: React.SFC<IDrawerProps> = ({classes, ...props}: PropsWithStyle) =>
       >
 
         <div className={classes.toolbar} />
-        <ListItem button divider>
-          <ListItemText primary="Create New Pipeline" onClick = {props.onLogoClick }/>
+        <ListItem button divider onClick = {props.onLogoClick}>
+          <ListItemText primary="Create New Pipeline"/>
         </ListItem>
         <ListItem button>
           <ListItemText primary="Result View" />

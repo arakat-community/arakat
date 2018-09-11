@@ -17,14 +17,13 @@ export interface IContentProps {
 const style: any = (theme: Theme) => ({
     content: {
         backgroundColor: "initial",
+
         flexGrow: 1,
         float: "left",
-        left: 272,
-        padding: theme.spacing.unit * 50,
-        paddingLeft: "100px",
-        paddingTop: "1px",
-        position: "absolute",
-        top: 18,
+        overflow: "auto",
+        padding: theme.spacing.unit ,
+        position: "relative",
+
         zIndex: 5,
     },
     toolbar: theme.mixins.toolbar
