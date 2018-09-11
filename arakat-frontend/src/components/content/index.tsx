@@ -16,11 +16,19 @@ export interface IContentProps {
 
 const style: any = (theme: Theme) => ({
     content: {
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: "initial",
         flexGrow: 1,
-        padding: theme.spacing.unit * 3,
-      },
-    toolbar: theme.mixins.toolbar,
+        float: "left",
+        left: 272,
+        padding: theme.spacing.unit * 50,
+        paddingLeft: "100px",
+        paddingTop: "1px",
+        position: "absolute",
+        top: 18,
+        zIndex: 5,
+    },
+    toolbar: theme.mixins.toolbar
+,
 });
 
 type PropsWithStyle = IContentProps & WithStyles<"content" | "toolbar">;
