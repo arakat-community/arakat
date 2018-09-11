@@ -4,4 +4,5 @@ export const layout = {
     name : "cose-bilkent",
     nodeRepulsion: 4500,
     padding: 1000,
+    randomize : true,
 };

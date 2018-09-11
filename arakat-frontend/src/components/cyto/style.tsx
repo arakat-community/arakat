@@ -3,7 +3,6 @@ export const def_style =
         {
           grabbable: true,
           grabbed: false,
-          locked: false,
           selectable: true,
           selected: false,
           selector: "node",

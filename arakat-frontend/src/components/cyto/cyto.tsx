@@ -46,6 +46,9 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
 
         MouseTrap.bind(["del", "backspace"], this.removeSelectedElements);
 
+        ///////////////////////////////////
+        // Example of adding parent and node
+        ///////////////////////////////////
         this.addParent({
             data: {
                 id : "n0",
@@ -97,7 +100,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
               },
             style : {},
         });
-
+        ///////////////////////////////////////
     }
 
     public componentWillUnmount() {
@@ -308,7 +311,9 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
 
         return check;
     }
-
+    /**
+     * to set parent of node
+     */
     public setNodeParent = (parentID) => {
 
         const selectedNodeList = this.getSelectedNodes();
@@ -329,7 +334,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
         return (
             <>
                 <div id="cydyna"></div>
-                <button onClick = {() => this.setNodeParent("n1")} >Tık</button>
+                <button onClick={this.setNodeParent}>Change Parent</button>
             </>
         );
     }
