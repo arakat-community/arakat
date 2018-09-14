@@ -12,6 +12,7 @@
     "label.go.back.to.dashboard" : "Önce ki sayfaya git",
     "dialog.button.ok" : "TAMAM",
     "dialog.button.agree": "KABUL ET",
+    "dialog.button.show": "GÖSTER",
     "dialog.button.cancel": "İPTAL ET",
     "example.menu.group.application": "Uygulama",
     "example.menu.dashboard": "Gösterge paneli",

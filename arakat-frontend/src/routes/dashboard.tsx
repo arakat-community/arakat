@@ -12,6 +12,7 @@ import NotFoundView from "../views/error/not-found";
 import TestView from "../views/test";
 import Test2View from "../views/test2";
 import Test3View from "../views/test3";
+import TestResultPage from "../views/testResultPage";
 
 export const routes: IRouteGroup[] = [
     {
@@ -24,6 +25,14 @@ export const routes: IRouteGroup[] = [
                 name: <FormattedMessage  id="example.menu.dashboard"/>,
                 path: "/",
                 title: <FormattedMessage  id="example.menu.dashboard"/>,
+            },
+            {
+                component: TestResultPage,
+                exact: true,
+                icon: DashboardIcon,
+                name: <FormattedMessage  id="example.menu.result"/>,
+                path: "/",
+                title: <FormattedMessage  id="example.menu.result"/>,
             },
             {
                 collapsible: true,

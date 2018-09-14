@@ -19,7 +19,7 @@ class TestView extends Component<{}, {}> {
     public render() {
         return (
             <>
-                {/* <AppBar
+                { <AppBar
                     routes = { dashboardRoutes }
                     logoUrl = { "/assets/images/logo.png" }
                     onLogoClick = { () => alert("sa")}
@@ -27,7 +27,7 @@ class TestView extends Component<{}, {}> {
                 >
                     <button>Run</button>
 
-                </AppBar> */}
+                </AppBar> }
 
                 <CytoGraph/>
             </>

@@ -22,10 +22,14 @@ const applicationInitialState: IApplicationState = {
         locale: getLocale(navigator.language.split("-")[0]),
         messages: Messages.getMessages(getLocale(navigator.language.split("-")[0])),
     },
+    resultTable: {
+        reportResult: null,
+    },
     routing: null,
     snackbar: {
         messages: [],
     },
+
 };
 
 const store: Store <IApplicationState> = configureStore(applicationInitialState);

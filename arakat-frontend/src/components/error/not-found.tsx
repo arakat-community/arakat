@@ -19,7 +19,7 @@ type PropWithStyles = INotFoundProps & WithStyles<"body">;
 
 const NotFound: React.SFC<PropWithStyles> = ({
     classes,
-    ...props,
+    ...props
 }: PropWithStyles) => (
     <div className={classes.body}>
         <Typography variant="display3" gutterBottom>

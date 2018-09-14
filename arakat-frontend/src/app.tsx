@@ -13,13 +13,16 @@ import SecureRoute from "./components/route/secure";
 import { ILocalizationLanguage } from "./localization/languages";
 import {IApplicationState} from "./store";
 import { IAuthenticationState } from "./store/authentication/types";
+import { IResultViewState } from "./store/resultView/types";
 import NotFoundView from "./views/error/not-found";
-import TestView from "./views/test";
+import Test2View from "./views/test2";
+import TestResultPage from "./views/testResultPage";
 
 export interface IAppState {
   location: Location;
   locale: ILocalizationLanguage;
   authentication?: IAuthenticationState;
+  resultTable?: IResultViewState;
 }
 
 type AllTypes = IAppState & RouteComponentProps <IAppState>;
@@ -72,7 +75,7 @@ const app: React.SFC <AllTypes> = (props: AllTypes) => {
   return (
   <MuiThemeProvider theme={getTheme(props.locale)}>
     <Switch>
-        <Route path="/" component={TestView}/>
+        <Route path="/" component={TestResultPage}/>
     </Switch>
   </MuiThemeProvider>
 ); };

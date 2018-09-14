@@ -37,7 +37,7 @@ class Request <T> {
      * get request
      * @param parameters get parameter
      */
-    public async get<K>(parameters: K): Promise < any > {
+    public async get<K>(parameters?: K): Promise < any > {
         const result: any = await axios.get < T > (`${this.endPoint}?${this.getUrlParam(parameters)}`, config)
             .then(this.handleResponse)
             .catch(this.handleError);

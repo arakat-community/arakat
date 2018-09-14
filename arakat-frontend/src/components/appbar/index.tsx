@@ -9,6 +9,7 @@ import {
     withStyles,
 } from "@material-ui/core";
 import React from "react";
+///home/staj/.cache/typescript/3.0/node_modules/@types/react/index
 import { IRouteGroup } from "../../common/models/route/group";
 
 const styles: any = (theme: Theme) => ({
