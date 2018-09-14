@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.0.2",
+    "history": "^4.7.2",
+    "jss-rtl": "^0.2.3",
+    "react-jss": "^8.6.1",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^4.0.8",
+    "redux": "^4.0.0",
+    "redux-persist": "^5.10.0",
+    "redux-saga": "^0.16.0"
+  }
+}
