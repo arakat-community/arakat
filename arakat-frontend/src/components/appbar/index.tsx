@@ -27,7 +27,7 @@ const styles: any = (theme: Theme) => ({
     toolbarRightItems: {
         alignItems: "center",
         display: "flex",
-        flexFlow: "row",
+        flexFlow: "row wrap-reverse",
     },
 });
 

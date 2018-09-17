@@ -1,38 +1,69 @@
-import { Typography } from "@material-ui/core";
-import React, {Component} from "react";
+import { Button, Typography } from "@material-ui/core";
+import Divider from "@material-ui/core/Divider";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import Paper from "@material-ui/core/Paper";
+import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import CytoGraph from "../../components/cyto/cyto";
 import AppBar from "../../containers/appbar";
+import Content from "../../containers/content";
+import Drawer from "../../containers/drawer/index";
 import { routes as dashboardRoutes } from "../../routes/dashboard";
 
+interface IState {
+  open: boolean;
+  b: JSX.Element;
+}
+
 /**
- * test view class
+ * class test view
  */
-class TestView extends Component<{}, {}> {
+class TestView extends Component<{}, IState> {
+  constructor(props: any) {
+    super(props);
 
-    constructor(props) {
-        super(props);
-    }
-    /**
-     * render the output
-     */
-    public render() {
-        return (
-            <>
-                { <AppBar
-                    routes = { dashboardRoutes }
-                    logoUrl = { "/assets/images/logo.png" }
-                    onLogoClick = { () => alert("sa")}
-                    title = {"ARAKAT"}
-                >
-                    <button>Run</button>
+    this.state = {
+      b : <div></div>,
+      open : false,
 
-                </AppBar> }
+    };
+  }
 
-                <CytoGraph/>
-            </>
-        );
-    }
+  /**
+   * sa
+   */
+  public Increment = () => {
+    this.setState({
+         b : <Content routes={[...dashboardRoutes]}></Content>,
+    });
+}
+
+  /**
+   * render
+   */
+  public render() {
+    return(
+      <div>
+        <div >
+           <AppBar
+                routes = { dashboardRoutes }
+                logoUrl = { "/assets/images/logo.png" }
+                onLogoClick = { () => alert("dsd")}
+                title = {"ARAKAT"}
+            >
+                <button>execute</button>
+            </AppBar>
+            <Drawer title="dsd" onLogoClick={this.Increment}></Drawer>
+        </div>
+        <div>
+          {this.state.b}
+        </div>
+
+      </div>
+    );
+
+  }
 }
 
 export default TestView;

@@ -1,6 +1,11 @@
 export const def_style =
 [
         {
+          grabbable: true,
+          grabbed: false,
+          locked: false,
+          selectable: true,
+          selected: false,
           selector: "node",
           style: {
             content: "data(visibleName)",
@@ -13,7 +18,6 @@ export const def_style =
             "target-arrow-shape": "triangle",
           },
         },
-        // some style for the extension
         {
           selector: ".eh-handle",
           style: {
@@ -65,6 +69,27 @@ export const def_style =
           selector: ":parent",
           style: {
             "background-opacity": 0.333,
+            "grabbable": true,
+            "grabbed": false,
+            "height" : 500,
+            "locked": false,
+            "removed": false,
+            "selectable": true,
+            "selected": false,
+            "shape" : "rectangle",
+            "style": {
+              content: "data(visibleName)",
+            },
+            "width" : 500,
+          },
+        },
+        {
+          selector: "edge:selected",
+          style: {
+            "background-color": "black",
+            "line-color": "black",
+            "source-arrow-color": "black",
+            "target-arrow-color": "black",
           },
         },
 ];
