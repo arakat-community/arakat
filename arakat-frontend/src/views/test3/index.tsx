@@ -17,7 +17,7 @@ class Test3View extends React.Component<
 > {
   public state = {
     bool: false,
-    subTitle: "",
+    subTitle: ""
   };
   public createTable = (arr: any) => {
     const menuItems = [];
@@ -35,7 +35,7 @@ class Test3View extends React.Component<
               name={menuItem.nodes[arr.indexOf(menuItem)].name}
               children={menuItem.nodes}
             />
-          </SubMenu>,
+          </SubMenu>
         );
       }
     }

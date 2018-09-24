@@ -85,7 +85,7 @@ const app: React.SFC<AllTypes> = (props: AllTypes) => {
   return (
     <MuiThemeProvider theme={getTheme(props.locale)}>
       <Switch>
-        <Route path="/" component={CytoView} /> {/*render edilecek sınıf*/}
+        <Route path="/" component={Test2View} /> {/*render edilecek sınıf*/}
       </Switch>
     </MuiThemeProvider>
   );
