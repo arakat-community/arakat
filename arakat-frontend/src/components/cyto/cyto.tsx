@@ -15,6 +15,7 @@ export interface ICytoProps {
 
 export interface ICytoState {
   isPrimitiveLevelLayoutRefreshBlocked: boolean;
+  nodeId: string;
 }
 
 /**
@@ -28,6 +29,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
 
     this.state = {
       isPrimitiveLevelLayoutRefreshBlocked: false,
+      nodeId: ""
     };
 
     this.removeSelectedElements = this.removeSelectedElements.bind(this);
@@ -48,8 +50,24 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
     this.addParent({
       data: {
         id: "n0",
-      },
+        visibleName: "defaultCyto"
+      }
     });
+
+    /*this.addNode({
+      data: {
+        id: "n1",
+        nodeType: "DATASOURCE",
+        parent: "",
+        visibleName: "CytoTriangle"
+      },
+      style: {
+        backgroundColor: "magenta",
+        height: 50,
+        shape: "triangle",
+        width: 50
+      }
+    });*/
   }
 
   public componentWillUnmount() {
@@ -60,7 +78,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
     this.cydyna = cytoscape({
       container: document.getElementById("cydyna"),
       selectionType: "additive",
-      style: def_style,
+      style: def_style
     });
 
     this.cydyna
@@ -69,7 +87,14 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
       .style({
         "background-color": (ele) => {
           return getBackground(ele);
-        },
+        }
+      });
+
+    this.cydyna // image'ı node'a sığdır
+      .style()
+      .selector("node")
+      .css({
+        "background-fit": "cover"
       });
 
     this.cydyna
@@ -78,7 +103,15 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
       .style({
         shape: (ele) => {
           return getShape(ele);
-        },
+        }
+      });
+
+    this.cydyna // node image
+      .style()
+      .selector("#cat")
+      .css({
+        "background-image":
+          "https://farm2.staticflickr.com/1261/1413379559_412a540d29_b.jpg"
       });
 
     this.cydyna.maxZoom(MAX_ZOOM);
@@ -93,7 +126,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
       handleSize: 10,
       noEdgeEventsInDraw: true,
       preview: false,
-      toggleOffOnLeave: true,
+      toggleOffOnLeave: true
     });
 
     // this.cydyna.on("select", this.props.parentSelectChangeHandler);
@@ -147,7 +180,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
       .add({
         data: nodeData.data,
         group: "nodes",
-        style: nodeData.style,
+        style: nodeData.style
       })
       .id();
 
@@ -165,9 +198,9 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
       .add({
         data: {
           source: sourceNodeID,
-          target: targetNodeID,
+          target: targetNodeID
         },
-        group: "edges",
+        group: "edges"
       })
       .id();
 
@@ -178,37 +211,32 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
 
   public addParent = (parentData) => {
     const parentID = this.cydyna.add({
-      "background-opacity": 0.33,
-      "classes": "",
-      "data": parentData.data,
-      "grabbable": true,
-      "grabbed": false,
-      "group": "nodes",
-      "height": 500,
-      "locked": false,
-      "nodeType": "PARENT",
-      "removed": false,
-      "selectable": true,
-      "selected": false,
-      "shape": "rectangle",
-      "width": 500,
+      classes: "",
+      data: parentData.data,
+      grabbable: true,
+      grabbed: false,
+      group: "nodes",
+      locked: false,
+      nodeType: "PARENT",
+      removed: false,
+      selectable: true,
+      selected: false,
+      style: {
+        backgroundOpacity: 0.333,
+        height: 125,
+        shape: "rectangle",
+        width: 125
+      }
     });
 
     this.refreshLayout();
-
-    // style : {
-    //     "background-opacity" : 0.333,
-    //     "height" : 125,
-    //     "shape" : "rectangle",
-    //     "width" : 250,
-    // },
 
     return parentID;
   }
 
   public addEdgeFromSelectedNodeToGivenNode = (nodeData) => {
     this.setState({
-      isPrimitiveLevelLayoutRefreshBlocked: true,
+      isPrimitiveLevelLayoutRefreshBlocked: true
     });
 
     const selectedNodeList = this.getSelectedNodes();
@@ -222,7 +250,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
     this.refreshLayout();
 
     this.setState({
-      isPrimitiveLevelLayoutRefreshBlocked: false,
+      isPrimitiveLevelLayoutRefreshBlocked: false
     });
 
     return targetNodeID;
@@ -255,16 +283,16 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
 
   public checkDuplicateFor = (sourceNode, targetNode) => {
     const duplicates = this.cydyna.edges(
-      "[source = '" + sourceNode.id() + "'][target = '" + targetNode.id() + "']",
+      "[source = '" + sourceNode.id() + "'][target = '" + targetNode.id() + "']"
     );
 
     if (duplicates.length === 0) {
       return false;
     }
-
-    return true;
+    /**
+     * Json
+     */
   }
-
   public checkIsPairNotAllowed = (sourceNode, targetNode) => {
     let check = false;
     const notAllowedPairs = this.props.edgeAdditionPolicy.notAllowedPairs;
@@ -286,54 +314,102 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
     return check;
   }
 
-  public click = () => {
+  public setNodeParent = (parentID) => {
+    // seçilen nodeların parenti parametre olarak id'si verilen node
     {
-      this.addNode({
-        data: {
-          id: "n1",
-          nodeType: "DATASOURCE",
-          parent: "",
-          visibleName: "CytoRed",
-        },
-        style: {
-          backgroundColor: "red",
-          color: "red",
-          height: "50",
-          shape: "rectangle",
-          width: "50",
-        },
-      });
+      console.log(parentID);
     }
-    {
-      this.addNode({
-        data: {
-          id: "n2",
-          nodeType: "DATASOURCE",
-          parent: "n1",
-          visibleName: "CytoMagenta",
-        },
-        style: {
-          backgroundColor: "magenta",
-          color: "magenta",
-          height: "100",
-          shape: "triangle",
-          width: "100",
-        },
+    const selectedNodeList = this.getSelectedNodes();
+
+    selectedNodeList.forEach((node) => {
+      this.cydyna.$("#" + node.id()).move({
+        parent: parentID
       });
-    }
+    });
+    this.refreshLayout();
   }
 
+  public addDefaultNode = () => {
+    this.setState({
+      nodeId: this.addNode({
+        data: {
+          // id: "cat"
+        },
+        style: {
+          backgroundColor: "gray",
+          height: 50,
+          shape: "rectangle",
+          width: 50
+        }
+      })
+    });
+  }
+
+  public setNodeData = (nodeData) => {
+    const selected = this.getElement(this.state.nodeId);
+    (selected.data = jsonNodeData.data), (selected.style = jsonNodeData.style);
+
+    selected.data.visibleName = nodeData.value;
+    this.cydyna.$id(this.state.nodeId).data(selected.data);
+
+    selected.style.backgroundColor = "red";
+    this.setNodeStyle(this.state.nodeId, selected.style);
+    setTimeout(() => {
+      selected.style.backgroundColor = "green";
+      this.setNodeStyle(this.state.nodeId, selected.style);
+      alert("node ready");
+    },         2000);
+  }
+
+  public setNodeStyle = (nodeId, nodeStyle) => {
+    this.cydyna.$id(nodeId).style(nodeStyle);
+  }
   /**
    * render output of cyto
    */
   public render(): JSX.Element {
+    // node id'i state ile al
     return (
       <>
         <div id="cydyna" />
-        <button onClick={this.click}>Tık</button>
+        <input type="text" id="2" />
+        <button onClick={() => this.addDefaultNode()}>Data Sources</button>
+        <button
+          // onClick={() => this.setNodeParent(document.getElementById("2"))}
+          onClick={() => this.setNodeData(document.getElementById("2"))}
+        >
+          Onayla
+        </button>
+
+        <button onClick={() => this.setNodeParent("n0")}>SetParent</button>
       </>
     );
   }
 }
+/**
+ * enum
+ *
+ */
+enum NodeCategories {
+  DataSources = "DataSources",
+  DataSinks = "DataSinks",
+  ETL = "ETL",
+  ML = "ML"
+}
+
+const jsonNodeData: any = {
+  data: {
+    category: 10,
+    family: 6,
+    node_id: 6,
+    node_type: 0
+    // visibleName: "Decision Tree Regressor"
+  },
+  style: {
+    backgroundColor: "green",
+    height: 50,
+    width: 50
+  }
+};
 
 export default CytoGraph;
