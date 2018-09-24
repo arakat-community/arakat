@@ -1,7 +1,7 @@
 import {
   createGenerateClassName,
   MuiThemeProvider,
-  Theme
+  Theme,
 } from "@material-ui/core";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import jssPreset from "@material-ui/core/styles/jssPreset";
@@ -15,7 +15,7 @@ import {
   Route,
   RouteComponentProps,
   Switch,
-  withRouter
+  withRouter,
 } from "react-router";
 import { push } from "react-router-redux";
 import { Dispatch } from "redux";
@@ -24,7 +24,6 @@ import { ILocalizationLanguage } from "./localization/languages";
 import { IApplicationState } from "./store";
 import { IAuthenticationState } from "./store/authentication/types";
 import NotFoundView from "./views/error/not-found";
-import CytoView from "./views/test/cyto-view";
 import Test2View from "./views/test2";
 
 export interface IAppState {
@@ -40,41 +39,41 @@ const jss: any = create({ plugins: [...test, rtl()] });
 const generateClassName: any = createGenerateClassName();
 
 const getTheme: (locale: ILocalizationLanguage) => Theme = (
-  locale: ILocalizationLanguage
+  locale: ILocalizationLanguage,
 ) => {
   const theme: Theme = createMuiTheme({
     direction: locale.rtl ? "rtl" : "ltr",
     overrides: {
       MuiAppBar: {
         colorPrimary: {
-          backgroundColor: "#fafafa"
+          backgroundColor: "#fafafa",
         },
         root: {
-          padding: 0
-        }
+          padding: 0,
+        },
       },
       MuiButton: {
         root: {
-          fontSize: "1.25rem"
-        }
+          fontSize: "1.25rem",
+        },
       },
       MuiPaper: {
         root: {
-          padding: 12
-        }
+          padding: 12,
+        },
       },
       MuiToolbar: {
         root: {
           alignItems: "center",
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-between"
-        }
-      }
+          justifyContent: "space-between",
+        },
+      },
     },
     typography: {
-      fontFamily: "Roboto, Helvetica, Arial, sans-serif"
-    }
+      fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+    },
   });
 
   return theme;
@@ -92,13 +91,13 @@ const app: React.SFC<AllTypes> = (props: AllTypes) => {
 };
 
 const mapStateToProps: (state: IApplicationState) => IAppState = (
-  state: IApplicationState
+  state: IApplicationState,
 ): IAppState => ({
   authentication: state.authentication,
   locale: state.localization.locale,
-  location: state.routing.location
+  location: state.routing.location,
 });
 
 export default withRouter(
-  connect<IAppState, {}, IAppState>(mapStateToProps)(app)
+  connect<IAppState, {}, IAppState>(mapStateToProps)(app),
 );

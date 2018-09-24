@@ -1,38 +1,23 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended"
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended"],
+  "jsRules": {},
+  "rules": {
+    "indent": [true, "spaces", 2],
+    "max-line-length": [true, 140],
+    "variable-name": [true, "ban-keywords", "allow-leading-underscore"],
+    "completed-docs": [true, "classes", "enums", "functions", "methods"],
+    "align": [
+      true,
+      "members",
+      "elements",
+      "arguments",
+      "parameters",
+      "statements"
     ],
-    "jsRules": {},
-    "rules": {
-        "indent": [
-            true,
-            "spaces",
-            2
-        ],
-        "max-line-length": [true, 140],
-        "variable-name": [
-            true,
-            "ban-keywords",
-            "allow-leading-underscore"
-        ],
-        "completed-docs": [
-            true,
-            "classes",
-            "enums",
-            "functions",
-            "methods"
-        ],
-        "align": [
-            true,
-            "members",
-            "elements",
-            "arguments",
-            "parameters",
-            "statements"
-        ],
-        "class-name": true,
-        "no-console": false
-    },
-    "rulesDirectory": []
+    "class-name": true,
+    "no-console": false,
+    "trailing-comma": false
+  },
+  "rulesDirectory": []
 }
