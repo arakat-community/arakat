@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import {IRouteGroup} from "../common/models/route/group";
-import { IRouteItem } from "../common/models/route/item";
-
-const userOperationRoutes: IRouteItem[] = [
-
-];
-
-export const routes: IRouteGroup[] = [
-
-];
-=======
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import EjectIcon from "@material-ui/icons/Eject";
 import FaceIcon from "@material-ui/icons/Face";
@@ -77,4 +65,3 @@ export const routes: IRouteGroup[] = [
     ]
   }
 ];
->>>>>>> cef0d678abcd33e8e0dc2c81fb1efa9bba136482
