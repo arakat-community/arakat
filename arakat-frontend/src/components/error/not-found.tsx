@@ -19,16 +19,16 @@ type PropWithStyles = INotFoundProps & WithStyles<"body">;
 
 const NotFound: React.SFC<PropWithStyles> = ({
     classes,
-    ...props
+    ...props,
 }: PropWithStyles) => (
     <div className={classes.body}>
-        <Typography variant="display3" gutterBottom>
+        {/* <Typography variant="display3" gutterBottom={true}>
             404
         </Typography>
-        <Typography variant="headline" gutterBottom>
+        <Typography variant="headline" gutterBottom={true}>
             <FormattedMessage id="label.not.found" />
         </Typography>
-        <Button onClick={props.onGoBack}><FormattedMessage id="label.go.back.to.dashboard" /></Button>
+        <Button onClick={props.onGoBack}><FormattedMessage id="label.go.back.to.dashboard" /></Button> */}
     </div>
 );
 

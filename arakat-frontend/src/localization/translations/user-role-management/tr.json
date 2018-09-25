@@ -1,0 +1,7 @@
+{
+    "user.role.management.description": "Açıklama",
+    "user.role.management.role": "Rol ismi",
+    "user.role.management.delete.confirm.text": "İşlem sonucunda rol tamamen silinecektir",
+    "user.role.management.delete.confirm.title": "Rolü silmek istediğinize emin misiniz?",
+    "user.role.management.new.dialog.title": "Rol tanımlama"
+}

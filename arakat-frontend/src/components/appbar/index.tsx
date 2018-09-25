@@ -1,70 +1,86 @@
 import Img from "@fdmg/ts-react-image";
-import {
-    AppBar as MuiAppBar,
-    Button,
-    Theme,
-    Toolbar,
-    Typography,
-    WithStyles,
-    withStyles,
-} from "@material-ui/core";
+import { AppBar as MuiAppBar, Button, Theme, Toolbar, Typography, WithStyles, withStyles } from "@material-ui/core";
+import classNames from "classnames";
 import React from "react";
-///home/staj/.cache/typescript/3.0/node_modules/@types/react/index
 import { IRouteGroup } from "../../common/models/route/group";
+import { ILocalizationLanguage } from "../../localization/languages";
+import HorizontalMenuComponent from "../horizontal-menu";
+import SearchBoxComponent from "../search-box";
 
 const styles: any = (theme: Theme) => ({
-    flex: {
-        flexGrow : 1,
+    sidebarClosed: {
+        width: `calc(100% - ${(theme.spacing.unit * 7)}px)`,
+        [theme.breakpoints.up("sm")]: {
+            width: `calc(100% - ${(theme.spacing.unit * 8)}px)`,
+        },
+    },
+    sidebarPinned: {
+        [theme.breakpoints.up("sm")]: {
+            width: `calc(100% - ${(theme.spacing.unit * 32)}px)`,
+        },
+    },
+    toolbarRightItems: {
+        alignItems: "center",
+        display: "flex",
+        flexFlow: "row",
     },
     logo: {
         height: theme.spacing.unit * 5,
         width: theme.spacing.unit * 5,
     },
     navigation: {
-        left: theme.spacing.unit * 12,
         position: "absolute",
-    },
-    toolbarRightItems: {
-        alignItems: "center",
-        display: "flex",
-        flexFlow: "row wrap-reverse",
+        left: theme.spacing.unit * 12,
     },
 });
 
 export interface IAppBarProps {
+    breadCrumb?: JSX.Element;
     children: any;
-    routes: IRouteGroup[];
+    sidebarPinned: boolean;
+    routes?: IRouteGroup[];
     logoUrl: string;
     onLogoClick: () => void;
-    title: string;
 }
 
-type PropsWithStyle = IAppBarProps & WithStyles<"flex" | "toolbarRightItems" | "logo" | "navigation">;
+type PropsWithStyle = IAppBarProps & WithStyles<"sidebarClosed" | "sidebarPinned" | "toolbarRightItems" | "logo" | "navigation">;
 
 const AppBar: React.SFC<IAppBarProps> = ({classes, ...props}: PropsWithStyle) => (
-
-    <MuiAppBar position = "absolute" color = "default">
+    <MuiAppBar
+        position="absolute"
+        // className={
+        //     classNames({
+        //         [classes.sidebarClosed]: !props.sidebarPinned,
+        //         [classes.sidebarPinned]: props.sidebarPinned,
+        //     })
+        // }
+    >
         <Toolbar>
             <Button
-                onClick = { props.onLogoClick }
+                onMouseEnter={props.onLogoClick}
+                onClick={props.onLogoClick}
             >
                 <Img
-                    src = { props.logoUrl }
-                    alt = "logo"
-                    className = { classes.logo }
+                    src={props.logoUrl}
+                    alt="logo"
+                    className={classes.logo}
                 />
             </Button>
-
-            <Typography variant="title" color="inherit" className = {classes.flex}>
-                {props.title}
-            </Typography>
-
-            <div className = {classes.toolbarRightItems}>
+            <div
+                className={classes.navigation}
+            >
+                <HorizontalMenuComponent
+                    routes={props.routes}
+                />
+            </div>
+            <div
+                className={classes.toolbarRightItems}
+            >
                 {props.children}
             </div>
-
+            {/* <SearchBoxComponent /> */}
         </Toolbar>
     </MuiAppBar>
 );
 
-export default withStyles(styles, {withTheme : true})(AppBar);
+export default withStyles(styles, {withTheme: true})(AppBar);

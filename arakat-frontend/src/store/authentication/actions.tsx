@@ -1,12 +1,21 @@
 import {ActionCreator} from "redux";
+import { IAuthenticationToken } from "../../common/models/authentication/token";
 import { IUser } from "../../common/models/authentication/user";
-import {ILoginAttempt, ILoginFailed, ILoginSuccess, ILogout} from "./types";
+import { IAuthenticationForm } from "../../components/login/panel";
+import {IAuthTokenFetched, ILoginAttempt, ILoginFailed, ILoginSuccess, ILogout} from "./types";
 
-export const attemptLogin: ActionCreator<ILoginAttempt> = (user: any) => ({
+export const attemptLogin: ActionCreator<ILoginAttempt> = (user: IAuthenticationForm) => ({
     payload: {
         user,
     },
     type: "@@authentication/LOGIN_ATTEMPT",
+});
+
+export const authTokenFetched: ActionCreator<IAuthTokenFetched> = (auth: IAuthenticationToken) => ({
+    payload: {
+      auth,
+    },
+    type: "@@authentication/AUTH_TOKEN_FETCHED",
 });
 
 export const loginSuccessed: ActionCreator<ILoginSuccess> = (user: IUser) => ({

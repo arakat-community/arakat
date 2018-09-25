@@ -1,52 +1,61 @@
 import { Theme, withStyles, WithStyles } from "@material-ui/core";
 import React from "react";
-import { connect } from "react-redux";
-import { Route, RouteComponentProps, RouteProps, Switch, withRouter } from "react-router";
-import {IAppState} from "../../app";
+import { Route, Switch } from "react-router";
 import { ICollapsibleRoute } from "../../common/models/route/collapsible";
 import { IRouteGroup } from "../../common/models/route/group";
 import { IRouteItem } from "../../common/models/route/item";
-import { IApplicationState } from "../../store";
 import NotFoundView from "../../views/error/not-found";
-import TestView from "../../views/test";
 
 export interface IContentProps {
-    routes: IRouteGroup[];
+    routes: Array<IRouteGroup | IRouteItem>;
 }
 
 const style: any = (theme: Theme) => ({
     content: {
-        backgroundColor: "initial",
+        backgroundColor: theme.palette.background.default,
         flexGrow: 1,
-        float: "left",
-        left: 272,
-        padding: theme.spacing.unit * 50,
-        paddingLeft: "100px",
-        paddingTop: "1px",
-        position: "absolute",
-        top: 18,
-        zIndex: 5,
-    },
-    toolbar: theme.mixins.toolbar
-,
+        overflow: "auto",
+        padding: theme.spacing.unit * 3,
+      },
+    toolbar: theme.mixins.toolbar,
 });
 
 type PropsWithStyle = IContentProps & WithStyles<"content" | "toolbar">;
 
-const switchRoutes: any = (routes: IRouteGroup[]) => {
-    const sRoutes: JSX.Element[] = [];
+const addGroupRoutes: any = (group: IRouteGroup) => {
+    let routes: JSX.Element[] = [];
+    group.routes.forEach((gRoute) => {
+        const collapsibleItem: ICollapsibleRoute = gRoute as ICollapsibleRoute;
+        if (collapsibleItem.collapsible) {
+            collapsibleItem.routes.forEach((cRoute: IRouteItem) => {
+                routes = [...addRoute(cRoute), ...routes];
+            });
+        } else {
+            routes = [...addRoute(gRoute), ...routes];
+        }
+    });
+    return routes;
+};
+
+const addRoute: any = (route: IRouteItem) => {
+    const routes: JSX.Element[] = [];
+    if (route.default) {
+        routes.push(getDefaultRoute(route));
+    }
+    routes.push(<Route {...route}/>);
+
+    return routes;
+};
+
+const switchRoutes: any = (routes: Array<IRouteGroup | IRouteItem>) => {
+    let sRoutes: JSX.Element[] = [];
     routes.forEach((group) => {
-        group.routes.forEach((gRoute) => {
-            const collapsibleItem: ICollapsibleRoute = gRoute as ICollapsibleRoute;
-            if (collapsibleItem.collapsible) {
-                collapsibleItem.routes.forEach((cRoute) => {
-                    sRoutes.push(<Route {...cRoute}/>);
-                });
-            } else {
-                const routeItem: IRouteItem = gRoute as IRouteItem;
-                sRoutes.push(<Route {...routeItem}/>);
-            }
-        });
+        const groupRoutes: IRouteGroup = group as IRouteGroup;
+        if (groupRoutes.routes) {
+            sRoutes = [...addGroupRoutes(groupRoutes), ...sRoutes];
+        } else {
+            sRoutes = [...addRoute(group), ...sRoutes];
+        }
     });
     return (
         <Switch>
@@ -58,9 +67,18 @@ const switchRoutes: any = (routes: IRouteGroup[]) => {
    );
 };
 
+const getDefaultRoute: (route: IRouteItem) => JSX.Element = (route: IRouteItem) => {
+    const {path, exact, ...others} = route;
+    return <Route path="/" exact={true} {...others}/>;
+};
+
 const Content: React.SFC<PropsWithStyle> = ({classes, ...props}: PropsWithStyle) => (
-    <main className={classes.content}>
-        <div className={classes.toolbar} />
+    <main
+        className={classes.content}
+    >
+        <div
+            className={classes.toolbar}
+        />
         {switchRoutes(props.routes)}
     </main>
 );

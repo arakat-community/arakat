@@ -1,10 +1,11 @@
 import {Reducer} from "redux";
 import { getLocale, Messages } from "../../localization";
+import LocalizationLanguages from "../../localization/languages";
 import { ILocalizationState, LocalizationActions } from "./types";
 
 export const initialState: ILocalizationState = {
-    locale: getLocale(navigator.language.split("-")[0]),
-    messages: Messages.getMessages(getLocale(navigator.language.split("-")[0])),
+    locale: getLocale(LocalizationLanguages.DefaultLanguage.code),
+    messages: Messages.getMessages(getLocale(LocalizationLanguages.DefaultLanguage.code)),
 };
 
 const reducer: Reducer<ILocalizationState> =

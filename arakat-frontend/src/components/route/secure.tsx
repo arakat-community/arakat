@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect, Route, RouteComponentProps, RouteProps } from "react-router";
+import LoginView from "../../views/login/index";
 
 export interface ISecureRouteProps {
   authenticated: boolean;

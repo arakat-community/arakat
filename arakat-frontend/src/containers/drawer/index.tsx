@@ -1,6 +1,6 @@
 import React from "react";
 import DrawerComponent, { IDrawerProps } from "../../components/drawer";
 
-const Drawer: (props: IDrawerProps) => JSX.Element = (props: IDrawerProps) => ( <DrawerComponent {...props}/>);
+const DrawerContainer: (props: IDrawerProps) => JSX.Element = (props: IDrawerProps) => ( <DrawerComponent {...props}/>);
 
-export default Drawer;
+export default DrawerContainer;

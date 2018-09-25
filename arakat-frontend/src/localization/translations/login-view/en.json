@@ -1,0 +1,12 @@
+{
+    "login.title": "LOGIN",
+    "login.email": "Username",
+    "login.password": "Password",
+    "login.remember.me": "Remember me",
+    "login.button.login": "Login",
+    "login.error.username.required": "Please, write your username",
+    "login.error.password.required": "Please, write your password",
+    "slogan.title" : "WELCOME",
+    "slogan.subtitle": "EN_Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper nisl erat,vel convallis elit fermentum pellentesque.Sed mollis velit facilisis facilisis.",
+    "slogan.emptyText": "asd"
+}

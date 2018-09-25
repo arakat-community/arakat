@@ -15,7 +15,7 @@ type AllType = IAppbarShortcutProps;
 
 const AppbarShortcutComponent: React.SFC<AllType> = ({routes, ...props}: AllType) => (
     <>
-        <Tooltip
+        {/* <Tooltip
             title={<FormattedMessage id="menu.item.shortcut.search"/>}
         >
                 <IconButton
@@ -23,21 +23,21 @@ const AppbarShortcutComponent: React.SFC<AllType> = ({routes, ...props}: AllType
                 >
                     <SearchIcon />
                 </IconButton>
-        </Tooltip>
+        </Tooltip> */}
         {
-            routes.map((route, index) => (
-                <Tooltip
-                    key={`tooltip_${index}`}
-                    title={route.title}
-                >
-                        <IconButton
-                            href={route.path}
-                            key={`icon_${index}`}
-                        >
-                            <route.icon />
-                        </IconButton>
-                </Tooltip>
-            ))
+            // routes.map((route, index) => (
+            //     <Tooltip
+            //         key={`tooltip_${index}`}
+            //         title={route.title}
+            //     >
+            //             <IconButton
+            //                 href={route.path}
+            //                 key={`icon_${index}`}
+            //             >
+            //                 <route.icon />
+            //             </IconButton>
+            //     </Tooltip>
+            // ))
         }
     </>
 );

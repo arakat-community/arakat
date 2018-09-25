@@ -1,7 +1,7 @@
 import { SnackbarType } from "./type";
 
 export interface ISnackbarMessage {
-    message: string;
+    messageId: string;
     type: SnackbarType;
     id: string;
 }

@@ -1,10 +1,10 @@
 /**
- * comment
+ * api end points.
+ * each endpoint in env must be decleared here to use in services
  */
 class Api {
-    public static User: string = process.env.API_USER;
-    public static BaseURL: string = "http://localhost:3000";
-
+    public static Authentication: string = "http://localhost:8095/";
+    public static Workseet: string = "http://localhost:8095/";
 }
 
 export default Api;

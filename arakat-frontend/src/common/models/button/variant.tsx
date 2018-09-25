@@ -1,7 +1,6 @@
 /**
- * variant of buttons
+ * variant type of buttons
  */
-
 export enum ButtonVariant {
     contained = "contained",
     fab = "fab",
