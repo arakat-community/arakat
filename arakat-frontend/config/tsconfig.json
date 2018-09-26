@@ -11,7 +11,7 @@
         "noEmit": true,
         "strict": true,
         "isolatedModules": true,
-        "esModuleInterop": true
+        "esModuleInterop": true    
     },
     "exclude": [
         "../node_modules",

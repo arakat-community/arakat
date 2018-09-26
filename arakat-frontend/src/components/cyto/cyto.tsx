@@ -29,7 +29,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
 
     this.state = {
       isPrimitiveLevelLayoutRefreshBlocked: false,
-      nodeId: ""
+      nodeId: "",
     };
 
     this.removeSelectedElements = this.removeSelectedElements.bind(this);
@@ -50,8 +50,8 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
     this.addParent({
       data: {
         id: "n0",
-        visibleName: "defaultCyto"
-      }
+        visibleName: "defaultCyto",
+      },
     });
 
     /*this.addNode({
@@ -78,7 +78,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
     this.cydyna = cytoscape({
       container: document.getElementById("cydyna"),
       selectionType: "additive",
-      style: def_style
+      style: def_style,
     });
 
     this.cydyna
@@ -87,14 +87,14 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
       .style({
         "background-color": (ele) => {
           return getBackground(ele);
-        }
+        },
       });
 
     this.cydyna // image'ı node'a sığdır
       .style()
       .selector("node")
       .css({
-        "background-fit": "cover"
+        "background-fit": "cover",
       });
 
     this.cydyna
@@ -103,7 +103,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
       .style({
         shape: (ele) => {
           return getShape(ele);
-        }
+        },
       });
 
     this.cydyna // node image
@@ -111,7 +111,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
       .selector("#cat")
       .css({
         "background-image":
-          "https://farm2.staticflickr.com/1261/1413379559_412a540d29_b.jpg"
+          "https://farm2.staticflickr.com/1261/1413379559_412a540d29_b.jpg",
       });
 
     this.cydyna.maxZoom(MAX_ZOOM);
@@ -126,7 +126,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
       handleSize: 10,
       noEdgeEventsInDraw: true,
       preview: false,
-      toggleOffOnLeave: true
+      toggleOffOnLeave: true,
     });
 
     // this.cydyna.on("select", this.props.parentSelectChangeHandler);
@@ -180,7 +180,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
       .add({
         data: nodeData.data,
         group: "nodes",
-        style: nodeData.style
+        style: nodeData.style,
       })
       .id();
 
@@ -198,9 +198,9 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
       .add({
         data: {
           source: sourceNodeID,
-          target: targetNodeID
+          target: targetNodeID,
         },
-        group: "edges"
+        group: "edges",
       })
       .id();
 
@@ -225,8 +225,8 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
         backgroundOpacity: 0.333,
         height: 125,
         shape: "rectangle",
-        width: 125
-      }
+        width: 125,
+      },
     });
 
     this.refreshLayout();
@@ -236,7 +236,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
 
   public addEdgeFromSelectedNodeToGivenNode = (nodeData) => {
     this.setState({
-      isPrimitiveLevelLayoutRefreshBlocked: true
+      isPrimitiveLevelLayoutRefreshBlocked: true,
     });
 
     const selectedNodeList = this.getSelectedNodes();
@@ -250,7 +250,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
     this.refreshLayout();
 
     this.setState({
-      isPrimitiveLevelLayoutRefreshBlocked: false
+      isPrimitiveLevelLayoutRefreshBlocked: false,
     });
 
     return targetNodeID;
@@ -283,7 +283,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
 
   public checkDuplicateFor = (sourceNode, targetNode) => {
     const duplicates = this.cydyna.edges(
-      "[source = '" + sourceNode.id() + "'][target = '" + targetNode.id() + "']"
+      "[source = '" + sourceNode.id() + "'][target = '" + targetNode.id() + "']",
     );
 
     if (duplicates.length === 0) {
@@ -323,7 +323,7 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
 
     selectedNodeList.forEach((node) => {
       this.cydyna.$("#" + node.id()).move({
-        parent: parentID
+        parent: parentID,
       });
     });
     this.refreshLayout();
@@ -339,9 +339,9 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
           backgroundColor: "gray",
           height: 50,
           shape: "rectangle",
-          width: 50
-        }
-      })
+          width: 50,
+        },
+      }),
     });
   }
 
@@ -373,15 +373,21 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
       <>
         <div id="cydyna" />
         <input type="text" id="2" />
-        <button onClick={() => this.addDefaultNode()}>Data Sources</button>
+        <button //onClick={() => this.addDefaultNode()}
+        // error: Lambdas are forbidden in JSX attributes due to their rendering performance impact
+        >Data Sources
+        </button>
         <button
           // onClick={() => this.setNodeParent(document.getElementById("2"))}
-          onClick={() => this.setNodeData(document.getElementById("2"))}
+          // onClick={() => this.setNodeData(document.getElementById("2"))}
+          // error: Lambdas are forbidden in JSX attributes due to their rendering performance impact
         >
           Onayla
         </button>
 
-        <button onClick={() => this.setNodeParent("n0")}>SetParent</button>
+        <button //onClick={() => this.setNodeParent("n0")}
+        // error: Lambdas are forbidden in JSX attributes due to their rendering performance impact
+        >SetParent</button>
       </>
     );
   }
@@ -394,7 +400,7 @@ enum NodeCategories {
   DataSources = "DataSources",
   DataSinks = "DataSinks",
   ETL = "ETL",
-  ML = "ML"
+  ML = "ML",
 }
 
 const jsonNodeData: any = {
@@ -402,14 +408,14 @@ const jsonNodeData: any = {
     category: 10,
     family: 6,
     node_id: 6,
-    node_type: 0
+    node_type: 0,
     // visibleName: "Decision Tree Regressor"
   },
   style: {
     backgroundColor: "green",
     height: 50,
-    width: 50
-  }
+    width: 50,
+  },
 };
 
 export default CytoGraph;

@@ -11,21 +11,21 @@ export interface INotFoundProps {
 const style: any = (theme: Theme) => ({
   body: {
     padding: "22rem",
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
 
 type PropWithStyles = INotFoundProps & WithStyles<"body">;
 
 const NotFound: React.SFC<PropWithStyles> = ({
   classes,
-  ...props
+  ...props,
 }: PropWithStyles) => (
   <div className={classes.body}>
-    <Typography variant="display3" gutterBottom>
+    <Typography variant="display3" gutterBottom={true}>
       404
     </Typography>
-    <Typography variant="headline" gutterBottom>
+    <Typography variant="headline" gutterBottom={true}>
       <FormattedMessage id="label.not.found" />
     </Typography>
     <Button onClick={props.onGoBack}>

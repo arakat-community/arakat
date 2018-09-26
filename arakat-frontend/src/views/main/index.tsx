@@ -9,11 +9,11 @@ import { Anchor } from "../../common/models/sidebar/anchor";
 import { SidebarState } from "../../common/models/sidebar/state";
 import { Variant } from "../../common/models/sidebar/variant";
 import { ITheme } from "../../common/models/theme";
+import CytoGraph from "../../components/cyto/cyto";
 import { DrawerState } from "../../components/drawer";
 import VerticalDivider from "../../components/vertical-divider";
 import AppBar from "../../containers/appbar";
 import AppbarShortcutContainer from "../../containers/appbar-shortcut";
-import BreadCrumbs from "../../containers/breadcrumbs";
 import Content from "../../containers/content";
 import DrawerContainer from "../../containers/drawer";
 import LanguageChanger from "../../containers/language-changer";
@@ -23,11 +23,13 @@ import ProfileMenu from "../../containers/profile-menu";
 import Snackbar from "../../containers/snackbar";
 import { ILocalizationLanguage } from "../../localization/languages";
 import { routes as appbarShortcutRoutes } from "../../routes/appbar-shortcut";
+import { routes as cytoRoutes } from "../../routes/cyto-content";
 import { routes as dashboardRoutes } from "../../routes/dashboard";
 import { IApplicationState } from "../../store";
 import { changeTheme } from "../../store/app/actions";
 import { IApplicationConfigState } from "../../store/app/types";
 import { logoutUser } from "../../store/authentication/actions";
+import CytoView from "../test/cyto-view";
 
 const style: any = (theme: Theme) => ({
     "@global": {
@@ -195,7 +197,7 @@ class MainView extends Component<AllProps, IMainViewState> {
                         <LinearProgress />
                     </AppBar>
                     <Content
-                        routes={[...dashboardRoutes, ...appbarShortcutRoutes]}
+                        routes={...cytoRoutes}
                     />
                 </Layout>
                 <Snackbar />

@@ -46,7 +46,7 @@ enum NodeCategories {
   Evaluation,
   DataMining,
   Statistics,
-  Visualizations
+  Visualizations,
 }
 
 /**
@@ -73,7 +73,7 @@ enum NodeTypeToNodeFamilyType {
   StreamWriteToFile = 16,
   StreamWriteToKafka = 17,
   Transformer = 18,
-  ModelHolder = 19
+  ModelHolder = 19,
 }
 
 const demoJson: any[] = [
@@ -95,17 +95,17 @@ const demoJson: any[] = [
                 name: "Linear Regression",
                 node_family_type: "BatchReadFromFile",
                 node_id: 20,
-                node_type: 0
+                node_type: 0,
               },
               {
                 name: "Linear Regression 2",
                 node_family_type: "BatchReadFromFile",
                 node_id: 22,
-                node_type: 0
-              }
-            ]
-          }
-        ]
+                node_type: 0,
+              },
+            ],
+          },
+        ],
       },
       {
         id: 5,
@@ -115,23 +115,23 @@ const demoJson: any[] = [
             name: "Linear Regression",
             node_family_type: "BatchReadFromFile",
             node_id: 20,
-            node_type: 0
+            node_type: 0,
           },
           {
             name: "Linear Regression 2",
             node_family_type: "BatchReadFromFile",
             node_id: 22,
-            node_type: 0
-          }
-        ]
+            node_type: 0,
+          },
+        ],
       },
 
       {
         id: 4,
         name: "Preprocessing",
-        nodes: []
-      }
-    ]
+        nodes: [],
+      },
+    ],
   },
   {
     id: 1,
@@ -146,24 +146,24 @@ const demoJson: any[] = [
             name: "Linear Regression",
             node_family_type: "BatchReadFromFile",
             node_id: 20,
-            node_type: 0
+            node_type: 0,
           },
           {
             name: "Linear Regression 2",
             node_family_type: "BatchReadFromFile",
             node_id: 22,
-            node_type: 0
-          }
-        ]
+            node_type: 0,
+          },
+        ],
       },
 
       {
         id: 4,
         name: "Preprocessing",
-        nodes: []
-      }
-    ]
-  }
+        nodes: [],
+      },
+    ],
+  },
 ];
 
 // const styles: any = (theme: Theme) => ({
@@ -185,7 +185,7 @@ const demoJson: any[] = [
 class Test2View extends React.Component {
   public state = {
     anchorEl: "inline",
-    count: 0
+    count: 0,
   };
 
   /**

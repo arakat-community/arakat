@@ -7,5 +7,5 @@ export interface ICollapsibleRoute {
     icon: ComponentType<SvgIconProps>;
     id: number;
     name: JSX.Element;
-    routes: IRouteItem[];
+    routes: IRouteItem;
 }

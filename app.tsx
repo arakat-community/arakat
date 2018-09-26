@@ -5,11 +5,15 @@ import {
 } from "@material-ui/core";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import jssPreset from "@material-ui/core/styles/jssPreset";
+import JssProvider from "react-jss/lib/JssProvider";
 import { Location } from "history";
+import {get as getCookie} from "es-cookie";
 import { create, JSSOptions } from "jss";
+import { theme } from "./arakat-frontend/theme";
 import rtl from "jss-rtl";
 import React, { Component, ReactElement } from "react";
 import { connect } from "react-redux";
+import SecureRoute from "./arakat-frontend/src/components/route/secure";
 import {
   Redirect,
   Route,
@@ -17,14 +21,13 @@ import {
   Switch,
   withRouter,
 } from "react-router";
-import { push } from "react-router-redux";
-import { Dispatch } from "redux";
-import SecureRoute from "./components/route/secure";
-import { ILocalizationLanguage } from "./localization/languages";
-import { IApplicationState } from "./store";
-import { IAuthenticationState } from "./store/authentication/types";
-import NotFoundView from "./views/error/not-found";
-import Test2View from "./views/test2";
+import { ILocalizationLanguage } from "./arakat-frontend/src/localization/languages";
+import { IApplicationState } from "./arakat-frontend/src/store";
+import { IAuthenticationState } from "./arakat-frontend/src/store/authentication/types";
+import LoginView from "./arakat-frontend/src/views/login";
+import MainView from "./arakat-frontend/src/views/main";
+
+
 
 export interface IAppState {
   location: Location;
@@ -82,11 +85,32 @@ const getTheme: (locale: ILocalizationLanguage) => Theme = (
 const app: React.SFC<AllTypes> = (props: AllTypes) => {
   document.body.setAttribute("dir", props.locale.rtl ? "rtl" : "ltr");
   return (
-    <MuiThemeProvider theme={getTheme(props.locale)}>
-      <Switch>
-        <Route path="/" component={Test2View} /> {/*render edilecek sınıf*/}
-      </Switch>
-    </MuiThemeProvider>
+<JssProvider
+            jss={jss}
+            generateClassName={generateClassName}
+    >
+            <MuiThemeProvider
+                theme={theme(props.theme, props.locale)}
+            >
+                <Switch>
+                    <Route
+                        path="/"
+                        component={LoginView}
+                    />
+                    <SecureRoute
+                        authenticated={
+                                getCookie("access_token") !== undefined && getCookie("access_token") !== null
+                                }
+                        loginPath="/login"
+                    >
+                        <Route
+                            path="/"
+                            component={MainView}
+                        />
+                    </SecureRoute>
+                </Switch>
+            </MuiThemeProvider>
+    </JssProvider>
   );
 };
 
