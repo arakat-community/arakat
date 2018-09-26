@@ -1,0 +1,14 @@
+{
+    "data.grid.no.data": "No data",
+    "data.grid.filter.place.holder": "Filter...",
+    "data.grid.filter.contains": "Contains",
+    "data.grid.filter.notContains": "Not contains",
+    "data.grid.filter.startsWith": "Starts with",
+    "data.grid.filter.endsWith": "Ends with",
+    "data.grid.filter.equal": "Equal",
+    "data.grid.filter.notEqual": "Not equal",
+    "data.grid.filter.greaterThan": "Greater than",
+    "data.grid.filter.greaterThanOrEqual": "Greater than or equal",
+    "data.grid.filter.lessThan": "Less than",
+    "data.grid.filter.lessThanOrEqual": "Less than or equal"
+}

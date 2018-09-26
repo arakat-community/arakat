@@ -6,15 +6,18 @@
         "moduleResolution": "node",
         "noImplicitAny": false,
         "sourceMap": true,
-        "target": "es6",
+        "target": "esnext",
         "skipLibCheck": true,
-        "typeRoots": [ "../types", "../node_modules/@types"]
+        "noEmit": true,
+        "strict": true,
+        "isolatedModules": true,
+        "esModuleInterop": true    
     },
     "exclude": [
         "../node_modules",
-        "../types"
+        "../src/**/.spec.tsx",
     ],
     "include": [
         "../src/**/*"
-    ]
+    ]  
 }

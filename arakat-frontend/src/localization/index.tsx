@@ -1,51 +1,32 @@
-import {addLocaleData} from "react-intl";
-import arLocale from "react-intl/locale-data/ar";
-import enLocale from "react-intl/locale-data/en";
-import trLocale from "react-intl/locale-data/tr";
 import LocalizationLanguages, { ILocalizationLanguage } from "./languages";
+import TranslatedMessages from "./translations";
 
 /**
- * Defines localization messages
+ * This class responsible for returning translated messages to components
  */
 export class Messages {
     /**
-     * translated messages
+     * returns translated messages according to language param
+     * while adding a new language to messages, do not forget to assign default language's messages.
      * @param language localization language
      */
     public static getMessages(language: ILocalizationLanguage): object {
         switch (language.code) {
             case LocalizationLanguages.English.code:
-                return this.en;
+                return Object.assign({}, TranslatedMessages.Tr.messages, TranslatedMessages.En.messages);
             case LocalizationLanguages.Turkish.code:
-                return this.tr;
+                return TranslatedMessages.Tr.messages;
             case LocalizationLanguages.Arabic.code:
-                return this.ar;
+                return Object.assign({}, TranslatedMessages.Tr.messages, TranslatedMessages.Ar.messages);
             default:
-                return this.tr;
+                return TranslatedMessages.Tr.messages;
         }
     }
-
-    private static en: object = require("./translations/en");
-    private static tr: object = require("./translations/tr");
-    private static ar: object = require("./translations/ar");
-
 }
 
-const locales: any = {
-    ar: arLocale,
-    en: enLocale,
-    tr: trLocale,
-};
-addLocaleData([
-    ...arLocale,
-    ...enLocale,
-    ...trLocale,
-]);
-
 export const getLocale: (languageCode: string) => ILocalizationLanguage = (languageCode: string) => {
-    const langCode: string = languageCode;
     const locale: ILocalizationLanguage = LocalizationLanguages.AllLanguages.find((language) => language.code === languageCode);
-    return locale && locales[locale.code]
+    return locale && TranslatedMessages[locale.code]
         ? locale
-        :  LocalizationLanguages.Turkish;
+        :  LocalizationLanguages.DefaultLanguage;
 };

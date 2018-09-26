@@ -1,0 +1,10 @@
+version: '3'
+services:
+  astar-bi-ui-svc:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app
+    entrypoint: ["sh", "-c"]
+    command: ["cp /tmp/yarn.lock yarn.lock & if [ '(tar -cf - /usr/local/share/.cache/yarn/v1 | crc32)' != '(tar -cf - .yarn_cache | crc32)' ]; then cp -r /usr/local/share/.cache/yarn/v1/. .yarn_cache/; fi"]

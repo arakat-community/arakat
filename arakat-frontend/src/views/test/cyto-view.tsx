@@ -25,7 +25,7 @@ class CytoView extends Component<{}, IState> {
 
     this.state = {
       b: <div />,
-      open: false
+      open: false,
     };
   }
 
@@ -34,7 +34,7 @@ class CytoView extends Component<{}, IState> {
    */
   public Increment = () => {
     this.setState({
-      b: <Content routes={[...dashboardRoutes]} />
+      b: <Content routes={[...dashboardRoutes]} />,
     });
   }
 

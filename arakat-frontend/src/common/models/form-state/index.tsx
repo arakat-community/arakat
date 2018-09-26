@@ -1,5 +1,5 @@
 /**
- * to show the form state
+ * enum that shows form state
  */
 export enum FormState {
     invalid,

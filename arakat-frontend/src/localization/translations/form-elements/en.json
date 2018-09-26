@@ -1,0 +1,7 @@
+{
+    "form.elements.placeholder.select" : "Choose",
+    "form.elements.error.required" : "Field is required!",
+    "form.elements.error.passwords.not.match": "Passwords does not match!",
+    "form.elements.error.email.format": "Please check your email format (abc@def.com)!",
+    "form.elements.success.process": "Process successfully completed!"
+}

@@ -1,8 +1,5 @@
-import {AxiosPromise, AxiosResponse} from "axios";
 import { Task } from "redux-saga";
 import {call, cancel, fork, take} from "redux-saga/effects";
-import { IUser } from "../../../common/models/authentication/user";
-import { authenticate } from "../api";
 import { loginFlow } from "./login-flow";
 import { logout } from "./logout";
 
@@ -17,8 +14,8 @@ export function* authenticateWatcher() {
         const action: any = yield take(["@@authentication/LOGIN_FAILED", "@@authentication/LOGOUT"]);
         if (action.type === "@@authentication/LOGIN_FAILED") {
             yield cancel(task);
+        } else {
+            yield call(logout, payload.user);
         }
-
-        yield call(logout, payload.user);
     }
 }

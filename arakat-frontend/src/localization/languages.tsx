@@ -5,7 +5,8 @@ export interface ILocalizationLanguage {
 }
 
 /**
- * Language definitions
+ * This class defines languages avaiable in application.
+ * Language changer and other components that needs list of avaiable languaes uses this class
  */
 class LocalizationLanguages {
     public static readonly Arabic: ILocalizationLanguage = {
@@ -13,6 +14,7 @@ class LocalizationLanguages {
         description: "عربى",
         rtl: true,
     };
+
     public static readonly English: ILocalizationLanguage = {
         code: "en",
         description: "English",
@@ -23,6 +25,8 @@ class LocalizationLanguages {
         description: "Türkçe",
         rtl: false,
     };
+
+    public static readonly DefaultLanguage: ILocalizationLanguage = LocalizationLanguages.Turkish;
 
     public static AllLanguages: ILocalizationLanguage[] = [
         LocalizationLanguages.Turkish,

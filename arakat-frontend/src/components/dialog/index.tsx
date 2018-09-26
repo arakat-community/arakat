@@ -5,12 +5,12 @@ import {
     DialogContentText,
     DialogTitle,
 } from "@material-ui/core";
-import React from "react";
+import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import ButtonType from "../../common/models/button/type";
 import { ButtonVariant } from "../../common/models/button/variant";
-import { DialogState } from "../../common/models/dialog/state";
-import { FormState } from "../../common/models/form-state/index";
+import {DialogState} from "../../common/models/dialog/state";
+import { FormState } from "../../common/models/form-state";
 import Button from "../button";
 
 export interface IDialogProps {
@@ -31,52 +31,57 @@ export interface IDialogState {
 
 type AllProps = IDialogProps;
 
+/**
+ * dialog component that accepts any component to render
+ */
 const DialogComponent: React.SFC<AllProps> = (props: AllProps) => {
-    const { loading, onSave, onClose, id, formState, state, content, title, fullScreen } = props;
+    const {id, title, content, formState, onClose, onSave, state, loading, fullScreen} = props;
 
     return (
         <Dialog
-            fullScreen = { fullScreen }
-            open = { state === DialogState.open}
-            onClose = { onClose }
-            aria-labelledby = { id }
-            aria-describedby = { `${id}-description` }
+            fullScreen={fullScreen}
+            open={state === DialogState.open}
+            onClose={onClose}
+            aria-labelledby={id}
+            aria-describedby={`${id}-description`}
         >
             <DialogTitle
-                id = { id }
+                id={id}
             >
-                { title }
+                {title}
             </DialogTitle>
-
             <DialogContent>
                 <DialogContentText
-                    id = { `${id}-description` }
+                    id={`${id}-description`}
                 >
-                    { content }
+                {content}
                 </DialogContentText>
             </DialogContent>
-
             <DialogActions>
                 <Button
-                    // variant = { ButtonVariant.flat }
-                    onClick = { onClose }
-                    label = {
-                        <FormattedMessage id = "dialog.button.cancel"/>
-                    }
-                    type = { ButtonType.action}
+                    variant={ButtonVariant.flat}
+                    onClick={onClose}
+                    label={
+                            <FormattedMessage
+                                id="dialog.button.cancel"
+                            />
+                        }
+                    type={ButtonType.action}
                 />
                 <Button
-                    // variant = { ButtonVariant.flat }
-                    onClick = { onSave }
-                    disabled = { formState === FormState.invalid}
-                    loading = { loading }
-                    label = {
-                        <FormattedMessage id = "dialog.button.agree" />
+                    variant={ButtonVariant.flat}
+                    onClick={onSave}
+                    autoFocus={true}
+                    disabled={formState === FormState.invalid}
+                    loading={loading}
+                    label={
+                        <FormattedMessage
+                            id="dialog.button.save"
+                        />
                     }
-                    type = { ButtonType.action}
+                    type={ButtonType.action}
                 />
             </DialogActions>
-
         </Dialog>
     );
 };
