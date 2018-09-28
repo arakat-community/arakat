@@ -36,23 +36,18 @@ const getTranslatedMessages: any = (languageCode: string) => {
         break;
         case LocalizationLanguages.English.code:
         Object.assign(messages,
-                      require("./login-view/en"),
-                      require("./user-management/en"),
                       require("./menu-items/en"),
                       require("./response-message-codes/en"),
                       require("./not-found-view/en"),
                       require("./dialog-component/en"),
                       require("./grid-columns/en"),
                       require("./form-elements/en"),
-                      require("./user-role-management/en"),
                       require("./breadcrumbs/en"),
                       require("./worksheet/en"),
                       require("./data-grid/en"));
         break;
         case LocalizationLanguages.Turkish.code:
         Object.assign(messages,
-                      require("./login-view/tr"),
-                      require("./user-management/tr"),
                       require("./response-message-codes/tr"),
                       require("./not-found-view/tr"),
                       require("./dialog-component/tr"),
@@ -60,7 +55,6 @@ const getTranslatedMessages: any = (languageCode: string) => {
                       require("./action-buttons/tr"),
                       require("./grid-columns/tr"),
                       require("./form-elements/tr"),
-                      require("./user-role-management/tr"),
                       require("./breadcrumbs/tr"),
                       require("./worksheet/tr"),
                       require("./data-grid/tr"));

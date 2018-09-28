@@ -5,8 +5,6 @@ import React from "react";
 import {FormattedMessage} from "react-intl";
 import {IRouteGroup} from "../common/models/route/group";
 import { IRouteItem } from "../common/models/route/item";
-import RoleManagementView from "../views/role_management";
-import UserManagementView from "../views/user_management";
 
 export const routes: IRouteItem[] = [
     // {

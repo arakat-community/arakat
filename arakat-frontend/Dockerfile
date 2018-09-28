@@ -10,7 +10,6 @@ ADD .yarn-cache.tgz /
 RUN cd /tmp && yarn
 RUN cd /usr/src/app && ln -s /tmp/node_modules 
 
-ENV API_AUTHENTICATION http://172.16.2.43:30988/
 ENV API_WORKSPACE http://172.16.2.43:30988/
 
 ADD . /usr/src/app/

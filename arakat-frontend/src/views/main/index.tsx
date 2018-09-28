@@ -3,7 +3,6 @@ import React, { Component, PureComponent } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { IUser } from "../../common/models/authentication/user";
 import { ISidebarActiveItem } from "../../common/models/sidebar/active-item";
 import { Anchor } from "../../common/models/sidebar/anchor";
 import { SidebarState } from "../../common/models/sidebar/state";
@@ -28,7 +27,6 @@ import { routes as dashboardRoutes } from "../../routes/dashboard";
 import { IApplicationState } from "../../store";
 import { changeTheme } from "../../store/app/actions";
 import { IApplicationConfigState } from "../../store/app/types";
-import { logoutUser } from "../../store/authentication/actions";
 import CytoView from "../test/cyto-view";
 
 const style: any = (theme: Theme) => ({
@@ -50,11 +48,9 @@ interface IMainViewState {
 interface IMainViewProps {
     appConfig: IApplicationConfigState;
     locale: ILocalizationLanguage;
-    user: IUser;
 }
 
 interface IDispatchProps {
-    handleLogout: () => void;
     handleThemeChange: (theme: ITheme) => void;
 }
 
@@ -150,7 +146,7 @@ class MainView extends Component<AllProps, IMainViewState> {
      * renders output
      */
     public render(): JSX.Element {
-        const { locale, user, appConfig, handleLogout } = this.props;
+        const { locale, appConfig } = this.props;
         const { sidebarState, sidebarPinned, activeMenuItem, shortCutDrawerState } = this.state;
 
         return (
@@ -184,8 +180,6 @@ class MainView extends Component<AllProps, IMainViewState> {
                         />
                         <ProfileMenu
                             id="profile-menu"
-                            name={`${user.name}`}
-                            onLogoutClick={handleLogout}
                             onChangeThemeClick={this.handleThemeChange}
                         />
                         <Hidden
@@ -219,13 +213,10 @@ class MainView extends Component<AllProps, IMainViewState> {
 }
 
 const mapStateToProps: (state: IApplicationState) => IMainViewProps = (state: IApplicationState):
-IMainViewProps => ({appConfig: state.appConfig, locale: state.localization.locale, user: state.authentication.user});
+IMainViewProps => ({appConfig: state.appConfig, locale: state.localization.locale});
 
 const mapDispatchToProps: (dispatch: Dispatch) => IDispatchProps = (dispatch: Dispatch): IDispatchProps => {
     return {
-        handleLogout: () => {
-            dispatch(logoutUser());
-        },
         handleThemeChange: (theme: ITheme) => {
             dispatch(changeTheme(theme));
         },

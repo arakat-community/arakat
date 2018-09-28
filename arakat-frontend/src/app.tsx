@@ -12,13 +12,10 @@ import { ITheme } from "./common/models/theme";
 import SecureRoute from "./components/route/secure";
 import { ILocalizationLanguage } from "./localization/languages";
 import {IApplicationState} from "./store";
-import { IAuthenticationState } from "./store/authentication/types";
 import { getTheme } from "./theme";
-import LoginView from "./views/login/index";
 import MainView from "./views/main";
 
 export interface IAppState {
-  authentication?: IAuthenticationState;
   location: Location;
   locale: ILocalizationLanguage;
   theme: ITheme;
@@ -42,20 +39,9 @@ const app: React.SFC <AllTypes> = (props: AllTypes) => {
             >
                 <Switch>
                     <Route
-                        path="/login"
-                        component={LoginView}
+                        path="/"
+                        component={MainView}
                     />
-                    <SecureRoute
-                        authenticated={
-                                getCookie("access_token") !== undefined && getCookie("access_token") !== null
-                                }
-                        loginPath="/login"
-                    >
-                        <Route
-                            path="/"
-                            component={MainView}
-                        />
-                    </SecureRoute>
                 </Switch>
             </MuiThemeProvider>
     </JssProvider>
@@ -63,6 +49,6 @@ const app: React.SFC <AllTypes> = (props: AllTypes) => {
 };
 
 const mapStateToProps: (state: IApplicationState) => IAppState = (state: IApplicationState): IAppState =>
-({location: state.routing.location, authentication: state.authentication, locale: state.localization.locale, theme: state.appConfig.theme});
+({location: state.routing.location, locale: state.localization.locale, theme: state.appConfig.theme});
 
 export default withRouter(connect<IAppState, {}, IAppState>(mapStateToProps)(app));

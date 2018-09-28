@@ -4,7 +4,7 @@
   "description": "astar|us|bi production family",
   "main": "./src/index.js",
   "scripts": {
-    "start": "webpack-dev-server --env.API_AUTHENTICATION=$API_AUTHENTICATION --env.API_WORKSPACE=$API_WORKSPACE --config ./config/webpack.dev.config.js",
+    "start": "webpack-dev-server --env.API_WORKSPACE=$API_WORKSPACE --config ./config/webpack.dev.config.js",
     "build": "webpack --config ./config/webpack.prod.config.js",
     "test": "jest",
     "snapshot-update": "jest -u",
