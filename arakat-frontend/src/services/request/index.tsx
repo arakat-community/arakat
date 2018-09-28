@@ -1,5 +1,4 @@
 import axios, {AxiosError, AxiosPromise, AxiosRequestConfig, AxiosResponse, Canceler} from "axios";
-import {get as getCookie} from "es-cookie";
 import Exception from "../../common/models/exception";
 
 const config: AxiosRequestConfig = {
@@ -16,7 +15,7 @@ const config: AxiosRequestConfig = {
         },
       ],
     validateStatus: (status: number) => status >= 200 && status < 300,
-    withCredentials: true,
+    withCredentials: false,
 };
 
 /**
@@ -43,11 +42,13 @@ class Request <T> {
             /**
              * in ts of getcookie, return type is undefined or 0, however it returns 0 when a cookie is set
              */
+            /*
             if (getCookie("access_token")) {
                 axiosConfig.headers.Authorization = `Bearer ${getCookie("access_token")}`;
             } else {
                 axiosConfig.headers.Authorization = "Basic YXN0YXJ1czphc3RhcnVzc2VjcmV0";
             }
+            */
 
             return axiosConfig;
         });

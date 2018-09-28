@@ -1,7 +1,4 @@
 {
     "menu.item.change.theme":"Change Theme",
-    "menu.item.logout": "Logout",
-    "menu.item.user.management": "User management",
-    "menu.item.role.management": "Role management",
     "menu.item.management.operations": "Management Operations"
 }

@@ -12,11 +12,9 @@ import { FormattedMessage } from "react-intl";
 import { ICollapsibleRoute } from "../common/models/route/collapsible";
 import { IRouteGroup } from "../common/models/route/group";
 import NotFoundView from "../views/error/not-found";
-import role_management from "../views/role_management";
 import CytoView from "../views/test/cyto-view";
 import Test2View from "../views/test2";
 import Test3View from "../views/test3";
-import user_management from "../views/user_management";
 import { routes as userOperationRoutes } from "./appbar-shortcut";
 
 export const routes: IRouteGroup[] = [

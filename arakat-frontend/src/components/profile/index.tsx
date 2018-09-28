@@ -21,9 +21,7 @@ const styles: any = () => ({
 
 export interface IProfileMenuProps {
     id: string;
-    name: string;
     onChangeThemeClick: () => void;
-    onLogoutClick: () => void;
 }
 
 interface IProfileMenuState {
@@ -65,7 +63,7 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
      */
     public render(): JSX.Element {
         const {anchorEl} = this.state;
-        const {classes, id, name} = this.props;
+        const {classes, id} = this.props;
 
         return (
             <>
@@ -73,15 +71,7 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
                   aria-owns={anchorEl ? id : null}
                   aria-haspopup="true"
                   onClick={this.handleOpenMenu}
-                >
-                    <div
-                        className={classes.profile}
-                    >
-                        <Avatar>
-                            {name.charAt(0)}
-                        </Avatar>
-                    </div>
-                </Button>
+                />
                 <Menu
                   anchorOrigin={{
                     horizontal: "right",
@@ -107,28 +97,9 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
                             />
                         </Typography>
                     </MenuItem>
-                    <MenuItem
-                        onClick={this.handleLogout}
-                    >
-                        <Typography
-                            variant="body1"
-                        >
-                            <FormattedMessage
-                                id="menu.item.logout"
-                            />
-                        </Typography>
-                    </MenuItem>
                 </Menu>
             </>
         );
-    }
-
-    private handleLogout = (event: any) => {
-        this.handleClose(event);
-        const {onLogoutClick} = this.props;
-        if (onLogoutClick) {
-            onLogoutClick();
-        }
     }
 
     private handleChangeTheme = (event: any) => {

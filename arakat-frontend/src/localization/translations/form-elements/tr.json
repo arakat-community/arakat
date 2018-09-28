@@ -1,11 +1,7 @@
 {
     "form.elements.placeholder.select" : "Seçiniz",
     "form.elements.error.required" : "Boş bırakmayınız!",
-    "form.elements.error.passwords.not.match": "Şifreler uyuşmamaktadır!",
-    "form.elements.error.email.format": "E-posta formatınızı kontrol ediniz (abc@def.com)!",
-    "form.elements.error.citizenshipNumber.format": "Tc kimlik numarasını 11 hane giriniz!",
     "form.elements.success.process": "İşleminiz başarılı olmuştur!",
-    "form.elements.placeholder.userRoles": "Kullanıcı rolleri",
     "form.elements.autocomplete.placeholder": "Seçiniz",
     "form.elements.autocomplete.no.result": "Sonuç bulunamadı"
 }

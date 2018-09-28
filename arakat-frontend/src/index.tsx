@@ -22,7 +22,6 @@ const applicationInitialState: IApplicationState = {
             type: "dark",
         },
     },
-    authentication: null,
     form: null,
     localization: {
         locale: getLocale(LocalizationLanguages.DefaultLanguage.code),
@@ -33,8 +32,6 @@ const applicationInitialState: IApplicationState = {
     snackbar: {
         messages: [],
     },
-    userManagement: null,
-    userRoleManagement: null,
 
 };
 

@@ -12,7 +12,6 @@ var StatsPlugin = require('stats-webpack-plugin');
 require('@babel/polyfill');
 
 module.exports = env => {
-    console.log('env.API_AUTHENTICATION:' + env.API_AUTHENTICATION);
     console.log('env.API_WORKSPACE:' + env.API_WORKSPACE);
     return {
         mode: "development",
@@ -118,7 +117,6 @@ module.exports = env => {
                 path: './config/.env'            
             }),
             new webpack.EnvironmentPlugin({
-                API_AUTHENTICATION: env.API_AUTHENTICATION, // (process.env.API_AUTHENTICATION is set to env.API_AUTHENTICATION)
                 API_WORKSPACE: env.API_WORKSPACE
             }),
             new StatsPlugin('stats.json', {
