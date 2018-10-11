@@ -28,7 +28,7 @@ public class SwaggerDocumentationConfig {
     public Docket arakatApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("io.github.arakat.arakatcommunity.api"))
+                .apis(RequestHandlerSelectors.basePackage("io.github.arakat.arakatcommunity.controller"))
                 .build()
                 .apiInfo(apiInfo());
     }
