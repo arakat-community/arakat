@@ -1,0 +1,24 @@
+{
+  "node_id": 40,
+  "name": "SQL Transformer",
+  "category": 2,
+  "node_type": 0,
+  "family": 18,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": false,
+  "transformer_name": "SQLTransformer",
+  "parameter_props": {
+    "statement": {
+        "visible_name":"SQL statement",
+        "type_constraint": [
+          "string"
+        ]
+      }
+  },
+  "df_constraints": [
+
+  ]
+}
