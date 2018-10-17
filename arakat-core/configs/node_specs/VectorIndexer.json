@@ -1,0 +1,56 @@
+{
+  "node_id": 45,
+  "name": "Vector Indexer",
+  "category": 2,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "VectorIndexer",
+  "parameter_props": {
+    "maxCategories": {
+      "type": [
+        "integer"
+      ],
+      "constraints": [
+
+      ],
+      "default": "20"
+    },
+    "inputCol": {
+      "type": [
+        "string"
+      ],
+      "constraints": [
+
+      ],
+      "default": "No default value, must be provided"
+    },
+    "outputCol": {
+      "type": [
+        "string"
+      ],
+      "constraints": [
+
+      ],
+      "default": "No default value, must be provided"
+    },
+    "handleInvalid": {
+      "type": [
+        "string"
+      ],
+      "constraints": [
+        3
+      ],
+      "default": "'error'"
+    }
+  },
+  "df_constraints": [
+  	3,
+  	10,
+  	13
+  ]
+}

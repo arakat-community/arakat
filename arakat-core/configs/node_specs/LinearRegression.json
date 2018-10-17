@@ -1,0 +1,137 @@
+{
+  "node_id": 20,
+  "name": "Linear Regression",
+  "category": 10,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "LinearRegression",
+  "parameter_props": {
+    "parameters": {
+      "featuresCol": {
+        "visible_name": "Features Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "features"
+      },
+      "labelCol": {
+        "visible_name": "Label Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "label"
+      },
+      "predictionCol": {
+        "visible_name": "Prediction Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "prediction"
+      },
+      "loss": {
+        "visible_name": "Loss",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "squaredError",
+          "huber"
+        ],
+        "default": "squaredError"
+      },
+      "epsilon": {
+        "visible_name": "Epsilon",
+        "type_constraint": [
+          "float",
+          "double"
+        ],
+        "piecewise_constraint": "epsilon >= 0",
+        "default": 1.35
+      },
+      "maxDepth": {
+        "visible_name": "Max. Depth",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxDepth >= 0",
+        "default": 100
+      },
+      "regParam": {
+        "visible_name": "Regularization Parameter",
+        "type_constraint": [
+          "double"
+        ],
+        "piecewise_constraint": "regParam >= 0",
+        "default": 0.0
+      },
+      "elasticNetParam": {
+        "visible_name": "Elastic Net Parameter",
+        "type_constraint": [
+          "double"
+        ],
+        "piecewise_constraint": "elasticNetParam >= 0 AND elasticNetParam <= 1",
+        "default": 0.0
+      },
+      "tol": {
+        "visible_name": "Convergence Tolerance",
+        "type_constraint": [
+          "float",
+          "double"
+        ],
+        "piecewise_constraint": "tol >= 0",
+        "default": 0.000001
+      },
+      "solver": {
+        "visible_name": "Solver",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "auto",
+          "normal",
+          "l-bfgs"
+        ],
+        "default": "auto"
+      },
+      "aggregationDepth": {
+        "visible_name": "Aggregation Depth",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "aggregationDepth >= 2",
+        "optional": true
+      },
+      "fitIntercept": {
+        "visible_name": "Fit Intercept",
+        "type_constraint": [
+          "boolean"
+        ],
+        "optional": true
+      },
+      "standardization": {
+        "visible_name": "Fit Intercept",
+        "type_constraint": [
+          "boolean"
+        ],
+        "optional": true
+      },
+      "weightCol": {
+        "visible_name": "Weight Column",
+        "type_constraint": [
+          "string"
+        ],
+        "optional": true
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [0,1,4,5,7,10,13]
+}
