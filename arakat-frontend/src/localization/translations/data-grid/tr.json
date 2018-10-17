@@ -1,0 +1,14 @@
+{
+    "data.grid.no.data": "Veri bulunamadı",
+    "data.grid.filter.place.holder": "Filtre...",
+    "data.grid.filter.contains": "İçeren",
+    "data.grid.filter.notContains": "İçermez",
+    "data.grid.filter.startsWith": "Başlayan",
+    "data.grid.filter.endsWith": "Biten",
+    "data.grid.filter.equal": "Eşit",
+    "data.grid.filter.notEqual": "Eşit değil",
+    "data.grid.filter.greaterThan": "Büyük",
+    "data.grid.filter.greaterThanOrEqual": "Büyük eşit",
+    "data.grid.filter.lessThan": "Küçük",
+    "data.grid.filter.lessThanOrEqual": "Küçük eşit"
+}

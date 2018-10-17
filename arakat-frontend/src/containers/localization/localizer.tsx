@@ -14,7 +14,12 @@ interface ILocalizerProps {
 type AllProps = ILocalizerProps;
 
 const localizerContainer: React.SFC<AllProps> = (props: AllProps) => (
-    <IntlProvider locale={props.locale.code} messages={props.messages} key={props.locale.code}>
+    <IntlProvider
+        defaultLocale={LocalizationLanguages.DefaultLanguage.code}
+        locale={props.locale.code}
+        messages={props.messages}
+        key={props.locale.code}
+    >
         {props.children}
     </IntlProvider>
 );

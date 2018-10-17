@@ -1,0 +1,7 @@
+{
+    "form.elements.placeholder.select" : "Seçiniz",
+    "form.elements.error.required" : "Boş bırakmayınız!",
+    "form.elements.success.process": "İşleminiz başarılı olmuştur!",
+    "form.elements.autocomplete.placeholder": "Seçiniz",
+    "form.elements.autocomplete.no.result": "Sonuç bulunamadı"
+}

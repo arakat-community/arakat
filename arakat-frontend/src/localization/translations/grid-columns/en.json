@@ -1,0 +1,12 @@
+{
+    "column.citizenshipNumber": "Citizenship number",
+    "column.email": "E-mail",
+    "column.enabled": "Status",
+    "column.name": "Name",
+    "column.surname": "Surname",
+    "column.role.name": "Role name",
+    "column.description": "Description",
+    "column.select.default": "All",
+    "column.status.active": "Active",
+    "column.status.deactive": "Passive"
+}

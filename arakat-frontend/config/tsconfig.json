@@ -4,13 +4,18 @@
         "jsx": "react",
         "module": "ESNext",
         "moduleResolution": "node",
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "sourceMap": true,
-        "target": "es6",
-        "skipLibCheck": true
+        "target": "esnext",
+        "skipLibCheck": true,
+        "noEmit": true,
+        "strict": true,
+        "isolatedModules": true,
+        "esModuleInterop": true    
     },
     "exclude": [
-        "../node_modules"
+        "../node_modules",
+        "../src/**/.spec.tsx",
     ],
     "include": [
         "../src/**/*"

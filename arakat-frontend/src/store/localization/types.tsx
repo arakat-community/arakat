@@ -8,8 +8,8 @@ export interface ILocalizationState {
 
 export interface IChangeLanguage extends Action {
     type: "@@localization/CHANGE_LANGUAGE";
-    payload:{
-        locale: ILocalizationLanguage
+    payload: {
+        locale: ILocalizationLanguage,
     };
 }
 

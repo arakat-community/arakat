@@ -1,9 +1,6 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended"
-    ],
-    "jsRules": {},
+    "defaultSeverity": "warning",
+    "extends": ["tslint:recommended", "tslint-react"],
     "rules": {
         "indent": [
             true,
@@ -23,6 +20,12 @@
             "functions",
             "methods"
         ],
+        "comment-format": [
+            true,
+            "check-lowercase", {
+                "ignore-words": ["TODO", "HACK"]
+            }
+        ],
         "align": [
             true,
             "members",
@@ -31,7 +34,16 @@
             "parameters",
             "statements"
         ],
-        "class-name": true
+        "class-name": true,
+        "jsx-no-multiline-js": false,
+        "object-literal-sort-keys":false,
+        "no-console":false,
+        "no-debugger":true
     },
-    "rulesDirectory": []
+    "rulesDirectory": [],
+    "linterOptions": {
+        "exclude": [
+            "src/**/*.spec.tsx"
+        ]
+    }
 }

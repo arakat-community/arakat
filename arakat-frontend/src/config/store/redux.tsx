@@ -18,7 +18,7 @@ export const runSagas: () => Task = () => sagaMiddleware.run(rootSaga);
 const persistConfig: any = {
     key: "root",
     storage,
-    whitelist: ["authentication", "localization"],
+    whitelist: ["localization", "theme"],
 };
 
 export let persistor: any;

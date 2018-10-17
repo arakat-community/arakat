@@ -4,9 +4,11 @@ import green from "@material-ui/core/colors/green";
 import classNames from "classnames";
 import React from "react";
 import ButtonType from "../../common/models/button/type";
-import ResultType from "../../common/models/request/result-type";
+import { ButtonVariant } from "../../common/models/button/variant";
+import ResultType from "../../common/models/response/result-type";
 
 export interface IButtonProps {
+    autoFocus?: boolean;
     className?: string;
     disabled?: boolean;
     fullWidth?: boolean;
@@ -16,6 +18,7 @@ export interface IButtonProps {
     onClick?: (event: any) => void;
     result?: ResultType;
     type: ButtonType;
+    variant?: ButtonVariant;
 }
 
 const style: any = (theme: Theme) => ({
@@ -34,13 +37,15 @@ const style: any = (theme: Theme) => ({
 
 type PropWithStyles = IButtonProps & WithStyles<"buttonProgress" | "wrapper">;
 
-const Button: React.SFC<IButtonProps> = ({
+const ButtonComponent: React.SFC<IButtonProps> = ({
     classes,
     ...props,
 }: PropWithStyles) => (
     <div className={classes.wrapper}>
           <MuiButton
-            variant="raised"
+            autoFocus={props.autoFocus}
+            size="medium"
+            variant={props.variant ? props.variant : ButtonVariant.raised}
             color={props.type === ButtonType.action ? "primary" : props.type === ButtonType.warning ? "secondary" : "default"}
             className={classNames({
                 [classes.buttonProgress]: props.result === ResultType.successed,
@@ -57,4 +62,4 @@ const Button: React.SFC<IButtonProps> = ({
     </div>
 );
 
-export default withStyles(style, { withTheme: true })(Button);
+export default withStyles(style, { withTheme: true })(ButtonComponent);

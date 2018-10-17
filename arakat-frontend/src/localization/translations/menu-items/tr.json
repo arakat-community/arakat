@@ -1,0 +1,13 @@
+{
+    "menu.item.change.theme":"Tema Değiş",
+    "menu.item.management.operations": "Yönetici işlemleri",
+    "menu.item.subheader.shortcuts": "Kısa yollar",
+    "menu.item.subheader.last.used": "Son kullanılanlar",
+    "menu.item.subheader.my.repository": "Alanım",
+    "menu.item.subheader.shared.repository": "Paylaşılan alanlar",
+    "menu.item.shortcut.dashboard": "Panel",
+    "menu.item.shortcut.worksheet": "Çalışma sayfası",
+    "menu.item.shortcut.search": "Aramaya başlayın",
+    "menu.item.test": "Örneklendirme",
+    "menu.item.test.chart": "Chart"
+}

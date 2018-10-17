@@ -36,7 +36,7 @@ class Snackbar extends Component<AllProps, ISnackbarStates> {
 
       const snackbarMessage: ISnackbarMessage = {
         id: "0",
-        message: "",
+        messageId: "",
         type: SnackbarType.info,
       };
 
@@ -55,9 +55,22 @@ class Snackbar extends Component<AllProps, ISnackbarStates> {
    */
     public render(): JSX.Element {
         const {snackbarMessage, state} = this.state;
-        return (snackbarMessage && <SnackbarComponent id={snackbarMessage.id} onClose={this.handleClose}
-          onIconCloseClicked={this.handleIconCloseClicked} onExited={this.handleExited}
-          message={snackbarMessage.message} state={state} type={snackbarMessage.type}/>);
+        return (
+                  <>
+                    {
+                        snackbarMessage &&
+                        <SnackbarComponent
+                            id={snackbarMessage.id}
+                            onClose={this.handleClose}
+                            onIconCloseClicked={this.handleIconCloseClicked}
+                            onExited={this.handleExited}
+                            message={snackbarMessage.messageId}
+                            state={state}
+                            type={snackbarMessage.type}
+                        />
+                      }
+                    </>
+                );
     }
 
     /**

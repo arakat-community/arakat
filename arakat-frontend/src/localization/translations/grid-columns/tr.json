@@ -1,0 +1,12 @@
+{
+    "column.citizenshipNumber": "Tc kimlik no",
+    "column.email": "E-Posta",
+    "column.enabled": "Durum",
+    "column.name": "Adı",
+    "column.surname": "Soyadı",
+    "column.role.name": "Rol adı",
+    "column.description": "Açıklama",
+    "column.status.active": "Aktif",
+    "column.status.deactive": "Pasif",
+    "column.select.default": "Hepsi"
+}
