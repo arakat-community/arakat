@@ -1,0 +1,103 @@
+{
+  "node_id": 19,
+  "name": "Latent Dirichlet Allocation (LDA)",
+  "category": 9,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "LDA",
+  "parameter_props": {
+    "parameters": {
+      "featuresCol": {
+        "visible_name": "Features Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "features"
+      },
+      "k": {
+        "visible_name": "k",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "k > 1",
+        "default": 10
+      },
+      "optimizer": {
+        "visible_name": "Optimizer",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "em",
+          "online"
+        ],
+        "default": "online"
+      },
+      "maxIter": {
+        "visible_name": "Max. Iterations",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxIter >= 0",
+        "default": 20
+      },
+      "checkpointInterval": {
+        "visible_name": "Checkpoint Interval",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "checkpointInterval >= 1 OR checkpointInterval == -1",
+        "default": 10
+      },
+      "learningOffset": {
+        "visible_name": "Learning Offset",
+        "type_constraint": [
+          "float",
+          "double"
+        ],
+        "piecewise_constraint": "learningOffset > 0",
+        "default": 1024
+      },
+      "subsamplingRate": {
+        "visible_name": "Subsampling Rate",
+        "type_constraint": [
+          "float",
+          "double"
+        ],
+        "piecewise_constraint": "subsamplingRate > 0 AND subsamplingRate <= 1",
+        "default": 0.05
+      },
+      "optimizeDocConcentration": {
+        "visible_name": "Optimize Doc Concentration",
+        "type_constraint": [
+          "boolean"
+        ],
+        "optional": true
+      },
+      "keepLastCheckpoint": {
+        "visible_name": "Keep Last Checkpoint",
+        "type_constraint": [
+          "boolean"
+        ],
+        "optional": true
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [
+  	1,
+  	2,
+    3,
+    4,
+    5,
+    10
+  ]
+}

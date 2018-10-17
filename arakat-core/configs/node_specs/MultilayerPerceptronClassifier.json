@@ -1,0 +1,119 @@
+{
+  "node_id": 26,
+  "name": "Multi-layer Perceptron Classifier",
+  "category": 11,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "MultilayerPerceptronClassifier",
+  "parameter_props": {
+    "parameters": {
+      "featuresCol": {
+        "visible_name": "Features Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "features"
+      },
+      "labelCol": {
+        "visible_name": "Label Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "label"
+      },
+      "predictionCol": {
+        "visible_name": "Prediction Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "prediction"
+      },
+      "rawPredictionCol": {
+        "visible_name": "Raw Prediction Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "rawPrediction"
+      },
+      "probabilityCol": {
+        "visible_name": "Probability Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "probability"
+      },
+      "layers": {
+        "visible_name": "Layers",
+        "type_constraint": [
+          "array[integer]"
+        ],
+        "default": [
+          2,
+          2,
+          2
+        ]
+      },
+      "maxIter": {
+        "visible_name": "Max. Iterations",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxIter >= 0",
+        "default": 100
+      },
+      "tol": {
+        "visible_name": "Convergence Tolerance",
+        "type_constraint": [
+          "float",
+          "double"
+        ],
+        "piecewise_constraint": "tol >= 0",
+        "default": 0.000001
+      },
+      "stepSize": {
+        "visible_name": "Step Size",
+        "type_constraint": [
+          "double"
+        ],
+        "piecewise_constraint": "stepSize >= 0",
+        "default": 0.3
+      },
+      "solver": {
+        "visible_name": "Solver",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "l-bfgs",
+          "gd"
+        ],
+        "default": "l-bfgs"
+      },
+      "seed": {
+        "visible_name": "Seed",
+        "type_constraint": [
+          "integer"
+        ],
+        "optional": true
+      },
+      "blockSize": {
+        "visible_name": "Block Size",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "blockSize >= 10 AND blockSize <= 1000",
+        "optional": true
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [0,1,4,5,10,11,13,21]
+}

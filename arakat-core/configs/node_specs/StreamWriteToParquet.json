@@ -1,0 +1,56 @@
+{
+  "node_id": 57,
+  "name": "Stream Write to Parquet",
+  "category": 1,
+  "node_type": 0,
+  "family": 16,
+  "compatible_with_stream": true,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "file_type": "parquet",
+  "parameter_props": {
+    "parameters": {
+      "path": {
+        "visible_name": "File Path",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "checkpointLocation": {
+        "visible_name": "Checkpoint Path",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "trigger_type": {
+        "visible_name": "Trigger Type",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "once",
+          "processingTime",
+          "continuous"
+        ],
+        "default": "once"
+      },
+      "trigger_value": {
+        "visible_name": "Trigger Value",
+        "type_constraint": [
+          "string"
+        ]
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": [
+
+  ]
+}

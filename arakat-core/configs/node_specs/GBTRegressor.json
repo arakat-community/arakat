@@ -1,0 +1,136 @@
+{
+  "node_id": 15,
+  "name": "Gradient-Boosted Trees (GBTs) Regressor",
+  "category": 10,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "GBTRegressor",
+  "parameter_props": {
+    "parameters": {
+      "featuresCol": {
+        "visible_name": "Features Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "features"
+      },
+      "labelCol": {
+        "visible_name": "Label Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "label"
+      },
+      "predictionCol": {
+        "visible_name": "Prediction Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "prediction"
+      },
+      "maxDepth": {
+        "visible_name": "Max. Depth",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxDepth >= 0",
+        "default": 5
+      },
+      "maxBins": {
+        "visible_name": "Max. Bins",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxBins >= 2",
+        "optional": true
+      },
+      "minInstancesPerNode": {
+        "visible_name": "Min. Instances per Node",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "minInstancesPerNode >= 1",
+        "optional": true
+      },
+      "impurity": {
+        "visible_name": "Impurity",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "variance"
+        ],
+        "default": "variance"
+      },
+      "lossType": {
+        "visible_name": "Loss Type",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "squared",
+          "absolute"
+        ],
+        "default": "squared"
+      },
+      "stepSize": {
+        "visible_name": "Step Size",
+        "type_constraint": [
+          "float",
+          "double"
+        ],
+        "piecewise_constraint": "stepSize > 0 AND stepSize <= 1",
+        "default": 0.1
+      },
+      "maxIter": {
+        "visible_name": "Max. Iterations",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxIter >= 0",
+        "default": 20
+      },
+      "subsamplingRate": {
+        "visible_name": "Subsampling Rate",
+        "type_constraint": [
+          "float",
+          "double"
+        ],
+        "piecewise_constraint": "subsamplingRate > 0 AND subsamplingRate <= 1",
+        "default": 1.0
+      },
+      "checkpointInterval": {
+        "visible_name": "Checkpoint Interval",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "checkpointInterval >= 1",
+        "default": 10
+      },
+      "cacheNodeIds": {
+        "visible_name": "Cache Node Ids",
+        "type_constraint": [
+          "boolean"
+        ],
+        "optional": true
+      },
+      "seed": {
+        "visible_name": "Seed",
+        "type_constraint": [
+          "integer"
+        ],
+        "optional": true
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [0,1,4,5,7,10,13]
+}

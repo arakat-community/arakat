@@ -1,0 +1,103 @@
+{
+  "node_id": 0,
+  "name": "Alternating Least Squares (ALS)",
+  "category": 13,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "ALS",
+  "parameter_props": {
+    "parameters": {
+      "rank": {
+        "visible_name": "Rank",
+        "type_constraint": [
+          "integer"
+        ],
+        "default": 10
+      },
+      "maxIter": {
+        "visible_name": "Max. Iteration",
+        "type_constraint": [
+          "integer"
+        ],
+        "default": 10,
+        "piecewise_constraint": "maxIter >= 0"
+      },
+      "regParam": {
+        "visible_name": "Regularization Parameter",
+        "type_constraint": [
+          "double"
+        ],
+        "default": 0.1,
+        "piecewise_constraint": "regParam >= 0"
+      },
+      "numUserBlocks": {
+        "visible_name": "# of User Blocks",
+        "type_constraint": [
+          "integer"
+        ],
+        "default": 10
+      },
+      "numItemBlocks": {
+        "visible_name": "# of Item Blocks",
+        "type_constraint": [
+          "integer"
+        ],
+        "default": 10
+      },
+      "userCol": {
+        "visible_name": "User Column Name",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "user"
+      },
+      "itemCol": {
+        "visible_name": "Item Column Name",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "item"
+      },
+      "ratingCol": {
+        "visible_name": "Rating Column Name",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "rating"
+      },
+      "seed": {
+        "visible_name": "seed",
+        "type_constraint": [
+          "integer"
+        ],
+        "default": 10
+      },
+      "nonnegative": {
+        "visible_name": "Non-negative",
+        "type_constraint": [
+          "boolean"
+        ],
+        "default": false
+      },
+      "checkpointInterval": {
+        "visible_name": "Checkpoint Interval",
+        "type_constraint": [
+          "integer"
+        ],
+        "default": 10
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": [0,1,2,4,5,7,8,13]
+}

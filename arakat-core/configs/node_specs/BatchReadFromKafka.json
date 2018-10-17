@@ -1,0 +1,52 @@
+{
+  "node_id": 50,
+  "name": "Batch Read from Kafka Topic",
+  "category": 0,
+  "node_type": 0,
+  "family": 1,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "can_infer_schema": false,
+  "parameter_props": {
+    "parameters": {
+      "host": {
+        "visible_name": "Host",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "port": {
+        "visible_name": "Port",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "topic": {
+        "visible_name": "Topic Name",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "schema": {
+        "visible_name": "Schema",
+        "type_constraint": [
+          "dict"
+        ],
+        "optional": true,
+        "special_requirements": {"dict": "schema"}
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": [
+
+  ]
+}
