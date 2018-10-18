@@ -6,7 +6,7 @@
   "family": 22,
   "compatible_with_stream": false,
   "compatible_stream_output_modes": [],
-  "compatible_with_spark_pipeline": true,
+  "compatible_with_spark_pipeline": false,
   "is_splitter": false,
   "produces_model": false,
   "parameter_props": {
@@ -76,9 +76,9 @@
         "set_constraint": ["asc", "desc"],
         "default": "desc"
       },
-      "window_size": {
-        "visible_name": "Window size",
-        "type_constraint": ["integer"],
+      "lags": {
+        "visible_name": "Lags",
+        "type_constraint": ["array[integer]"],
         "piecewise_constraint": "(window_size >= 1) OR (window_size == -1)"
       }
     },

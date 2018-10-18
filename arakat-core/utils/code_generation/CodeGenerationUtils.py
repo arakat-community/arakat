@@ -32,8 +32,11 @@ def handle_parameter(parameter, args):
     # We handle them as whole in case (e.g. schema)
     if(type_info["type"] == "array"):
         value = ["["]
+        special_reqs_to_child={}
+        if ("special_requirements" in parameter and "special_requirements" not in parameter["value"]):
+            special_reqs_to_child=parameter["special_requirements"]
         for val in parameter["value"]:
-            value.extend([handle_parameter({"value": val, "type": type_info["array_of"]}, args), ", "])
+            value.extend([handle_parameter({"value": val, "type": type_info["array_of"], "special_requirements": special_reqs_to_child}, args), ", "])
         if (len(parameter["value"]) > 0):
             value.pop()
         value.append("]")

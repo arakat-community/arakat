@@ -25,49 +25,58 @@ def generate_code(args):
         gen_code=[]
         gen_code.extend(["df_" + node["id"] + "=" + df_name, os.linesep])
 
-        between_operation=node["parameters"]["rolling_stats_info"]["between_operation"]["value"]
+        between_operation=node["parameters"]["rolling_stats_info"]["value"]["between_operation"]["value"]
 
-        first_argument_input_cols = CodeGenerationUtils.handle_parameter(node["parameters"]["rolling_stats_info"]["first_argument"]["input_cols"]["value"], my_args)
-        first_argument_operation = node["parameters"]["rolling_stats_info"]["first_argument"]["operation"]["value"]
+        first_argument_input_cols = CodeGenerationUtils.handle_parameter(node["parameters"]["rolling_stats_info"]["value"]["first_argument"]["value"]["input_cols"], my_args)
+        first_argument_operation = node["parameters"]["rolling_stats_info"]["value"]["first_argument"]["value"]["operation"]["value"]
         gen_code.extend(["first_cols = " + first_argument_input_cols, os.linesep])
 
-        output_cols = CodeGenerationUtils.handle_parameter(node["parameters"]["rolling_stats_info"]["output_cols"]["value"], my_args)
+        output_cols = CodeGenerationUtils.handle_parameter(node["parameters"]["rolling_stats_info"]["value"]["output_cols"], my_args)
         gen_code.extend(["output_cols = " + output_cols, os.linesep])
-        
-        window_size=node["parameters"]["window_size"]["value"]
-        partition_column=node["parameters"]["partition_column"]["value"]
-        ordering_column = node["parameters"]["ordering_column"]["value"]
-        ordering_direction = node["parameters"]["ordering_direction"]["value"]
-        
-        if window_size == -1:
-            window_str = "over (partition by " + partition_column + " order by " + ordering_column + " " + ordering_direction + " rows unbounded preceding) "
-        else:
-            window_str = "over (partition by " + partition_column + " order by " + ordering_column + " " + ordering_direction + " rows " + str(window_size) + " preceding) "
 
-        if between_operation != 'identity':
-            second_argument_input_cols = CodeGenerationUtils.handle_parameter(node["parameters"]["rolling_stats_info"]["second_argument"]["input_cols"]["value"], my_args)
-            second_argument_operation = node["parameters"]["rolling_stats_info"]["second_argument"]["operation"]["value"]
+        partitioning_column=node["parameters"]["rolling_stats_info"]["value"]["partitioning_column"]["value"]
+        ordering_column = node["parameters"]["rolling_stats_info"]["value"]["ordering_column"]["value"]
+        ordering_direction = node["parameters"]["rolling_stats_info"]["value"]["ordering_direction"]["value"]
+
+        lags = node["parameters"]["rolling_stats_info"]["value"]["lags"]
+        lags_str=CodeGenerationUtils.handle_parameter(lags, my_args)
+
+        window_str = "over (partition by " + partitioning_column + " order by " + ordering_column + " " + ordering_direction + " rows "+ "'+ str(lag) +'" +" preceding) "
+
+        # if window_size == -1:
+        #     window_str = "over (partition by " + partition_column + " order by " + ordering_column + " " + ordering_direction + " rows unbounded preceding) "
+        # else:
+        #     window_str = "over (partition by " + partition_column + " order by " + ordering_column + " " + ordering_direction + " rows " + str(window_size) + " preceding) "
+
+        if between_operation != 'Identity':
+            second_argument_input_cols = CodeGenerationUtils.handle_parameter(node["parameters"]["rolling_stats_info"]["value"]["second_argument"]["value"]["input_cols"], my_args)
+            second_argument_operation = node["parameters"]["rolling_stats_info"]["value"]["second_argument"]["value"]["operation"]["value"]
             gen_code.extend(["second_cols = " + second_argument_input_cols, os.linesep])
 
             loop_str = "for col_1,col_2,out_col in zip(first_cols, second_cols, output_cols):"
-            if first_argument_operation == 'identity':
-                if second_argument_operation == 'identity':
-                    select_str = "df_" + node["id"] + " = df_" + node["id"] + ".selectExpr('*', col_1 + '" + between_operation + "'+ col_2 + ' as out_col')"
+            if first_argument_operation == 'Identity':
+                if second_argument_operation == 'Identity':
+                    select_str = "df_" + node["id"] + " = df_" + node["id"] + ".selectExpr('*', col_1 + ' " + between_operation + " '+ col_2 + ' as out_col' + str(lag))"
                 else:
-                    select_str = "df_" + node["id"] + " = df_" + node["id"] + ".selectExpr('*', col_1 + '" + between_operation + "' " + second_argument_operation + "(' + col_2 + ') " + window_str + " as out_col')"
+                    select_str = "df_" + node["id"] + " = df_" + node["id"] + ".selectExpr('*', col_1 + ' " + between_operation + " ' + '" + second_argument_operation + "(' + col_2 + ') " + window_str + "as out_col' + str(lag))"
             else:
-                if second_argument_operation == 'identity':
-                    select_str = "df_" + node["id"] + " = df_" + node["id"] + ".selectExpr('*', '" + first_argument_operation + "(' + col_1 + ') " + window_str + between_operation + " ' + col_2 + ' as out_col')"
+                if second_argument_operation == 'Identity':
+                    select_str = "df_" + node["id"] + " = df_" + node["id"] + ".selectExpr('*', '" + first_argument_operation + "(' + col_1 + ') " + window_str + between_operation + " ' + col_2 + ' as out_col' + str(lag))"
                 else:
-                    select_str = "df_" + node["id"] + " = df_" + node["id"] + ".selectExpr('*', '" + first_argument_operation + "(' + col_1) + ' " + window_str + between_operation + " " + second_argument_operation + "(' + col_2 + ') " + window_str + "as out_col')"
+                    select_str = "df_" + node["id"] + " = df_" + node["id"] + ".selectExpr('*', '" + first_argument_operation + "(' + col_1 + ') " + window_str + between_operation + " " + second_argument_operation + "(' + col_2 + ') " + window_str + "as out_col' + str(lag))"
         else:
             loop_str = "for col_1,out_col in zip(first_cols, output_cols):"
-            if first_argument_operation == 'identity':
-                select_str = "df_" + node["id"] + " = df_" + node["id"] + ".selectExpr('*', col_1 + ' as out_col')"
+            if first_argument_operation == 'Identity':
+                select_str = "df_" + node["id"] + " = df_" + node["id"] + ".selectExpr('*', col_1 + ' as out_col' + str(lag))"
             else:
-                select_str = "df_" + node["id"] + " = df_" + node["id"] + ".selectExpr('*', '" + first_argument_operation + "(' + col_1 + ') " + window_str + " as out_col')"
-        gen_code.extend([loop_str, os.linesep])
-        gen_code.extend(["\t" + select_str, os.linesep])
+                select_str = "df_" + node["id"] + " = df_" + node["id"] + ".selectExpr('*', '" + first_argument_operation + "(' + col_1 + ') " + window_str + "as out_col' + str(lag))"
+
+
+        gen_code.extend(["lags = " + lags_str, os.linesep])
+        gen_code.extend(["for lag in lags:", os.linesep])
+
+        gen_code.extend(["\t", loop_str, os.linesep])
+        gen_code.extend(["\t\t" + select_str, os.linesep])
 
         final_code = CodeGenerationUtils.merge_with_additional_code(gen_code, additional_local_code)
 

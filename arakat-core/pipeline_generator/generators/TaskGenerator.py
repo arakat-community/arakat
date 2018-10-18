@@ -42,7 +42,11 @@ def __generate_initialization_codes(graph):
 
     initialization_code=["from pyspark import SparkContext", os.linesep, "from pyspark.sql import SparkSession", os.linesep]
     # Maybe improve the following in the future...
+    initialization_code.extend(["from pyspark import SQLContext", os.linesep])
     initialization_code.extend(["from pyspark.sql.types import *", os.linesep])
+    initialization_code.extend(["import pyspark.sql.functions as F", os.linesep])
+    initialization_code.extend(["from pyspark.sql.functions import col, udf, lag, date_add, explode, lit, concat, unix_timestamp, sum, abs", os.linesep])
+
 
     import_set=set()
     for node_id in graph["nodes"]:

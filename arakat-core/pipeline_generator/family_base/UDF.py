@@ -12,7 +12,7 @@ def generate_code(args):
 
     checklist={"df_count": {1}, "model_count": {0}}
     error, extra=IncomingEdgeValidityChecker.check_validity(node["id"], requireds_info, edges, checklist)
-    code=[]
+    final_code=[]
     shared_function_set = set()
     additional_local_code=[]
     errors=[]
@@ -25,14 +25,15 @@ def generate_code(args):
         my_args={"node_id": node["id"], "input_dfs": [df_name], "shared_function_set": shared_function_set, "additional_local_code": additional_local_code, "errors": errors}
 
         updated_function_name = CodeGenerationUtils.handle_parameter(node["parameters"]["udf_function"], my_args)
-        code.extend(["udf_"+node["id"]+" = udf("+updated_function_name+", "+node["parameters"]["udf_return_type"]+"())"])
+        gen_code=[]
+        gen_code.extend(["udf_"+node["id"]+" = udf("+updated_function_name+", "+node["parameters"]["udf_return_type"]["value"]+"())", os.linesep])
 
-        code.extend(["tuple_list = " + CodeGenerationUtils.handle_parameter(node["parameters"]["udf_input_tuples"], my_args), os.linesep])
-        code.extend(["output_list = " + CodeGenerationUtils.handle_parameter(node["parameters"]["udf_outputs"], my_args), os.linesep])
-        code.extend(["df_" + node["id"] + "=" + df_name, os.linesep])
-        code.extend(["for index in range(len(tuple_list)):", os.linesep])
-        code.extend(["\tdf_"+node["id"]+" = df_"+node["id"]+".withColumn(output_list[index], udf_"+node["id"]+"(*tuple_list[index]))", os.linesep, os.linesep])
+        gen_code.extend(["tuple_list = " + CodeGenerationUtils.handle_parameter(node["parameters"]["udf_input_tuples"], my_args), os.linesep])
+        gen_code.extend(["output_list = " + CodeGenerationUtils.handle_parameter(node["parameters"]["udf_outputs"], my_args), os.linesep])
+        gen_code.extend(["df_" + node["id"] + "=" + df_name, os.linesep])
+        gen_code.extend(["for index in range(len(tuple_list)):", os.linesep])
+        gen_code.extend(["\tdf_"+node["id"]+" = df_"+node["id"]+".withColumn(output_list[index], udf_"+node["id"]+"(*tuple_list[index]))", os.linesep, os.linesep])
 
-        code = [additional_local_code, os.linesep].extend(code)
+        final_code = CodeGenerationUtils.merge_with_additional_code(gen_code, additional_local_code)
 
-    return code, shared_function_set, error
+    return final_code, shared_function_set, error

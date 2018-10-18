@@ -13,7 +13,7 @@ def generate_code(args):
 
     checklist={"df_count": {0}, "model_count": {0}}
     error, extra=IncomingEdgeValidityChecker.check_validity(node["id"], requireds_info, edges, checklist)
-    code=[]
+    final_code=[]
     shared_function_set = set()
     additional_local_code=[]
     errors=[]
@@ -23,15 +23,16 @@ def generate_code(args):
             my_args = {"node_id": node["id"], "shared_function_set": shared_function_set, "additional_local_code": additional_local_code, "errors": errors}
             # Must be a valid schema at this point.
             additional_code, param_string = CodeGenerationUtils.handle_parameter(node["parameter"]["schema"], my_args)
-            code.extend(additional_code)
+            gen_code=[]
+            gen_code.extend(additional_code)
 
-            code.append("df_" + node["id"] + ' = spark.readStream.format("kafka").option("kafka.bootstrap.servers", ')
-            code.append(CodeGenerationUtils.handle_primitive(node["parameters"]["host"]["value"] + ":" + node["parameters"]["port"]["value"]) + ")")
-            code.append('.option("subscribe", ' + CodeGenerationUtils.handle_primitive(node["parameters"]["topic"]["value"] + ")"))
-            code.append('.load().select(from_json(col("value").cast("string"), '+ param_string +")")
+            gen_code.append("df_" + node["id"] + ' = spark.readStream.format("kafka").option("kafka.bootstrap.servers", ')
+            gen_code.append(CodeGenerationUtils.handle_primitive(node["parameters"]["host"]["value"] + ":" + node["parameters"]["port"]["value"]) + ")")
+            gen_code.append('.option("subscribe", ' + CodeGenerationUtils.handle_primitive(node["parameters"]["topic"]["value"] + ")"))
+            gen_code.append('.load().select(from_json(col("value").cast("string"), '+ param_string +")")
             # For streams, we will use timestamp as a key while writing to kafka topic in case.
-            code.extend(['.alias("value"), "timestamp").select("value.*", "timestamp")', os.linesep])
+            gen_code.extend(['.alias("value"), "timestamp").select("value.*", "timestamp")', os.linesep])
 
-            code = [additional_local_code, os.linesep].extend(code)
+            final_code = CodeGenerationUtils.merge_with_additional_code(gen_code, additional_local_code)
 
-    return code, shared_function_set, error
+    return final_code, shared_function_set, error
