@@ -2,10 +2,6 @@ from pipeline_generator.generators import PipelineGenerator
 
 # Although UI may send all node-specs, in this example I will omit some of them...
 
-from pipeline_generator.generators import PipelineGenerator
-
-# Although UI may send all node-specs, in this example I will omit some of them...
-
 graph={
     "nodes": {
         "node1":

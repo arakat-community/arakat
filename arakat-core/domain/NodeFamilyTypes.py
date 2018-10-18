@@ -21,6 +21,7 @@ class NodeFamilyTypes(Enum):
     StreamWriteToKafka = 17
     Transformer = 18
     ModelHolder = 19
-    UDF=20,
-    WindowFill=21
-    RollingStatistics=22
+    UDF = 20
+    WindowFill = 21
+    RollingStatistics = 22
+    SelectExpr = 23
