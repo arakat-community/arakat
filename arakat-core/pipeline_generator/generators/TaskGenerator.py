@@ -24,18 +24,19 @@ def generate_code(graph):
 
     task_code = []
     errors=[]
+    additional_info={}
     if(error_code == ErrorTypes.NO_ERROR):
         task_code.extend(__generate_initialization_codes(graph))
         # task_code.append(os.linesep)
 
-        main_code, shared_function_set, errors = __generate_remaining_codes(generation_order, requireds_info, graph)
+        main_code, shared_function_set, errors, additional_info = __generate_remaining_codes(generation_order, requireds_info, graph)
         code_for_shared_functions = __generate_shared_functions_code(shared_function_set)
 
         task_code.extend(code_for_shared_functions)
         task_code.append(os.linesep)
         task_code.extend(main_code)
 
-    return task_code, errors
+    return task_code, errors, additional_info
 
 def __generate_initialization_codes(graph):
     # graph is the task node itself
@@ -74,9 +75,10 @@ def __generate_shared_functions_code(shared_func_set):
 def __generate_remaining_codes(generation_order, requireds_info, graph):
     code=[]
     shared_function_set=set()
+    additional_info={"written_tables": [], "written_topics": []}
     errors=[]
     for elem in generation_order:
-        cur_code, shared_functions, error=GeneralUtils.call_function_by_name("pipeline_generator.family_base."+DomainUtils.get_node_family_name(graph["nodes"][elem]["family"]), "generate_code", {"node": graph["nodes"][elem], "requireds_info": requireds_info, "edges": graph["edges"]})
+        cur_code, shared_functions, error = GeneralUtils.call_function_by_name("pipeline_generator.family_base."+DomainUtils.get_node_family_name(graph["nodes"][elem]["family"]), "generate_code", {"node": graph["nodes"][elem], "requireds_info": requireds_info, "edges": graph["edges"], "additional_info": additional_info})
         if(error == ErrorTypes.NO_ERROR):
             code.extend(cur_code)
             shared_function_set.update(shared_functions)
@@ -84,4 +86,4 @@ def __generate_remaining_codes(generation_order, requireds_info, graph):
             errors.append(error)
 
     # Do not break to capture all errors...
-    return code, shared_function_set, errors
+    return code, shared_function_set, errors, additional_info

@@ -219,9 +219,9 @@ data={
         "spark_operator_conf": {
             "conn_id": "spark_con_py",
             "depends_on_past": False,
-            "conf": {'spark.pyspark.python': '/usr/bin/python2.7'}
+            "conf": {"spark.pyspark.python": "/usr/bin/python2.7"}
         }
     }
 }
 
-code_info, success, errors = PipelineGenerator.generate_pipeline(data["graph"], data["dag_properties"])
+code_info, success, errors, additional_info = PipelineGenerator.generate_pipeline(data["graph"], data["dag_properties"])

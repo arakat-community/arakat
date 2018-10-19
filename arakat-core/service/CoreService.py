@@ -27,8 +27,8 @@ def extract():
    json_data = request.get_json(force=True)
    graph = json_data['graph']
    dag_properties = json_data['dag_properties']
-   code_info, success, errors = PipelineGenerator.generate_pipeline(graph, dag_properties)
-   result={"codes": code_info, "result_code": success, "errors": errors}
+   code_info, success, errors, additional_info = PipelineGenerator.generate_pipeline(graph, dag_properties)
+   result={"codes": code_info, "result_code": success, "errors": errors, "additional_info": additional_info}
    json_string = json.dumps(result)
    return json_string
 

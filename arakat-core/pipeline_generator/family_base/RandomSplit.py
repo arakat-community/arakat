@@ -1,5 +1,3 @@
-import os
-
 from domain.ErrorTypes import ErrorTypes
 from utils.code_generation import CodeGenerationUtils
 from validity import IncomingEdgeValidityChecker
