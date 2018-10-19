@@ -25,3 +25,5 @@ class NodeFamilyTypes(Enum):
     WindowFill = 21
     RollingStatistics = 22
     SelectExpr = 23
+    Correlation = 24
+    HypothesisTesting = 25

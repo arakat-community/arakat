@@ -116,7 +116,9 @@ __import_statements={0: ["from pyspark.ml.recommendation import ALS"],
                      70: [],
                      71: ["from pyspark.sql.functions import udf"],
                      72: ["from pyspark.sql.window import Window"],
-                     73: []
+                     73: [],
+                     74: ["from pyspark.ml.stat import Correlation"],
+                     75: ["from pyspark.ml.stat import ChiSquareTest"]
                      }
 
 def get_import_statements(node):
