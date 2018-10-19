@@ -1,5 +1,3 @@
-import os
-
 from domain.ErrorTypes import ErrorTypes
 from utils.code_generation import CodeGenerationUtils
 from validity import IncomingEdgeValidityChecker
@@ -27,5 +25,7 @@ def generate_code(args):
         gen_code = CodeGenerationUtils.handle_instantination_or_call(node["parameters"], df_name + ".write.save(", my_args)
 
         final_code = CodeGenerationUtils.merge_with_additional_code(gen_code, additional_local_code)
+
+        args["additional_info"]["written_tables"].append({"table_path": node["parameters"]["path"]["value"]})
 
     return final_code, shared_function_set, error

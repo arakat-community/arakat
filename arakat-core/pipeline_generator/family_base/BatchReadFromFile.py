@@ -1,7 +1,6 @@
 from domain.ErrorTypes import ErrorTypes
 from utils.code_generation import CodeGenerationUtils
 from validity import IncomingEdgeValidityChecker, DataSourceValidityChecker
-import os
 
 def generate_code(args):
     node=args["node"]

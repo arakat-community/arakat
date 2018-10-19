@@ -24,4 +24,6 @@ def generate_code(args):
         code.append(CodeGenerationUtils.handle_primitive(node["parameters"]["host"]["value"] + ":" + node["parameters"]["port"]["value"]) + ")")
         code.extend(['.option("topic", ' + CodeGenerationUtils.handle_primitive(node["parameters"]["topic"]["value"]) + ").save()", os.linesep])
 
+        args["additional_info"]["written_topics"].append({"topic_name": node["parameters"]["topic"]["value"], "host": node["parameters"]["host"]["value"], "port": node["parameters"]["port"]["value"]})
+
     return code, shared_function_set, error

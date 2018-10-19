@@ -17,7 +17,7 @@ def generate_pipeline(graph, args):
     __add_app_id_to_task_nodes(task_nodes, args["app_id"])
     code_info={}
     if(error == ErrorTypes.NO_ERROR):
-        task_codes, task_errors = __generate_task_codes(task_nodes)
+        task_codes, task_errors, additional_info = __generate_task_codes(task_nodes,  args["app_id"])
         scheduler_code, scheduler_errors= ScheduleGenerator.generate_code(task_nodes, task_edges, args)
         print_codes(task_codes, scheduler_code)
 
@@ -28,9 +28,9 @@ def generate_pipeline(graph, args):
                 "scheduler": ''.join(scheduler_code)
             }
 
-        return code_info, success, {"task_errors": task_errors, "scheduler_errors": scheduler_errors}
+        return code_info, success, {"task_errors": task_errors, "scheduler_errors": scheduler_errors}, additional_info
 
-    return code_info, success, {"parsing_error": error}
+    return code_info, success, {"parsing_error": error}, {}
 
 def __add_app_id_to_task_nodes(task_nodes, app_id):
     for task_node_id in task_nodes:
@@ -49,16 +49,22 @@ def print_codes(task_codes, scheduler_code):
             text_file.write(task_codes[tc])
         print("--------------------------------------------------------------------")
 
-def __generate_task_codes(task_nodes):
+def __generate_task_codes(task_nodes, app_id):
     task_codes = {}
     task_errors={}
+    additional_info={}
     for task_node_id in task_nodes:
-        task_code, errors = TaskGenerator.generate_code(task_nodes[task_node_id])
+        task_code, errors, additional_info_for_task = TaskGenerator.generate_code(task_nodes[task_node_id])
         task_codes[task_node_id]=''.join(task_code)
+        for elem in additional_info_for_task:
+            if(elem not in additional_info):
+                additional_info[elem]={app_id:{}}
+            additional_info[elem][app_id][task_node_id]=additional_info_for_task[elem]
+
         if(bool(errors)):
             task_errors[task_node_id]=errors
 
-    return task_codes, task_errors
+    return task_codes, task_errors, additional_info
 
 def __parse_graph(graph):
     # {"graph": {"edges":{"nodeId1-nodeId2": {...edge-props...}, ...}, "nodes": {"nodeId1": {...node-specs...}, ...}}}
