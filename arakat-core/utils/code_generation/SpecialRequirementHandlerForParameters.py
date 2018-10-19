@@ -42,7 +42,7 @@ def __handle_schema(parameter, args):
     additional_code.extend(["])", os.linesep])
 
     param_string="schema_"+args["node_id"]
-    args["additional_local_code"].append(additional_code)
+    args["additional_local_code"].extend(additional_code)
 
     return param_string
 
@@ -51,7 +51,7 @@ def __handle_function_code(parameter, args):
     # In fact, we can send a modifier function to generate a function call using new name of the user-given-function. However, in case there are multiple "code" type parameters, modifier function names will collide.
     # It is possible to handle such cases, but for now we stick with the given assumption!
     updated_function_name, function_code = __change_function_name(parameter["value"], args["node_id"])
-    args["additional_local_code"].append(function_code)
+    args["additional_local_code"].extend(function_code)
     return updated_function_name
 
 def __change_function_name(function_string, node_id):
@@ -68,10 +68,7 @@ def __handle_column_selector_template(parameter, args):
     param_val=parameter["value"]
     template_input=["["]
     for i in range(len(param_val)):
-        if (param_val[i]["type"] == "string"):
-            template_input.append(['"'+param_val[i]["value"]+'"'])
-            template_input.append(",")
-        elif (param_val[i]["type"] == "range"):
+        if (param_val[i]["type"] == "range"):
             template_input.append(str(range(param_val[i]["value"]["start"], param_val[i]["value"]["end"])))
             template_input.append(",")
         elif (param_val[i]["type"] == "array"):
@@ -81,27 +78,25 @@ def __handle_column_selector_template(parameter, args):
     # Assert that template parameter must contain values...
     template_input.pop()
     template_input.append("]")
-    template_string, substitute_string = __create_template_helpers(len(param_val))
+    template_string = __create_template_helpers(len(param_val))
 
-    parameter_string = "column_selector_template(" + ''.join(template_input) + ", " + template_string + ", " + substitute_string + ")"
+    parameter_string = "column_selector_template(" + ''.join(template_input) + ", " + template_string + ")"
     return parameter_string
 
 def __create_template_helpers(num_of_elements):
     template_code=[]
-    substitute_code=[]
     for i in range(num_of_elements):
         template_code.append("${v"+str(i)+"}")
-        substitute_code.append("v"+str(i)+"=input["+str(i)+"]")
 
-    return "'"+''.join(template_code)+"'", "'"+''.join(substitute_code)+"'"
+    return "'"+''.join(template_code)+"'"
 
 def __process_array_for_template(arr):
     value = ["["]
     for val in arr:
         if (isinstance(val, str)):
-            value.extend('"'+str(val)+'"')
+            value.extend(['"'+str(val)+'"', ', '])
         else:
-            value.extend(str(val))
+            value.extend([str(val), ", "])
     if (len(arr) > 0):
         value.pop()
     value.append("]")

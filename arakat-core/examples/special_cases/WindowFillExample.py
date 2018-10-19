@@ -6,9 +6,9 @@ data={
             "node1":
                 {
                     "id": "node1",
+                    "parent": "task1",
                     "name": "Batch Read from CSV",
                     "category": 0,
-                    "parent": "task1",
                     "node_id": 47,
                     "node_type": 0,
                     "family": 0,
@@ -24,28 +24,38 @@ data={
                         "header": {"value": False, "type": "boolean"},
                         "sep": {"value": ",", "type": "string"},
                         "quote": {"value": '\\\"', "type": "string"}
-                    },
-                    "df_constraints": []
+                    }
                 },
-            "node2":
+                "node2":
                 {
                     "id": "node2",
                     "parent": "task1",
-                    "node_id": 61,
-                    "name": "Batch Write to Parquet",
-                    "category": 1,
+                    "node_id": 72,
+                    "name": "Window Fill",
+                    "category": 4,
                     "node_type": 0,
-                    "family": 2,
+                    "family": 21,
                     "compatible_with_stream": False,
                     "compatible_stream_output_modes": [],
-                    "compatible_with_spark_pipeline": False,
+                    "compatible_with_spark_pipeline": True,
                     "is_splitter": False,
                     "produces_model": False,
-                    "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "targetfilepath.parquet", "type": "string"}
-                    },
-                    "df_constraints": []
+                        "input_cols": {
+                            "value": ["label_tmp"],
+                            "type": "array[string]",
+                            "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}
+                        },
+                        "output_cols": {
+                            "value": ["label_tmp"],
+                            "type": "array[string]",
+                            "special_requirements": {"template": "column_selector_template"}
+                        },
+                        "partitioning_column": {"value": "deviceid", "type": "string"},
+                        "ordering_column": {"value": "date", "type": "string"},
+                        "ordering_direction": {"value": "desc", "type": "string"},
+                        "window_size": {"value": 7, "type": "integer"}
+                    }
                 },
             "task1": {
                 "id": "task1",
@@ -53,7 +63,10 @@ data={
                 "node_type": 1
             }
         },
-        "edges": {"node1-node2": {"type": "dataframe"}}
+
+        "edges": {
+            "node1-node2": {"type": "dataframe"}
+        }
     },
     "dag_properties": {
         "app_id": "MyFirstApp",

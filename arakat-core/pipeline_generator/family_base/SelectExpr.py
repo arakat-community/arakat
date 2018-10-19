@@ -12,7 +12,7 @@ def generate_code(args):
 
     checklist={"df_count": {1}, "model_count": {0}}
     error, extra=IncomingEdgeValidityChecker.check_validity(node["id"], requireds_info, edges, checklist)
-    code=[]
+    final_code=[]
     shared_function_set = set()
     additional_local_code = []
     errors = []
@@ -23,12 +23,17 @@ def generate_code(args):
             df_name = "df_" + extra["dfs"][0]["source_id"]
 
         my_args = {"node_id": node["id"], "input_dfs": [df_name], "shared_function_set": shared_function_set, "additional_local_code": additional_local_code, "errors": errors}
+        gen_code=[]
 
         shared_function_set.add(SharedFunctionTypes.SELECT_EXPR_HELPERS)
-        code.append("df_" + node["id"] + "=" + df_name + ".selectExpr(")
+        gen_code.append("df_" + node["id"] + "=" + df_name + ".selectExpr(")
 
         for expr in node["parameters"]["expressions"]["value"]:
-           code.extend(['single_select_expr_generator('+ CodeGenerationUtils.handle_parameter(expr["input_cols"]["value"], my_args) +', ' + CodeGenerationUtils.handle_parameter(expr["output_cols"]["value"], my_args) + ', '+ expr["operation"]["value"] +')', ', '])
+            gen_code.extend(['single_select_expr_generator('+ CodeGenerationUtils.handle_parameter(expr["input_cols"], my_args) +', ' + CodeGenerationUtils.handle_parameter(expr["output_cols"], my_args) + ', '+ CodeGenerationUtils.handle_parameter(expr["operation"], my_args) +')', ', '])
 
-        code.pop()
-        code.extend([")", os.linesep])
+        gen_code.pop()
+        gen_code.extend([")", os.linesep])
+
+        final_code = CodeGenerationUtils.merge_with_additional_code(gen_code, additional_local_code)
+
+    return final_code, shared_function_set, error
