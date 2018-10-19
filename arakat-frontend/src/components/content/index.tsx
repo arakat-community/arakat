@@ -1,4 +1,5 @@
 import { Theme, withStyles, WithStyles } from "@material-ui/core";
+import classNames from "classnames";
 import React from "react";
 import { Route, Switch } from "react-router";
 import { ICollapsibleRoute } from "../../common/models/route/collapsible";
@@ -8,19 +9,26 @@ import NotFoundView from "../../views/error/not-found";
 
 export interface IContentProps {
     routes: Array<IRouteGroup | IRouteItem>;
+    isDrawerOpen: boolean;
 }
 
 const style: any = (theme: Theme) => ({
-    content: {
+    narrower: {
         backgroundColor: theme.palette.background.default,
         flexGrow: 1,
-        overflow: "auto",
-        padding: theme.spacing.unit * 3,
-      },
+        width: "80vw",
+        transition: `width 2s`, // TODO:
+    },
+    wider: {
+        backgroundColor: theme.palette.background.default,
+        flexGrow: 1,
+        width: "100vw",
+
+    },
     toolbar: theme.mixins.toolbar,
 });
 
-type PropsWithStyle = IContentProps & WithStyles<"content" | "toolbar">;
+type PropsWithStyle = IContentProps & WithStyles<"narrower" | "wider" | "toolbar">;
 
 const addGroupRoutes: any = (group: IRouteGroup) => {
     let routes: JSX.Element[] = [];
@@ -74,7 +82,12 @@ const getDefaultRoute: (route: IRouteItem) => JSX.Element = (route: IRouteItem) 
 
 const Content: React.SFC<PropsWithStyle> = ({classes, ...props}: PropsWithStyle) => (
     <main
-        className={classes.content}
+        className={
+            classNames({
+                [classes.narrower]: props.isDrawerOpen,
+                [classes.wider]: !props.isDrawerOpen,
+            })
+        }
     >
         <div
             className={classes.toolbar}

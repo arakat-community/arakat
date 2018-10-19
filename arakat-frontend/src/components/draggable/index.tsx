@@ -1,24 +1,37 @@
 import React, { Component } from "react";
 import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor } from "react-dnd";
-import { IVisualizationConfiguration } from "../../common/models/visualization/config";
 
 const draggableSource: any = {
   beginDrag: (props: IDraggableComponentProps) => {
-    return props.component;
+
+        return props.item;
+  },
+  isDragging: (props: IDraggableComponentProps) => {
+    console.log("draggableSource -> Dragging...");
   },
   endDrag: (props: IDraggableComponentProps, monitor: DragSourceMonitor) => {
-    // const item = monitor.getItem()
-    // const dropResult = monitor.getDropResult()
+        if ( !monitor.didDrop() ) {
+            return;
+        }
+        const item = monitor.getItem();
+        const dropResult = monitor.getDropResult();
 
-    // if (dropResult) {
-    // 	alert(`You dropped ${item.name} into ${dropResult.name}!`)
-    // }
+        if (dropResult) {
+        alert(`You dropped ${item.name} into ${dropResult.name}!`);
+    }
   },
+};
+
+const collect = (connect, monitor) => {
+    return {
+       isDragging: monitor.isDragging(),
+       connectDragSource: connect.dragSource(),
+    };
 };
 
 export interface IDraggableComponentProps {
   connectDragSource?: ConnectDragSource;
-  component: any;
+  item: any;
   isDragging?: boolean;
   type: string;
 }
@@ -27,15 +40,14 @@ export interface IDraggableComponentProps {
  * draggable component
  */
 class DraggableComponent extends Component<IDraggableComponentProps> {
-
     /**
      * render output
      */
     public render(): JSX.Element {
-        const { connectDragSource  } = this.props;
+        const { connectDragSource, isDragging } = this.props;
 
         return (
-            connectDragSource  &&
+            connectDragSource &&
             connectDragSource(
                 <div>
                     {this.props.children}
@@ -44,7 +56,7 @@ class DraggableComponent extends Component<IDraggableComponentProps> {
         );
     }
 }
-
+/*
 export default DragSource<IDraggableComponentProps>(
             (props) => props.type,
             draggableSource,
@@ -53,3 +65,8 @@ export default DragSource<IDraggableComponentProps>(
                 isDragging: monitor.isDragging(),
             }),
         )(DraggableComponent);
+*/
+
+export default DragSource<IDraggableComponentProps>(
+    (props) => props.type, draggableSource, collect)
+    (DraggableComponent);

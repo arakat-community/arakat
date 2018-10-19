@@ -5,7 +5,6 @@ import React from "react";
 import { IRouteGroup } from "../../common/models/route/group";
 import { ILocalizationLanguage } from "../../localization/languages";
 import HorizontalMenuComponent from "../horizontal-menu";
-import SearchBoxComponent from "../search-box";
 
 const styles: any = (theme: Theme) => ({
     sidebarClosed: {
@@ -37,7 +36,6 @@ const styles: any = (theme: Theme) => ({
 export interface IAppBarProps {
     breadCrumb?: JSX.Element;
     children: any;
-    sidebarPinned: boolean;
     routes?: IRouteGroup[];
     logoUrl: string;
     onLogoClick: () => void;
@@ -78,7 +76,6 @@ const AppBar: React.SFC<IAppBarProps> = ({classes, ...props}: PropsWithStyle) =>
             >
                 {props.children}
             </div>
-            {/* <SearchBoxComponent /> */}
         </Toolbar>
     </MuiAppBar>
 );

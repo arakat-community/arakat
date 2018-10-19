@@ -26,6 +26,8 @@ def generate_code(args):
         code.append('.option("checkpointLocation", ' + CodeGenerationUtils.handle_primitive(node["parameters"]["checkpointLocation"]["value"]) + ").start()")
         code.extend([os.linesep, "query_" + node["id"], ".awaitTermination()", os.linesep])
 
+        args["additional_info"]["written_tables"].append({"table_path": node["parameters"]["path"]["value"]})
+
     return code, shared_function_set, error
 
 def __generate_trigger_code(node):
