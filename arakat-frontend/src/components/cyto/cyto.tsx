@@ -4,13 +4,29 @@ import coseBilkent from "cytoscape-cose-bilkent";
 import edgehandles from "cytoscape-edgehandles";
 import MouseTrap from "mousetrap";
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
+import { ConnectDropTarget, DropTarget} from "react-dnd";
+import { findDOMNode } from "react-dom";
+import { DraggableType } from "../../common/models/draggable/type";
 import { layout } from "./layout";
 import { def_style, getBackground, getShape, MAX_ZOOM } from "./style";
+
+const style: any = (theme: Theme) => ({
+  default: {
+      height: "100%",
+  },
+  highlighted: {
+      border: "1px solid orange",
+      height: "100%",
+  },
+});
 
 export interface ICytoProps {
   parentSelectChangeHandler?: () => void;
   edgeAdditionPolicy?: any;
+  highlighted: boolean;
+  hovered: boolean;
+  connectDropTarget: ConnectDropTarget; // look at return type, don't make it 'any'
+  isOver: boolean;
 }
 
 export interface ICytoState {
@@ -18,13 +34,35 @@ export interface ICytoState {
   nodeId: string;
 }
 
+const nodeTarget = {
+  hover(props, monitor, component) {
+    const clientOffset = monitor.getClientOffset();
+    console.log("hover -> clientOffset: "  + clientOffset);
+  },
+  drop(props, monitor, component) {
+    if ( monitor.didDrop() ) {
+      console.log("dropped.");
+      return;
+    }
+  },
+};
+const collect = (connect, monitor) => {
+  return {
+     highlighted: monitor.canDrop(),
+     connectDropTarget: connect.dropTarget(),
+     isOver: monitor.isOver(),
+  };
+};
+
+type PropsAndStyle = ICytoProps & WithStyles<"default" | "highlighted">;
+
 /**
  * CytoGraph Class
  */
-class CytoGraph extends Component<ICytoProps, ICytoState> {
+class CytoGraph extends Component<PropsAndStyle, ICytoState> {
   private cydyna: any;
 
-  constructor(props) {
+  constructor(props: PropsAndStyle) {
     super(props);
 
     this.state = {
@@ -69,7 +107,11 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
       }
     });*/
   }
-
+  public componentWillReceiveProps(nextProps) {
+    if (!this.props.isOver && nextProps.isOver) {
+      console.log("Cyto.componentWillReceiveProps -> nextProps.isOver: " + nextProps.isOver);
+    }
+  }
   public componentWillUnmount() {
     MouseTrap.unbind(["del", "backspace"], this.removeSelectedElements);
   }
@@ -213,20 +255,20 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
     const parentID = this.cydyna.add({
       classes: "",
       data: parentData.data,
-      grabbable: true,
-      grabbed: false,
+      //grabbable: true,
+      //grabbed: false,
       group: "nodes",
-      locked: false,
+      //locked: false,
       nodeType: "PARENT",
-      removed: false,
-      selectable: true,
-      selected: false,
-      style: {
+      //removed: false,
+      //selectable: true,
+      //selected: false,
+      /*style: {
         backgroundOpacity: 0.333,
         height: 125,
         shape: "rectangle",
         width: 125,
-      },
+      },*/
     });
 
     this.refreshLayout();
@@ -315,7 +357,6 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
   }
 
   public setNodeParent = (parentID) => {
-    // seçilen nodeların parenti parametre olarak id'si verilen node
     {
       console.log(parentID);
     }
@@ -368,27 +409,12 @@ class CytoGraph extends Component<ICytoProps, ICytoState> {
    * render output of cyto
    */
   public render(): JSX.Element {
-    // node id'i state ile al
-    return (
-      <>
-        <div id="cydyna" />
-        <input type="text" id="2" />
-        <button //onClick={() => this.addDefaultNode()}
-        // error: Lambdas are forbidden in JSX attributes due to their rendering performance impact
-        >Data Sources
-        </button>
-        <button
-          // onClick={() => this.setNodeParent(document.getElementById("2"))}
-          // onClick={() => this.setNodeData(document.getElementById("2"))}
-          // error: Lambdas are forbidden in JSX attributes due to their rendering performance impact
-        >
-          Onayla
-        </button>
-
-        <button //onClick={() => this.setNodeParent("n0")}
-        // error: Lambdas are forbidden in JSX attributes due to their rendering performance impact
-        >SetParent</button>
-      </>
+    const { classes, highlighted, connectDropTarget } = this.props;
+    return connectDropTarget(
+        <div
+            className={classes.default}
+            id="cydyna"
+        />,
     );
   }
 }
@@ -418,4 +444,17 @@ const jsonNodeData: any = {
   },
 };
 
-export default CytoGraph;
+/*
+const filterPaneSpec: object = {
+  drop: (props: IFilterPaneProps, monitor: DragSourceMonitor, component: Component | null) => {
+        const droppedItem: any = cloneObj(Object.assign({}, monitor.getItem(), {id: guid().uid()}));
+        props.onFilterDropped(droppedItem);
+        return { name: "An item dropped on worksheet" };
+  },
+};
+*/
+
+const droppableCytoGraph = DropTarget(DraggableType.Node, nodeTarget, collect)(CytoGraph);
+export default withStyles(style, {withTheme: true})(droppableCytoGraph);
+
+// export default CytoGraph;

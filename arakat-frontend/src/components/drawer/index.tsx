@@ -1,57 +1,84 @@
 import { ClickAwayListener, Drawer, Theme, withStyles, WithStyles } from "@material-ui/core";
 import classnames from "classnames";
-import React from "react";
-import { Anchor } from "../../common/models/sidebar/anchor";
+import { relative } from "path";
+import React, { Component } from "react";
+import { IDrawerState } from "../../store/drawer/types";
 
 const style: any = (theme: Theme) => ({
     black: {
-        backgroundColor: "#3c3232",
+        backgroundColor: theme.palette.background.default,
+        width: theme.spacing.unit * 35,
+        height: "100vh",
         color: "white",
     },
     root: {
-        width: theme.spacing.unit * 30,
+        backgroundColor: theme.palette.background.default,
+        width: theme.spacing.unit * 35,
         height: "100vh",
         outline: "none",
     },
+    dockWhenDrawerIsOpened: {
+        backgroundColor: theme.palette.background.default,
+    },
+    dockWhenDrawerIsClosed: {
+        backgroundColor: theme.palette.background.default,
+        position: "absolute",
+        zIndex: -1,
+    },
 });
 
-/**
- * drawer's state
- */
-export enum DrawerState {
-    closed,
-    opened,
-}
-
 export interface IDrawerProps {
-    anchor: Anchor;
     blackTheme?: boolean;
     children: any;
     id: string;
     onClose: () => void;
-    state: DrawerState;
+    drawerState: IDrawerState; // from props
 }
 
-type AllTypes = IDrawerProps & WithStyles<"black" | "root">;
+type AllTypes = IDrawerProps & WithStyles<"black" | "root" | "dockWhenDrawerIsOpened" | "dockWhenDrawerIsClosed" | "button">;
 
-const DrawerComponent: React.SFC<AllTypes> = ({classes, ...props}: AllTypes) => (
-        <Drawer
-            key={props.id}
-            anchor={props.anchor}
-            open={props.state === DrawerState.opened}
-            onClose={props.onClose}
-            PaperProps={
-                {
-                    className: classnames({
-                        [classes.black]: props.blackTheme,
-                        [classes.root]: true,
-                    }),
-                    // onMouseLeave: props.onClose,
-                }
-            }
-        >
-            {props.children}
-        </Drawer>
-);
+/**
+ * DrawerComponent
+ */
+class DrawerComponent extends Component<AllTypes> {
+
+    constructor(props: AllTypes) {
+        super(props);
+    }
+    /**
+     * render output of cyto
+     */
+    public render(): JSX.Element {
+        const { classes } = this.props;
+        return (
+                <div>
+                    <Drawer
+                        key={this.props.id}
+                        className={classnames({
+                                [classes.dockWhenDrawerIsClosed]: !this.props.drawerState.isOpen,
+                                [classes.dockWhenDrawerIsOpened]: this.props.drawerState.isOpen,
+                            })
+                        }
+                        open={this.props.drawerState.isOpen === true}
+                        onClose={this.props.onClose}
+                        variant="persistent"
+                        PaperProps={
+                            {
+                                className: classnames({
+                                    [classes.black]: this.props.blackTheme,
+                                    [classes.root]: !this.props.blackTheme,
+                                }),
+                            }
+                        }
+
+                    >
+                        {this.props.children}
+                    </Drawer>
+                </div>
+        );
+
+    }
+
+}
 
 export default withStyles(style, {withTheme: true})(DrawerComponent);

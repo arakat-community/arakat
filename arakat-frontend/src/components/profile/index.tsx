@@ -71,6 +71,7 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
                   aria-owns={anchorEl ? id : null}
                   aria-haspopup="true"
                   onClick={this.handleOpenMenu}
+                  children="Tema"
                 />
                 <Menu
                   anchorOrigin={{

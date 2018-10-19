@@ -22,6 +22,12 @@ const applicationInitialState: IApplicationState = {
             type: "dark",
         },
     },
+    drawer: {
+        isOpen: false,
+        nodeTree: {
+            data: [],
+        },
+    },
     form: null,
     localization: {
         locale: getLocale(LocalizationLanguages.DefaultLanguage.code),

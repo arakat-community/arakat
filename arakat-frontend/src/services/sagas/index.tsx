@@ -1,7 +1,7 @@
 
 import { fork} from "redux-saga/effects";
 
-import { dummyWatcher } from "../dummy-saga";
+import { nodeTreeFetchWatcher } from "../drawer/saga/nodetree-fetch";
 
 /**
  * configuration for sagas
@@ -10,6 +10,6 @@ import { dummyWatcher } from "../dummy-saga";
 
 export default function* rootSaga() {
     yield [
-      fork(dummyWatcher),
+      fork(nodeTreeFetchWatcher),
     ];
   }
