@@ -19,7 +19,7 @@ class CoreService(object):
 def run_my_server(args):
    global my_Server
    my_Server=CoreService(args)
-   app.run(host="10.154.3.18", port=5001)
+   app.run(host=args[0], port=int(args[1]))
 
 
 @app.route('/interpret_graph',methods=['POST'])
@@ -31,6 +31,3 @@ def extract():
    result={"codes": code_info, "result_code": success, "errors": errors, "additional_info": additional_info}
    json_string = json.dumps(result)
    return json_string
-
-if __name__ == "__main__":
-    run_my_server({})
