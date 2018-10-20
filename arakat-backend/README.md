@@ -6,8 +6,8 @@
 * Java web uygulamasını geliştirmek için [Spring Boot](https://spring.io/projects/spring-boot) kullanılmıştır.
 * Bağımlılık yöneticisi olarak [Maven](https://maven.apache.org/) kullanılmıştır.
 * Uygulama Programlama Arayüzü(API) tanımlamak amacıyla [Swagger2.0](https://swagger.io/docs/specification/2-0/basic-structure/) kullanılmıştır.
-* ../arakat-core tarafındaki _node_spec_'leri, _family_'leri ve _category_'leri tutmak için [MongoDB](https://www.mongodb.com/) kullanılmıştır.
-* ../arakat-frontend tarafındaki grafik ve tablolara veri sağlamak amacı ile [HDFS](https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html) kullanılmıştır.
+* [arakat-core](../arakat-core) tarafındaki _node_spec_'leri, _family_'leri ve _category_'leri tutmak için [MongoDB](https://www.mongodb.com/) kullanılmıştır.
+* [arakat-frontend](../arakat-frontend) tarafındaki grafik ve tablolara veri sağlamak amacı ile [HDFS](https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html) kullanılmıştır.
 * Uygulamanın dağıtımını kolaylaştırmak amacı ile bir container teknolojisi olan [Docker](https://www.docker.com/) kullanılmıştır.
 
 ## Geliştirme Ortamında Çalıştırmak
@@ -72,6 +72,6 @@ http://localhost:8080/arakat-java-service/swagger-ui.html
 ``
 adresini ziyaret edebilirsiniz.
 
-##### Sorun Giderme / Yeni Özellik İsteği
+#### Sorun Giderme / Yeni Özellik İsteği
 
 Arakat ile ilgili bir sorunuz olduğunda, bir bug bulduğunuzda ya da yeni bir özellik isteğinde bulunmak istediğinizde [GitHub/Issues](https://github.com/arakat-community/arakat/issues) sekmesini kullanabilirsiniz.
