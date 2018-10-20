@@ -28,7 +28,7 @@ $ mvn spring-boot:run
 
 **Örnek Çalıştırma**
 
-![mvn spring-boot:run GIF](img/arakat-backend-run.gif)
+![mvn spring-boot:run GIF](img/out.gif)
 
 Uygulamayı çalıştırdıktan sonra Swagger arayüzüne erişmek için
 
