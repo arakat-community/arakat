@@ -26,6 +26,10 @@ Uygulamayı geliştirme ortamında çalıştırmak için terminalinizde projenin
 $ mvn spring-boot:run
 ``
 
+**Örnek Çalıştırma**
+
+![mvn spring-boot:run GIF](img/arakat-backend-run.gif)
+
 Uygulamayı çalıştırdıktan sonra Swagger arayüzüne erişmek için
 
 ``

@@ -2,7 +2,6 @@ package io.github.arakat.arakatcommunity.service;
 
 import io.github.arakat.arakatcommunity.config.AppPropertyValues;
 import io.github.arakat.arakatcommunity.utils.FileOperationUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -11,8 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.*;
 
 @Service
@@ -89,7 +86,6 @@ public class GraphService {
                 "}";
     }
 
-    //TODO: bu methodlar dag service'ine tasinabilir.
     public void separateDagAndTasks(String dagAndTasks) throws IOException {
         JSONObject dagAndTasksJson = new JSONObject(dagAndTasks);
         JSONObject dagsJson = (JSONObject) dagAndTasksJson.get("codes");
@@ -112,71 +108,6 @@ public class GraphService {
                     fileOperationUtils.writeToFile(key, airflowSchedulerCode, appPropertyValues.getDagOutputFileLocation());
                 }
             }
-        }
-    }
-
-    public JSONArray getDAGStatsFromAirflow(String dagId) throws IOException {
-        String url = appPropertyValues.getAirflowUrl() + ":" + appPropertyValues.getAirflowPort() +
-                appPropertyValues.getAirflowDagStatusPath();
-
-        return getItemsById(url, dagId);
-    }
-
-    public JSONArray getTaskStatsFromAirflow(String taskId) throws IOException {
-        String url = appPropertyValues.getAirflowUrl() + ":" + appPropertyValues.getAirflowPort() +
-                appPropertyValues.getAirflowTaskStatusPath();
-
-        return getItemsById(url, taskId);
-    }
-
-    private JSONArray getItemsById(String url, String id) throws IOException {
-        JSONObject result = sendGetRequestAndReturnResponse(url);
-
-        for (String key : iteratorToIterable(result != null ? result.keys() : null)) {
-            if (key.equalsIgnoreCase(id)) {
-                return (JSONArray) (result != null ? result.get(key) : null);
-            }
-        }
-
-        return null;
-    }
-
-    private JSONObject sendGetRequestAndReturnResponse(String url) throws IOException {
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-//        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
-
-//        HttpEntity<Object> requestEntity = new HttpEntity<>(null);
-//
-//        return restTemplate.exchange(
-//                url,
-//                HttpMethod.GET,
-//                requestEntity,
-//                Object.class
-//        );
-
-        URL urlForGetRequest = new URL(url);
-        String readLine;
-
-        HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
-        connection.setRequestMethod("GET");
-
-        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-
-            while ((readLine = bufferedReader.readLine()) != null) {
-                response.append(readLine);
-            }
-
-            bufferedReader.close();
-            return new JSONObject(response.toString());
-
-        } else {
-            //TODO: throw an exception or something.
-            System.out.println("ERROR");
-            return null;
         }
     }
 

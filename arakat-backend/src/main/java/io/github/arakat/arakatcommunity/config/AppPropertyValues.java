@@ -1,9 +1,11 @@
 package io.github.arakat.arakatcommunity.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@ConfigurationProperties
 public class AppPropertyValues {
 
     @Value("${spring.data.mongodb.database}")
@@ -50,6 +52,9 @@ public class AppPropertyValues {
 
     @Value("${airflow.task.status.path}")
     private String airflowTaskStatusPath;
+
+    @Value("${airflow.dag.logs.file.path}")
+    private String airflowDagLogsFilePath;
 
     public String getDatabase() {
         return database;
@@ -113,5 +118,9 @@ public class AppPropertyValues {
 
     public String getAirflowTaskStatusPath() {
         return airflowTaskStatusPath;
+    }
+
+    public String getAirflowDagLogsFilePath() {
+        return airflowDagLogsFilePath;
     }
 }
