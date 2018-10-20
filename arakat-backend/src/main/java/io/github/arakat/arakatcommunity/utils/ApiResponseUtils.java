@@ -18,17 +18,6 @@ public class ApiResponseUtils {
     private static final String DEV_MESSAGE_SUCCESS = "%s operation is successful on %s object.";
     private static final String DEV_MESSAGE_ERROR = "An error occurred while performing %s operation on %s object.";
 
-//    private static final String FETCH_CATEGORY_BY_ID_MESSAGE_SUCCESS = "";
-//    private static final String FETCH_NODES_MESSAGE_SUCCESS = "";
-//    private static final String FETCH_NODE_BY_ID_MESSAGE_SUCCESS = "";
-//    private static final String FETCH_RAW_NODE_BY_ID_MESSAGE_SUCCESS = "";
-
-//    private static final String SAVE_MESSAGE_SUCCESS = "You have successfully saved %s.";
-//    private static final String SAVE_MESSAGE_ERROR = "An error occured while fetching %s.";
-//    private static final String SAVE_MULTIPLE_CATEGORIES_MESSAGE_SUCCESS = "";
-//    private static final String SAVE_NODE_MESSAGE_SUCCESS = "";
-//    private static final String DELETE_CATEGORIES_MESSAGE_SUCCESS = "";
-
     // TODO: Controller'larda try catch kullanarak, hata oldugunda uygun mesaji don.
     public static ResponseEntity<BaseResponse> createResponseEntity(int code, String userMessage, String devMessage,
                                                                      Object responseData, HttpStatus httpStatus) {
@@ -36,7 +25,7 @@ public class ApiResponseUtils {
         return new ResponseEntity<>(createResponse(meta, responseData), httpStatus);
     }
 
-    public static BaseResponse createResponse(Meta meta, Object responseData) {
+    private static BaseResponse createResponse(Meta meta, Object responseData) {
         BaseResponse response = new BaseResponse();
 
         response.setMeta(meta);
@@ -45,7 +34,7 @@ public class ApiResponseUtils {
         return response;
     }
 
-    public static Meta createMeta(int code, String message, String devMessage) {
+    private static Meta createMeta(int code, String message, String devMessage) {
         Meta meta = new Meta();
 
         meta.setCode(code);

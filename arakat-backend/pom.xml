@@ -25,6 +25,7 @@
 		<springfox-version>2.7.0</springfox-version>
 		<mockito-version>1.10.19</mockito-version>
 		<starter-data-mongo-version>2.0.5.RELEASE</starter-data-mongo-version>
+		<org.json.version>20180813</org.json.version>
 	</properties>
 
 	<dependencies>
@@ -72,11 +73,18 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- JSON OPERATION RELATED DEPENDENCIES -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20180813</version>
+            <version>${org.json.version}</version>
         </dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 	<build>

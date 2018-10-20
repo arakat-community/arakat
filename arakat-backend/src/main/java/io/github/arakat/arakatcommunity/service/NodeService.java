@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@SuppressWarnings( "deprecation" )
 public class NodeService {
 
     private CategoryRepository categoryRepository;
@@ -29,7 +30,6 @@ public class NodeService {
     private MongoTemplate mongoTemplate;
 
     private Logger logger = LoggerFactory.getLogger(NodeController.class);
-
 
     @Autowired
     public NodeService(CategoryRepository categoryRepository, NodeRepository nodeRepository,
