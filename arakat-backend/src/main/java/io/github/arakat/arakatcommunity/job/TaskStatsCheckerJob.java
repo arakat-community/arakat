@@ -1,6 +1,7 @@
 package io.github.arakat.arakatcommunity.job;
 
 import io.github.arakat.arakatcommunity.service.StatsService;
+import org.quartz.JobDataMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,11 @@ public class TaskStatsCheckerJob extends QuartzJobBean {
     @Override
     public void executeInternal(JobExecutionContext jobExecutionContext) {
         try {
-            System.err.println(statsService.getTaskStatsFromAirflow("1"));
+            JobDataMap jobDataMap = jobExecutionContext.getMergedJobDataMap();
+
+            String taskId = jobDataMap.getString("taskId");
+
+            System.err.println(statsService.getTaskStatsFromAirflow(taskId));
         } catch (IOException e) {
             e.printStackTrace();
         }

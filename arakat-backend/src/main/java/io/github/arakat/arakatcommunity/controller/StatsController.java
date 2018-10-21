@@ -50,26 +50,33 @@ public class StatsController {
     }
 
     // TODO: decide how to send periodically send status info.
-    @RequestMapping(value = "/set-periodic-dag-stats-checker", method = RequestMethod.GET)
-    public void setPeriodicDAGStatsChecker() throws SchedulerException {
-        JobDetail jobDetail = createJobDetail("dag-stat-jobs", "Get DAG Stats Job");
+    @RequestMapping(value = "/set-periodic-dag-stats-checker/{dagId}", method = RequestMethod.GET)
+    public void setPeriodicDAGStatsChecker(@PathVariable("dagId") String dagId) throws SchedulerException {
+        JobDataMap dagStatJobDataMap = new JobDataMap();
+        dagStatJobDataMap.put("dagId", dagId);
+
+        JobDetail jobDetail = createJobDetail("dag-stat-jobs", "Get DAG Stats Job", dagStatJobDataMap);
         Trigger trigger = createTrigger(jobDetail, "dag-stat-triggers", "Get DAG Stats Trigger");
 
         scheduler.scheduleJob(jobDetail, trigger);
     }
 
-    @RequestMapping(value = "/set-periodic-task-stats-checker", method = RequestMethod.GET)
-    public void setPeriodicTaskStatsChecker() throws SchedulerException {
-        JobDetail jobDetail = createJobDetail("task-stat-jobs", "Get task Stats Job");
+    @RequestMapping(value = "/set-periodic-task-stats-checker/{taskId}", method = RequestMethod.GET)
+    public void setPeriodicTaskStatsChecker(@PathVariable("taskId") String taskId) throws SchedulerException {
+        JobDataMap taskStatJobDataMap = new JobDataMap();
+        taskStatJobDataMap.put("taskId", taskId);
+
+        JobDetail jobDetail = createJobDetail("task-stat-jobs", "Get task Stats Job", taskStatJobDataMap);
         Trigger trigger = createTrigger(jobDetail, "task-stat-triggers", "Get task Stats Trigger");
 
         scheduler.scheduleJob(jobDetail, trigger);
     }
 
-    private JobDetail createJobDetail(String group, String description) {
+    private JobDetail createJobDetail(String group, String description, JobDataMap jobDataMap) {
         return JobBuilder.newJob(DAGStatsCheckerJob.class)
                 .withIdentity(UUID.randomUUID().toString(), group)
                 .withDescription(description)
+                .usingJobData(jobDataMap)
                 .storeDurably()
                 .build();
     }
