@@ -5,7 +5,7 @@ Bu repo'ya katkıda bulunmak istediğinizde, değişiklik yapmadan önce, yapmak
 
 1. Çalışmanıza başlamadan önce ve çalışmanızı bitirip değişikliklerinizi commit'ledikten/stash'ledikten sonra Arakat'ın master branch'inden pull alıp kendi branch'iniz ile merge'lediğinizden emin olun.
 
-2. Yaptığınız değişikliklerin genel arayüzü nasıl etkilediğini ilgili README.md dosyasına detaylı bir şekilde yazdığınızdan emin olun. Bu değişikliklere örnek olarak aşağıdakiler verilebilir:
+2. Yaptığınız değişikliklerin genel arayüzü nasıl etkilediğini, ilgili README.md dosyasına detaylı bir şekilde yazdığınızdan emin olun. Bu değişikliklere örnek olarak aşağıdakiler verilebilir:
     - Yeni environment variable'ları
     - Uygulamayı dışa açan port'lar
     - Container parametreleri vb.

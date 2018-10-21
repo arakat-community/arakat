@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@SuppressWarnings( "deprecation" )
 public class NodeService {
 
     private CategoryRepository categoryRepository;
@@ -47,17 +46,11 @@ public class NodeService {
         query.put("node_id", Integer.parseInt(nodeId));
         DBCursor cursor = collection.find(query);
 
-        Object node = cursor.toArray().get(0);
-
-        while(cursor.hasNext()) {
-            logger.info(cursor.next().toString());
-        }
-
 //        Query query = new Query();
 //        query.addCriteria(Criteria.where("node_id").is(nodeId));
 ////        return mongoTemplate.findAl(query, null, "rawJsonNodes");
 //        return mongoTemplate.findById()
-        return node;
+        return cursor.toArray().size() != 0 ? cursor.toArray().get(0) : null;
     }
 
     public List<DBObject> getAllRawNodes() {

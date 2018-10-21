@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.9.RELEASE</version>
+		<version>2.0.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -22,10 +22,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<springfox-version>2.7.0</springfox-version>
-		<mockito-version>1.10.19</mockito-version>
-		<starter-data-mongo-version>2.0.5.RELEASE</starter-data-mongo-version>
-		<org.json.version>20180813</org.json.version>
+		<springfox.version>2.7.0</springfox.version>
+		<mockito.version>1.10.19</mockito.version>
+		<starter.data.mongo.version>2.0.5.RELEASE</starter.data.mongo.version>
+		<json.version>20180813</json.version>
+		<quartz.version>2.2.1</quartz.version>
 	</properties>
 
 	<dependencies>
@@ -38,20 +39,20 @@
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
-			<version>${springfox-version}</version>
+			<version>${springfox.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
-			<version>${springfox-version}</version>
+			<version>${springfox.version}</version>
 		</dependency>
 
 		<!-- MONGO RELATED DEPENDENCIES -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-			<version>${starter-data-mongo-version}</version>
+			<version>${starter.data.mongo.version}</version>
 		</dependency>
 
 		<dependency>
@@ -69,16 +70,39 @@
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
-			<version>${mockito-version}</version>
+			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
 
-		<!-- JSON OPERATION RELATED DEPENDENCIES -->
+		<!-- JSON OPERATIONS RELATED DEPENDENCIES -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>${org.json.version}</version>
+            <version>${json.version}</version>
         </dependency>
+
+		<!-- QUARTZ RELATED DEPENDENCIES -->
+		<!--<dependency>-->
+			<!--<groupId>org.quartz-scheduler</groupId>-->
+			<!--<artifactId>quartz</artifactId>-->
+			<!--<version>${quartz.version}</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.quartz-scheduler</groupId>-->
+			<!--<artifactId>quartz-jobs</artifactId>-->
+			<!--<version>${quartz.version}</version>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>javax.inject</groupId>-->
+			<!--<artifactId>javax.inject</artifactId>-->
+			<!--<version>1</version>-->
+		<!--</dependency>-->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-quartz</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
