@@ -56,9 +56,6 @@ public class AppPropertyValues {
     @Value("${airflow.dag.logs.file.path}")
     private String airflowDagLogsFilePath;
 
-    @Value("${quartz.job.interval.in.seconds}")
-    private String quartzJobIntervalInSeconds;
-
     public String getDatabase() {
         return database;
     }
@@ -125,9 +122,5 @@ public class AppPropertyValues {
 
     public String getAirflowDagLogsFilePath() {
         return airflowDagLogsFilePath;
-    }
-
-    public String getQuartzJobIntervalInSeconds() {
-        return quartzJobIntervalInSeconds;
     }
 }

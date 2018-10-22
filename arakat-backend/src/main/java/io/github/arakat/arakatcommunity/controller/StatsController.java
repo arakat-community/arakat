@@ -1,9 +1,6 @@
 package io.github.arakat.arakatcommunity.controller;
 
-import io.github.arakat.arakatcommunity.config.AppPropertyValues;
-import io.github.arakat.arakatcommunity.job.DAGStatsCheckerJob;
 import io.github.arakat.arakatcommunity.service.StatsService;
-import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,20 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 public class StatsController {
 
     private StatsService statsService;
-    private Scheduler scheduler;
-    private AppPropertyValues appPropertyValues;
 
     @Autowired
-    public StatsController(StatsService statsService, Scheduler scheduler, AppPropertyValues appPropertyValues) {
+    public StatsController(StatsService statsService) {
         this.statsService = statsService;
-        this.scheduler = scheduler;
-        this.appPropertyValues = appPropertyValues;
     }
 
     @RequestMapping(value = "/get-dag-stats-from-airflow/{dagId}", method = RequestMethod.GET)
@@ -47,49 +39,5 @@ public class StatsController {
                                            @PathVariable("taskId") String taskId) throws IOException {
 
         return new ResponseEntity<>(statsService.getDagLogsFromAirflow(dagId, taskId), HttpStatus.OK);
-    }
-
-    // TODO: decide how to send periodically send status info.
-    @RequestMapping(value = "/set-periodic-dag-stats-checker/{dagId}", method = RequestMethod.GET)
-    public void setPeriodicDAGStatsChecker(@PathVariable("dagId") String dagId) throws SchedulerException {
-        JobDataMap dagStatJobDataMap = new JobDataMap();
-        dagStatJobDataMap.put("dagId", dagId);
-
-        JobDetail jobDetail = createJobDetail("dag-stat-jobs", "Get DAG Stats Job", dagStatJobDataMap);
-        Trigger trigger = createTrigger(jobDetail, "dag-stat-triggers", "Get DAG Stats Trigger");
-
-        scheduler.scheduleJob(jobDetail, trigger);
-    }
-
-    @RequestMapping(value = "/set-periodic-task-stats-checker/{taskId}", method = RequestMethod.GET)
-    public void setPeriodicTaskStatsChecker(@PathVariable("taskId") String taskId) throws SchedulerException {
-        JobDataMap taskStatJobDataMap = new JobDataMap();
-        taskStatJobDataMap.put("taskId", taskId);
-
-        JobDetail jobDetail = createJobDetail("task-stat-jobs", "Get task Stats Job", taskStatJobDataMap);
-        Trigger trigger = createTrigger(jobDetail, "task-stat-triggers", "Get task Stats Trigger");
-
-        scheduler.scheduleJob(jobDetail, trigger);
-    }
-
-    private JobDetail createJobDetail(String group, String description, JobDataMap jobDataMap) {
-        return JobBuilder.newJob(DAGStatsCheckerJob.class)
-                .withIdentity(UUID.randomUUID().toString(), group)
-                .withDescription(description)
-                .usingJobData(jobDataMap)
-                .storeDurably()
-                .build();
-    }
-
-    private Trigger createTrigger(JobDetail jobDetail, String group, String description) {
-        return TriggerBuilder.newTrigger()
-                .forJob(jobDetail)
-                .withIdentity(jobDetail.getKey().getName(), group)
-                .startNow()
-                .withSchedule(SimpleScheduleBuilder.simpleSchedule()
-                        .withIntervalInSeconds(Integer.parseInt(appPropertyValues.getQuartzJobIntervalInSeconds()))
-                        .repeatForever())
-                .withDescription(description)
-                .build();
     }
 }
