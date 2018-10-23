@@ -169,7 +169,7 @@ data={
                                             "value": [
                                                 {"value": ["pca_"], "type": "array"},
                                                 {"value": {"start": 1, "end": 21}, "type": "range"},
-                                                {"value": ["_warn"], "type": "array"},
+                                                {"value": ["_warn"], "type": "array"}
                                             ],
                                             "type": "template",
                                             "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template"}

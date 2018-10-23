@@ -28,3 +28,4 @@ class NodeFamilyTypes(Enum):
     Correlation = 24
     HypothesisTesting = 25
     SQL = 26
+    When = 27
