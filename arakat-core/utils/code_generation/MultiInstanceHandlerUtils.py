@@ -10,7 +10,7 @@ def multi_instance_generation(node, df_name, args):
     else:
         code.extend(['model_' + node["id"] + "=" + 'pipeline_' + node["id"] + ".fit(" + df_name + ")", os.linesep])
 
-    code.extend(['df_' + node["id"] + "=" + 'model_' + node["id"] + '.transform(' + df_name + ')', os.linesep])
+    code.extend(['df_' + node["id"] + "=" + 'pipeline_stage_' + node["id"] + '.transform(' + df_name + ')', os.linesep])
 
     return code
 
@@ -24,7 +24,7 @@ def __generate_code_for_pipeline_instantination(node, args):
         del node["parameters"][mii]
 
     code.extend(["stages_"+node["id"], " = ", "[]", os.linesep])
-    code.extend(["for i in ", "mmi_value_0_" + node["id"], ":", os.linesep])
+    code.extend(["for i in ", "range(len(mmi_value_0_" + node["id"], ")):", os.linesep])
     code.extend(["\t", __generate_stage_template(node, args), os.linesep])
     code.extend(['pipeline_'+node["id"] + "=Pipeline(stages=", "stages_"+node["id"] + ")", os.linesep])
 
