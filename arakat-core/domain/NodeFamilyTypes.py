@@ -27,3 +27,4 @@ class NodeFamilyTypes(Enum):
     SelectExpr = 23
     Correlation = 24
     HypothesisTesting = 25
+    SQL = 26
