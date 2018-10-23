@@ -24,5 +24,7 @@
   "22": "RollingStatistics",
   "23": "SelectExpr",
   "24": "Correlation",
-  "25": "HypothesisTesting"
+  "25": "HypothesisTesting",
+  "26": "SQL",
+  "27": "When"
 }

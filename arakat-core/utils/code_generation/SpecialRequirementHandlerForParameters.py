@@ -108,4 +108,23 @@ def __handle_column_selector_ALL(parameter, args):
     parameter_string = "column_selector_ALL(" + args["input_dfs"][0] + ")"
     return parameter_string
 
-__specific_function_handlers={"column_selector_regex": __handle_column_selector_regex, "column_selector_template": __handle_column_selector_template, "column_selector_ALL": __handle_column_selector_ALL, "element_of_multi_instance": __handle_element_of_multi_instance, "schema": __handle_schema, "code": __handle_function_code}
+def __handle_simple_dict(parameter, args):
+    # Dict of key-value pairs which keys and values are primitives...
+    code=["{"]
+    for key, value in parameter["value"].iteritems():
+      code.extend([__handle_primitive(key) + ":" + __handle_primitive(value), ", "])
+
+    if(bool(parameter["value"])):
+        code.pop()
+
+    code.extend("}")
+
+    return code
+
+def __handle_primitive(value):
+    if (isinstance(value, str)):
+        return '"'+str(value)+'"'
+    else:
+        return str(value)
+
+__specific_function_handlers={"column_selector_regex": __handle_column_selector_regex, "column_selector_template": __handle_column_selector_template, "column_selector_ALL": __handle_column_selector_ALL, "element_of_multi_instance": __handle_element_of_multi_instance, "schema": __handle_schema, "code": __handle_function_code, "simple_dict": __handle_simple_dict}
