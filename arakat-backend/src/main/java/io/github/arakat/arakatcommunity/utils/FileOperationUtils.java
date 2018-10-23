@@ -1,0 +1,54 @@
+package io.github.arakat.arakatcommunity.utils;
+
+import org.springframework.stereotype.Component;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Component
+public class FileOperationUtils {
+
+    public void writeToFile(String file, String stringToWrite, String directoryToWrite) throws IOException {
+        String filePathToWrite = System.getProperty("user.dir") + directoryToWrite;
+
+        File f = new File(filePathToWrite);
+        boolean makeDirResult = f.mkdirs();
+        if (Files.notExists(Paths.get(filePathToWrite + file), LinkOption.NOFOLLOW_LINKS)) {
+            Files.createFile(Paths.get(filePathToWrite + file));
+        }
+
+        Files.write(Paths.get(filePathToWrite + file), stringToWrite.getBytes(), StandardOpenOption.CREATE);
+    }
+
+    public String readFileAsString(String file) {
+        String content = null;
+        
+        try {
+            content = new String(Files.readAllBytes(Paths.get(file)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return content;
+    }
+
+    public String readFileInDirectory(File folder) {
+        try {
+
+            List<File> files = Files.walk(Paths.get(folder.toString()))
+                    .filter(Files::isRegularFile)
+                    .map(Path::toFile)
+                    .collect(Collectors.toList());
+
+            return files.get(0).toString();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+}

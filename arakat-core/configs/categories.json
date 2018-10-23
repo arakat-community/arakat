@@ -1,29 +1,101 @@
-{
-  "hierarchy": {
-    "0":{},
-    "1":{},
-    "2":{},
-    "3":{"4":{"6":{}, "7":{}, "8":{}}, "5":{"9":{}, "10":{}, "11":{}}, "12":{}},
-    "13":{},
-    "14":{},
-    "15":{}
+[
+  {
+    "categoryId": 0,
+    "name": "Data Sources",
+    "nodes": [],
+    "categories": []
   },
-  "leafCategories":{
-    "0": "Data Sources",
-    "1": "Data Sinks",
-    "2": "ETL",
-    "3": "ML",
-    "4": "Preprocessing",
-    "5": "Algorithms",
-    "6": "Feature Extraction",
-    "7": "Scaling",
-    "8": "Feature Reduction/Selection",
-    "9": "Clustering",
-    "10": "Regression",
-    "11": "Classificiation",
-    "12": "Evaluation",
-    "13": "Data Mining",
-    "14": "Statistics",
-    "15": "Visualizations"
+  {
+    "categoryId": 1,
+    "name": "Data Sinks",
+    "nodes": [],
+    "categories": []
+  },
+  {
+    "categoryId": 2,
+    "name": "ETL",
+    "nodes": [],
+    "categories": []
+  },
+  {
+    "categoryId": 3,
+    "name": "ML",
+    "nodes": [],
+    "categories": [
+      {
+        "categoryId": 4,
+        "name": "Preprocessing",
+        "nodes": [],
+        "categories": [
+          {
+            "categoryId": 6,
+            "name": "Feature Extraction",
+            "nodes": [],
+            "categories": []
+          },
+          {
+            "categoryId": 7,
+            "name": "Scaling",
+            "nodes": [],
+            "categories": []
+          },
+          {
+            "categoryId": 8,
+            "name": "Feature Reduction/Selection",
+            "nodes": [],
+            "categories": []
+          }
+        ]
+      },
+      {
+        "categoryId": 5,
+        "name": "Algorithms",
+        "nodes": [],
+        "categories": [
+          {
+            "categoryId": 9,
+            "name": "Clustering",
+            "nodes": [],
+            "categories": []
+          },
+          {
+            "categoryId": 10,
+            "name": "Regression",
+            "nodes": [],
+            "categories": []
+          },
+          {
+            "categoryId": 11,
+            "name": "Classificiation",
+            "nodes": [],
+            "categories": []
+          }
+        ]
+      },
+      {
+        "categoryId": 12,
+        "name": "Evaluation",
+        "nodes": [],
+        "categories": []
+      }
+    ]
+  },
+  {
+    "categoryId": 13,
+    "name": "Data Mining",
+    "nodes": [],
+    "categories": []
+  },
+  {
+    "categoryId": 14,
+    "name": "Statistics",
+    "nodes": [],
+    "categories": []
+  },
+  {
+    "categoryId": 15,
+    "name": "Visualizations",
+    "nodes": [],
+    "categories": []
   }
-}
+]

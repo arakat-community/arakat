@@ -1,11 +1,11 @@
 export const def_style =
 [
         {
-          grabbable: true,
-          grabbed: false,
-          locked: false,
+          // grabbable: true,
+          // grabbed: false,
+          // locked: false,
           selectable: true,
-          selected: false,
+          // selected: false,
           selector: "node",
           style: {
             content: "data(visibleName)",

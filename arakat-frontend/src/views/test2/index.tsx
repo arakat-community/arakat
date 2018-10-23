@@ -195,7 +195,6 @@ class Test2View extends React.Component {
    */
 
   public createMenu = (arr: any) => {
-    // süslü parantez fonksiyonları birşey return etmek zorunda
     if (arr.subcategories && arr.subcategories.length > 0) {
       return (
         <SubMenu title={arr.name}>
