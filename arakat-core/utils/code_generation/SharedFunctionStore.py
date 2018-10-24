@@ -80,4 +80,27 @@ def __generate_single_select_expr_generator_code():
     code.append(os.linesep)
     return code
 
-__shared_function_store={SharedFunctionTypes.COLUMN_MATCH_WITH_REGEX: __handle_column_match_with_regex, SharedFunctionTypes.COLUMN_MATCH_WITH_TEMPLATE: __handle_column_match_with_template, SharedFunctionTypes.COLUMN_MATCH_WITH_ALL: __handle_column_match_with_ALL, SharedFunctionTypes.SELECT_EXPR_HELPERS: __generate_select_expr_helpers}
+def __handle_vector_disassembler():
+    code = [os.linesep]
+
+    code.extend(["def vector_disassembler(df, vector_col):", os.linesep])
+    code.extend(["\tcol_names = df.columns", os.linesep])
+    code.extend(["\timport numpy as np", os.linesep])
+    code.extend(["\tdef extract(row):", os.linesep])
+    code.extend(["\t\tdef adjust_value(value):", os.linesep])
+    code.extend(["\t\t\tif isinstance(value, np.generic):", os.linesep])
+    code.extend(["\t\t\t\treturn np.asscalar(value)", os.linesep])
+    code.extend(["\t\t\telse:", os.linesep])
+    code.extend(["\t\t\t\treturn value", os.linesep])
+    code.extend(["\t\tmy_list = []", os.linesep])
+    code.extend(["\t\tfor elem in col_names:", os.linesep])
+    code.extend(["\t\t\tmy_list.append(adjust_value(row[elem]))", os.linesep])
+    code.extend(["\t\tfor val in row[vector_col]:", os.linesep])
+    code.extend(["\t\t\tmy_list.append(adjust_value(val))", os.linesep])
+    code.extend(["\t\treturn tuple(my_list)", os.linesep])
+    code.extend(["\tnew_col_names = df.columns", os.linesep])
+    code.extend(["\tnew_col_names.extend([vector_col + '_' + str(i) for i in range(len(df.head()[vector_col]))])", os.linesep])
+    code.extend(["\treturn df.rdd.map(extract).toDF(new_col_names)", os.linesep])
+    return code
+
+__shared_function_store={SharedFunctionTypes.COLUMN_MATCH_WITH_REGEX: __handle_column_match_with_regex, SharedFunctionTypes.COLUMN_MATCH_WITH_TEMPLATE: __handle_column_match_with_template, SharedFunctionTypes.COLUMN_MATCH_WITH_ALL: __handle_column_match_with_ALL, SharedFunctionTypes.SELECT_EXPR_HELPERS: __generate_select_expr_helpers, SharedFunctionTypes.VECTOR_DISASSEMBLER:__handle_vector_disassembler}
