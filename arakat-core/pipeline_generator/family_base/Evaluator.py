@@ -28,7 +28,7 @@ def generate_code(args):
         gen_code.extend(CodeGenerationUtils.handle_instantination_or_call(node["parameters"], 'evaluator_' + node["id"] + ' = ' + node["evaluator_name"] + '(', my_args))
 
         gen_code.extend(['score_' + node["id"] + "=" + 'evaluator_' +  node["id"] + '.evaluate(' + df_name + ')', os.linesep])
-        gen_code.extend(['df_' + node["id"] + "=" + ' spark.createDataFrame([' + 'score_' + node["id"] + '], ["score"])', os.linesep])
+        gen_code.extend(['df_' + node["id"] + "=" + ' spark.createDataFrame([(' + 'score_' + node["id"] + ',)], ["score"])', os.linesep])
 
         final_code = CodeGenerationUtils.merge_with_additional_code(gen_code, additional_local_code)
 
