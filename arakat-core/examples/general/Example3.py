@@ -411,3 +411,5 @@ data={
 }
 
 code_info, success, errors, additional_info = PipelineGenerator.generate_pipeline(data["graph"], data["dag_properties"])
+print(errors)
+print(success)
