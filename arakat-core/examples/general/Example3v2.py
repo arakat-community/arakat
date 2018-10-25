@@ -190,7 +190,7 @@ data={
                     "is_splitter": False,
                     "produces_model": False,
                     "parameters": {
-                        "model_path": {"value": "hdfs://namenode:9000/exmp2_model/", "type": "string"}
+                        "model_path": {"value": "hdfs://namenode:9000/exmp3_model/", "type": "string"}
                     },
                 },
             "node10":
@@ -265,12 +265,107 @@ data={
                     "produces_model": False,
                     "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "targetfilepathForEvalResult2.parquet", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/exmp4/targetfilepathForEvalResult2.parquet", "type": "string"}
                     }
                 },
-            "node14":
+                "node14":
                 {
                     "id": "node14",
+                    "parent": "task2",
+                    "node_id": 48,
+                    "name": "Batch Read from Orc",
+                    "category": 0,
+                    "node_type": 0,
+                    "family": 0,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "can_infer_schema": False,
+                    "file_type": "orc",
+                    "parameters": {
+                        "path": {"value": "filepath.orc", "type": "string"}
+                    }
+                },
+                "node15":
+                {
+                    "id": "node15",
+                    "parent": "task2",
+                    "node_id": 63,
+                    "name": "Model Loader",
+                    "category": 3,
+                    "node_type": 0,
+                    "family": 10,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": True,
+                    "parameters": {
+                        "model_path": {"value": "pathToMyModel", "type": "string"},
+                        "model_type": {"value": "PipelineModel", "type": "string"}
+                    }
+                },
+                "node16":
+                {
+                    "id": "node16",
+                    "parent": "task2",
+                    "node_id": 65,
+                    "name": "Model Apply",
+                    "category": 3,
+                    "node_type": 0,
+                    "family": 9,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "parameters": {},
+                },
+                "node17":
+                {
+                    "id": "node17",
+                    "parent": "task2",
+                    "node_id": 25,
+                    "name": "Multi-class Classification Evaluator",
+                    "category": 12,
+                    "node_type": 0,
+                    "family": 7,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "evaluator_name": "MulticlassClassificationEvaluator",
+                    "parameters": {
+                        "labelCol": {"value": "indexedSurvived", "type": "string"},
+                        "predictionCol": {"value": "prediction", "type": "string"},
+                        "metricName": {"value": "accuracy", "type": "string"}
+                    },
+                },
+                "node18":
+                {
+                    "id": "node18",
+                    "parent": "task2",
+                    "node_id": 59,
+                    "name": "Batch Write to CSV",
+                    "category": 1,
+                    "node_type": 0,
+                    "family": 2,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "file_type": "csv",
+                    "parameters": {
+                        "path": {"value": "targetfilepathForEvalResult3.csv", "type": "string"}
+                    }
+                },
+                "node19":
+                {
+                    "id": "node19",
                     "node_id": 69,
                     "name": "One-hot Encoder",
                     "parent": "node7",
@@ -289,9 +384,9 @@ data={
                       "outputCol": {"value": "sexVec", "type": "string"},
                     }
                 },
-            "node15":
+                "node20":
                 {
-                    "id": "node15",
+                    "id": "node20",
                     "node_id": 69,
                     "name": "One-hot Encoder",
                     "parent": "node7",
@@ -314,23 +409,33 @@ data={
                 "id": "task1",
                 "parent": None,
                 "node_type": 1
+            },
+            "task2": {
+                "id": "task2",
+                "parent": None,
+                "node_type": 1
             }
         },
         "edges": {
             "node1-node2": {"type": "dataframe"},
             "node2-node3": {"type": "dataframe"},
             "node3-node7": {"type": "dataframe", "portion": 0},
-            "node4-node14": {"type": "pipeline"},
-            "node14-node15": {"type": "pipeline"},
-            "node15-node5": {"type": "pipeline"},
+            "node4-node19": {"type": "pipeline"},
+            "node19-node20": {"type": "pipeline"},
+            "node20-node5": {"type": "pipeline"},
             "node5-node6": {"type": "pipeline"},
             "node7-node8": {"type": "dataframe"},
             "node7-node9": {"type": "model"},
             "node3-node10": {"type": "dataframe", "portion": 1},
             "node7-node10": {"type": "model"},
             "node10-node11": {"type": "dataframe"},
+            "node11-node13": {"type": "dataframe"},
             "node8-node12": {"type": "dataframe"},
-            "node11-node13": {"type": "dataframe"}
+            "node14-node16": {"type": "dataframe"},
+            "node15-node16": {"type": "model"},
+            "node16-node17": {"type": "dataframe"},
+            "node17-node18": {"type": "dataframe"},
+            "task1-task2": {"type": "upstream"}
         }
     },
     "dag_properties": {
@@ -351,3 +456,4 @@ data={
 
 code_info, success, errors, additional_info = PipelineGenerator.generate_pipeline(data["graph"], data["dag_properties"])
 print(errors)
+print(success)
