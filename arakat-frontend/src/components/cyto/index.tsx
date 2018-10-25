@@ -5,8 +5,10 @@ import edgehandles from "cytoscape-edgehandles";
 import MouseTrap from "mousetrap";
 import React, { Component } from "react";
 import { ConnectDropTarget, DropTarget} from "react-dnd";
-import { findDOMNode } from "react-dom";
+import { NodeTypes } from "../../common/models/cyto-elements/node-types";
 import { DraggableType } from "../../common/models/draggable/type";
+import { INodeSpec } from "../../common/models/node-specs";
+import { ICytoState } from "../../store/cyto/types";
 import { layout } from "./layout";
 import { def_style, getBackground, getShape, MAX_ZOOM } from "./style";
 
@@ -22,28 +24,40 @@ const style: any = (theme: Theme) => ({
 
 export interface ICytoProps {
   parentSelectChangeHandler?: () => void;
+  addNodeToExistingNodes: (nodeSpec: INodeSpec) => void;
+  increaseCVNodesLength: () => void;
+  increasePipelineNodesLength: () => void;
+  increaseTaskNodesLength: () => void;
   edgeAdditionPolicy?: any;
-  highlighted: boolean;
-  hovered: boolean;
+  highlighted?: boolean;
+  hovered?: boolean;
   connectDropTarget: ConnectDropTarget; // look at return type, don't make it 'any'
   isOver: boolean;
-}
-
-export interface ICytoState {
-  isPrimitiveLevelLayoutRefreshBlocked: boolean;
-  nodeId: string;
+  dragItem: any;
+  didDrop: boolean;
+  cytoState: ICytoState; // from props
 }
 
 const nodeTarget = {
+  /*
+  //TODO: use hover to highlight the intended parent node.
   hover(props, monitor, component) {
     const clientOffset = monitor.getClientOffset();
-    console.log("hover -> clientOffset: "  + clientOffset);
+    console.log("hover -> clientOffset: ");
+    console.log(clientOffset);
+    return clientOffset;
   },
+  */
   drop(props, monitor, component) {
     if ( monitor.didDrop() ) {
-      console.log("dropped.");
       return;
     }
+    const adjustedOffset = {
+      x: monitor.getClientOffset().x - 300,
+      y: monitor.getClientOffset().y - 50,
+    };
+    component.props.setLastDroppedNodeOffset(adjustedOffset);
+    return { moved: true };
   },
 };
 const collect = (connect, monitor) => {
@@ -51,6 +65,8 @@ const collect = (connect, monitor) => {
      highlighted: monitor.canDrop(),
      connectDropTarget: connect.dropTarget(),
      isOver: monitor.isOver(),
+     dragItem: monitor.getItem(),
+     didDrop: monitor.didDrop(),
   };
 };
 
@@ -60,15 +76,11 @@ type PropsAndStyle = ICytoProps & WithStyles<"default" | "highlighted">;
  * CytoGraph Class
  */
 class CytoGraph extends Component<PropsAndStyle, ICytoState> {
+
   private cydyna: any;
 
   constructor(props: PropsAndStyle) {
     super(props);
-
-    this.state = {
-      isPrimitiveLevelLayoutRefreshBlocked: false,
-      nodeId: "",
-    };
 
     this.removeSelectedElements = this.removeSelectedElements.bind(this);
     this.removeElement = this.removeElement.bind(this);
@@ -78,40 +90,29 @@ class CytoGraph extends Component<PropsAndStyle, ICytoState> {
 
     // edgehandles register extension
     cytoscape.use(edgehandles);
+
   }
 
   public componentDidMount() {
     this.createGraph();
 
     MouseTrap.bind(["del", "backspace"], this.removeSelectedElements);
-
-    this.addParent({
-      data: {
-        id: "n0",
-        visibleName: "defaultCyto",
-      },
-    });
-
-    /*this.addNode({
-      data: {
-        id: "n1",
-        nodeType: "DATASOURCE",
-        parent: "",
-        visibleName: "CytoTriangle"
-      },
-      style: {
-        backgroundColor: "magenta",
-        height: 50,
-        shape: "triangle",
-        width: 50
-      }
-    });*/
   }
+
   public componentWillReceiveProps(nextProps) {
-    if (!this.props.isOver && nextProps.isOver) {
-      console.log("Cyto.componentWillReceiveProps -> nextProps.isOver: " + nextProps.isOver);
+    if (!this.props.didDrop && nextProps.didDrop) {
+      nextProps.cytoState.nodeSpecs.map((nodeSpec) => {
+        // TODO: dragItem.node_id should be int.
+        if (nodeSpec.node_id === parseInt(nextProps.dragItem.node_id, 10)) {
+          this.props.addNodeToExistingNodes(nodeSpec);
+          this.addNode(nodeSpec);
+          return;
+        }
+      });
     }
+
   }
+
   public componentWillUnmount() {
     MouseTrap.unbind(["del", "backspace"], this.removeSelectedElements);
   }
@@ -121,6 +122,8 @@ class CytoGraph extends Component<PropsAndStyle, ICytoState> {
       container: document.getElementById("cydyna"),
       selectionType: "additive",
       style: def_style,
+      panningEnabled: false,
+      zoomingEnabled: true,
     });
 
     this.cydyna
@@ -217,22 +220,186 @@ class CytoGraph extends Component<PropsAndStyle, ICytoState> {
     this.cydyna.$().unselect();
   }
 
-  public addNode = (nodeData) => {
-    const nodeID = this.cydyna
-      .add({
-        data: nodeData.data,
-        group: "nodes",
-        style: nodeData.style,
-      })
-      .id();
+  public addNode = (nodeSpec) => {
+    let parentID = this.getParentIDDroppedInto();
+    if (parentID === -1) {
+       const taskNode = this.prepareTaskNodeData();
+       parentID = this.addTaskNode(taskNode);
+    }
+    let nodeID = -1;
+    const nodeOffset = this.props.cytoState.lastDroppedNodeOffset;
 
+    const nodeData = {
+        id: nodeSpec.node_id,
+        nodeType: nodeSpec.node_type,
+        parent: parentID,
+        visibleName: nodeSpec.name,
+    };
+    switch (nodeSpec.node_type) {
+      case NodeTypes.innerNode:
+        nodeID = this.addInnerNode(nodeData, nodeOffset);
+        break;
+      case NodeTypes.pipelineNode:
+        nodeID = this.addPipelineNode(nodeData, nodeOffset);
+        break;
+      case NodeTypes.cvNode:
+        nodeID = this.addCVNode(nodeData, nodeOffset);
+        break;
+      default:
+        alert("None of the defined types :\\");
+        break;
+    }
+    /*
     if (nodeData.selected) {
       this.cydyna.$("#" + nodeID).select();
     }
+    */
+    this.refreshLayout();
+    return nodeID;
+  }
 
+  public getParentIDDroppedInto = () => {
+    const nodeOffset = this.props.cytoState.lastDroppedNodeOffset;
+    let parentID = -1;
+    const elements = this.cydyna._private.elements;
+    if (elements.length > 0) {
+      if (this.props.cytoState.cvNodesLength > 0) {
+        parentID = this.searchInSpesificParentNodeGroup(elements, NodeTypes.cvNode, nodeOffset);
+      }
+      // look!: this.props.cytoState.pipelineNodesLength is 2, but it should be 1.
+      if (parentID === -1 && this.props.cytoState.pipelineNodesLength > 0) {
+        parentID = this.searchInSpesificParentNodeGroup(elements, NodeTypes.pipelineNode, nodeOffset);
+      }
+      if (parentID === -1 && this.props.cytoState.taskNodesLength > 0) {
+        parentID = this.searchInSpesificParentNodeGroup(elements, NodeTypes.taskNode, nodeOffset);
+      }
+
+    }
+    return parentID;
+  }
+
+  public searchInSpesificParentNodeGroup = (elements, nodeType, nodeOffset) => {
+    let parentID = -1;
+    elements.map((element) => {
+      if (element._private.data.nodeType === nodeType) {
+          const parentBoundingBox = element.boundingBox();
+          if (this.isNodeInBoundingBox( nodeOffset, element, parentBoundingBox )) {
+            parentID = element._private.data.id;
+            return parentID;
+          }
+      }
+    });
+    return parentID;
+  }
+  public isNodeInBoundingBox = (nodeOffset, element, parentBoundingBox) => {
+      if (
+        nodeOffset.x > element._private.position.x - parentBoundingBox.w / 2 &&
+        nodeOffset.x < element._private.position.x + parentBoundingBox.w / 2 &&
+        nodeOffset.y > element._private.position.y - parentBoundingBox.h / 2 &&
+        nodeOffset.y < element._private.position.y + parentBoundingBox.h / 2
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+  }
+  public addInnerNode = (nodeData, nodeOffset) => {
+   const nodeID = this.cydyna
+      .add({
+        data: nodeData,
+        group: "nodes",
+        position: { x: nodeOffset.x, y: nodeOffset.y},
+        style: {
+          backgroundColor: "white",
+          height: 50,
+          shape: "ellipse",
+          width: 50,
+        },
+      })
+      .id();
+   return nodeID;
+  }
+
+  public addPipelineNode = (nodeData, nodeOffset) => {
+    const nodeID = this.cydyna
+        .add({
+          data: nodeData,
+          group: "nodes",
+          position: { x: nodeOffset.x, y: nodeOffset.y},
+          style: {
+            backgroundColor: "green",
+            height: 50,
+            shape: "rectangle",
+            width: 100,
+          },
+        })
+        .id();
+    this.props.increasePipelineNodesLength();
+    return nodeID;
+  }
+
+  public addCVNode = (nodeData, nodeOffset) => {
+    const nodeID = this.cydyna
+        .add({
+          data: nodeData,
+          group: "nodes",
+          position: { x: nodeOffset.x, y: nodeOffset.y},
+          style: {
+            backgroundColor: "orange",
+            height: 50,
+            shape: "rectangle",
+            width: 50,
+          },
+        })
+        .id();
+    this.props.increaseCVNodesLength();
+    return nodeID;
+  }
+  public prepareTaskNodeData = () => {
+    let nodeId = "task";
+    let visibleName = "Task node ";
+    if
+    (
+      this.props.cytoState.taskNodesLength &&
+      this.props.cytoState.taskNodesLength > 0
+    ) {
+        nodeId += `${this.props.cytoState.taskNodesLength}`;
+        visibleName += `${this.props.cytoState.taskNodesLength + 1}`;
+    } else {
+        nodeId += "0";
+        visibleName += "1";
+    }
+    return {
+        data: {
+          id: nodeId,
+          nodeType: NodeTypes.taskNode,
+          parent: "none",
+          visibleName,
+        },
+    };
+  }
+  public addTaskNode = (node) => {
+    const nodeOffset = this.props.cytoState.lastDroppedNodeOffset;
+    this.cydyna.add({
+      classes: "",
+      data: node.data,
+      //grabbable: true, // is this default?
+      //grabbed: false,
+      group: "nodes",
+      position: { x: nodeOffset.x, y: nodeOffset.y},
+      //locked: false,
+      //removed: false,
+      style: {
+        backgroundOpacity: 0.333,
+        height: 125,
+        shape: "ellipse",
+        width: 125,
+      },
+    });
+    this.props.increaseTaskNodesLength();
     this.refreshLayout();
 
-    return nodeID;
+    return node.data.id;
   }
 
   public addEdge = (sourceNodeID, targetNodeID) => {
@@ -251,33 +418,8 @@ class CytoGraph extends Component<PropsAndStyle, ICytoState> {
     return edgeID;
   }
 
-  public addParent = (parentData) => {
-    const parentID = this.cydyna.add({
-      classes: "",
-      data: parentData.data,
-      //grabbable: true,
-      //grabbed: false,
-      group: "nodes",
-      //locked: false,
-      nodeType: "PARENT",
-      //removed: false,
-      //selectable: true,
-      //selected: false,
-      /*style: {
-        backgroundOpacity: 0.333,
-        height: 125,
-        shape: "rectangle",
-        width: 125,
-      },*/
-    });
-
-    this.refreshLayout();
-
-    return parentID;
-  }
-
   public addEdgeFromSelectedNodeToGivenNode = (nodeData) => {
-    this.setState({
+    this.setState({ // TODO: use Redux
       isPrimitiveLevelLayoutRefreshBlocked: true,
     });
 
@@ -291,7 +433,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoState> {
 
     this.refreshLayout();
 
-    this.setState({
+    this.setState({ // TODO: use Redux
       isPrimitiveLevelLayoutRefreshBlocked: false,
     });
 
@@ -301,7 +443,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoState> {
    * Json
    */
   public getGraphJSON() {
-    this.cydyna.json();
+    return this.cydyna.json();
   }
 
   public edgeAdditionPolicyChecker = (sourceNode, targetNode) => {
@@ -370,22 +512,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoState> {
     this.refreshLayout();
   }
 
-  public addDefaultNode = () => {
-    this.setState({
-      nodeId: this.addNode({
-        data: {
-          // id: "cat"
-        },
-        style: {
-          backgroundColor: "gray",
-          height: 50,
-          shape: "rectangle",
-          width: 50,
-        },
-      }),
-    });
-  }
-
+  /*
   public setNodeData = (nodeData) => {
     const selected = this.getElement(this.state.nodeId);
     (selected.data = jsonNodeData.data), (selected.style = jsonNodeData.style);
@@ -401,6 +528,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoState> {
       alert("node ready");
     },         2000);
   }
+  */
 
   public setNodeStyle = (nodeId, nodeStyle) => {
     this.cydyna.$id(nodeId).style(nodeStyle);

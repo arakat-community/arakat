@@ -36,6 +36,7 @@ class Request <T> {
         /**
          * this part intercepts request and adds access_token to header
          */
+
         axios.interceptors.request.use((axiosConfig: AxiosRequestConfig) => {
             axiosConfig.baseURL = baseUrl;
 
