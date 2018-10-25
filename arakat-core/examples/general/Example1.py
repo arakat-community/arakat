@@ -20,8 +20,8 @@ data={
                     "can_infer_schema": True,
                     "file_type": "csv",
                     "parameters": {
-                        "path": {"value": "filepath.csv", "type": "string"},
-                        "header": {"value": False, "type": "boolean"},
+                        "path": {"value": "file:///usr/local/spark_code/train.csv", "type": "string"},
+                        "header": {"value": True, "type": "boolean"},
                         "sep": {"value": ",", "type": "string"},
                         "quote": {"value": '\\\"', "type": "string"}
                     },
@@ -43,7 +43,7 @@ data={
                     "produces_model": False,
                     "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "targetfilepath.parquet", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/example1/", "type": "string"}
                     },
                     "df_constraints": []
                 },
