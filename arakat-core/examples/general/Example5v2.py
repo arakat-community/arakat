@@ -45,7 +45,7 @@ data={
                   "ddfo_name": "dropna",
                   "parameters": {
                         "how": {"value": "any", "type": "string"},
-                        "thresh": {"value": 3, "type": "integer"},
+                        "thresh": {"value": 12, "type": "integer"},
                         "subset": {"value": ["PassengerId","Survived","Pclass","Name","Sex","Age","SibSp","Parch","Ticket","Fare","Cabin","Embarked"], "type": "array[string]"},
                     }
                 },
@@ -114,7 +114,7 @@ data={
             "node6":
                 {
                     "id": "node6",
-                    "parent": "node7",
+                    "parent": "node18",
                     "node_id": 32,
                     "name": "Random Forest Classifier",
                     "category": 11,
@@ -157,7 +157,7 @@ data={
             "node8":
                 {
                     "id": "node8",
-                    "parent": "task1",
+                    "parent": "node18",
                     "node_id": 25,
                     "name": "Multi-class Classification Evaluator",
                     "category": 12,
@@ -190,7 +190,7 @@ data={
                     "is_splitter": False,
                     "produces_model": False,
                     "parameters": {
-                        "model_path": {"value": "hdfs:namenode:9000/exmp2/", "type": "string"}
+                        "model_path": {"value": "hdfs://namenode:9000/model/", "type": "string"}
                     },
                 },
             "node10":
@@ -209,6 +209,7 @@ data={
                     "produces_model": False,
                     "parameters": {},
                 },
+
             "node11":
                 {
                     "id": "node11",
@@ -234,25 +235,6 @@ data={
                 {
                     "id": "node12",
                     "parent": "task1",
-                    "node_id": 60,
-                    "name": "Batch Write to Orc",
-                    "category": 1,
-                    "node_type": 0,
-                    "family": 2,
-                    "compatible_with_stream": False,
-                    "compatible_stream_output_modes": [],
-                    "compatible_with_spark_pipeline": False,
-                    "is_splitter": False,
-                    "produces_model": False,
-                    "file_type": "orc",
-                    "parameters": {
-                        "path": {"value": "hdfs:namenode:9000/exmp2/orc/", "type": "string"}
-                    }
-                },
-            "node13":
-                {
-                    "id": "node13",
-                    "parent": "task1",
                     "node_id": 61,
                     "name": "Batch Write to Parquet",
                     "category": 1,
@@ -265,10 +247,161 @@ data={
                     "produces_model": False,
                     "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "targetfilepathForEvalResult2.parquet", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/example5/targetfilepathForEvalResult2.parquet", "type": "string"}
                     }
                 },
-            "node21":
+                "node13":
+                {
+                    "id": "node13",
+                    "parent": "task2",
+                    "node_id": 48,
+                    "name": "Batch Read from Orc",
+                    "category": 0,
+                    "node_type": 0,
+                    "family": 0,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "can_infer_schema": False,
+                    "file_type": "orc",
+                    "parameters": {
+                        "path": {"value": "hdfs://namenode:9000/example5/filepath.orc", "type": "string"}
+                    }
+                },
+                "node14":
+                {
+                    "id": "node14",
+                    "parent": "task2",
+                    "node_id": 63,
+                    "name": "Model Loader",
+                    "category": 3,
+                    "node_type": 0,
+                    "family": 10,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": True,
+                    "parameters": {
+                        "model_path": {"value": "pathToMyModel", "type": "string"},
+                        "model_type": {"value": "PipelineModel", "type": "string"}
+                    }
+                },
+                "node15":
+                {
+                    "id": "node15",
+                    "parent": "task2",
+                    "node_id": 65,
+                    "name": "Model Apply",
+                    "category": 3,
+                    "node_type": 0,
+                    "family": 9,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "parameters": {},
+                },
+                "node16":
+                {
+                    "id": "node16",
+                    "parent": "task2",
+                    "node_id": 25,
+                    "name": "Multi-class Classification Evaluator",
+                    "category": 12,
+                    "node_type": 0,
+                    "family": 7,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "evaluator_name": "MulticlassClassificationEvaluator",
+                    "parameters": {
+                        "labelCol": {"value": "indexedSurvived", "type": "string"},
+                        "predictionCol": {"value": "prediction", "type": "string"},
+                        "metricName": {"value": "accuracy", "type": "string"}
+                    },
+                },
+                "node17":
+                {
+                    "id": "node17",
+                    "parent": "task2",
+                    "node_id": 59,
+                    "name": "Batch Write to CSV",
+                    "category": 1,
+                    "node_type": 0,
+                    "family": 2,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "file_type": "csv",
+                    "parameters": {
+                        "path": {"value": "hdfs://namenode:9000/example5/targetfilepathForEvalResult3.csv", "type": "string"}
+                    }
+                },
+                "node18":
+                {
+                    "id": "node18",
+                    "parent": "task1",
+                    "node_id": 66,
+                    "name": "Cross Validator",
+                    "category": 3,
+                    "node_type": 3,
+                    "family": 4,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": True,
+                    "parameters": {
+                        "parameter_grid": {"maxDepth": {"value": [3, 5, 8, 20], "type": "array[integer]"}}
+                    }
+                },
+                "node19":
+                {
+                    "id": "node19",
+                    "parent": "task1",
+                    "node_id": 49,
+                    "name": "Batch Read from Parquet",
+                    "category": 0,
+                    "node_type": 0,
+                    "family": 0,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "can_infer_schema": False,
+                    "file_type": "parquet",
+                    "parameters": {
+                        "path": {"value": "filepath2.csv", "type": "string"}
+                    }
+                },
+                "node20":
+                {
+                    "id": "node20",
+                    "parent": "task1",
+                    "node_id": 68,
+                    "name": "Join",
+                    "category": 2,
+                    "node_type": 0,
+                    "family": 8,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "parameters": {
+                        "join_column": {"value": "column_name_to_join", "type": "string"}
+                    }
+                },
+                "node21":
                 {
                     "id": "node21",
                     "node_id": 69,
@@ -289,7 +422,7 @@ data={
                       "outputCol": {"value": "sexVec", "type": "string"},
                     }
                 },
-            "node22":
+                "node22":
                 {
                     "id": "node22",
                     "node_id": 69,
@@ -310,7 +443,7 @@ data={
                       "outputCol": {"value": "embarkedVec", "type": "string"},
                     }
                 },
-            "node23":
+                "node23":
                 {
                     "id": "node23",
                     "parent": "task1",
@@ -330,25 +463,36 @@ data={
                 "id": "task1",
                 "parent": None,
                 "node_type": 1
+            },
+            "task2": {
+                "id": "task2",
+                "parent": None,
+                "node_type": 1
             }
         },
         "edges": {
-            "node1-node2": {"type": "dataframe"},
+            "node1-node20": {"type": "dataframe", "order": 1},
+            "node19-node20": {"type": "dataframe", "order": 0},
+            "node20-node2": {"type": "dataframe"},
             "node2-node3": {"type": "dataframe"},
             "node3-node7": {"type": "dataframe", "portion": 0},
             "node4-node21": {"type": "pipeline"},
             "node21-node22": {"type": "pipeline"},
             "node22-node5": {"type": "pipeline"},
-            "node5-node6": {"type": "pipeline"},
-            "node7-node8": {"type": "dataframe"},
-            "node7-node10": {"type": "model"},
+            "node7-node18": {"type": "dataframe"},
+            "node6-node8": {"type": "cv"},
+            "node18-node9": {"type": "model"},
             "node3-node10": {"type": "dataframe", "portion": 1},
-            "node8-node9": {"type": "dataframe"},
-            "node8-node23": {"type": "model"},
+            "node7-node10": {"type": "model"},
             "node10-node23": {"type": "dataframe"},
+            "node18-node23": {"type": "model"},
             "node23-node11": {"type": "dataframe"},
-            "node8-node12": {"type": "dataframe"},
-            "node11-node13": {"type": "dataframe"}
+            "node11-node12": {"type": "dataframe"},
+            "node13-node15": {"type": "dataframe"},
+            "node14-node15": {"type": "model"},
+            "node15-node16": {"type": "dataframe"},
+            "node16-node17": {"type": "dataframe"},
+            "task1-task2": {"type": "upstream"}
         }
     },
     "dag_properties": {
@@ -368,3 +512,5 @@ data={
 }
 
 code_info, success, errors, additional_info = PipelineGenerator.generate_pipeline(data["graph"], data["dag_properties"])
+print(errors)
+print(success)

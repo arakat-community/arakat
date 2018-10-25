@@ -22,8 +22,8 @@ data={
                     "can_infer_schema": True,
                     "file_type": "csv",
                     "parameters": {
-                        "path": {"value": "filepath.csv", "type": "string"},
-                        "header": {"value": False, "type": "boolean"},
+                        "path": {"value": "file:///usr/local/spark_code/train.csv", "type": "string"},
+                        "header": {"value": True, "type": "boolean"},
                         "sep": {"value": ",", "type": "string"},
                         "quote": {"value": '\\\"', "type": "string"}
                     }
@@ -45,8 +45,8 @@ data={
                   "ddfo_name": "dropna",
                   "parameters": {
                         "how": {"value": "any", "type": "string"},
-                        "thresh": {"value": 3, "type": "integer"},
-                        "subset": {"value": ["c1", "c2", "c3"], "type": "array[string]"},
+                        "thresh": {"value": 12, "type": "integer"},
+                        "subset": {"value": ["PassengerId","Survived","Pclass","Name","Sex","Age","SibSp","Parch","Ticket","Fare","Cabin","Embarked"], "type": "array[string]"},
                     }
                 },
             "node3":
@@ -175,7 +175,7 @@ data={
                         "metricName": {"value": "accuracy", "type": "string"}
                     },
                 },
-            "node9":
+             "node9":
                 {
                     "id": "node9",
                     "parent": "task1",
@@ -190,7 +190,7 @@ data={
                     "is_splitter": False,
                     "produces_model": False,
                     "parameters": {
-                        "model_path": {"value": "path_to_save_model", "type": "string"}
+                        "model_path": {"value": "hdfs://namenode:9000/model/", "type": "string"}
                     },
                 },
             "node10":
@@ -246,10 +246,10 @@ data={
                     "produces_model": False,
                     "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "targetfilepathForEvalResult2.parquet", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/example5/targetfilepathForEvalResult2.parquet", "type": "string"}
                     }
                 },
-                "node13":
+                 "node13":
                 {
                     "id": "node13",
                     "parent": "task2",
@@ -266,7 +266,7 @@ data={
                     "can_infer_schema": False,
                     "file_type": "orc",
                     "parameters": {
-                        "path": {"value": "filepath.orc", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/example5/filepath.orc", "type": "string"}
                     }
                 },
                 "node14":
@@ -341,7 +341,7 @@ data={
                     "produces_model": False,
                     "file_type": "csv",
                     "parameters": {
-                        "path": {"value": "targetfilepathForEvalResult3.csv", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/example5/targetfilepathForEvalResult3.csv", "type": "string"}
                     }
                 },
                 "node18":
@@ -359,8 +359,66 @@ data={
                     "is_splitter": False,
                     "produces_model": True,
                     "parameters": {
-                        "parameter_grid": {}
+                        "parameter_grid": {"maxDepth": {"value": [3, 5, 8, 20], "type": "array[integer]"}}
                     }
+                },
+                "node21":
+                {
+                    "id": "node21",
+                    "node_id": 69,
+                    "name": "One-hot Encoder",
+                    "parent": "node7",
+                    "category": 8,
+                    "node_type": 0,
+                    "family": 18,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": True,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "transformer_name": "OneHotEncoder",
+                    "multi_instance_indicator": ["inputCol", "outputCol"],
+                    "parameters": {
+                      "inputCol": {"value": "indexedSex", "type": "string"},
+                      "outputCol": {"value": "sexVec", "type": "string"},
+                    }
+                },
+                "node22":
+                {
+                    "id": "node22",
+                    "node_id": 69,
+                    "name": "One-hot Encoder",
+                    "parent": "node7",
+                    "category": 8,
+                    "node_type": 0,
+                    "family": 18,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": True,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "transformer_name": "OneHotEncoder",
+                    "multi_instance_indicator": ["inputCol", "outputCol"],
+                    "parameters": {
+                      "inputCol": {"value": "indexedEmbarked", "type": "string"},
+                      "outputCol": {"value": "embarkedVec", "type": "string"},
+                    }
+                },
+                "node23":
+                {
+                    "id": "node23",
+                    "parent": "task1",
+                    "node_id": 65,
+                    "name": "Model Apply",
+                    "category": 3,
+                    "node_type": 0,
+                    "family": 9,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "parameters": {},
                 },
             "task1": {
                 "id": "task1",
@@ -377,13 +435,17 @@ data={
             "node1-node2": {"type": "dataframe"},
             "node2-node3": {"type": "dataframe"},
             "node3-node7": {"type": "dataframe", "portion": 0},
-            "node4-node5": {"type": "pipeline"},
+            "node4-node21": {"type": "pipeline"},
+            "node21-node22": {"type": "pipeline"},
+            "node22-node5": {"type": "pipeline"},
             "node7-node18": {"type": "dataframe"},
             "node6-node8": {"type": "cv"},
             "node18-node9": {"type": "model"},
             "node3-node10": {"type": "dataframe", "portion": 1},
-            "node18-node10": {"type": "model"},
-            "node10-node11": {"type": "dataframe"},
+            "node7-node10": {"type": "model"},
+            "node10-node23": {"type": "dataframe"},
+            "node18-node23": {"type": "model"},
+            "node23-node11": {"type": "dataframe"},
             "node11-node12": {"type": "dataframe"},
             "node13-node15": {"type": "dataframe"},
             "node14-node15": {"type": "model"},
