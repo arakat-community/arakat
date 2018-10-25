@@ -363,9 +363,9 @@ data={
                         "path": {"value": "targetfilepathForEvalResult3.csv", "type": "string"}
                     }
                 },
-                "node21":
+                "node19":
                 {
-                    "id": "node21",
+                    "id": "node19",
                     "node_id": 69,
                     "name": "One-hot Encoder",
                     "parent": "node7",
@@ -384,9 +384,9 @@ data={
                       "outputCol": {"value": "sexVec", "type": "string"},
                     }
                 },
-                "node22":
+                "node20":
                 {
-                    "id": "node22",
+                    "id": "node20",
                     "node_id": 69,
                     "name": "One-hot Encoder",
                     "parent": "node7",
@@ -420,9 +420,9 @@ data={
             "node1-node2": {"type": "dataframe"},
             "node2-node3": {"type": "dataframe"},
             "node3-node7": {"type": "dataframe", "portion": 0},
-            "node4-node21": {"type": "pipeline"},
-            "node21-node22": {"type": "pipeline"},
-            "node22-node5": {"type": "pipeline"},
+            "node4-node19": {"type": "pipeline"},
+            "node19-node20": {"type": "pipeline"},
+            "node20-node5": {"type": "pipeline"},
             "node5-node6": {"type": "pipeline"},
             "node7-node8": {"type": "dataframe"},
             "node7-node9": {"type": "model"},
