@@ -310,6 +310,7 @@ data={
                       "outputCol": {"value": "embarkedVec", "type": "string"},
                     }
                 },
+            
             "node23":
                 {
                     "id": "node23",
