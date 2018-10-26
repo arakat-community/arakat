@@ -13,6 +13,7 @@ import {getLocale, Messages} from "./localization";
 import LocalizationLanguages from "./localization/languages";
 import {IApplicationState} from "./store";
 
+//TODO: is this initialization necessary? why? it is done in reducers already.
 const applicationInitialState: IApplicationState = {
     appConfig: {
         appLogo: "/assets/images/logo.png",
@@ -27,6 +28,18 @@ const applicationInitialState: IApplicationState = {
         nodeTree: {
             data: [],
         },
+    },
+    cyto: {
+        nodeSpecs: [],
+        cvNodesLength: 0,
+        pipelineNodesLength: 0,
+        taskNodesLength: 0,
+        existingNodes: [],
+        lastDroppedNodeOffset: {
+            x: 0,
+            y: 0,
+        },
+        isPrimitiveLevelLayoutRefreshBlocked: false,
     },
     form: null,
     localization: {

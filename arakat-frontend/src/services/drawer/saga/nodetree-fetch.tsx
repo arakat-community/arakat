@@ -11,8 +11,6 @@ function* nodeTreeFetch() {
         const nodeTree: INodeTree = {
             data: yield call(fetchNodeTree),
         };
-        console.log("nodeTreeFetch - saga.");
-        console.log(nodeTree);
         if (nodeTree) {
             yield put(nodeTreeFetched(nodeTree));
         }
