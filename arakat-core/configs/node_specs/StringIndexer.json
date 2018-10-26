@@ -28,7 +28,7 @@
         "optional": true,
         "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}
       },
-      "stringIndexerOrderType": {
+      "stringOrderType": {
         "visible_name": "Order Type",
         "type_constraint": [
           "string"

@@ -87,7 +87,7 @@ data={
                   "parameters": {
                       "inputCol": {"value": ["Sex", "Embarked", "Survived"], "type": "array[string]"},
                       "outputCol": {"value": ["indexedSex", "indexedEmbarked", "indexedSurvived"], "type": "array[string]"},
-                      "stringIndexerOrderType": {"value": "frequencyDesc", "type": "string"},
+                      "stringOrderType": {"value": "frequencyDesc", "type": "string"},
                       "handleInvalid": {"value": "error", "type": "string"}
                   }
                 },
@@ -107,7 +107,7 @@ data={
                     "produces_model": False,
                     "transformer_name": "VectorAssembler",
                     "parameters": {
-                        "inputCol": {"value": ["Pclass","sexVec","Age","SibSp","Fare","embarkedVec"], "type": "array[string]"},
+                        "inputCols": {"value": ["Pclass","sexVec","Age","SibSp","Fare","embarkedVec"], "type": "array[string]"},
                         "outputCol": {"value": "features", "type": "string"}
                     }
                 },
@@ -411,3 +411,5 @@ data={
 }
 
 code_info, success, errors, additional_info = PipelineGenerator.generate_pipeline(data["graph"], data["dag_properties"])
+print(errors)
+print(success)
