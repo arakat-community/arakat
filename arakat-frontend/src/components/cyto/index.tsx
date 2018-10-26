@@ -266,7 +266,6 @@ class CytoGraph extends Component<PropsAndStyle, ICytoState> {
       if (this.props.cytoState.cvNodesLength > 0) {
         parentID = this.searchInSpesificParentNodeGroup(elements, NodeTypes.cvNode, nodeOffset);
       }
-      // look!: this.props.cytoState.pipelineNodesLength is 2, but it should be 1.
       if (parentID === -1 && this.props.cytoState.pipelineNodesLength > 0) {
         parentID = this.searchInSpesificParentNodeGroup(elements, NodeTypes.pipelineNode, nodeOffset);
       }
@@ -314,6 +313,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoState> {
           height: 50,
           shape: "ellipse",
           width: 50,
+          color: "white",
         },
       })
       .id();
@@ -331,6 +331,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoState> {
             height: 50,
             shape: "rectangle",
             width: 100,
+            color: "white",
           },
         })
         .id();
@@ -349,6 +350,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoState> {
             height: 50,
             shape: "rectangle",
             width: 50,
+            color: "white",
           },
         })
         .id();
@@ -394,6 +396,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoState> {
         height: 125,
         shape: "ellipse",
         width: 125,
+        color: "white",
       },
     });
     this.props.increaseTaskNodesLength();

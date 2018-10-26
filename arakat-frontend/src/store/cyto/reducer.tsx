@@ -37,13 +37,13 @@ const reducer: Reducer<ICytoState> = (state: ICytoState = initialState, action: 
             };
         }
         case "@@cyto/INCREASE_CVNODES_LENGTH":
-            const cvNodesLength = state.taskNodesLength + 1;
+            const cvNodesLength = state.cvNodesLength + 1;
             return {
                 ...state,
                 cvNodesLength,
             };
         case "@@cyto/INCREASE_PIPELINENODES_LENGTH":
-            const pipelineNodesLength = state.taskNodesLength + 1;
+            const pipelineNodesLength = state.pipelineNodesLength + 1;
             return {
                 ...state,
                 pipelineNodesLength,
