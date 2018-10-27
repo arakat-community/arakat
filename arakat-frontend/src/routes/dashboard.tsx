@@ -12,7 +12,7 @@ import { FormattedMessage } from "react-intl";
 import { ICollapsibleRoute } from "../common/models/route/collapsible";
 import { IRouteGroup } from "../common/models/route/group";
 import NotFoundView from "../views/error/not-found";
-import CytoView from "../views/test/cyto-view";
+// import CytoView from "../views/test/cyto-view";
 import Test2View from "../views/test2";
 import Test3View from "../views/test3";
 import { routes as userOperationRoutes } from "./appbar-shortcut";

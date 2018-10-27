@@ -43,9 +43,13 @@ def __generate_stage_template(node, args):
     for i in range(len(node["multi_instance_indicator"])):
         mmi_part.extend([node["multi_instance_indicator"][i] + "=" + "mmi_value_" + str(i) + "_" + node["id"] + "[i]", ", "])
 
+    arg_part = CodeGenerationUtils.handle_arguments(node["parameters"], args)
+    if (not bool(arg_part)):
+        mmi_part.pop()
+
     code.extend(["stages_"+node["id"], ".append(", class_name + '('])
     code.extend(mmi_part)
-    code.extend(CodeGenerationUtils.handle_arguments(node["parameters"], args))
+    code.extend(arg_part)
     code.extend(["))", os.linesep])
 
     return ''.join(code)

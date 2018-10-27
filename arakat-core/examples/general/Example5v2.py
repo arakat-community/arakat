@@ -175,7 +175,7 @@ data={
                         "metricName": {"value": "accuracy", "type": "string"}
                     },
                 },
-             "node9":
+            "node9":
                 {
                     "id": "node9",
                     "parent": "task1",
@@ -209,6 +209,7 @@ data={
                     "produces_model": False,
                     "parameters": {},
                 },
+
             "node11":
                 {
                     "id": "node11",
@@ -249,7 +250,7 @@ data={
                         "path": {"value": "hdfs://namenode:9000/example5/targetfilepathForEvalResult2.parquet", "type": "string"}
                     }
                 },
-                 "node13":
+                "node13":
                 {
                     "id": "node13",
                     "parent": "task2",
@@ -362,6 +363,44 @@ data={
                         "parameter_grid": {"maxDepth": {"value": [3, 5, 8, 20], "type": "array[integer]"}}
                     }
                 },
+                "node19":
+                {
+                    "id": "node19",
+                    "parent": "task1",
+                    "node_id": 49,
+                    "name": "Batch Read from Parquet",
+                    "category": 0,
+                    "node_type": 0,
+                    "family": 0,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "can_infer_schema": False,
+                    "file_type": "parquet",
+                    "parameters": {
+                        "path": {"value": "filepath2.csv", "type": "string"}
+                    }
+                },
+                "node20":
+                {
+                    "id": "node20",
+                    "parent": "task1",
+                    "node_id": 68,
+                    "name": "Join",
+                    "category": 2,
+                    "node_type": 0,
+                    "family": 8,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "parameters": {
+                        "join_column": {"value": "column_name_to_join", "type": "string"}
+                    }
+                },
                 "node21":
                 {
                     "id": "node21",
@@ -432,7 +471,9 @@ data={
             }
         },
         "edges": {
-            "node1-node2": {"type": "dataframe"},
+            "node1-node20": {"type": "dataframe", "order": 1},
+            "node19-node20": {"type": "dataframe", "order": 0},
+            "node20-node2": {"type": "dataframe"},
             "node2-node3": {"type": "dataframe"},
             "node3-node7": {"type": "dataframe", "portion": 0},
             "node4-node21": {"type": "pipeline"},
@@ -471,3 +512,5 @@ data={
 }
 
 code_info, success, errors, additional_info = PipelineGenerator.generate_pipeline(data["graph"], data["dag_properties"])
+print(errors)
+print(success)

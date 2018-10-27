@@ -22,8 +22,8 @@ data={
                     "can_infer_schema": True,
                     "file_type": "csv",
                     "parameters": {
-                        "path": {"value": "filepath.csv", "type": "string"},
-                        "header": {"value": False, "type": "boolean"},
+                        "path": {"value": "file:///usr/local/spark_code/train.csv", "type": "string"},
+                        "header": {"value": True, "type": "boolean"},
                         "sep": {"value": ",", "type": "string"},
                         "quote": {"value": '\\\"', "type": "string"}
                     }
@@ -45,8 +45,8 @@ data={
                   "ddfo_name": "dropna",
                   "parameters": {
                         "how": {"value": "any", "type": "string"},
-                        "thresh": {"value": 3, "type": "integer"},
-                        "subset": {"value": ["c1", "c2", "c3"], "type": "array[string]"},
+                        "thresh": {"value": 12, "type": "integer"},
+                        "subset": {"value": ["PassengerId","Survived","Pclass","Name","Sex","Age","SibSp","Parch","Ticket","Fare","Cabin","Embarked"], "type": "array[string]"},
                     }
                 },
             "node3":
@@ -190,7 +190,7 @@ data={
                     "is_splitter": False,
                     "produces_model": False,
                     "parameters": {
-                        "model_path": {"value": "path_to_save_model", "type": "string"}
+                        "model_path": {"value": "hdfs://namenode:9000/exmp2_model/", "type": "string"}
                     },
                 },
             "node10":
@@ -268,6 +268,48 @@ data={
                         "path": {"value": "targetfilepathForEvalResult2.parquet", "type": "string"}
                     }
                 },
+            "node14":
+                {
+                    "id": "node14",
+                    "node_id": 69,
+                    "name": "One-hot Encoder",
+                    "parent": "node7",
+                    "category": 8,
+                    "node_type": 0,
+                    "family": 18,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": True,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "transformer_name": "OneHotEncoder",
+                    "multi_instance_indicator": ["inputCol", "outputCol"],
+                    "parameters": {
+                      "inputCol": {"value": "indexedSex", "type": "string"},
+                      "outputCol": {"value": "sexVec", "type": "string"},
+                    }
+                },
+            "node15":
+                {
+                    "id": "node15",
+                    "node_id": 69,
+                    "name": "One-hot Encoder",
+                    "parent": "node7",
+                    "category": 8,
+                    "node_type": 0,
+                    "family": 18,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": True,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "transformer_name": "OneHotEncoder",
+                    "multi_instance_indicator": ["inputCol", "outputCol"],
+                    "parameters": {
+                      "inputCol": {"value": "indexedEmbarked", "type": "string"},
+                      "outputCol": {"value": "embarkedVec", "type": "string"},
+                    }
+                },
             "task1": {
                 "id": "task1",
                 "parent": None,
@@ -278,7 +320,9 @@ data={
             "node1-node2": {"type": "dataframe"},
             "node2-node3": {"type": "dataframe"},
             "node3-node7": {"type": "dataframe", "portion": 0},
-            "node4-node5": {"type": "pipeline"},
+            "node4-node14": {"type": "pipeline"},
+            "node14-node15": {"type": "pipeline"},
+            "node15-node5": {"type": "pipeline"},
             "node5-node6": {"type": "pipeline"},
             "node7-node8": {"type": "dataframe"},
             "node7-node9": {"type": "model"},
@@ -306,3 +350,4 @@ data={
 }
 
 code_info, success, errors, additional_info = PipelineGenerator.generate_pipeline(data["graph"], data["dag_properties"])
+print(errors)

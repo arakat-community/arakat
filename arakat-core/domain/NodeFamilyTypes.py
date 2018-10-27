@@ -29,3 +29,4 @@ class NodeFamilyTypes(Enum):
     HypothesisTesting = 25
     SQL = 26
     When = 27
+    VectorDisassembler=28
