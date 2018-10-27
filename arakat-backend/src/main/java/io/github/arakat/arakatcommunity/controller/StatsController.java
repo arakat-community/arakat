@@ -28,16 +28,16 @@ public class StatsController {
         return new ResponseEntity<>(statsService.getDAGStatsFromAirflow(dagId).toString(), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/get-dag-logs-from-airflow/{taskId}", method = RequestMethod.GET)
+    public ResponseEntity<String> getTaskStats(@PathVariable("taskId") String taskId) throws IOException {
+
+        return new ResponseEntity<>(statsService.getTaskStatsFromAirflow(taskId).toString(), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/get-task-logs-from-airflow/{dagId}/{taskId}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, String>> getTaskLogs(@PathVariable("dagId") String dagId,
                                            @PathVariable("taskId") String taskId) throws IOException {
 
         return new ResponseEntity<>(statsService.getDagLogsFromAirflow(dagId, taskId), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/get-dag-logs-from-airflow/{taskId}", method = RequestMethod.GET)
-    public ResponseEntity<String> getTaskStats(@PathVariable("taskId") String taskId) throws IOException {
-
-        return new ResponseEntity<>(statsService.getTaskStatsFromAirflow(taskId).toString(), HttpStatus.OK);
     }
 }

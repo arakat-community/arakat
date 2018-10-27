@@ -38,17 +38,17 @@ public class StatsService {
         String url = appPropertyValues.getAirflowUrl() + ":" + appPropertyValues.getAirflowPort() +
                 appPropertyValues.getAirflowDagStatusPath();
 
-        return getItemsById(url, dagId);
+        return getStatsById(url, dagId);
     }
 
     public JSONArray getTaskStatsFromAirflow(String taskId) throws IOException {
         String url = appPropertyValues.getAirflowUrl() + ":" + appPropertyValues.getAirflowPort() +
                 appPropertyValues.getAirflowTaskStatusPath();
 
-        return getItemsById(url, taskId);
+        return getStatsById(url, taskId);
     }
 
-    private JSONArray getItemsById(String url, String id) throws IOException {
+    private JSONArray getStatsById(String url, String id) throws IOException {
         JSONObject result = sendGetRequestAndReturnResponse(url);
 
         for (String key : iteratorToIterable(result != null ? result.keys() : null)) {
