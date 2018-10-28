@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class JSONReaderService {
+public class JsonReaderService {
 
     @Value("${json.config.folder}")
     String jsonConfigFolder;
@@ -30,7 +30,7 @@ public class JSONReaderService {
     private AppPropertyValues appPropertyValues;
 
     @Autowired
-    public JSONReaderService(NodeService nodeService, MongoTemplate mongoTemplate, AppPropertyValues appPropertyValues) {
+    public JsonReaderService(NodeService nodeService, MongoTemplate mongoTemplate, AppPropertyValues appPropertyValues) {
         this.nodeService = nodeService;
         this.mongoTemplate = mongoTemplate;
         this.appPropertyValues = appPropertyValues;

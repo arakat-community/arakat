@@ -56,6 +56,15 @@ public class AppPropertyValues {
     @Value("${airflow.dag.logs.file.path}")
     private String airflowDagLogsFilePath;
 
+    @Value("${spark.url}")
+    private String sparkUrl;
+
+    @Value("${hdfs.url}")
+    private String hdfsUrl;
+
+    @Value("${spark.master}")
+    private String sparkMaster;
+
     public String getDatabase() {
         return database;
     }
@@ -122,5 +131,17 @@ public class AppPropertyValues {
 
     public String getAirflowDagLogsFilePath() {
         return airflowDagLogsFilePath;
+    }
+
+    public String getSparkUrl() {
+        return sparkUrl;
+    }
+
+    public String getHdfsUrl() {
+        return hdfsUrl;
+    }
+
+    public String getSparkMaster() {
+        return sparkMaster;
     }
 }

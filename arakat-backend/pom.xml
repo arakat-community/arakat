@@ -27,6 +27,7 @@
 		<starter.data.mongo.version>2.0.5.RELEASE</starter.data.mongo.version>
 		<json.version>20180813</json.version>
 		<spark.version>2.3.2</spark.version>
+		<apache.commons.version>2.6</apache.commons.version>
 	</properties>
 
 	<dependencies>
@@ -89,9 +90,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>15.0</version>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-sql_2.11</artifactId>
+			<version>${spark.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${apache.commons.version}</version>
 		</dependency>
 
 		<dependency>

@@ -37,8 +37,4 @@ public class CategoryService {
         category.setCategories(children);
         return categoryRepository.save(category);
     }
-
-//    private <T> Boolean checkNotEmptyOrNull(List<T> list) {
-//        return list != null && list.size() != 0;
-//    }
 }
