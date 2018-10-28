@@ -6,6 +6,6 @@ public class GraphRunFailedException extends Exception {
     }
 
     public GraphRunFailedException(String message) {
-        super(message);
+        super("Graph run failed! Error message is: " + message);
     }
 }

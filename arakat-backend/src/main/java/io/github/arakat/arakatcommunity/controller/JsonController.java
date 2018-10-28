@@ -1,7 +1,7 @@
 package io.github.arakat.arakatcommunity.controller;
 
 import io.github.arakat.arakatcommunity.model.BaseResponse;
-import io.github.arakat.arakatcommunity.service.JSONReaderService;
+import io.github.arakat.arakatcommunity.service.JsonReaderService;
 import io.github.arakat.arakatcommunity.utils.ApiResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-public class JSONController {
+public class JsonController {
 
-    private JSONReaderService jsonReaderService;
+    private JsonReaderService jsonReaderService;
 
     @Autowired
-    public JSONController(JSONReaderService jsonReaderService) {
+    public JsonController(JsonReaderService jsonReaderService) {
         this.jsonReaderService = jsonReaderService;
     }
 

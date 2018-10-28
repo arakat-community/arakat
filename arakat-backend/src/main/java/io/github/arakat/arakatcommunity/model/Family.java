@@ -9,15 +9,15 @@ import java.util.List;
 public class Family {
 
     @Id
-    private String familyId;
+    private Long familyId;
     private String name;
     private List<Integer> incompatibleFamilies;
 
-    public String getFamilyId() {
+    public Long getFamilyId() {
         return familyId;
     }
 
-    public void setFamilyId(String familyId) {
+    public void setFamilyId(Long familyId) {
         this.familyId = familyId;
     }
 

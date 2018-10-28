@@ -61,7 +61,7 @@ public class NodeController {
 
     @RequestMapping(value = "/get-node/{nodeId}", produces = { "application/json" },
             method = RequestMethod.GET)
-    public ResponseEntity<BaseResponse> getNodeById(@PathVariable("nodeId") String nodeId) {
+    public ResponseEntity<BaseResponse> getNodeById(@PathVariable("nodeId") Long nodeId) {
         Node fetchedNode = nodeRepository.findByNodeId(nodeId);
 
         return ApiResponseUtils.createResponseEntity(200,

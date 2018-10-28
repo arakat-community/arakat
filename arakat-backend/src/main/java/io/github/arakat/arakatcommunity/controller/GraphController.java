@@ -5,7 +5,6 @@ import io.github.arakat.arakatcommunity.model.BaseResponse;
 import io.github.arakat.arakatcommunity.service.GraphService;
 import io.github.arakat.arakatcommunity.service.SparkService;
 import io.github.arakat.arakatcommunity.utils.ApiResponseUtils;
-import org.apache.spark.api.java.JavaRDD;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,22 +26,20 @@ public class GraphController {
         this.sparkService = sparkService;
     }
 
-    @SuppressWarnings("TryWithIdenticalCatches")
     @RequestMapping(value = "/run-graph", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> runGraph(@RequestBody String graph) {
         try {
             JSONObject graphWithConfigs = graphService.addConfigToDagProperties(graph);
 
             String responseFromCore = graphService.postGraphAndDagPropsToCore(graphWithConfigs.toString());
-
-            List<String> writtenContent = graphService.checkRunResult(responseFromCore);
-
+            graphService.checkRunResult(responseFromCore);
+            graphService.saveWrittenTablesToDatabase(responseFromCore);
             graphService.sendGeneratedCodeToAirflow(responseFromCore);
 
             return ApiResponseUtils.createResponseEntity(200,
-                    "Spark script is successfully generated, waiting for the airflow result.",
-                    "Spark script is successfully generated, waiting for the airflow result.",
-                    writtenContent, HttpStatus.OK);
+                    "Spark script is successfully generated, you can check the result from the ResultsView page.",
+                    "Spark script is successfully generated, you can check the result from the ResultsView page.",
+                    null, HttpStatus.OK);
 
         } catch (GraphRunFailedException e) {
             return ApiResponseUtils.createResponseEntity(400,
@@ -50,15 +47,20 @@ public class GraphController {
                     e.getMessage(),
                     null, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {
-            return ApiResponseUtils.createResponseEntity(400,
+            return ApiResponseUtils.createResponseEntity(500,
                     e.getMessage(),
                     e.getMessage(),
-                    null, HttpStatus.BAD_REQUEST);
+                    null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @RequestMapping(value = "/spark-integration", method = RequestMethod.POST)
-    public JavaRDD<String> runGraph() {
+    @RequestMapping(value = "/mock-response-core", method = RequestMethod.POST)
+    public void mockResponseCore(@RequestBody String responseFromCore) {
+        graphService.saveWrittenTablesToDatabase(responseFromCore);
+    }
+
+    @RequestMapping(value = "/spark-deneme", method = RequestMethod.POST)
+    public List<String> runGraph() {
         return sparkService.readFileFromHDFS();
     }
 }

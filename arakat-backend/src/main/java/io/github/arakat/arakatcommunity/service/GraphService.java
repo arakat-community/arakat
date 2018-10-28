@@ -2,10 +2,11 @@ package io.github.arakat.arakatcommunity.service;
 
 import io.github.arakat.arakatcommunity.config.AppPropertyValues;
 import io.github.arakat.arakatcommunity.exception.GraphRunFailedException;
+import io.github.arakat.arakatcommunity.model.TablePath;
+import io.github.arakat.arakatcommunity.model.Task;
 import io.github.arakat.arakatcommunity.utils.FileOperationUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json4s.jackson.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -20,14 +21,20 @@ public class GraphService {
 
     private AppPropertyValues appPropertyValues;
     private FileOperationUtils fileOperationUtils;
+    private TablePathService tablePathService;
+    private TaskService taskService;
+    private AppService appService;
 
     @Autowired
-    public GraphService(AppPropertyValues appPropertyValues, FileOperationUtils fileOperationUtils) {
+    public GraphService(AppPropertyValues appPropertyValues, FileOperationUtils fileOperationUtils,
+                        TablePathService tablePathService, TaskService taskService, AppService appService) {
         this.appPropertyValues = appPropertyValues;
         this.fileOperationUtils = fileOperationUtils;
+        this.tablePathService = tablePathService;
+        this.taskService = taskService;
+        this.appService = appService;
     }
 
-    //TODO: ask this quote=\"
     public JSONObject addConfigToDagProperties(String graph) {
         JSONObject graphJson = new JSONObject(graph);
 
@@ -87,49 +94,50 @@ public class GraphService {
         }
     }
 
-    public List<String> checkRunResult(String responseFromCore) throws GraphRunFailedException {
+    public void checkRunResult(String responseFromCore) throws GraphRunFailedException {
         if (!isGraphSuccessful(responseFromCore)) {
             // TODO: if there is any messages available from the core side, display it as well.
-            throw new GraphRunFailedException("Graph run failed!");
+            throw new GraphRunFailedException("");
         }
+    }
 
+//    private void getWrittenTopics(String responseFromCore) {
+//        JSONObject response = new JSONObject(responseFromCore);
+//        JSONObject additionalInfo = (JSONObject) response.get("additional_info");
+//        JSONObject writtenTopics = (JSONObject) additionalInfo.get("written_topics");
+//
+//
+//        return getWrittenContentAsList(writtenTopics);
+//    }
+
+    public void saveWrittenTablesToDatabase(String responseFromCore) {
         JSONObject response = new JSONObject(responseFromCore);
         JSONObject additionalInfo = (JSONObject) response.get("additional_info");
+        JSONObject writtenContent = (JSONObject) additionalInfo.get("written_tables");
+        List<Task> tasksToSave = new ArrayList<>();
+        List<TablePath> tablesToSave = new ArrayList<>();
 
-        return getWrittenTables(additionalInfo);
-    }
-
-    private List<String> getWrittenTables(JSONObject additionalInfo) {
-        JSONObject writtenTables = (JSONObject) additionalInfo.get("written_tables");
-
-        return getWrittenContentAsList(writtenTables);
-    }
-
-    private List<String> getWrittenTopics(String responseFromCore) {
-        JSONObject response = new JSONObject(responseFromCore);
-        JSONObject additionalInfo = (JSONObject) response.get("additional_info");
-        JSONObject writtenTopics = (JSONObject) additionalInfo.get("written_topics");
-
-
-        return getWrittenContentAsList(writtenTopics);
-    }
-
-    private List<String> getWrittenContentAsList(JSONObject writtenContent) {
-        List<String> writtenContentAsList = new ArrayList<>();
-
-        for (String app : iteratorToIterable(writtenContent.keys())) {
-            JSONObject tasks = writtenContent.getJSONObject(app);
+        for (String appId : iteratorToIterable(writtenContent.keys())) {
+            JSONObject tasks = writtenContent.getJSONObject(appId);
 
             for (String task : iteratorToIterable(tasks.keys())) {
                 JSONArray tables = tasks.getJSONArray(task);
 
                 for(Object table : tables) {
-                    writtenContentAsList.add((String) table);
-                }
-            }
-        }
+                    TablePath savedTablePath = tablePathService.saveAndGetTable(
+                            new JSONObject(table.toString()).get("table_path").toString());
 
-        return writtenContentAsList;
+                    tablesToSave.add(savedTablePath);
+                }
+
+                Task savedTask = taskService.saveAndGetTask(task, tablesToSave);
+                tasksToSave.add(savedTask);
+                tablesToSave = new ArrayList<>();
+            }
+
+            appService.saveApp(appId, tasksToSave);
+            tasksToSave = new ArrayList<>();
+        }
     }
 
     private Boolean isGraphSuccessful(String responseFromCore) {

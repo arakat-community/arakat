@@ -1,4 +1,4 @@
-# ARAKAT
+![ARAKAT](img/arakat.jpg)
 
 ## Hakkında
 İş zekası uygulamaları temelinde eldeki verinin anlamlandırılarak bilgiye dönüştürülmesi faaliyetlerini içerir. Bu bağlamda iş zekası uygulamalarının temel bileşenleri veri işleme, veri analizi ve bilgi raporlama olarak belirlenebilir. ARAKAT'ın amacı, bu ana bileşenlerin her biri için temel teşkil edebilecek açık kaynak kodlu ve platform bağımsız alt yapılar geliştirilmesidir. Karar verme, öngörü analizi, gerçek zamanlı veri işleme, "mobile first" veri görselleştirme gibi konular projenin çekirdeğinde yer almaktadır.

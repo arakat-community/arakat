@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class CategoryController {
@@ -63,16 +64,16 @@ public class CategoryController {
                 resultCategories, HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/get-category/{categoryId}", produces = { "application/json" },
-//            method = RequestMethod.GET)
-//    public ResponseEntity<BaseResponse> getCategoryById(@PathVariable("categoryId") String categoryId) {
-//        Category foundCategory = categoryRepository.findOne(categoryId);
-//
-//        return ApiResponseUtils.createResponseEntity(200,
-//                String.format(ApiResponseUtils.getUserMessageSuccess(), "Get category by id"),
-//                String.format(ApiResponseUtils.getDevMessageSuccess(), "Get category by id", "Category"),
-//                foundCategory, HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/get-category/{categoryId}", produces = { "application/json" },
+            method = RequestMethod.GET)
+    public ResponseEntity<BaseResponse> getCategoryById(@PathVariable("categoryId") Long categoryId) {
+        Optional<Category> foundCategory = categoryRepository.findById(categoryId);
+
+        return ApiResponseUtils.createResponseEntity(200,
+                String.format(ApiResponseUtils.getUserMessageSuccess(), "Get category by id"),
+                String.format(ApiResponseUtils.getDevMessageSuccess(), "Get category by id", "Category"),
+                foundCategory, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/delete-categories", produces = { "application/json" },
             method = RequestMethod.DELETE)
