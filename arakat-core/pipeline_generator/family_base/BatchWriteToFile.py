@@ -21,8 +21,8 @@ def generate_code(args):
             df_name = "df_" + extra["dfs"][0]["source_id"]
 
         my_args = {"node_id": node["id"], "input_dfs": [df_name], "shared_function_set": shared_function_set, "additional_local_code": additional_local_code, "errors": errors}
-        node["parameters"]["format"]={"value": node["file_type"], "type": "string"}
-        gen_code = CodeGenerationUtils.handle_instantination_or_call(node["parameters"], df_name + ".write.save(", my_args)
+
+        gen_code = CodeGenerationUtils.handle_instantination_or_call(node["parameters"], df_name + ".write.format("+CodeGenerationUtils.handle_primitive(node["file_type"])+").save(", my_args)
 
         final_code = CodeGenerationUtils.merge_with_additional_code(gen_code, additional_local_code)
 

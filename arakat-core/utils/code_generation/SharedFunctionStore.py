@@ -2,9 +2,6 @@ from domain.SharedFunctionTypes import SharedFunctionTypes
 
 import os
 
-def get_code_for_function(func_type):
-    return __shared_function_store[func_type]()
-
 def __handle_column_match_with_regex():
     # Create function-code which will find columns matching the regex
     # We might include imports inside the function
@@ -103,4 +100,19 @@ def __handle_vector_disassembler():
     code.extend(["\treturn df.rdd.map(extract).toDF(new_col_names)", os.linesep])
     return code
 
-__shared_function_store={SharedFunctionTypes.COLUMN_MATCH_WITH_REGEX: __handle_column_match_with_regex, SharedFunctionTypes.COLUMN_MATCH_WITH_TEMPLATE: __handle_column_match_with_template, SharedFunctionTypes.COLUMN_MATCH_WITH_ALL: __handle_column_match_with_ALL, SharedFunctionTypes.SELECT_EXPR_HELPERS: __generate_select_expr_helpers, SharedFunctionTypes.VECTOR_DISASSEMBLER:__handle_vector_disassembler}
+def __handle_flatten():
+    code = ["import collections", os.linesep]
+    code.extend(["def flatten(l):", os.linesep])
+    code.extend(["\tfor el in l:", os.linesep])
+    code.extend(["\t\tif isinstance(el, collections.Iterable) and not isinstance(el, basestring):", os.linesep])
+    code.extend(["\t\t\tfor sub in flatten(el):", os.linesep])
+    code.extend(["\t\t\t\tyield sub", os.linesep])
+    code.extend(["\t\telse:", os.linesep])
+    code.extend(["\t\t\tyield el", os.linesep])
+
+    return code
+
+__shared_function_store={SharedFunctionTypes.COLUMN_MATCH_WITH_REGEX: __handle_column_match_with_regex, SharedFunctionTypes.COLUMN_MATCH_WITH_TEMPLATE: __handle_column_match_with_template, SharedFunctionTypes.COLUMN_MATCH_WITH_ALL: __handle_column_match_with_ALL, SharedFunctionTypes.SELECT_EXPR_HELPERS: __generate_select_expr_helpers, SharedFunctionTypes.VECTOR_DISASSEMBLER:__handle_vector_disassembler, SharedFunctionTypes.FLATTEN_IRREGULAR_LIST: __handle_flatten}
+
+def get_code_for_function(func_type):
+    return __shared_function_store[func_type]()

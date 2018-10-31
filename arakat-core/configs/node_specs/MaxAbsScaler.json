@@ -10,16 +10,16 @@
   "is_splitter": false,
   "produces_model": true,
   "estimator_name": "MaxAbsScaler",
-  "multi_instance_indicator": ["inputCols", "outputCols"],
+  "multi_instance_indicator": ["inputCol", "outputCol"],
   "parameter_props": {
     "parameters": {
-      "inputCols": {
+      "inputCol": {
         "visible_name": "Input Columns",
         "type_constraint": [
           "string", "array[string]", "regex", "template", "ALL"
         ]
       },
-      "outputCols": {
+      "outputCol": {
         "visible_name": "Output Columns",
         "type_constraint": [
           "string", "array[string]", "regex", "template", "ALL"

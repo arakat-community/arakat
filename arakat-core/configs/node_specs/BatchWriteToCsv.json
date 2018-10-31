@@ -17,6 +17,27 @@
         "type_constraint": [
           "string"
         ]
+      },
+      "quote": {
+        "visible_name": "Quote",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "\""
+      },
+      "header": {
+        "visible_name": "Header",
+        "type_constraint": [
+          "string"
+        ],
+        "default": false
+      },
+      "sep": {
+        "visible_name": "Separator",
+        "type_constraint": [
+          "string"
+        ],
+        "default": ","
       }
     },
     "relational_constraints": [

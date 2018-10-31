@@ -5,32 +5,33 @@ import os
 
 def multi_instance_generation(node, df_name, args):
     code=__generate_code_for_pipeline_instantination(node, args)
-    if("in_pipeline" in args and args["in_pipeline"] == True):
-        code.extend(['pipeline_stage_' + node["id"] + "=" + 'pipeline_' + node["id"] + ".fit(" + df_name + ")", os.linesep])
-    else:
+    # code.extend(['pipeline_stage_' + node["id"] + "=" + 'pipeline_' + node["id"] + ".fit(" + df_name + ")", os.linesep])
+    if(not ("in_pipeline" in args and args["in_pipeline"] == True)):
         code.extend(['model_' + node["id"] + "=" + 'pipeline_' + node["id"] + ".fit(" + df_name + ")", os.linesep])
-
-    code.extend(['df_' + node["id"] + "=" + 'pipeline_stage_' + node["id"] + '.transform(' + df_name + ')', os.linesep])
+        code.extend(['df_' + node["id"] + "=" + 'pipeline_stage_' + node["id"] + '.transform(' + df_name + ')', os.linesep])
 
     return code
 
 def __generate_code_for_pipeline_instantination(node, args):
     code=[]
     counter=-1
-    for mii in node["multi_instance_indicator"]:
-        counter += 1
-        code.extend(["mmi_value_" + str(counter) + "_" + node["id"] + " = " + CodeGenerationUtils.handle_parameter(node["parameters"][mii], args), os.linesep])
-        # Remove the indicator parameter before creating the template
-        del node["parameters"][mii]
+    non_indicator_params={}
+    for param in node["parameters"]:
+        if(param in node["multi_instance_indicator"]):
+            counter += 1
+            code.extend(["mmi_value_" + str(counter) + "_" + node["id"] + " = " + CodeGenerationUtils.handle_parameter(node["parameters"][param], args), os.linesep])
+        else:
+            non_indicator_params[param]=node["parameters"][param]
 
     code.extend(["stages_"+node["id"], " = ", "[]", os.linesep])
     code.extend(["for i in ", "range(len(mmi_value_0_" + node["id"], ")):", os.linesep])
-    code.extend(["\t", __generate_stage_template(node, args), os.linesep])
-    code.extend(['pipeline_'+node["id"] + "=Pipeline(stages=", "stages_"+node["id"] + ")", os.linesep])
+    code.extend(["\t", __generate_stage_template(node, non_indicator_params, args), os.linesep])
+    if (not ("in_pipeline" in args and args["in_pipeline"])):
+        code.extend(['pipeline_'+node["id"] + "=Pipeline(stages=", "stages_"+node["id"] + ")", os.linesep])
 
     return code
 
-def __generate_stage_template(node, args):
+def __generate_stage_template(node, non_indicator_params, args):
     code = []
     class_name = ""
     # Do not allow other families than estimator and transformer. Handle the "else" case later...
@@ -43,7 +44,7 @@ def __generate_stage_template(node, args):
     for i in range(len(node["multi_instance_indicator"])):
         mmi_part.extend([node["multi_instance_indicator"][i] + "=" + "mmi_value_" + str(i) + "_" + node["id"] + "[i]", ", "])
 
-    arg_part = CodeGenerationUtils.handle_arguments(node["parameters"], args)
+    arg_part = CodeGenerationUtils.handle_arguments(non_indicator_params, args)
     if (not bool(arg_part)):
         mmi_part.pop()
 

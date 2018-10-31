@@ -25,7 +25,7 @@ def generate_code(task_nodes, task_edges, args):
     for edge in task_edges:
         node_ids=edge.split("-")
         dag_code.append(os.linesep)
-        dag_code.append("Task_"+node_ids[1]+".set_upstream("+"Task_"+node_ids[0]+")")
+        dag_code.append("Task_"+ args["app_id"] + "_" + node_ids[1]+".set_upstream("+"Task_"+node_ids[0]+")")
         dag_code.append(os.linesep)
 
     return dag_code, errors
