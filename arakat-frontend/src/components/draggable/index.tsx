@@ -7,18 +7,14 @@ const draggableSource: any = {
         return props.item;
   },
   isDragging: (props: IDraggableComponentProps) => {
-    console.log("draggableSource -> Dragging...");
+    //console.log("draggableSource -> Dragging...");
   },
   endDrag: (props: IDraggableComponentProps, monitor: DragSourceMonitor) => {
         if ( !monitor.didDrop() ) {
             return;
         }
         const item = monitor.getItem();
-        const dropResult = monitor.getDropResult();
-
-        if (dropResult) {
-        alert(`You dropped ${item.name} into ${dropResult.name}!`);
-    }
+        // const dropResult = monitor.getDropResult();
   },
 };
 

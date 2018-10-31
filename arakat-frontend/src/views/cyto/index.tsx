@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import CytoGraph from "../../components/cyto/cyto";
 import hocWithDragAndDrop from "../../components/hoc-with-drag-and-drop";
-import Content from "../../containers/content";
-import { routes as dashboardRoutes } from "../../routes/dashboard";
+import CytoContainer from "../../containers/cyto";
 
 interface IState {
   open: boolean;
@@ -24,20 +21,11 @@ class CytoView extends Component<{}, IState> {
   }
 
   /**
-   * sa
-   */
-  public Increment = () => {
-    this.setState({
-      b: <Content routes={[...dashboardRoutes]} />,
-    });
-  }
-
-  /**
    * render
    */
   public render() {
     return (
-        <CytoGraph />
+        <CytoContainer />
     );
   }
 }

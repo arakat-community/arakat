@@ -31,7 +31,7 @@ public class FamilyController {
 
     @RequestMapping(value = "/get-family/{familyId}", produces = { "application/json" },
             method = RequestMethod.GET)
-    public Family getFamilyById(@PathVariable("familyId") String familyId) {
+    public Family getFamilyById(@PathVariable("familyId") Long familyId) {
         return familyRepository.findByFamilyId(familyId);
     }
 }

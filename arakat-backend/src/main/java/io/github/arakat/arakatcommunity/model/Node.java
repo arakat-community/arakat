@@ -1,34 +1,32 @@
 package io.github.arakat.arakatcommunity.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "node")
-@JsonIgnoreProperties
 public class Node {
 
     @Id
     @JsonProperty("node_id")
-    private String nodeId;
+    private Long nodeId;
     private String name;
     @JsonProperty("category")
-    private String categoryId;
+    private Long categoryId;
 
     public Node() {}
 
-    public Node(String nodeId, String name, String categoryId) {
+    public Node(Long nodeId, String name, Long categoryId) {
         this.nodeId = nodeId;
         this.name = name;
         this.categoryId = categoryId;
     }
 
-    public String getNodeId() {
+    public Long getNodeId() {
         return nodeId;
     }
 
-    public void setNodeId(String nodeId) {
+    public void setNodeId(Long nodeId) {
         this.nodeId = nodeId;
     }
 
@@ -40,11 +38,11 @@ public class Node {
         this.name = name;
     }
 
-    public String getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 }

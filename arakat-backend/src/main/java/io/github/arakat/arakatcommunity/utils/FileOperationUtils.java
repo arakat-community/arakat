@@ -16,6 +16,7 @@ public class FileOperationUtils {
 
         File f = new File(filePathToWrite);
         boolean makeDirResult = f.mkdirs();
+
         if (Files.notExists(Paths.get(filePathToWrite + file), LinkOption.NOFOLLOW_LINKS)) {
             Files.createFile(Paths.get(filePathToWrite + file));
         }

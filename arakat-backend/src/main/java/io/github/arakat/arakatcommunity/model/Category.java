@@ -12,7 +12,7 @@ public class Category {
 
     @Id
     @Field("id")
-    private String categoryId;
+    private Long categoryId;
     private String name;
     @DBRef
     private List<Node> nodes;
@@ -21,11 +21,11 @@ public class Category {
 
     private boolean hasParent;
 
-    public String getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
