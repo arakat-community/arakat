@@ -22,8 +22,8 @@ data={
                     "can_infer_schema": True,
                     "file_type": "csv",
                     "parameters": {
-                        "path": {"value": "filepath.csv", "type": "string"},
-                        "header": {"value": False, "type": "boolean"},
+                        "path": {"value": "file:///usr/local/spark_code/train.csv", "type": "string"},
+                        "header": {"value": True, "type": "boolean"},
                         "sep": {"value": ",", "type": "string"},
                         "quote": {"value": '\\\"', "type": "string"}
                     }
@@ -45,8 +45,8 @@ data={
                   "ddfo_name": "dropna",
                   "parameters": {
                         "how": {"value": "any", "type": "string"},
-                        "thresh": {"value": 3, "type": "integer"},
-                        "subset": {"value": ["c1", "c2", "c3"], "type": "array[string]"},
+                        "thresh": {"value": 12, "type": "integer"},
+                        "subset": {"value": ["PassengerId","Survived","Pclass","Name","Sex","Age","SibSp","Parch","Ticket","Fare","Cabin","Embarked"], "type": "array[string]"},
                     }
                 },
             "node3":
@@ -71,7 +71,7 @@ data={
             "node4":
                 {
                   "id":"node4",
-                  "parent": "node7",
+                  "parent": "node8",
                   "node_id": 42,
                   "name": "String Indexer",
                   "category": 2,
@@ -94,7 +94,28 @@ data={
             "node5":
                 {
                     "id": "node5",
-                    "parent": "node7",
+                    "node_id": 69,
+                    "name": "One-hot Encoder",
+                    "parent": "node8",
+                    "category": 8,
+                    "node_type": 0,
+                    "family": 18,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": True,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "transformer_name": "OneHotEncoder",
+                    "multi_instance_indicator": ["inputCol", "outputCol"],
+                    "parameters": {
+                      "inputCol": {"value": ["indexedSex", "indexedEmbarked"], "type": "array[string]"},
+                      "outputCol": {"value": ["sexVec", "embarkedVec"], "type": "string"},
+                    }
+                },
+            "node6":
+                {
+                    "id": "node6",
+                    "parent": "node8",
                     "node_id": 44,
                     "name": "Vector Assembler",
                     "category": 2,
@@ -111,10 +132,10 @@ data={
                         "outputCol": {"value": "features", "type": "string"}
                     }
                 },
-            "node6":
+            "node7":
                 {
-                    "id": "node6",
-                    "parent": "node7",
+                    "id": "node7",
+                    "parent": "node8",
                     "node_id": 32,
                     "name": "Random Forest Classifier",
                     "category": 11,
@@ -138,9 +159,9 @@ data={
                         "featureSubsetStrategy": {"value": "auto", "type": "string"}
                     }
                 },
-            "node7":
+            "node8":
                 {
-                    "id": "node7",
+                    "id": "node8",
                     "parent": "task1",
                     "node_id": 67,
                     "name": "Pipeline",
@@ -154,9 +175,9 @@ data={
                     "produces_model": True,
                     "parameters": {},
                 },
-            "node8":
+            "node9":
                 {
-                    "id": "node8",
+                    "id": "node9",
                     "parent": "task1",
                     "node_id": 25,
                     "name": "Multi-class Classification Evaluator",
@@ -175,9 +196,9 @@ data={
                         "metricName": {"value": "accuracy", "type": "string"}
                     },
                 },
-            "node9":
+            "node10":
                 {
-                    "id": "node9",
+                    "id": "node10",
                     "parent": "task1",
                     "node_id": 64,
                     "name": "Model Saver",
@@ -190,12 +211,12 @@ data={
                     "is_splitter": False,
                     "produces_model": False,
                     "parameters": {
-                        "model_path": {"value": "path_to_save_model", "type": "string"}
+                        "model_path": {"value": "hdfs://namenode:9000/exmp3_model/", "type": "string"}
                     },
                 },
-            "node10":
+            "node11":
                 {
-                    "id": "node10",
+                    "id": "node11",
                     "parent": "task1",
                     "node_id": 65,
                     "name": "Model Apply",
@@ -209,9 +230,9 @@ data={
                     "produces_model": False,
                     "parameters": {},
                 },
-            "node11":
+            "node12":
                 {
-                    "id": "node11",
+                    "id": "node12",
                     "parent": "task1",
                     "node_id": 25,
                     "name": "Multi-class Classification Evaluator",
@@ -230,9 +251,9 @@ data={
                         "metricName": {"value": "accuracy", "type": "string"}
                     },
                 },
-            "node12":
+            "node13":
                 {
-                    "id": "node12",
+                    "id": "node13",
                     "parent": "task1",
                     "node_id": 60,
                     "name": "Batch Write to Orc",
@@ -249,9 +270,9 @@ data={
                         "path": {"value": "targetfilepathForEvalResult1.orc", "type": "string"}
                     }
                 },
-            "node13":
+            "node14":
                 {
-                    "id": "node13",
+                    "id": "node14",
                     "parent": "task1",
                     "node_id": 61,
                     "name": "Batch Write to Parquet",
@@ -265,12 +286,12 @@ data={
                     "produces_model": False,
                     "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "targetfilepathForEvalResult2.parquet", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/exmp4/targetfilepathForEvalResult2.parquet", "type": "string"}
                     }
                 },
-                "node14":
+                "node15":
                 {
-                    "id": "node14",
+                    "id": "node15",
                     "parent": "task2",
                     "node_id": 48,
                     "name": "Batch Read from Orc",
@@ -288,9 +309,9 @@ data={
                         "path": {"value": "filepath.orc", "type": "string"}
                     }
                 },
-                "node15":
+                "node16":
                 {
-                    "id": "node15",
+                    "id": "node16",
                     "parent": "task2",
                     "node_id": 63,
                     "name": "Model Loader",
@@ -307,9 +328,9 @@ data={
                         "model_type": {"value": "PipelineModel", "type": "string"}
                     }
                 },
-                "node16":
+                "node17":
                 {
-                    "id": "node16",
+                    "id": "node17",
                     "parent": "task2",
                     "node_id": 65,
                     "name": "Model Apply",
@@ -323,9 +344,9 @@ data={
                     "produces_model": False,
                     "parameters": {},
                 },
-                "node17":
+                "node18":
                 {
-                    "id": "node17",
+                    "id": "node18",
                     "parent": "task2",
                     "node_id": 25,
                     "name": "Multi-class Classification Evaluator",
@@ -344,9 +365,9 @@ data={
                         "metricName": {"value": "accuracy", "type": "string"}
                     },
                 },
-                "node18":
+                "node19":
                 {
-                    "id": "node18",
+                    "id": "node19",
                     "parent": "task2",
                     "node_id": 59,
                     "name": "Batch Write to CSV",
@@ -360,7 +381,10 @@ data={
                     "produces_model": False,
                     "file_type": "csv",
                     "parameters": {
-                        "path": {"value": "targetfilepathForEvalResult3.csv", "type": "string"}
+                        "path": {"value": "targetfilepathForEvalResult3.csv", "type": "string"},
+                        "header": {"value": True, "type": "boolean"},
+                        "sep": {"value": ",", "type": "string"},
+                        "quote": {"value": '\\\"', "type": "string"}
                     }
                 },
             "task1": {
@@ -377,20 +401,21 @@ data={
         "edges": {
             "node1-node2": {"type": "dataframe"},
             "node2-node3": {"type": "dataframe"},
-            "node3-node7": {"type": "dataframe", "portion": 0},
+            "node3-node8": {"type": "dataframe", "portion": 0},
             "node4-node5": {"type": "pipeline"},
             "node5-node6": {"type": "pipeline"},
-            "node7-node8": {"type": "dataframe"},
-            "node7-node9": {"type": "model"},
-            "node3-node10": {"type": "dataframe", "portion": 1},
-            "node7-node10": {"type": "model"},
-            "node10-node11": {"type": "dataframe"},
-            "node11-node13": {"type": "dataframe"},
-            "node8-node12": {"type": "dataframe"},
-            "node14-node16": {"type": "dataframe"},
-            "node15-node16": {"type": "model"},
-            "node16-node17": {"type": "dataframe"},
+            "node6-node7": {"type": "pipeline"},
+            "node8-node9": {"type": "dataframe"},
+            "node8-node10": {"type": "model"},
+            "node3-node11": {"type": "dataframe", "portion": 1},
+            "node8-node11": {"type": "model"},
+            "node11-node12": {"type": "dataframe"},
+            "node12-node14": {"type": "dataframe"},
+            "node9-node13": {"type": "dataframe"},
+            "node15-node17": {"type": "dataframe"},
+            "node16-node17": {"type": "model"},
             "node17-node18": {"type": "dataframe"},
+            "node18-node19": {"type": "dataframe"},
             "task1-task2": {"type": "upstream"}
         }
     },
