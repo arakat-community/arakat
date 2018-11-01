@@ -14,17 +14,15 @@ def multi_instance_generation(node, df_name, args):
 
 def __generate_code_for_pipeline_instantination(node, args):
     code=[]
-    counter=-1
     non_indicator_params={}
     for param in node["parameters"]:
         if(param in node["multi_instance_indicator"]):
-            counter += 1
-            code.extend(["mmi_value_" + str(counter) + "_" + node["id"] + " = " + CodeGenerationUtils.handle_parameter(node["parameters"][param], args), os.linesep])
+            code.extend(["mmi_value_" + param + "_" + node["id"] + " = " + CodeGenerationUtils.handle_parameter(node["parameters"][param], args), os.linesep])
         else:
             non_indicator_params[param]=node["parameters"][param]
 
     code.extend(["stages_"+node["id"], " = ", "[]", os.linesep])
-    code.extend(["for i in ", "range(len(mmi_value_0_" + node["id"], ")):", os.linesep])
+    code.extend(["for i in ", "range(len(mmi_value_"+node["multi_instance_indicator"][0]+"_" + node["id"], ")):", os.linesep])
     code.extend(["\t", __generate_stage_template(node, non_indicator_params, args), os.linesep])
     if (not ("in_pipeline" in args and args["in_pipeline"])):
         code.extend(['pipeline_'+node["id"] + "=Pipeline(stages=", "stages_"+node["id"] + ")", os.linesep])
@@ -42,7 +40,7 @@ def __generate_stage_template(node, non_indicator_params, args):
 
     mmi_part=[]
     for i in range(len(node["multi_instance_indicator"])):
-        mmi_part.extend([node["multi_instance_indicator"][i] + "=" + "mmi_value_" + str(i) + "_" + node["id"] + "[i]", ", "])
+        mmi_part.extend([node["multi_instance_indicator"][i] + "=" + "mmi_value_" + node["multi_instance_indicator"][i] + "_" + node["id"] + "[i]", ", "])
 
     arg_part = CodeGenerationUtils.handle_arguments(non_indicator_params, args)
     if (not bool(arg_part)):
