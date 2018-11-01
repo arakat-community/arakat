@@ -64,7 +64,7 @@ def __generate_code_for_pipeline_instantination(pipeline_node, pipeline_order, a
         args["shared_function_set"].add(SharedFunctionTypes.FLATTEN_IRREGULAR_LIST)
         code.extend(["stages_" + pipeline_node["id"] + " = [i for i in flatten(" + "stages_" + pipeline_node["id"] + ")]", os.linesep])
 
-    code.extend(['pipeline_' + pipeline_node["id"] + "=Pipeline(stages=", "stages_" + pipeline_node["id"] , "])", os.linesep])
+    code.extend(['pipeline_' + pipeline_node["id"] + "=Pipeline(stages=", "stages_" + pipeline_node["id"] , ")", os.linesep])
 
     return code
 
