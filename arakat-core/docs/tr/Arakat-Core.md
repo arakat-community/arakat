@@ -173,3 +173,476 @@ Mevcut durumda, Arakat-Core'un servis edilmesi için Flask Server kullanılmakta
 
 ## İleri Düzey Tasarım Detayları
 
+### İçerik
+* Nod Özellikleri (Node-Specs)
+  * Genel Özellikler
+  * Parametre Özellikleri (parameter_props)
+* Nod Aileleri
+
+
+### Nod Özellikleri (Node-Specs)
+
+Nod özellikleri 2 kritik kategoride incelenebilir: genel özellikler, parametre özellikleri (ve parametreler üzerindeki kıstaslar/limitler).
+
+**Genel Özellikler**
+
+* node_id
+* name
+* node_type
+* category
+* family
+* compatible_with_stream
+* compatible_stream_output_modes
+* compatible_with_spark_pipeline
+* is_splitter
+* produces_model
+
+Genel özellikler, tüm nodlarda ortak olarak bulunmaktadır. Gerek core modülün gerekse diğer modüllerin işlev görebilmeleri için gereklidirler.
+
+UI tarafından graph'taki nodlara da id verilmektedir ve bunlar *id* field'ında tutulmaktadırlar. Bir *id* yalnızca graph'taki tek bir nodu ifade eder. *node_id*, nodun hangi tür nod olduğunu ifade eder (Örneğin, RandomForestClassifier). Graph üzerinde, aynı *node_id*'ye ait birden fazla nod yer alabilir. *node_type*, nodun hangi üst seviye nod türünden (*higher-level-node-type*) geldiğini ifade eder.
+
+**Mevcut versiyonda yer alan *higher-level-node-type*'lar şunlardır:**
+* **INNER_NODE:** İçerisinde başka nodlar barındıramayan nodları kapsar.
+* **PIPELINE_NODE:** Spark *pipeline*'ları ile uyumlu (*INNER_NODE* türündeki) nodları barındırabilir.
+* **CV_NODE:** İçerisinde *estimator* ve *evaluator* nod ailelerinden gelen nodları barındırır. Bu ailelerden yalnızca birer nod barındırabilir.
+* **TASK_NODE:** Task nodlarını belirtmek için kullanılır. İçerisinde, farklı üst seviye nod türlerinde (*INNER_NODE*, *PIPELINE_NODE*, *CV_NODE*) nodlar bulunmasına olanak sağlar.
+* **NO_NODE:** Yer-tutucu olarak görev yapan noddur. Task nodların *parent* nodları olmadığı için bu nodların *parent*'larını ifade etmek için kullanılır.
+
+***UYARI:*** *node_id* yerine *node_type*, *node_type* yerine *node_high_level_type* terimine geçilebilir.
+
+**Parametre Özellikleri (parameter_props)**
+
+Parametre özellikleri, nodu gerçeklemek için ihtiyaç duyulan parametrelerin neler olduğunu ve sağlandığında nasıl işleneceklerine/kontrol edileceklerine dair bilgileri içerir.
+
+*parameter_props* 3 temel (1 opsiyonel) eleman barındırır:
+
+```json
+{"parameters": {}, "relational_constraints": [], "visibility_constraints": [], "lookup_table": {}}
+```
+
+**parameters**, sağlanması gereken parametrelerin detaylarını; **relational_constraints**, parametreler arası kıstasları; **visibility_constraints**, UI tarafında parametre girişi sırasında izlenmesi istenen davranışları içerir. Kıstaslar, parametreler altındaki değerlere referans verme ihtiyacı duyduklarında bunları *lookup_table* altında tutarlar. Bu nedenle, *lookup_table* opsiyoneldir.
+
+***parameters:***
+
+*parameters* altında parametreler **key-value pair**'leri şeklinde tutulurlar. Her *parametre* için bir **visible_name** ve **type_constraint** tanımlanması zorunludur. *visible_name* parametrenin görünür adıdır (Örneğin, UI'da parametre alınırken kullanıcıya gösterilecek parametre adı *visible_name*'den alınabilir). Bir parametre farklı türde değerler alabilir (Örneğin, kullanıcı bir önişleme işleminin uygulanacağı kolon veya kolonları belirtmek için string veya string array'i girebilir. Buna ek olarak, çok fazla kolon adı sözkonusu ise template, regex veya ALL türlerini kullanabilir. *Node-spec* oluşturulurken nodun her parametre için destekleyebileceği veri türleri (*data_type*) belirlenmelidir).
+
+Parametre üzerinde (yalnızca bu parametreye etki eden) kıstaslar (**set_constraint**) tanımlanabilir. Bu kıstaslar, parametrenin alabileceği değer kümesini sınırlar. Örneğin, *RandomForestClassifier*'ın *impurity* parametresi yalnızca *entropy* ve *gini* değerleri alabilmektedir. Bunların dışında girilen değerler graph'ın kontrol aşamasında *set_constraint* kullanılarak tespit edilebilir. Yine de *set_constraint* kullanıldığı durumlarda, UI'ın kullanıcıyı serbest bırakmak yerine, yalnızca parametre için girilebilecek değerleri sunması daha etkin olacaktır (Örneğin, *set_constraint* altında yer alan değerler bir dropdown-box'ta kullanıcıya sunulabilir).
+
+Parametre üzerinde kıstaslar belirtmek için **piecewise_constraint**'ler de tanımlanabilmektedir. Bunlar, sayısal değerlerin istenen aralıklarda olmasını sağlamak amacıyla kullanılır.
+
+***Örnek:***
+"piecewise_constraint": "subsamplingRate > 0.0 AND subsamplingRate <= 1.0"
+
+*piecewise_constraint* için kullanılan DSL, temel mantık ifadelerinin oluşturulması için ==, <, >, !=, >=, <= gibi operasyonlar ile AND ve OR gibi operasyonlar üzerinde kurulmuştur. **Mevcut versiyonda, sözkonusu DSL henüz son halini almamıştır.**
+
+Parametre için *default* değer verilebilir. Kullanıcı nod için parametre gireceği ekranda kullanıcıya sözkonusu parametre için default değeri gösterebilir. Kullanıcı, sözkonusu parametre için farklı bir değer girmediği durumda *default* değer kullanılır.
+
+Parametreler opsiyonel de olabilmektedirler. *optional* değeri True olarak verilerek bu node-spec'lerde belirtilir. *optional* değeri True olmadığı durumlarda, *optional* değerinin False olarak belirtilmemesi gerekmektedir (node-spec'te parametre için optional True ibaresi bulunmuyorsa, o parametre zorunlu kabul edilir). Opsiyonel parametreler için kullanıcı değer girmediği durumlarda, bu parametre nod'a eklenmez (Örneğin, nod'un parametreleri altında bu opsiyonel parametrenin adı ve null değeri yer almamalıdır).
+
+**special_requirements**, üst seviye veri türlerinin (*template*, *regex*, *ALL*, *dict* vb.) nasıl işlenmesi gerektiğine dair bilgileri taşır. Örneğin, regex olarak girilen bir parametrenin (konseptsel olarak) bir veri tablosu üzerinde eşleştiği kolonları getirmesi beklenebilir. Bir başka deyişle, parametrenin aldığı değer bir iş-mantığı ile birleşerek parametrenin gerçek değerini oluşturur. Bu iş mantığını, parametre için sağlanan değeri nasıl kullanmamız gerektiğini belirttiğimiz *special_requirements*'lar ile saptarız. *special_requirements*, hangi veri türünde hangi iş mantığını uygulamamız gerektiği bir *dictionary*'dir.
+
+Üst seviye veri türlerinin (*template*, *regex*, *ALL*, *dict* vb.) array'lerine ihtiyaç duyulduğunda, array içerisinde yer alan türe ait iş mantığı belirtilir. Referans örneklerden *UDF* noduna göz atalım: Örneğin, *udf_input_tuples* parametresi altındaki "array[regex]" için gerekli *special_requirement* "array[regex]" olarak değil de array'i oluşturan elemanların türü için (bu durumda regex) tanımlanmıştır. İfade edilen ise, array'in içerisnde yer alan regex türündeki elemanları değerlendirirken *special_requirement* altındaki "regex" keyword'ü ile belirlenen iş-mantığı kullanılmalıdır.
+
+**Veri türleri (data_types):**
+
+* primitives (string, integer, float, boolean vb.)
+* object
+* N-D array (primitive veya object array'leri)
+* dict
+* regex
+* template
+* code
+* ALL
+
+*primitives:*
+
+Basit veri türleridir. Tek başlarına kullanılabildikleri gibi *array* ve *object* gibi türler altında da kullanılabilirler. Üzerlerinde *set_constraint* ve *piecewise_constraint* tanımlanabilir.
+
+*object:*
+
+Kompleks parametreleri ifade etmek için kullanılır. Bir object içerisinde başka *object*'ler de yer alabilir. 
+
+Referans örneklerden, *RollingStatistics* noduna göz atalım:
+*rolling_stats_info* parametresi yalnızca *object* türünde bir değer alabilmekte. Bu *object*'in yapısı hakkında bilgi *object_info* (object'leri ifade etmek için ayrılmış keyword) altında açıklanmakta. *object_info*'ya baktığımızda, "between_operation", "first_argument" ve "second_argument" isimli 3 parametre olduğunu görüyoruz.
+
+"between_operation", string türü değer alabilen, üzerinde set_constraint tanımlanmış ve bir default değer taşıyan bir parametre.
+
+"first_argument", object türünde değer alabilen komplex bir parametre. Sözkonusu object değerine ait object bilgisi ise "first_argument" altındaki object_info'da paylaşılmış. Bunu incelediğimizde ise "operation" ve "input_cols" olmak üzere 2 parametre görüyoruz. "operation" string değer alan basit bir parametre iken, "input_cols" *array[string]*, *regex* ve *template* türünde değerler alabilen ve özel gereksinimleri (*special_requirements*) olan bir parametre.
+
+"second_argument" de "first_argument"'e benzer bir yapı taşımakta.
+
+*object*, iç içe geçmiş (*nested*) parametrelerin ifade edilmesi için kullanılmaktadır.
+
+*N-D array:*
+
+Parametrenin belirli bir veri türünden bir dizi alabildiğini ifade etmek için kullanılır. Örneğin, "array[string]" parametrenin bir string array'i aldığını ifade ederken "array[object]" parametrenin bir object array'i aldığını ifade eder. Mevcut versiyonda, bir parametrenin alabileceği veri türleri içerisinde yalnızca tek bir *object* ve *array[object]*'e izin verilmektedir.
+
+Referans örneklerden *UDF* noduna göz atalım:
+*udf_input_tuples* parametresi "array[array[string]]", "array[regex]", "array[template]", "array[ALL]" türünde değerler alabilmektedir. Bunlardan ilki 2D-array'ken diğerleri 1D array'lere örnektir.
+
+*dict:*
+
+Parametrenin *dictionary* şeklinde değer alabilmesi için kullanılır. *dict* veri türünün kullanılabilmesi için *special_requirement* belirtilmelidir.
+
+Referans örneklerden *BatchReadFromCSV* nodunu inceleyelim:
+Burada schema parametresi *dict* türünde değerler alabilmekte. Belirtilen *special_requirement* ise sağlanan *dict* değerinin bir "schema" olarak değerlendirilmesi gerektiğidir. Bu şekilde, bu parametrenin taşıdığı dict değeri doğrudan kullanılmamakta; bunu anlamlandıran "schama" mantığına göre *dict* türündeki değer alınıp nodun ihtiyaç duyduğu schema formatında bir değere dönüştürülmektedir.
+
+*regex:*
+
+Parametrenin regex ifade eden bir string almasına olanak sağlamaktadır. Kullanıcı tarafından alınacak bu regex'in nasıl kullanılacağı ise *special_requirement* olarak belirlenir.
+
+Referans örneklerden *RollingStatistics* nodunu ele alalım:
+"first_argument* parametresine ait *input_cols* parametresinin türü "array[string]", "regex" ve "template" olabilmektedir. Bu nodun ve parametrenin konsepti gereği *input_cols* veri tablosu üzerinde seçilecek girdi kolonlarının belirlenmesi için kullanılmaktadır. Bu durumda, kullanıcı bir string listesi, kolonları filtreleyeceği bir regex veya kolon adlarını oluşturabileceği bir template girebilir. *input_col* parametresi işlenirken, regex'in hangi iş-mantığı ile kullanılacağı bilinmelidir. Bu örnekte, "column_selector_regex" adlı bir iş-mantığına ihtiyaç duyulmaktadır. Bu iş-mantığı, üzerinde çalışılan veri tablosundan regex ile eşleşen kolonları bulup parametrenin son değerini elde etmeyi amaçlamaktadır.
+
+*template:*
+
+Eğer parametre değeri çok sayıda eleman içeriyorsa ve bu elemanlar ortak bir *pattern* ile ifade edilebiliyorsa; tüm elemanları teker teker sağlamak yerine *template* kullanarak bu elemanların sözkonusu *pattern*'a göre oluşturulmasını sağlayabiliriz. Bu şekilde, kullanıcı onlarca değeri tek bir template ile ifade edebilir.
+
+Referans örneklerden *RollingStatistics* nodunu ele alalım:
+"first_argument* parametresine ait *input_cols* parametresinin türü "array[string]", "regex" ve "template" olabilmektedir. Bu nodun ve parametrenin konsepti gereği *input_cols* veri tablosu üzerinde seçilecek girdi kolonlarının belirlenmesi için kullanılmaktadır. Bu durumda, kullanıcı bir string listesi, kolonları filtreleyeceği bir regex veya kolon adlarını oluşturabileceği bir template girebilir. *input_col* parametresi işlenirken, regex'in hangi iş-mantığı ile kullanılacağı bilinmelidir. Bu örnekte, "column_selector_regex" adlı bir iş-mantığına ihtiyaç duyulmaktadır. Bu iş-mantığı, üzerinde çalışılan veri tablosundan regex ile eşleşen kolonları bulup parametrenin son değerini elde etmeyi amaçlamaktadır.
+
+*code:*
+
+Platformun kabiliyetlerini ve esnekliğini daha ileriye götürmek adına, kullanıcının kendi kodlarını (şimdilik yalnız *pure functions*) ekleyebilmesine olanak tanınmıştır. Bu da, *code* türü parametre'ler ile gerçeklenmektedir. Sözkonusu parametre de *special_requirements* altında
+gerekli iş-mantığının belirtilmesini beklemektedir. Referans örneklerden, *UDF* noduna ait node-spec'te *udf_function* parametresinde örnek kullanım bulunabilir.
+
+*ALL:*
+
+Bir parametrenin alabileceği değer havuzunun belirli veya saptanabilir olması durumunda, tüm değerler seçilmek istendiğinde; bu değerlerin hepsini teker teker sağlamak yerine, *ALL* değeri verilebilir. Bu parametre türü de ilgili iş-mantığının belirtilmesini gerektirmektedir. Referans örneklerden *UDF* nodunda yer alan *udf_input_tuples* parametresinde *ALL* parametre türünün örneği bulunabilir. Bu örnek, *ALL* değeri verildiğinde sözkonusu veri tablosunda yer alan tüm kolonların seçilmesini için gerekli iş-mantığının gerçeklenmesini hedefler.
+
+***relational_constraints:***
+
+Birden fazla parametre üzerinde kıstas tanımlanmak istendiğinde *relational_constraints* kullanılabilir. Bir ya da daha fazla kıstas tanımlanmasına olanak sağlanmıştır. **Mevcut sürümde, halihazırdaki DSL son halini almamıştır.**
+
+***Örnek:***
+
+```json
+"relational_constraints": [
+    "(((v1 == v2) AND (v3 == v2)) => (v4 == v5)) AND (((v6 == v2) AND (v3 == v2)) => (v7 == v5))"
+]
+```
+
+Yukarıda paylaşılan *relational_constraints*, *RollingStatistics* nodundan alınmıştır. v1, v2... *placeholder*'ları *lookup_table* tanımlanmıştır. Bu kıstas değerlendirilirken, *lookup_table*'da yer alan referans değerlere ulaşılmalı ve istenen mantık ifadesi *evaluate* edilmelidir. Bu DSL, *piecewise_constraint* ile aynıdır.
+
+***visibility_constraints:***
+
+Bu kıstaslar, UI ihtiyaçları için sağlanmıştır. Özellikle, hangi parametrelerin birbiri ile gösterilmesi gerektiği veya bir parametre spesifik bir değer aldığında diğer parametrelere ait görsel bileşenler nasıl etkileniyor gibi durumları tasvir etmek için kullanılabilirler. Bir ya da daha fazla *visibility_constraint* tanımlanabilmektedir.
+
+*visibility_constraints* iki parçadan oluşmaktadır: *condition* ve *action*.
+
+*condition*, sözkonusu kıstası oluşturan durumu ifade eder. Bu durum, *relational_constraints* için kullanılan DSL ile karşılanabilmektedir.
+
+*action*, sözkonusu durum oluştuğunda nasıl müdahale edilmesi gerektiğine dair bilgiyi içerir. Referans örneklerden *RollingStatistics* noduna bakalım. Burada, v8 ve v9 ile ifade edilen değerlerin aynı olması durumunda "second_argument" parametresini ifade eden görselin saklanması gerektiği belirtilmiştir. Mevcut vesiyonda, yalnızca *set_visible* ve *hide* *action'ları sağlanmıştır.
+
+***lookup_table:***
+
+*lookup_table*, *visibility_constraints* ve *relational_constraints*'leri daha sade yazabilmek adına oluşturulmuştur. *lookup_table*, *placeholder* ve bunların taşıyacağı değerlere nasıl ulaşacağına dair bilgiler taşır. Temelde *placeholder*'ların alabileceği 2 tür değer vardır: *variables* (ki bunlar parametrelerin aldıkları değerlere dair özelliklerden gelir) ve *constants* (sabit değerler).
+
+Referans örneklerden *RollingStatistics* noduna bakalım.
+
+***Örnek 1:***
+```json
+"v9": {
+        "const": "Identity"
+      }
+```
+
+Örnek 1, *constant* kullanımını örneklemektedir. *constant*'lar için *const* keyword'ü kullanılır.
+
+***Örnek 2:***
+```json
+"v3": {
+        "trace": "new_column_names",
+        "field": "type"
+    },
+"v7": {
+        "trace": "rolling_stats_info-object_info-second_argument-object_info-value",
+        "field": "length"
+    },   
+"v8": {
+        "trace": "rolling_stats_info-object_info-between_operation",
+        "field": "value"
+      },
+```
+
+Örnek 2, farklı şekillerde *variable* tutmayı örneklemektedir. *trace* keywprd'ü değerine bakılması istenen parametreye giden adımları ifade eder. Basit parametreler için *trace* v2'te olduğu gibi tek adımda bitebileceği gibi; *nested* objeler içeren parametrelerde oluşan parametre objesi içerisinde key'ler üzerinde nasıl ilerleneceği "-" ile ayrılarak belirtilmiştir. "field" ise parametrenin değerine ulaşıldığında hangi işleme tabi tutulacağını belirtmek için kullanılır. Mevcut versiyonda, "type", "length" ve "value" işlemlerine olanak sağlanmaktadır. Bunlar sırasıyla, parametreye ait değerin türünü, uzunluğunu (array'ler için geçerli) ve değerin kendisini verirler.
+
+**Referans Örnekler**
+
+*RollingStatistics Nodu:*
+```json
+{
+  "node_id": 73,
+  "name": "Rolling Statistics",
+  "category": 6,
+  "node_type": 0,
+  "family": 22,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "parameter_props": {
+    "parameters": {
+      "rolling_stats_info": {
+        "visible_name": "Rolling Stats",
+        "type_constraint": ["object"],
+        "object_info": {
+          "between_operation": {
+            "visible_name": "Between operation",
+            "type_constraint": ["string"],
+            "set_constraint": ["Identity", "+", "*", "-"],
+            "default": "Identity"
+          },
+          "first_argument": {
+            "visible_name": "First argument",
+            "type_constraint": ["object"],
+            "object_info": {
+              "operation": {
+                "visible_name": "Operation",
+                "type_constraint": ["string"],
+                "set_constraint": ["Identity", "max", "min", "mean", "std"],
+                "default": "Identity"
+              },
+              "input_cols": {
+                "visible_name": "Input columns",
+                "type_constraint": ["array[string]", "regex", "template"],
+                "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template"}
+              }
+            }
+          },
+          "second_argument": {
+            "visible_name": "Second argument",
+            "type_constraint": ["object"],
+            "object_info": {
+              "operation": {
+                "visible_name": "Operation",
+                "type_constraint": ["string"],
+                "set_constraint": ["Identity", "max", "min", "mean", "std"],
+                "default": "Identity"
+              },
+              "input_cols": {
+                "visible_name": "Input columns",
+                "type_constraint": ["array[string]", "regex", "template"],
+                "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template"}
+              }
+            }
+          }
+        }
+      },
+      "output_cols": {
+        "visible_name": "Output columns",
+        "type_constraint": ["array[string]", "template"],
+        "special_requirements": {"template": "column_selector_template"}
+      },
+      "partitioning_column": {
+        "visible_name": "Partition by",
+        "type_constraint": ["string"]
+      },
+      "ordering_column": {
+        "visible_name": "Order by",
+        "type_constraint": ["string"]
+      },
+      "ordering_direction": {
+        "visible_name": "Ordering direction",
+        "type_constraint": ["string"],
+        "set_constraint": ["asc", "desc"],
+        "default": "desc"
+      },
+      "lags": {
+        "visible_name": "Lags",
+        "type_constraint": ["array[integer]"],
+        "piecewise_constraint": "(window_size >= 1) OR (window_size == -1)"
+      }
+    },
+    "lookup_table": {
+      "v1": {
+        "trace": "rolling_stats_info-object_info-first_argument-object_info-value",
+        "field": "type"
+      },
+      "v2": {
+        "const": "array[string]"
+      },
+      "v3": {
+        "trace": "new_column_names",
+        "field": "type"
+      },
+      "v4": {
+        "trace": "rolling_stats_info-object_info-first_argument-object_info-value",
+        "field": "length"
+      },
+      "v5": {
+        "trace": "new_column_names",
+        "field": "length"
+      },
+      "v6": {
+        "trace": "rolling_stats_info-object_info-second_argument-object_info-value",
+        "field": "type"
+      },
+      "v7": {
+        "trace": "rolling_stats_info-object_info-second_argument-object_info-value",
+        "field": "length"
+      },
+      "v8": {
+        "trace": "rolling_stats_info-object_info-between_operation",
+        "field": "value"
+      },
+      "v9": {
+        "const": "Identity"
+      }
+    },
+    "relational_constraints": [
+      "(((v1 == v2) AND (v3 == v2)) => (v4 == v5)) AND (((v6 == v2) AND (v3 == v2)) => (v7 == v5))"
+    ],
+    "visibility_constraints": [
+      {
+        "condition": "v8 == v9",
+        "action": {
+          "type": "set_visible",
+          "trace": "expressions-object_info-second_argument"
+        }
+      },
+      {
+        "condition": "v8 != v9",
+        "action": {
+          "type": "hide",
+          "trace": "expressions-object_info-second_argument"
+        }
+      }
+    ]
+  },
+  "df_constraints": []
+}
+```
+
+*UDF Nodu:*
+```json
+{
+  "node_id": 71,
+  "name": "UDF",
+  "category": 2,
+  "node_type": 0,
+  "family": 20,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "parameter_props": {
+    "parameters": {
+      "udf_input_tuples": {
+        "visible_name": "Input Tuples",
+        "type_constraint": [
+          "array[array[string]]",
+          "array[regex]",
+          "array[template]",
+          "array[ALL]"
+        ],
+        "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}
+      },
+      "udf_outputs": {
+        "visible_name": "Output Columns",
+        "type_constraint": [
+          "array[string]",
+          "template"
+        ],
+        "optional": true,
+        "special_requirements": {"template": "column_selector_template"}
+      },
+      "udf_function": {
+        "visible_name": "UDF Function",
+        "type_constraint": [
+          "code"
+        ],
+        "special_requirements": {"code": "code"}
+      },
+      "udf_return_type": {
+        "visible_name": "UDF Return Type",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "StringType",
+          "IntegerType",
+          "LongType",
+          "DoubleType",
+          "FloatType",
+          "BooleanType",
+          "ArrayType"
+        ]
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": []
+}
+```
+
+*BatchReadFromCSV Nodu:*
+```json
+{
+  "node_id": 47,
+  "name": "Batch Read from CSV",
+  "category": 0,
+  "node_type": 0,
+  "family": 0,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "can_infer_schema": true,
+  "file_type": "csv",
+  "parameter_props": {
+    "parameters": {
+      "path": {
+        "visible_name": "File Path",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "quote": {
+        "visible_name": "Quote",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "\""
+      },
+      "header": {
+        "visible_name": "Header",
+        "type_constraint": [
+          "string"
+        ],
+        "default": false
+      },
+      "sep": {
+        "visible_name": "Separator",
+        "type_constraint": [
+          "string"
+        ],
+        "default": ","
+      },
+      "schema": {
+        "visible_name": "Schema",
+        "type_constraint": [
+          "dict"
+        ],
+        "optional": true,
+        "special_requirements": {"dict": "schema"}
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": [
+
+  ]
+}
+```
