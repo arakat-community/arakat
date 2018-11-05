@@ -123,14 +123,14 @@
     ],
     "visibility_constraints": [
       {
-        "condition": "v8 == v9",
+        "condition": "v8 != v9",
         "action": {
           "type": "set_visible",
           "trace": "expressions-object_info-second_argument"
         }
       },
       {
-        "condition": "v8 != v9",
+        "condition": "v8 == v9",
         "action": {
           "type": "hide",
           "trace": "expressions-object_info-second_argument"
