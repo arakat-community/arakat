@@ -86,7 +86,7 @@ Parametreler, farklı türlerde veri girilmesini gerektirebilirler. Bu gerekler 
 
 Arakat-Core Temel Akış Şablonu
 
-![Arakat-Core Basic Flow](/images/Arakat-Core_BasicFlow.png)
+![Arakat-Core Basic Flow](../images/Arakat-Core_BasicFlow.png)
 
 Arakat-Core modülünün kod üretim akışı backend tarafından gönderilen REST call'u (*interpret_graph*) ile başlar. Bu *POST* call'u *json* formatında bir *graph* gönderir ve cevap olarak üretilen kodları, başarılı yürütülmeyi gösteren *result_code*'u, error bilgisini ve ek bilgileri cevap olarak kabul eder. Ek bilgiler, kod üretimi sırasında tutulması gerekli görülen bilgilerdir. Mevcut versiyonda, kod üretimi sırasında yazma işlemi yapan nodlar olduğu durumda, verinin hangi veri kaynağına yazıldığı, bu veri kaynağına erişim için gerekli bilgiler (ip, port vb.), varsa verinin hangi *path*'e kaydedildiği gibi bilgiler tutulmaktadır.
 
@@ -110,7 +110,7 @@ Nodlara ait kodlar üretilirken ortak kullanılabilecek kod parçaları (genelli
 
 Arakat-Core Temel Yapı Şablonu
 
-![Arakat-Core Project Structure](/images/Arakat-Core_ProjectStructure.png)
+![Arakat-Core Project Structure](../images/Arakat-Core_ProjectStructure.png)
 
 
 Arakat-Core'unun yapı bileşenleri şunlardır:
@@ -177,7 +177,12 @@ Mevcut durumda, Arakat-Core'un servis edilmesi için Flask Server kullanılmakta
 * Nod Özellikleri (Node-Specs)
   * Genel Özellikler
   * Parametre Özellikleri (parameter_props)
+* Parametre Formatı
 * Nod Aileleri
+* *Code Generation Utils*
+* *Shared Functions*
+* *Multi-instance Handler*
+* *Model Holder*
 
 
 ### Nod Özellikleri (Node-Specs)
@@ -646,3 +651,307 @@ Referans örneklerden *RollingStatistics* noduna bakalım.
   ]
 }
 ```
+
+### Parametre Formatı
+
+Parametre özellikleri hangi parametreleri nasıl istememiz gerektiğini belirler. Parametre formatı ise alınan parametre değerleriin graph'a nasıl dahil edileceğini belirler. Bu bölümde farklı durumlar ve parametre türleri için izlenmesi gereken format verilecektir.
+
+**primitives:**
+
+*primitive* parametreler için format şu şekildedir:
+```json
+"parameter_name": {"value": value_of_parameter, "type": type_of_parameter}
+```
+
+*type*, mevcut *primitive* değerlerinden herhangi biri olabilmektedir.\
+*value*, verilen *type* türünde herhangi bir değer olabilir.
+
+**regex:**
+
+*regex* parametreler için format şu şekildedir:
+```json
+"parameter_name": {"value": value_of_parameter, "type": "regex", "special_requirements": {"regex": regex_handler_type, ...}}
+```
+
+*type*, "regex" değerlerini alır ve string olarak verilmelidir.
+*value*, regex ifade eden bir string olmalıdır.
+Bunlara ek olarak, node-spec'te parametre için belirtilmiş "special_requirements" da bu parametrenin bilgisine eklenmelidir. Bu şekilde, özel parametrelerin nasıl ele alınacağı belirlenmiş olur. (Tüm "special_requirement" bilgisi aktarılabileceği gibi sadece verilen *type*'a ait bilgi de aktarılabilir.)
+
+**template:**
+
+*template* parametreler için format şu şekildedir:
+```json
+"parameter_name": {"value": value_of_parameter, "type": "template", "special_requirements": {"template": template_handler_type, ...}}
+```
+
+*value_of_parameter* için izlenecek format şu şekildedir:
+```json
+"value": [part_object]
+```
+
+*part_object* 2 farklı yapıda olabilir:\
+1) array
+    * {"value": ["str1", "str2", ...], "type": "array"}
+2) range
+    * {"value": {"start": start_val, "end": end_val}, "type": "range"}
+
+*template* parametresi, çok sayıda eleman içeren bir değeri, eğer belirli bir *pattern* varsa, kolayca oluşturmayı hedefler. Bu doğrultuda, *pattern*'ı oluşturan parçalar verilmelidir. Bu parçalar, *array* veya *range* içerebilirler. Örneğin, ["str1_1_", "str1_2_"], range(3-6), ["_str2_1", "_str2_2", "_str2_3"] ile oluşturacak değer listesi şu şekildedir:\
+[\
+ "str1_1_3_str2_1", "str1_1_3_str2_2", "str1_1_3_str2_3",\
+ "str1_1_4_str2_1", "str1_1_4_str2_2", "str1_1_4_str2_3",\
+ "str1_1_5_str2_1", "str1_1_5_str2_2", "str1_1_5_str2_3",\
+ "str1_2_3_str2_1", "str1_2_3_str2_2", "str1_2_3_str2_3",\
+ "str1_2_4_str2_1", "str1_2_4_str2_2", "str1_2_4_str2_3",\
+ "str1_2_5_str2_1", "str1_2_5_str2_2", "str1_2_5_str2_3",\
+ ]
+
+*part_object* içinde yer alan array türü template'e has bir terimdir, parametre özelliklerinde yer alan array ile karıştırılmamalıdır. İleride, bu karışıklığın önüne geçmek için farklı bir terim kullanılabilir.
+
+*part_object* türü array ise *value* bir string array'i almalıdır. Eğer range ise, başlangıç ve bitiş değerleri integer türünde verilmelidir. Bitiş değeri exclusive'dir: [start_val, end_val)
+
+*part_object* sayısı için bir sınır bulunmamaktadır.
+
+Bunlara ek olarak, node-spec'te parametre için belirtilmiş "special_requirements" da bu parametrenin bilgisine eklenmelidir. Bu şekilde, özel parametrelerin nasıl ele alınacağı belirlenmiş olur. (Tüm "special_requirement" bilgisi aktarılabileceği gibi sadece verilen *type*'a ait bilgi de aktarılabilir.)
+
+**code:**
+
+Bazı nodlar kod parçaları sağlanmasına ihtiyaç duymaktadır (Ör: UDF nodu). Bu durumlarda, kod parçası alınmasına yarayan parametreler bulunmaktadır. Bunları türü *code* olarak ifade edilir. Parametrenin alacağı değer girilmek istenen fonksiyondur. Bu değer string ile ifade edilir. Şu an için yalnızca python'da yazılmış pure function'lara destek verilmektedir. Bununla birlikte, gerekli indentation bilgisi string içerisinde yer almalıdır; öyle ki bu string direkt oluştutulacak betiğe yapıştırılacaktır.
+
+```json
+"parameter_name": {"value": value_of_parameter, "type": "code", "special_requirements": {"code": code_handler_type, ...}}
+```
+*Örnek:*
+
+```json
+"udf_function": {"value": "def Cat1(num):\n\tif num <= 10: return '0-10'\n\telif 10 < num and num <= 20: return '11-20'\n\telif 20 < num and num <= 30: return '21-30'\n\telif 30 < num and num <= 40: return '31-40'\n\telse: return 'morethan40'", "type": "code", "special_requirements": {"code": "code"}}
+```
+
+Yukarıdaki örnekte code_handler_type "code"'dur. Bu şu an için arka planda sağlanan handler'ın türüdür. İleride, parametre türü ile karıştırılmaması için farklı şekilde isimlendirilebilir.
+
+node-spec'te parametre için belirtilmiş "special_requirements" da bu parametrenin bilgisine eklenmelidir. Bu şekilde, özel parametrelerin nasıl ele alınacağı belirlenmiş olur. (Tüm "special_requirement" bilgisi aktarılabileceği gibi sadece verilen *type*'a ait bilgi de aktarılabilir.)
+
+**dict:**
+
+Parametre değeri olarak bir dictionary verilmek istendiğinde kullanılır.
+
+node-spec'te parametre için belirtilmiş "special_requirements" da bu parametrenin bilgisine eklenmelidir. Bu şekilde, özel parametrelerin nasıl ele alınacağı belirlenmiş olur. (Tüm "special_requirement" bilgisi aktarılabileceği gibi sadece verilen *type*'a ait bilgi de aktarılabilir.)
+
+
+Şu an için sağlanan "special_requirement" handler'lar "simple_dict" ve "schema"'dır. "simple_dict" primitive değerler içerir ve girilen dictionary'yi direkt kullanmayı hedefler. "schema" ise verilen dictionary'yi Spark dataframe'i için gerekli schema yapısına çevirir.
+
+*dict* türü parametre için kullanılan format şu şekildedir:
+
+```json
+"parameter_name": {"value": value_of_parameter, "type": "dict", "special_requirements": {"dict": dict_handler_type, ...}}
+```
+
+*Örnek:*
+```json
+"fractions": {"value": {"class1": 0.1, "class2": 0.2, "class3": 0.5}, "type": "dict", "special_requirements": {"dict": "simple_dict"}}
+```
+
+```json
+"fractions": {"value": {0: 0.1, 1: 0.2, 3: 0.5}, "type": "dict", "special_requirements": {"dict": "simple_dict"}}
+```
+
+**ALL**
+
+Parametre değeri, bir set olası eleman olduğu ve bunların hepsinin seçilmesi istendiğinde kullanılabilir. Bu şekilde, tüm elemanları teker teker sağlamak yerine, ALL parametresi ile bu işlem gerçeklenebilir.
+
+*ALL* türü parametre için kullanılan format şu şekildedir:
+
+```json
+"parameter_name": {"value": true, "type": "ALL", "special_requirements": {"ALL": ALL_handler_type, ...}}
+```
+
+Mevcut durumda, bir dataframe'in tüm kolonlarını alabilmek için kullanılan "column_selector_ALL" handler'ı bulunmaktadır.
+
+**object:**
+
+*object* türündeki parametreler mevcut nested yapılarını korumalıdırlar. *RollingStatistics* nodunun spec'inde yer alan "rolling_stats_info" parametresine bakalım. Bu parametrenin türü object'tir ve içerisinde farklı türde parametreler içermektedir. Bu parametreye karşılık gelen parametre değeri için şöyle bir örnek olabilir:
+
+```json
+"rolling_stats_info":
+{
+"value": {
+    "between_operation": {"value": "-", "type": "string"},
+    "first_argument":{
+        "value":
+            {
+            "operation": {"value": "Identity", "type": "string"},
+            "input_cols": {
+                "value": [
+                    {"value": ["pca_"], "type": "array"},
+                    {"value": {"start": 1, "end": 21}, "type": "range"},
+                    {"value": ["_warn"], "type": "array"},
+                ],
+                "type": "template",
+                "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template"}
+                }
+            },
+        "type": "object"
+    }
+    ,
+    "second_argument": {
+        "value":
+            {
+            "operation": {"value": "mean", "type": "string"},
+            "input_cols": {
+                "value": [
+                    {"value": ["pca_"], "type": "array"},
+                    {"value": {"start": 1, "end": 21}, "type": "range"},
+                    {"value": ["_warn"], "type": "array"},
+                ],
+                "type": "template",
+                "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template"}
+                }
+            },
+        "type": "object"
+    },
+    "output_cols": {
+        "value": [
+            {"value": ["pca_"], "type": "array"},
+            {"value": {"start": 1, "end": 21}, "type": "range"},
+            {"value": ["_warn_rollingdiff_"], "type": "array"}
+        ],
+        "type": "template",
+        "special_requirements": {"template": "column_selector_template"}
+    },
+    "partitioning_column": {"value": "pCol", "type": "string"},
+    "ordering_column": {"value": "oCol", "type": "string"},
+    "ordering_direction": {"value": "desc", "type": "string"},
+    "lags": {"value": [3,7,14,30,90], "type": "array[integer]"}
+},
+"type": "object"
+}
+```
+
+Örnekte de görüldüğü üzere, object'in her seviyesinde yer alan parametrelerin adı ve karşısında value, type ve gerekiyorsa special_requirements sağlanmalıdır.
+
+**array:**
+
+*array* türünde parametrelerin sağlanabilmesi için kullanılmaktadır. Temel format şu şekildedir:
+
+```json
+"parameter_name": {"value": value_of_parameter, "type": "array[type]"}
+```
+
+Farklı durumlar için örneklere bakalım:
+
+array elemanlarının primitive olması durumuna bir örnek:
+
+```json
+"input_cols": {"value": ["c1", "c2", "c3"], "type": "array[string]"}
+```
+
+array elemanlarının template olması durumuna (*UDF* nodundan) bir örnek:
+
+```json
+"udf_input_tuples": 
+{
+  "value": [
+      [
+          {"value": ["c"], "type": "array"},
+          {"value": {"start": 1, "end": 4}, "type": "range"}
+      ],
+      [
+          {"value": ["c"], "type": "array"},
+          {"value": {"start": 4, "end": 7}, "type": "range"}
+      ]
+  ],
+  "type": "array[template]",
+  "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}
+}
+```
+
+array elemanlarının object olması durumuna (*RollingStatistics* nodundan) bir örnek:
+
+```json
+"rolling_stats_info":
+{
+  "value": {
+      "between_operation": {"value": "-", "type": "string"},
+      "first_argument":{
+          "value":
+              {
+              "operation": {"value": "min", "type": "string"},
+              "input_cols": {"value": ["c1", "c2", "c3"], "type": "array[string]"}
+              },
+          "type": "object"
+      }
+      ,
+      "second_argument": {
+          "value":
+              {
+              "operation": {"value": "Identity", "type": "string"},
+              "input_cols": {"value": ["c1", "c2", "c3"], "type": "array[string]"}
+              },
+          "type": "object"
+      },
+      "output_cols": {"value": ["o1","o2","o3"], "type": "array[string]"},
+      "partitioning_column": {"value": "pCol", "type": "string"},
+      "ordering_column": {"value": "oCol", "type": "string"},
+      "ordering_direction": {"value": "desc", "type": "string"},
+      "lags": {"value": [3,7,14,30,90], "type": "array[integer]"}
+  },
+  "type": "object"
+}
+```
+
+array elemanlarının array olması durumuna (*UDF* nodundan) bir örnek:
+```json
+"udf_input_tuples": 
+{
+  "value": [["c1", "c2"], ["c3", "c4"], ["c5", "c6"]],
+  "type": "array[array[string]]",
+  "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}}
+```
+
+### Nod Aileleri
+
+Nod aileleri platformda yer alan nodların kod üretimini ortaklamak amacıyla oluşturulmuşlardır. Bu şekilde, her nod için kod üretici yazılmaktan kaçınan sade ve kontrol edilebilir bir yapı kazanılmıştır.
+
+**Nod Ailesi Oluşturmak için Temel Noktalar**
+
+Nod aileleri *generate_code(args)* fonksiyonu taşımalıdır. TaskGenerator nodlar için kod üretirken sırası gelen noda ait bu fonksiyonu çağırır. Dinamik şekilde bu işlem gerçekleştirildiğinden noda özel tüm argümanlar tek bir dictionary içerisinde sunulmalıdır.
+
+*generate_code*'a sağlanacak temel argümanlar, "node", "edges" ve "requireds_info"'dur. "node", sözkonusu noda ait sağlanan bilgileri içerir (node_specs + parameters). "edges", task'a ait tüm edge'leri içerir. "requireds_info", nodların hangi nodlardan "edge" aldığı bilgisini taşır.
+
+Nod ailesi, herhangi bir işlemden önce nodun input nodlarının uygunluğunu kontrol eder (IncomingEdgeValidityChecker). Bununla birlikte, nod ailesi kendine has girdi edge bilgisini taşımalıdır. Örneğin: {"df_count": {1}, "model_count": {0}}, nodun yalnız bir dataframe edge'i kabul etmekteyken hiç model edge'i kabul etmez.
+
+IncomingEdgeValidityChecker, girdi edge'leri kontrol ederken aynı zamanda buradan çıkardığı bilgileri düzenler ve nod ailesine sağlar. Bu şekilde, nod ailesi kullanacağı dataframe ve model ailelerini id'ler bazında da biliyor olur.
+
+*Not:* İleriki versiyonlarda girişte yapılan bu işelemleri ortaklamak adına decorator'lar kullanılabilir.
+
+Nod ailelerinin code_generation utility'lerini kullanması önerilir. Bu şekilde özel parametrelerin ele alınması tek bir merkezden kontrollü olarak yapılmış olur. Aynı zamanda, kod sadeliğine de erişilmiş olur.
+
+Nod ailesi parametreleri ele alan fonksiyonlara bazı argümanlar göndermeye ihtiyaç duyabilir. Bunlar, *node_id, input_dfs, shared_function_set, additional_local_code, errors* gibi argümanlardır.
+
+* *node_id*, nodun UI tarafından ya da farklı şekillerde verilmiş unique id'sini ifade eder.
+* *input_dfs*, noda giren dataframe id'lerini ifade eder.
+* *shared_function_set*, global olarak oluşturulacak fonksiyonların bu nod tarafından ihtiyaç duyulanlarının id'lerini tutmak için kullanılır.
+* *additional_local_code*, nod ailesine has local olarak eklenmesi gereken ekstra kodları tutmak için kullanılır.
+* *errors*, kod üretimi sırasında karşılaşılan hataları tutmak için kullanılır.
+
+Nod ailesi oluşan ekstra local kodları, kod üretim sürecinin sonunda oluşturduğu kodların üzerine ekler.
+
+*generate_code*, oluşan kodları, *shared_function_set*'i ve error'ları geri döner.
+
+Yeni eklenen nod aileleri için şu ek düzenlemeler yapılmalıdır:
+* domain paketi altındaki NodeFamilyTypes'a yeni eklenen nod ailesinin bilgisi eklenmelidir.
+* families.json'ına yeni eklenen nod ailesinin bilgisi eklenmelidir.
+* domain paketi altında yer alan ImportInfo'ya nod ailesinin gerektirdiği *import*'lar eklenmelidir.
+* Yeni error türleri gerekliyse, domain paketi altındaki ErrorTypes'a bunlar eklenmelidir.
+* Yeni *shared_function* türleri gerekliyse, domain paketi altındaki SharedFunctionTypes'a bunlar eklenmelidir.
+* Yeni *special_case*'ler gerekliyse, domain paketi altındaki SpecialCases'a bunlar eklenmelidir.
+* Eğer nod ailesi üst seviye bir nod türü oluşturmuşsa, bu tür domain paketi altındaki HighLevelNodeTypes'a eklenmelidir.
+
+Nod ailesi oluştururken gerek duyulan ekstra kontroller, *validity* paketi altında tanımlanabilir.
+
+Nod ailesi için farklı parametre türlerine ihtiyaç duyulması veya kod üretimi için (ortaklanabilir) farklı (mevcut olarak desteklenmeyen) utility'lere ihtiyaç duyulması durumunda *utils.code_generation* paketi altında yer alan utility'ler düzenlene bilir veya yenileri eklenebilir.
+
+
+### *Code Generation Utils*
+### *Shared Functions*
+### *Multi-instance Handler*
+### *Model Holder*

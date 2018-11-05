@@ -43,7 +43,7 @@ data={
                   "ddfo_name": "sampleBy",
                   "parameters": {
                         "col": {"value": "c1", "type": "string"},
-                        "fractions": {"value": {"class1": 0.1, "class2": 0.2, "class3": 0.5}, "type": "simple_dict"},
+                        "fractions": {"value": {"class1": 0.1, "class2": 0.2, "class3": 0.5}, "type": "dict", "special_requirements": {"dict": "simple_dict"}},
                         "seed": {"value": 1234, "type": "integer"}
                     }
                 },
@@ -64,7 +64,7 @@ data={
                   "ddfo_name": "sampleBy",
                   "parameters": {
                         "col": {"value": "label", "type": "string"},
-                        "fractions": {"value": {0: 0.1, 1: 0.2, 3: 0.5}, "type": "simple_dict"},
+                        "fractions": {"value": {0: 0.1, 1: 0.2, 3: 0.5}, "type": "dict", "special_requirements": {"dict": "simple_dict"}},
                         "seed": {"value": 1234, "type": "integer"}
                     }
                 },
