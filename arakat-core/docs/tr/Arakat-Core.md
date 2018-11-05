@@ -654,7 +654,7 @@ Referans örneklerden *RollingStatistics* noduna bakalım.
 
 ### Parametre Formatı
 
-Parametre özellikleri hangi parametreleri nasıl istememiz gerektiğini belirler. Parametre formatı ise alınan parametre değerleriin graph'a nasıl dahil edileceğini belirler. Bu bölümde farklı durumlar ve parametre türleri için izlenmesi gereken format verilecektir.
+Parametre özellikleri hangi parametreleri nasıl istememiz gerektiğini belirler. Parametre formatı ise alınan parametre değerlerinin graph'a nasıl dahil edileceğini belirler. Bu bölümde farklı durumlar ve parametre türleri için izlenmesi gereken format verilecektir.
 
 **primitives:**
 
