@@ -119,7 +119,7 @@ def __handle_simple_dict(parameter, args):
 
     code.extend("}")
 
-    return code
+    return ''.join(code)
 
 def __handle_primitive(value):
     if (isinstance(value, str)):

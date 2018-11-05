@@ -73,7 +73,8 @@ data={
                                 ]
                         ],
                         "type": "array[template]",
-                        "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}},
+                        "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}
+                        },
                         "udf_outputs": {"value": ["o1","o2"], "type": "array[string]", "special_requirements": {"template": "column_selector_template"}},
                         "udf_return_type": {"value": "IntegerType", "type": "string"},
                         "udf_function": {"value": "def my_f(arg1,arg2,arg3):\n\tprint('Cool UDF')\n\treturn 1", "type": "code", "special_requirements": {"code": "code"}}
