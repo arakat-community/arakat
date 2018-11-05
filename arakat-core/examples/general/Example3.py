@@ -64,7 +64,7 @@ data={
                   "is_splitter": False,
                   "produces_model": False,
                   "parameters": {
-                      "weights": {"value": [0.7, 0.3], "type": "array[double]"},
+                      "weights": {"value": [0.6, 0.2, 0.2], "type": "array[double]"},
                       "seed": {"value": 1234, "type": "integer"},
                   }
                 },
@@ -211,7 +211,7 @@ data={
                     "is_splitter": False,
                     "produces_model": False,
                     "parameters": {
-                        "model_path": {"value": "hdfs://namenode:9000/exmp3_model/", "type": "string"}
+                        "model_path": {"value": "hdfs://namenode:9000/example3/model/", "type": "string"}
                     },
                 },
             "node11":
@@ -255,8 +255,8 @@ data={
                 {
                     "id": "node13",
                     "parent": "task1",
-                    "node_id": 60,
-                    "name": "Batch Write to Orc",
+                    "node_id": 61,
+                    "name": "Batch Write to Parquet",
                     "category": 1,
                     "node_type": 0,
                     "family": 2,
@@ -265,9 +265,9 @@ data={
                     "compatible_with_spark_pipeline": False,
                     "is_splitter": False,
                     "produces_model": False,
-                    "file_type": "orc",
+                    "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "targetfilepathForEvalResult1.orc", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/example3/EvalResult1.parquet", "type": "string"}
                     }
                 },
             "node14":
@@ -286,15 +286,37 @@ data={
                     "produces_model": False,
                     "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "hdfs://namenode:9000/exmp4/targetfilepathForEvalResult2.parquet", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/example3/EvalResult2.parquet", "type": "string"}
                     }
                 },
-                "node15":
+
+            "node15":
                 {
                     "id": "node15",
+                    "parent": "task1",
+                    "node_id": 61,
+                    "name": "Batch Write to Parquet",
+                    "category": 1,
+                    "node_type": 0,
+                    "family": 2,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "file_type": "parquet",
+                    "parameters": {
+                        "path": {"value": "hdfs://namenode:9000/example3/test.parquet", "type": "string"}
+                    }
+                },
+
+
+                "node16":
+                {
+                    "id": "node16",
                     "parent": "task2",
-                    "node_id": 48,
-                    "name": "Batch Read from Orc",
+                    "node_id": 49,
+                    "name": "Batch Read from Parquet",
                     "category": 0,
                     "node_type": 0,
                     "family": 0,
@@ -304,14 +326,14 @@ data={
                     "is_splitter": False,
                     "produces_model": False,
                     "can_infer_schema": False,
-                    "file_type": "orc",
+                    "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "filepath.orc", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/example3/test.parquet", "type": "string"}
                     }
                 },
-                "node16":
+                "node17":
                 {
-                    "id": "node16",
+                    "id": "node17",
                     "parent": "task2",
                     "node_id": 63,
                     "name": "Model Loader",
@@ -324,13 +346,13 @@ data={
                     "is_splitter": False,
                     "produces_model": True,
                     "parameters": {
-                        "model_path": {"value": "pathToMyModel", "type": "string"},
+                        "model_path": {"value": "hdfs://namenode:9000/example3/model/", "type": "string"},
                         "model_type": {"value": "PipelineModel", "type": "string"}
                     }
                 },
-                "node17":
+                "node18":
                 {
-                    "id": "node17",
+                    "id": "node18",
                     "parent": "task2",
                     "node_id": 65,
                     "name": "Model Apply",
@@ -344,9 +366,9 @@ data={
                     "produces_model": False,
                     "parameters": {},
                 },
-                "node18":
+                "node19":
                 {
-                    "id": "node18",
+                    "id": "node19",
                     "parent": "task2",
                     "node_id": 25,
                     "name": "Multi-class Classification Evaluator",
@@ -365,9 +387,9 @@ data={
                         "metricName": {"value": "accuracy", "type": "string"}
                     },
                 },
-                "node19":
+                "node20":
                 {
-                    "id": "node19",
+                    "id": "node20",
                     "parent": "task2",
                     "node_id": 59,
                     "name": "Batch Write to CSV",
@@ -381,7 +403,7 @@ data={
                     "produces_model": False,
                     "file_type": "csv",
                     "parameters": {
-                        "path": {"value": "targetfilepathForEvalResult3.csv", "type": "string"},
+                        "path": {"value": "hdfs://namenode:9000/example3/EvalResult3.csv", "type": "string"},
                         "header": {"value": True, "type": "boolean"},
                         "sep": {"value": ",", "type": "string"},
                         "quote": {"value": '\\\"', "type": "string"}
@@ -408,20 +430,21 @@ data={
             "node8-node9": {"type": "dataframe"},
             "node8-node10": {"type": "model"},
             "node3-node11": {"type": "dataframe", "portion": 1},
+            "node3-node15": {"type": "dataframe", "portion": 2},
             "node8-node11": {"type": "model"},
             "node11-node12": {"type": "dataframe"},
             "node12-node14": {"type": "dataframe"},
             "node9-node13": {"type": "dataframe"},
-            "node15-node17": {"type": "dataframe"},
-            "node16-node17": {"type": "model"},
-            "node17-node18": {"type": "dataframe"},
+            "node16-node18": {"type": "dataframe"},
+            "node17-node18": {"type": "model"},
             "node18-node19": {"type": "dataframe"},
+            "node19-node20": {"type": "dataframe"},
             "task1-task2": {"type": "upstream"}
         }
     },
     "dag_properties": {
-        "app_id": "MyFirstApp",
-        "code_base_path": "path_to_put_spark_scripts",
+        "app_id": "MyFirstApp3",
+        "code_base_path": "/usr/local/spark_code/",
         "schedule_interval": "@once",
         "default_args": {
             "owner": "airflow",
