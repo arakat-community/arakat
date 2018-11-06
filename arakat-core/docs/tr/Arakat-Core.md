@@ -952,6 +952,55 @@ Nod ailesi için farklı parametre türlerine ihtiyaç duyulması veya kod üret
 
 
 ### *Code Generation Utils*
+
+*utils.code_generation* altında yer alan CodeGenerationUtils bünyesinde kod üretimini sadeleştirecek fonksiyonlar sağlamaktadır. Temel olarak, fonksiyonların (şu an için Spark fonksiyonları) alacağı parametrelerin önişlemesi ve gerekli ekstra kodların oluşturulmasından sorumludurlar.
+
+Parametrelerin ele alınması için sağlanan fonksiyonalite, primitive ve array türlerini ele aldığı gibi özel gereksinimleri olan parametreleri de işler. Parametrenin primitive olduğu bilindiği durumlarda primitive'i işlemek için kullanılabilecek daha sade bir fonksiyon da mevcuttur.
+
+Parametrelerin isimleri ile birlikte argüman string'ine dönüştürülebilmesi için de fonksiyonlar sağlanmıştır. Öyle ki bir parametre dictionary'si verildiğinde "param_name1=processed_param_val1, param_name2=processed_param_val2, ..." formatında bir string oluşturulmasına imkan tanınmıştır.
+
+Bir object-instantination veya function-call için kod üretimi gerektiği durumlarda parametre dictionary'si, başlangıç string'i ve argümanlar verilerek istenen kod üretimi gerçeklenebilir.
+
+*Örnek:*
+
+```python
+code=CodeGenerationUtils.handle_instantination_or_call(node["parameters"], 'estimator_' + node["id"] + ' = ' + node["estimator_name"] + '(', args)
+```
+args içeriği ise şu şekilde olabilir:
+```python
+args = {"node_id": node["id"], "input_dfs": [df_name], "shared_function_set": shared_function_set, "additional_local_code": additional_local_code, "errors": errors}
+```
+
+Bunlara ek olarak, nod ailesinin ürettiği ana kod ve ekstra local kodun birleştirilmesini sağlayacak fonsiyonalite de sağlanmıştır.
+
+Özel gereksinimi olan parametreler ise SpecialRequirementHandlerForParameters'a yönlendirilir. Burada, node-spec'te yer alan "special_requirements" bilgisinde parametre türüne karşılık gelen "handler" seçilerek parametre işlenir. Söz konusu handler'lar ekstra local kod üretebileceği gibi *shared function*'lar da üretbilirler. Handler'lar sadece parametre değeri olarak kullanılacak string'i dönerler. Üretilen ekstra local kodları ve *shared function*'ları SpecialRequirementHandlerForParameters'ın *handle_parameter(parameter, special_requirement, args)* fonksiyonu ile gönderilen arg'ın içinde yer alan gerekli alanlara koyarlar.
+
 ### *Shared Functions*
+
+Nod aileleri hedefledikleri fonksiyonaliteleri gerçekleştirebilmek için ekstra kodlar üretmeye ihtiyaç duyabilirler. Örneğin, dataframe'den belli bir template veya regex'e uygun kolonların listesini alıp bir fonksiyona argüman olarak vermek istediğimizi düşünelim. Bu durumda, template/regex match yapacak bir fonksiyona ihtiyaç duyulmaktadır. Parametre değeri olarak da bu fonksiyonu gerekli argümanları ile call eden bir kod parçası üretmek gerekmektedir. Bu işlem, ekstra local kod üretimi için de aynı şekildedir. *Shared function*'lara ihtiyaç duyulmasının nedeni ise kodu daha sade tutmaktır. Örneğimizden devam edersek, her template match ile dataframe üzerinden kolon listesi almak isteyen parametre (bir nod ailesinde bile birden fazla olabilir) bu fonksiyonu tekrar tekrar yaratacaktır. Bunun yerine tüm nod ailelerinin kullanımı için sözkonusu işleve yönelik bir tane fonksiyon yaratmak yeterlidir.
+
+Her nod ailesi, ihtiyaç duyduğu *shared function*'ları bir set'te tutar. Her noddan gelen bu set'ler TaskGenerator tarafından bir araya getirilir ve kodun baş kısmına sözkonusu fonksiyonlar eklenir.
+
+Yeni *shared function*'lar, *utils.code_generation* altında yer alan "SharedFunctionStore" altına eklenebilir. İleriki versiyonlarda, "SharedFunctionStore" çok şişmesi durumunda parçalara ayrılabilir.
+
 ### *Multi-instance Handler*
-### *Model Holder*
+
+Özellikle aynı işlemi birden fazla kolona uygulamak istediğimiz durumlarda, tekrar tekrar nod yaratmak gerekir. Sözkonusu kolonların çok fazla olduğu durumlarda bu kullanıcıya aşırı bir efor sarfiyatı olarak yansıyacaktır. Bunu önlemek adına, bazı nodlar (şu an için transformer ve estimator nod aileleri) için multi-instance seçeneği sunulmuştur.
+
+Örneğin *StringIndexer* nodunu ele alalım. Spark'ın StringIndexer fonksiyonu tek bir kolon üzerinde çalışır ve kolondaki string'leri kategorize eder. Eğer mevcut dataframe üzerinde bunu uygulamak istediğimiz çok sayıda kolon varsa; bunlar için teker teker nod oluşturmak efor kaybına yol açacaktır. Bu işlevi tek bir nod ile ifade etmek istediğimizde hangi parametrelerin sabit kalıp hangilerinin multi-instance ihtiyacına göre değişeceğini saptamak gerekir. StringIndexer örneğinde input ve output kolonları tek bir string değeri alırken bunları array şeklinde ifade edip arka planda yer alan iş-mantığını da buna göre uyarlayabiliriz. Bu durumda, node-spec içerisinde *multi_instance_indicator* adında bir alan daha tutulur. Bunun içerisinde, multi-instance işlevi sırasında rehber olacak kullanılacak ve özel olarak ele alınacak parametre adları verilir.
+
+Multi-instance handler ile arka planda yapılan bu modifiye edilmiş parametreler üzerinden bir loop dönerek daha önce manuel olarak oluşturulan nodların otomatize edilmiş bir şekilde oluşturulmasıdır.
+
+Uyarı: Multi-instance indicator olarak kullanılacak parametreler, parameter_props'un en üst seviyesinde yer almalıdır.
+
+### *Özel Durumlar (Model Holder Case)*
+
+Task, pipeline ve cv nodları compound nodlardır. Bunlar içerisinde başka nodlar barındırabilirler. Temel kural olarak bir compound nod (veya bunun içerisinde yer alan nodlar) ile başka bir compound nod altında yer alan nodlar arasında bir edge bulunamaz. Yalnız, deneysel olarak ele alınan bir özel durum ile bu kabulün core modülü karmaşık hale getirmeden esnetilip esnetilemeyeceği deneyimlenmiştir. ModelHolder nodu bu deney için örnek oluşturmaktadır.
+
+Örneğin, makine öğrenmesi yapan bir işlem akışı düşünelim. Bu durumda, veriyi ön işleyecek ve model eğitecek bir pipeline oluşturalım. Bu pipeline'ın dışında daha önceden herhangi bir önişleme işleme nodu olduğunu farz edelim. Bu nodun eğittiği modeli pipeline'ımıza dahil etmek istediğimizde iki problem çıkıyor karşımıza:
+
+İlk problem, pipeline içerisinde daha önceden eğitilmiş bir modelin nasıl ifade edileceği. Bunu, bir "placeholder" görevi gören ModelHolder dediğimiz bir nod ile sağlayabiliriz. Bu nod, sözkonusu modeli alacak ve pipeline kodu üretilirken ifade ettiği modelin id'sini sağlayacak.
+
+İkinci problem, yukarıda bahsedilen kabul. Bu kabule göre pipeline nodu gibi bir compound nod içerisinde yer alan bir noda, sözkonusu pipeline nodu dışarısında yer alan bir noddan edge çekmemiz gerekiyor (crossing edge problem). Bu durumda, ModelHolder durumuna özel olarak bu edge'in çekilmesine izin veriyoruz. *PipelineGenerator* graph'ı parse ederken bu edge'ler special_edges olarak ele alınmaktadır.
+
+Bu durumun çözümü için graph parsing kısmında özel edge'leri işleyecek bir işlev ve nod ailesi içerisinde bu özel edge'leri dikkate almak yeterli oldu. Şu an için, bu şekilde özel durumların ele alınmasında bir problem görülmemiştir. Yalnız, core modülü karmaşıklaştıracak ve *dependency*'leri arttıracak özel durumlardan olabildiğince kaçınılmalıdır.
