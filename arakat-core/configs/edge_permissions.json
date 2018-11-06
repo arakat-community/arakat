@@ -1,31 +1,13 @@
 {
-  "type": {
+  "0": {
     "dataframe": {
-      "visible_name": "Data Source",
-      "compatible_families_as_source": [],
-      "compatible_families_as_target": [],
-      "options":{
-       "portion": {
-         "visible_name": "Portion",
-         "compatible_families_as_source": [],
-         "compatible_families_as_target": []
-        },
-        "order": {
-          "visible_name": "Order",
-          "compatible_families_as_source": [],
-          "compatible_families_as_target": []
-        }
-      }
+      "allowed_targets": [],
+      "portion":[],
+      "order":[]
     },
     "model": {
-      "visible_name": "Model",
-      "compatible_families_as_source": [],
-      "compatible_families_as_target": [],
-      "order": {
-        "visible_name": "Order",
-        "compatible_families_as_source": [],
-        "compatible_families_as_target": []
-      }
+      "allowed_targets": [],
+      "order":[]
     }
   }
 }
