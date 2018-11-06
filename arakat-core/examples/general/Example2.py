@@ -211,7 +211,7 @@ data={
                     "is_splitter": False,
                     "produces_model": False,
                     "parameters": {
-                        "model_path": {"value": "hdfs://namenode:9000/exmp2_model/", "type": "string"}
+                        "model_path": {"value": "hdfs://namenode:9000/example2/model/", "type": "string"}
                     },
                 },
             "node11":
@@ -255,8 +255,8 @@ data={
                 {
                     "id": "node13",
                     "parent": "task1",
-                    "node_id": 60,
-                    "name": "Batch Write to Orc",
+                    "node_id": 61,
+                    "name": "Batch Write to Parquet",
                     "category": 1,
                     "node_type": 0,
                     "family": 2,
@@ -265,9 +265,9 @@ data={
                     "compatible_with_spark_pipeline": False,
                     "is_splitter": False,
                     "produces_model": False,
-                    "file_type": "orc",
+                    "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "targetfilepathForEvalResult1.orc", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/example2/EvalResult1.parquet", "type": "string"}
                     }
                 },
             "node14":
@@ -286,7 +286,7 @@ data={
                     "produces_model": False,
                     "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "targetfilepathForEvalResult2.parquet", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/example2/EvalResult2.parquet", "type": "string"}
                     }
                 },
             "task1": {
@@ -312,8 +312,8 @@ data={
         }
     },
     "dag_properties": {
-        "app_id": "MyFirstApp",
-        "code_base_path": "path_to_put_spark_scripts",
+        "app_id": "MyFirstApp2",
+        "code_base_path": "/usr/local/spark_code/",
         "schedule_interval": "@once",
         "default_args": {
             "owner": "airflow",

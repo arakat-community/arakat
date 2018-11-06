@@ -64,7 +64,7 @@ data={
                   "is_splitter": False,
                   "produces_model": False,
                   "parameters": {
-                      "weights": {"value": [0.7, 0.3], "type": "array[double]"},
+                      "weights": {"value": [0.6, 0.2, 0.2], "type": "array[double]"},
                       "seed": {"value": 1234, "type": "integer"},
                   }
                 },
@@ -148,10 +148,31 @@ data={
                     "produces_model": True,
                     "parameters": {},
                 },
+
             "node8":
                 {
                     "id": "node8",
-                    "parent": "node10",
+                    "parent": "task1",
+                    "node_id": 64,
+                    "name": "Model Saver",
+                    "category": 3,
+                    "node_type": 0,
+                    "family": 11,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "parameters": {
+                        "model_path": {"value": "hdfs://namenode:9000/example4/model_1/", "type": "string"}
+                    },
+                },
+
+
+            "node9":
+                {
+                    "id": "node9",
+                    "parent": "node11",
                     "node_id": 32,
                     "name": "Random Forest Classifier",
                     "category": 11,
@@ -175,10 +196,10 @@ data={
                         "featureSubsetStrategy": {"value": "auto", "type": "string"}
                     }
                 },
-            "node9":
+            "node10":
                 {
-                    "id": "node9",
-                    "parent": "node10",
+                    "id": "node10",
+                    "parent": "node11",
                     "node_id": 25,
                     "name": "Multi-class Classification Evaluator",
                     "category": 12,
@@ -196,9 +217,9 @@ data={
                         "metricName": {"value": "accuracy", "type": "string"}
                     },
                 },
-            "node10":
+            "node11":
                 {
-                    "id": "node10",
+                    "id": "node11",
                     "parent": "task1",
                     "node_id": 66,
                     "name": "Cross Validator",
@@ -214,9 +235,9 @@ data={
                         "parameter_grid": {"maxDepth": {"value": [3, 5, 8, 20], "type": "array[integer]"}}
                     }
                 },
-             "node11":
+             "node12":
                 {
-                    "id": "node11",
+                    "id": "node12",
                     "parent": "task1",
                     "node_id": 64,
                     "name": "Model Saver",
@@ -229,24 +250,8 @@ data={
                     "is_splitter": False,
                     "produces_model": False,
                     "parameters": {
-                        "model_path": {"value": "hdfs://namenode:9000/model/", "type": "string"}
+                        "model_path": {"value": "hdfs://namenode:9000/example4/model_2/", "type": "string"}
                     },
-                },
-            "node12":
-                {
-                    "id": "node12",
-                    "parent": "task1",
-                    "node_id": 65,
-                    "name": "Model Apply",
-                    "category": 3,
-                    "node_type": 0,
-                    "family": 9,
-                    "compatible_with_stream": False,
-                    "compatible_stream_output_modes": [],
-                    "compatible_with_spark_pipeline": False,
-                    "is_splitter": False,
-                    "produces_model": False,
-                    "parameters": {},
                 },
             "node13":
                 {
@@ -268,6 +273,22 @@ data={
                 {
                     "id": "node14",
                     "parent": "task1",
+                    "node_id": 65,
+                    "name": "Model Apply",
+                    "category": 3,
+                    "node_type": 0,
+                    "family": 9,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "parameters": {},
+                },
+            "node15":
+                {
+                    "id": "node15",
+                    "parent": "task1",
                     "node_id": 25,
                     "name": "Multi-class Classification Evaluator",
                     "category": 12,
@@ -285,9 +306,9 @@ data={
                         "metricName": {"value": "accuracy", "type": "string"}
                     },
                 },
-            "node15":
+            "node16":
                 {
-                    "id": "node15",
+                    "id": "node16",
                     "parent": "task1",
                     "node_id": 61,
                     "name": "Batch Write to Parquet",
@@ -301,15 +322,35 @@ data={
                     "produces_model": False,
                     "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "hdfs://namenode:9000/example5/targetfilepathForEvalResult2.parquet", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/example4/EvalResult2.parquet", "type": "string"}
                     }
                 },
-                 "node16":
+
+            "node17":
                 {
-                    "id": "node16",
+                    "id": "node17",
+                    "parent": "task1",
+                    "node_id": 61,
+                    "name": "Batch Write to Parquet",
+                    "category": 1,
+                    "node_type": 0,
+                    "family": 2,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "file_type": "parquet",
+                    "parameters": {
+                        "path": {"value": "hdfs://namenode:9000/example4/test.parquet", "type": "string"}
+                    }
+                },
+            "node18":
+                {
+                    "id": "node18",
                     "parent": "task2",
-                    "node_id": 48,
-                    "name": "Batch Read from Orc",
+                    "node_id": 49,
+                    "name": "Batch Read from Parquet",
                     "category": 0,
                     "node_type": 0,
                     "family": 0,
@@ -319,45 +360,10 @@ data={
                     "is_splitter": False,
                     "produces_model": False,
                     "can_infer_schema": False,
-                    "file_type": "orc",
+                    "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "hdfs://namenode:9000/example5/filepath.orc", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/example4/test.parquet", "type": "string"}
                     }
-                },
-                "node17":
-                {
-                    "id": "node17",
-                    "parent": "task2",
-                    "node_id": 63,
-                    "name": "Model Loader",
-                    "category": 3,
-                    "node_type": 0,
-                    "family": 10,
-                    "compatible_with_stream": False,
-                    "compatible_stream_output_modes": [],
-                    "compatible_with_spark_pipeline": False,
-                    "is_splitter": False,
-                    "produces_model": True,
-                    "parameters": {
-                        "model_path": {"value": "pathToMyPipelineModel", "type": "string"},
-                        "model_type": {"value": "PipelineModel", "type": "string"}
-                    }
-                },
-                "node18":
-                {
-                    "id": "node18",
-                    "parent": "task2",
-                    "node_id": 65,
-                    "name": "Model Apply",
-                    "category": 3,
-                    "node_type": 0,
-                    "family": 9,
-                    "compatible_with_stream": False,
-                    "compatible_stream_output_modes": [],
-                    "compatible_with_spark_pipeline": False,
-                    "is_splitter": False,
-                    "produces_model": False,
-                    "parameters": {},
                 },
                 "node19":
                 {
@@ -374,8 +380,8 @@ data={
                     "is_splitter": False,
                     "produces_model": True,
                     "parameters": {
-                        "model_path": {"value": "pathToMyCVModel", "type": "string"},
-                        "model_type": {"value": "CrossValidatorModel", "type": "string"}
+                        "model_path": {"value": "hdfs://namenode:9000/example4/model_1/", "type": "string"},
+                        "model_type": {"value": "PipelineModel", "type": "string"}
                     }
                 },
                 "node20":
@@ -398,6 +404,41 @@ data={
                 {
                     "id": "node21",
                     "parent": "task2",
+                    "node_id": 63,
+                    "name": "Model Loader",
+                    "category": 3,
+                    "node_type": 0,
+                    "family": 10,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": True,
+                    "parameters": {
+                        "model_path": {"value": "hdfs://namenode:9000/example4/model_2/", "type": "string"},
+                        "model_type": {"value": "CrossValidatorModel", "type": "string"}
+                    }
+                },
+                "node22":
+                {
+                    "id": "node22",
+                    "parent": "task2",
+                    "node_id": 65,
+                    "name": "Model Apply",
+                    "category": 3,
+                    "node_type": 0,
+                    "family": 9,
+                    "compatible_with_stream": False,
+                    "compatible_stream_output_modes": [],
+                    "compatible_with_spark_pipeline": False,
+                    "is_splitter": False,
+                    "produces_model": False,
+                    "parameters": {},
+                },
+                "node23":
+                {
+                    "id": "node23",
+                    "parent": "task2",
                     "node_id": 25,
                     "name": "Multi-class Classification Evaluator",
                     "category": 12,
@@ -415,9 +456,9 @@ data={
                         "metricName": {"value": "accuracy", "type": "string"}
                     },
                 },
-                "node22":
+                "node24":
                 {
-                    "id": "node22",
+                    "id": "node24",
                     "parent": "task2",
                     "node_id": 59,
                     "name": "Batch Write to CSV",
@@ -431,7 +472,7 @@ data={
                     "produces_model": False,
                     "file_type": "csv",
                     "parameters": {
-                        "path": {"value": "hdfs://namenode:9000/example5/targetfilepathForEvalResult3.csv", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/example4/EvalResult3.csv", "type": "string"}
                     }
                 },
             "task1": {
@@ -451,27 +492,29 @@ data={
             "node3-node7": {"type": "dataframe", "portion": 0},
             "node4-node5": {"type": "pipeline"},
             "node5-node6": {"type": "pipeline"},
-            "node7-node10": {"type": "dataframe"},
-            "node8-node9": {"type": "cv"},
-            "node10-node11": {"type": "model"},
-            "node3-node12": {"type": "dataframe", "portion": 1},
-            "node7-node12": {"type": "model"},
-            "node12-node13": {"type": "dataframe"},
-            "node10-node13": {"type": "model"},
+            "node7-node11": {"type": "dataframe"},
+            "node7-node8": {"type": "model"},
+            "node9-node10": {"type": "cv"},
+            "node11-node12": {"type": "model"},
+            "node3-node13": {"type": "dataframe", "portion": 1},
+            "node7-node13": {"type": "model"},
             "node13-node14": {"type": "dataframe"},
+            "node11-node14": {"type": "model"},
             "node14-node15": {"type": "dataframe"},
-            "node16-node18": {"type": "dataframe"},
-            "node17-node18": {"type": "model"},
-            "node19-node20": {"type": "model"},
+            "node15-node16": {"type": "dataframe"},
+            "node3-node17": {"type": "dataframe", "portion": 2},
             "node18-node20": {"type": "dataframe"},
-            "node20-node21": {"type": "dataframe"},
-            "node21-node22": {"type": "dataframe"},
+            "node19-node20": {"type": "model"},
+            "node21-node22": {"type": "model"},
+            "node20-node22": {"type": "dataframe"},
+            "node22-node23": {"type": "dataframe"},
+            "node23-node24": {"type": "dataframe"},
             "task1-task2": {"type": "upstream"}
         }
     },
     "dag_properties": {
-        "app_id": "MyFirstApp",
-        "code_base_path": "path_to_put_spark_scripts",
+        "app_id": "MyFirstApp4",
+        "code_base_path": "/usr/local/spark_code/",
         "schedule_interval": "@once",
         "default_args": {
             "owner": "airflow",

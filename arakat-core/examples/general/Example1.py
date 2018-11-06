@@ -57,7 +57,7 @@ data={
     },
     "dag_properties": {
         "app_id": "MyFirstApp",
-        "code_base_path": "path_to_put_spark_scripts",
+        "code_base_path": "/usr/local/spark_code/",
         "schedule_interval": "@once",
         "default_args": {
             "owner": "airflow",
