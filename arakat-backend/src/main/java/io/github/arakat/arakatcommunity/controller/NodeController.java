@@ -28,7 +28,7 @@ public class NodeController {
     }
 
     @RequestMapping(value = "/save-node", method = RequestMethod.POST)
-    public ResponseEntity<BaseResponse> saveNode(@Valid @RequestBody Node node) {
+    public ResponseEntity<BaseResponse> saveNode(@Valid @RequestBody Node node) throws Exception {
         Node savedNode = nodeService.save(node);
 
         return ApiResponseUtils.createResponseEntity(200,

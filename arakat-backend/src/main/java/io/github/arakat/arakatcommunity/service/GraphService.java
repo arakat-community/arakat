@@ -1,17 +1,23 @@
 package io.github.arakat.arakatcommunity.service;
 
+import com.mongodb.*;
+import com.mongodb.util.JSON;
 import io.github.arakat.arakatcommunity.config.AppPropertyValues;
+import io.github.arakat.arakatcommunity.exception.GraphNotFoundException;
 import io.github.arakat.arakatcommunity.exception.GraphRunFailedException;
 import io.github.arakat.arakatcommunity.model.TablePath;
 import io.github.arakat.arakatcommunity.model.Task;
 import io.github.arakat.arakatcommunity.utils.FileOperationUtils;
+import io.github.arakat.arakatcommunity.utils.RequestUtils;
+import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
 import java.util.*;
@@ -24,15 +30,21 @@ public class GraphService {
     private TablePathService tablePathService;
     private TaskService taskService;
     private AppService appService;
+    private MongoTemplate mongoTemplate;
+    private RequestUtils requestUtils;
 
     @Autowired
     public GraphService(AppPropertyValues appPropertyValues, FileOperationUtils fileOperationUtils,
-                        TablePathService tablePathService, TaskService taskService, AppService appService) {
+                        TablePathService tablePathService, TaskService taskService, AppService appService,
+                        MappingMongoConverter mappingMongoConverter, MongoDbFactory mongoDbFactory,
+                        RequestUtils requestUtils) {
         this.appPropertyValues = appPropertyValues;
         this.fileOperationUtils = fileOperationUtils;
         this.tablePathService = tablePathService;
         this.taskService = taskService;
         this.appService = appService;
+        this.requestUtils = requestUtils;
+        mongoTemplate = new MongoTemplate(mongoDbFactory, mappingMongoConverter);
     }
 
     public JSONObject addConfigToDagProperties(String graph) {
@@ -57,16 +69,9 @@ public class GraphService {
     }
 
     public String postGraphAndDagPropsToCore(String graphToPost) {
-        RestTemplate restTemplate = new RestTemplate();
-
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
-
         String uri = appPropertyValues.getArakatCoreUrl() + ":" + appPropertyValues.getArakatCorePort() + "/" + appPropertyValues.getArakatCorePostingGraphEndpoint();
 
-        Map<String, String> vars = new HashMap<>();
-
-        return restTemplate.postForObject(uri, graphToPost, String.class, vars);
+        return (String) requestUtils.sendPostRequest(uri, graphToPost);
     }
 
     public void sendGeneratedCodeToAirflow(String dagAndTasks) throws IOException {
@@ -88,7 +93,7 @@ public class GraphService {
                     }
                 } else {
                     String airflowSchedulerCode = (String) entry.get(taskKey);
-                    fileOperationUtils.writeToFile(key, airflowSchedulerCode, appPropertyValues.getDagOutputFileLocation());
+                    fileOperationUtils.writeToFile(key + ".py", airflowSchedulerCode, appPropertyValues.getDagOutputFileLocation());
                 }
             }
         }
@@ -124,8 +129,10 @@ public class GraphService {
                 JSONArray tables = tasks.getJSONArray(task);
 
                 for(Object table : tables) {
-                    TablePath savedTablePath = tablePathService.saveAndGetTable(
-                            new JSONObject(table.toString()).get("table_path").toString());
+                    String tablePath = new JSONObject(table.toString()).get("table_path").toString();
+
+                    TablePath savedTablePath = tablePathService.saveAndGetTable(tablePath);
+//                    System.out.println(saveWrittenTableToHdfsVolume(tablePath));
 
                     tablesToSave.add(savedTablePath);
                 }
@@ -140,6 +147,17 @@ public class GraphService {
         }
     }
 
+//    private String saveWrittenTableToHdfsVolume(String tablePath) {
+//        String uri = appPropertyValues.getHdfsReaderUrl() + ":" + appPropertyValues.getHdfsReaderPort()
+//                + "/" + appPropertyValues.getHdfsReaderGetGraphEndpoint();
+//
+//        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+////        map.add("path", "hdfs://namenode:9000/example3/test.parquet");
+//        map.add("path", tablePath);
+//
+//        return requestUtils.sendPostRequest(uri, map);
+//    }
+
     private Boolean isGraphSuccessful(String responseFromCore) {
         JSONObject response = new JSONObject(responseFromCore);
 
@@ -148,6 +166,46 @@ public class GraphService {
         JSONArray schedulerErrors = (JSONArray) errors.get("scheduler_errors");
 
         return taskErrors.length() == 0 && schedulerErrors.length() == 0;
+    }
+
+    public void saveGraph(String graph) {
+        Document document = Document.parse(graph);
+        mongoTemplate.insert(document, "graph");
+//        DB db = initializeMongoConnection();
+//        DBCollection graphCollection = db.getCollection("graph");
+//
+//        DBObject graphObject = (DBObject) JSON.parse(graph);
+//
+//        BasicDBObject doc = new BasicDBObject();
+//        doc.put("name.first", "First Name");
+//        doc.put("name.last", "Last Name");
+//        graphCollection.update(new BasicDBObject("_id", "jo"), doc);
+//        graphCollection.save(doc);
+//        mongoTemplate.insert(doc);
+    }
+
+    public JSONObject getGraphById(String id) throws GraphNotFoundException {
+        DB db = initializeMongoConnection();
+        DBCollection graphCollection = db.getCollection("graph");
+
+        BasicDBObject query = new BasicDBObject();
+        BasicDBObject fields = new BasicDBObject();
+
+        query.put("_id", new ObjectId(id));
+        fields.put("_id", 0);
+
+        DBObject cursor = graphCollection.findOne(query, fields);
+
+        if (cursor == null) {
+            throw new GraphNotFoundException(id);
+        }
+
+        return new JSONObject(JSON.serialize(cursor));
+    }
+
+    private DB initializeMongoConnection() {
+        Mongo mongo = new Mongo(appPropertyValues.getHost(), Integer.parseInt(appPropertyValues.getPort()));
+        return mongo.getDB(appPropertyValues.getDatabase());
     }
 
     private <T> Iterable<T> iteratorToIterable(Iterator<T> iterator) {

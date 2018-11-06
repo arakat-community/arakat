@@ -21,6 +21,10 @@ public class TaskService {
     }
 
     public Task saveAndGetTask(String taskName, List<TablePath> tablesToSave) {
+        if (taskAlreadyExists(taskName)) {
+            return getTaskByName(taskName);
+        }
+
         Task taskToSave = new Task();
 
         taskToSave.setTaskId(idSequenceService.getNextSequence("Task"));
@@ -29,5 +33,13 @@ public class TaskService {
         taskRepository.save(taskToSave);
 
         return taskToSave;
+    }
+
+    private boolean taskAlreadyExists(String taskName) {
+        return getTaskByName(taskName) != null;
+    }
+
+    private Task getTaskByName(String taskName) {
+        return taskRepository.findByTaskName(taskName);
     }
 }

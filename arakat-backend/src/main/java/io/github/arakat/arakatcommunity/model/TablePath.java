@@ -1,5 +1,6 @@
 package io.github.arakat.arakatcommunity.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -10,6 +11,7 @@ public class TablePath {
 
     @Id
     @Field("id")
+    @JsonProperty("id")
     private Long tablePathId;
 
     @Field("tablePath")

@@ -36,7 +36,7 @@ public class JsonReaderService {
         this.appPropertyValues = appPropertyValues;
     }
 
-    public void readJsonAndSaveAsNodeObject() throws IOException {
+    public void readJsonAndSaveAsNodeObject() throws Exception {
         ObjectMapper jsonMapper = new ObjectMapper();
         for (File jsonFile : getFilesInFolder(jsonConfigFolder)) {
             jsonMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

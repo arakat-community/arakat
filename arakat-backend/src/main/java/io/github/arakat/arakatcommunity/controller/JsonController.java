@@ -23,13 +23,20 @@ public class JsonController {
     }
 
     @RequestMapping(value = "/save-json-objects-from-file", method = RequestMethod.POST)
-    public ResponseEntity<BaseResponse> saveJSONObjects() throws IOException {
-        jsonReaderService.readJsonAndSaveAsNodeObject();
+    public ResponseEntity<BaseResponse> saveJSONObjects() {
+        try {
+            jsonReaderService.readJsonAndSaveAsNodeObject();
 
-        return ApiResponseUtils.createResponseEntity(200,
-                String.format(ApiResponseUtils.getUserMessageSuccess(), "Save JSON node objects from file."),
-                String.format(ApiResponseUtils.getDevMessageSuccess(), "Save JSON node objects from file", "JSON file node"),
-                null, HttpStatus.OK);
+            return ApiResponseUtils.createResponseEntity(200,
+                    String.format(ApiResponseUtils.getUserMessageSuccess(), "Save JSON node objects from file."),
+                    String.format(ApiResponseUtils.getDevMessageSuccess(), "Save JSON node objects from file", "JSON file node"),
+                    null, HttpStatus.OK);
+        } catch (Exception e) {
+            return ApiResponseUtils.createResponseEntity(400,
+                    e.getMessage(),
+                    e.getMessage(),
+                    null, HttpStatus.OK);
+        }
     }
 
     @RequestMapping(value = "/save-json-raw-objects-from-file", method = RequestMethod.POST)

@@ -56,14 +56,20 @@ public class AppPropertyValues {
     @Value("${airflow.dag.logs.file.path}")
     private String airflowDagLogsFilePath;
 
-    @Value("${spark.url}")
-    private String sparkUrl;
+    @Value("${hdfs.reader.url}")
+    private String hdfsReaderUrl;
 
-    @Value("${hdfs.url}")
-    private String hdfsUrl;
+    @Value("${hdfs.reader.port}")
+    private String hdfsReaderPort;;
 
-    @Value("${spark.master}")
-    private String sparkMaster;
+    @Value("${hdfs.reader.get.table.columns.endpoint}")
+    private String hdfsReaderGetTableColumnsEndpoint;
+
+    @Value("${hdfs.reader.get.data.endpoint}")
+    private String hdfsReaderGetDataEndpoint;
+
+    @Value("${spark.logs.file.path}")
+    private String sparkLogsFilePath;
 
     public String getDatabase() {
         return database;
@@ -133,15 +139,23 @@ public class AppPropertyValues {
         return airflowDagLogsFilePath;
     }
 
-    public String getSparkUrl() {
-        return sparkUrl;
+    public String getHdfsReaderUrl() {
+        return hdfsReaderUrl;
     }
 
-    public String getHdfsUrl() {
-        return hdfsUrl;
+    public String getHdfsReaderPort() {
+        return hdfsReaderPort;
     }
 
-    public String getSparkMaster() {
-        return sparkMaster;
+    public String getHdfsReaderGetTableColumnsEndpoint() {
+        return hdfsReaderGetTableColumnsEndpoint;
+    }
+
+    public String getHdfsReaderGetDataEndpoint() {
+        return hdfsReaderGetDataEndpoint;
+    }
+
+    public String getSparkLogsFilePath() {
+        return sparkLogsFilePath;
     }
 }

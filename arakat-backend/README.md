@@ -17,8 +17,8 @@
 * JDK _1.8 veya daha güncel bir versiyonu_
 * Maven _3 veya daha güncel bir versiyonu_
 * MongoDB _3.2.21 veya daha güncel bir versiyonu_
-* Hadoop _2.8.0 veya daha güncel bir versiyonu_*
-* Spark _2.3.2 veya daha güncel bir versiyonu_*
+* Hadoop _2.8.0 veya daha güncel bir versiyonu_
+* Spark _2.3.2 veya daha güncel bir versiyonu_
 
 #### Çalıştırma
 Uygulamayı geliştirme ortamında çalıştırmak için terminalinizde projenin en üst dizininde aşağıdaki komutu çalıştırmanız gerekmektedir:

@@ -82,6 +82,13 @@ public class StatsService {
         return folderNamesAndFileContents;
     }
 
+    public String getTaskLogsFromSpark(String appId, String taskId) {
+//        TODO: ask this path
+        String folderPathToRead = appPropertyValues.getSparkLogsFilePath() + appId + "_" + taskId;
+
+        return fileOperationUtils.readFileAsString(folderPathToRead);
+    }
+
     private JSONObject sendGetRequestAndReturnResponse(String url) throws IOException {
         URL urlForGetRequest = new URL(url);
         String readLine;

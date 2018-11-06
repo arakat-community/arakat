@@ -28,16 +28,6 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @RequestMapping(value = "/save-category", method = RequestMethod.POST)
-    public  ResponseEntity<BaseResponse> saveCategory(@Valid @RequestBody Category category) {
-        Category savedCategory = categoryRepository.save(category);
-
-        return ApiResponseUtils.createResponseEntity(200,
-                String.format(ApiResponseUtils.getUserMessageSuccess(), "Save category"),
-                String.format(ApiResponseUtils.getDevMessageSuccess(), "Save category", "Category"),
-                savedCategory, HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/save-multiple-categories", method = RequestMethod.POST)
     public ResponseEntity<BaseResponse> saveMultipleCategories(@Valid @RequestBody List<Category> categories) {
         categoryService.saveCategoryUtil(categories);

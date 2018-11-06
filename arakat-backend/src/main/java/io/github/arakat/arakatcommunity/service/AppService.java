@@ -24,6 +24,10 @@ public class AppService {
     }
 
     public void saveApp(String appId, List<Task> tasksToSave) {
+        if(appAlreadyExists(appId)) {
+            return;
+        }
+
         App appToSave = new App();
 
         appToSave.setId(idSequenceService.getNextSequence("App"));
@@ -52,5 +56,9 @@ public class AppService {
         }
 
         return tablePathResponseList;
+    }
+
+    private boolean appAlreadyExists(String appId) {
+        return appRepository.findByAppId(appId) != null;
     }
 }
