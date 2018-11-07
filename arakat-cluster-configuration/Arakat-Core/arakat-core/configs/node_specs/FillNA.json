@@ -1,0 +1,40 @@
+{
+  "node_id": 39,
+  "name": "Fill NA",
+  "category": 2,
+  "node_type": 0,
+  "family": 5,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "ddfo_name": "fillna",
+  "parameter_props": {
+    "parameters": {
+      "value": {
+        "visible_name": "Value",
+        "type_constraint": [
+          "string",
+          "integer",
+          "boolean",
+          "float",
+          "long",
+          "dict"
+        ]
+      },
+      "subset": {
+        "visible_name": "Subset",
+        "type_constraint": [
+          "array[string]", "regex", "template", "ALL"
+        ],
+        "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": []
+}

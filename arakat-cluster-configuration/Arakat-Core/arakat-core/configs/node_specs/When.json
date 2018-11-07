@@ -1,0 +1,87 @@
+{
+  "node_id": 80,
+  "name": "When",
+  "category": 2,
+  "node_type": 0,
+  "family": 27,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "parameter_props": {
+    "parameters": {
+      "expressions": {
+        "visible_name": "Expressions",
+        "type_constraint": [
+          "array[object]"
+        ],
+        "object_info": {
+          "input_columns": {
+            "visible_name": "Input Columns",
+            "type_constraint": [
+              "array[string]",
+              "template"
+            ],
+            "special_requirements": {"template": "column_selector_template"}
+          },
+          "condition": {
+            "visible_name": "Condition",
+            "type_constraint": [
+              "string"
+            ]
+          },
+          "value": {
+            "visible_name": "Value",
+            "type_constraint": [
+              "string",
+              "integer",
+              "boolean",
+              "float",
+              "long"
+            ]
+          },
+          "otherwise": {
+            "visible_name": "Otherwise",
+            "type_constraint": [
+              "string",
+              "integer",
+              "boolean",
+              "float",
+              "long"
+            ]
+          },
+          "output_columns": {
+            "visible_name": "Output Columns",
+            "type_constraint": [
+              "array[string]",
+              "template"
+            ],
+            "special_requirements": {"template": "column_selector_template"}
+          }
+        }
+      }
+    },
+    "lookup_table":
+    {
+      "v1": {
+        "trace": "expression-object_info-condition",
+        "field": "type"
+      },
+      "v2": {
+        "trace": "expression-object_info-otherwise",
+        "field": "type"
+      },
+      "v3": {
+        "trace": "expression-object_info-output_column",
+        "field": "type"
+      }
+    },
+    "relational_constraints": [
+      "(v1 == v2) AND (v1 == v3)"
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": []
+}

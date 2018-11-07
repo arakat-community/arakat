@@ -1,0 +1,41 @@
+{
+  "node_id": 44,
+  "name": "Vector Assembler",
+  "category": 2,
+  "node_type": 0,
+  "family": 18,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": false,
+  "transformer_name": "VectorAssembler",
+  "parameter_props": {
+    "parameters": {
+      "inputCols": {
+        "visible_name": "Input Columns",
+        "type_constraint": [
+          "array[string]",
+          "regex",
+          "template",
+          "ALL"
+        ],
+        "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}
+      },
+      "outputCol": {
+        "visible_name": "Output Column",
+        "type_constraint": [
+          "string"
+        ]
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [
+  	0,
+  	11
+  ]
+}

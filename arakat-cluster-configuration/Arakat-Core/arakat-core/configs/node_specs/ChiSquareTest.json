@@ -1,0 +1,43 @@
+{
+  "node_id": 75,
+  "name": "Chi Square Test",
+  "category": 14,
+  "node_type": 0,
+  "family": 25,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "parameter_props": {
+    "parameters": {
+      "test_type": {
+        "visible_name": "Test Type",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "ChiSquareTest"
+        ],
+        "default": "ChiSquareTest"
+      },
+      "features_column": {
+        "visible_name": "Features Column",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "label_column": {
+        "visible_name": "Label Column",
+        "type_constraint": [
+          "string"
+        ]
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": []
+}

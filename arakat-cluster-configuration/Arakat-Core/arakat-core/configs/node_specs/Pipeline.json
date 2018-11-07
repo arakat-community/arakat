@@ -1,0 +1,22 @@
+{
+  "node_id": 67,
+  "name": "Pipeline",
+  "category": 3,
+  "node_type": 2,
+  "family": 12,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": true,
+  "parameter_props": {
+    "parameters": {
+
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": []
+}
