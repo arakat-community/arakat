@@ -1,0 +1,1143 @@
+2018-11-07 10:39:55 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2018-11-07 10:39:55 INFO  SparkContext:54 - Running Spark version 2.3.2
+2018-11-07 10:39:55 INFO  SparkContext:54 - Submitted application: MyFirstApp3_Task_task1
+2018-11-07 10:39:55 INFO  SecurityManager:54 - Changing view acls to: root
+2018-11-07 10:39:55 INFO  SecurityManager:54 - Changing modify acls to: root
+2018-11-07 10:39:55 INFO  SecurityManager:54 - Changing view acls groups to: 
+2018-11-07 10:39:55 INFO  SecurityManager:54 - Changing modify acls groups to: 
+2018-11-07 10:39:55 INFO  SecurityManager:54 - SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(root); groups with view permissions: Set(); users  with modify permissions: Set(root); groups with modify permissions: Set()
+2018-11-07 10:39:55 INFO  Utils:54 - Successfully started service 'sparkDriver' on port 38249.
+2018-11-07 10:39:55 INFO  SparkEnv:54 - Registering MapOutputTracker
+2018-11-07 10:39:55 INFO  SparkEnv:54 - Registering BlockManagerMaster
+2018-11-07 10:39:55 INFO  BlockManagerMasterEndpoint:54 - Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+2018-11-07 10:39:55 INFO  BlockManagerMasterEndpoint:54 - BlockManagerMasterEndpoint up
+2018-11-07 10:39:55 INFO  DiskBlockManager:54 - Created local directory at /tmp/blockmgr-16a7ab69-0c52-4671-9134-2ba88e7464fa
+2018-11-07 10:39:55 INFO  MemoryStore:54 - MemoryStore started with capacity 366.3 MB
+2018-11-07 10:39:55 INFO  SparkEnv:54 - Registering OutputCommitCoordinator
+2018-11-07 10:39:55 INFO  log:192 - Logging initialized @1296ms
+2018-11-07 10:39:55 INFO  Server:351 - jetty-9.3.z-SNAPSHOT, build timestamp: unknown, git hash: unknown
+2018-11-07 10:39:55 INFO  Server:419 - Started @1346ms
+2018-11-07 10:39:55 WARN  Utils:66 - Service 'SparkUI' could not bind on port 4040. Attempting port 4041.
+2018-11-07 10:39:55 INFO  AbstractConnector:278 - Started ServerConnector@17dec579{HTTP/1.1,[http/1.1]}{0.0.0.0:4041}
+2018-11-07 10:39:55 INFO  Utils:54 - Successfully started service 'SparkUI' on port 4041.
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@4b4e315{/jobs,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@67e97fc8{/jobs/json,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@53918e19{/jobs/job,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@4a2501c{/jobs/job/json,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@2819787f{/stages,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@77a7ca23{/stages/json,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@3d3fba40{/stages/stage,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@18d4d32{/stages/stage/json,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@41201af9{/stages/pool,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@332384f1{/stages/pool/json,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@684c7e98{/storage,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@3c35a7e{/storage/json,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@42756f2d{/storage/rdd,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@6dde7f9e{/storage/rdd/json,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@66ed7403{/environment,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@7f64d20a{/environment/json,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@1601d6cc{/executors,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@8bd791d{/executors/json,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@57d4965{/executors/threadDump,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@5cd03f42{/executors/threadDump/json,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@447f35a2{/static,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@1959338{/,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@4a93247c{/api,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@3c2b035{/jobs/job/kill,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@6684924d{/stages/stage/kill,null,AVAILABLE,@Spark}
+2018-11-07 10:39:55 INFO  SparkUI:54 - Bound SparkUI to 0.0.0.0, and started at http://spark-master:4041
+2018-11-07 10:39:55 INFO  SparkContext:54 - Added file file:/usr/local/spark_code/MyFirstApp3_task1.py at spark://spark-master:38249/files/MyFirstApp3_task1.py with timestamp 1541587195919
+2018-11-07 10:39:55 INFO  Utils:54 - Copying /usr/local/spark_code/MyFirstApp3_task1.py to /tmp/spark-125d4774-1a1d-42d4-ad1a-894bf5f5e5b3/userFiles-b0750ba0-a523-4f4a-83ee-952cbb3ce9b3/MyFirstApp3_task1.py
+2018-11-07 10:39:56 INFO  StandaloneAppClient$ClientEndpoint:54 - Connecting to master spark://spark-master:7077...
+2018-11-07 10:39:56 INFO  TransportClientFactory:267 - Successfully created connection to spark-master/10.0.0.160:7077 after 33 ms (0 ms spent in bootstraps)
+2018-11-07 10:39:56 INFO  StandaloneSchedulerBackend:54 - Connected to Spark cluster with app ID app-20181107103956-0000
+2018-11-07 10:39:56 INFO  Utils:54 - Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 44975.
+2018-11-07 10:39:56 INFO  NettyBlockTransferService:54 - Server created on spark-master:44975
+2018-11-07 10:39:56 INFO  BlockManager:54 - Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+2018-11-07 10:39:56 INFO  StandaloneAppClient$ClientEndpoint:54 - Executor added: app-20181107103956-0000/0 on worker-20181107103728-10.0.0.158-33125 (10.0.0.158:33125) with 8 core(s)
+2018-11-07 10:39:56 INFO  StandaloneSchedulerBackend:54 - Granted executor ID app-20181107103956-0000/0 on hostPort 10.0.0.158:33125 with 8 core(s), 1024.0 MB RAM
+2018-11-07 10:39:56 INFO  BlockManagerMaster:54 - Registering BlockManager BlockManagerId(driver, spark-master, 44975, None)
+2018-11-07 10:39:56 INFO  BlockManagerMasterEndpoint:54 - Registering block manager spark-master:44975 with 366.3 MB RAM, BlockManagerId(driver, spark-master, 44975, None)
+2018-11-07 10:39:56 INFO  BlockManagerMaster:54 - Registered BlockManager BlockManagerId(driver, spark-master, 44975, None)
+2018-11-07 10:39:56 INFO  BlockManager:54 - Initialized BlockManager: BlockManagerId(driver, spark-master, 44975, None)
+2018-11-07 10:39:56 INFO  StandaloneAppClient$ClientEndpoint:54 - Executor updated: app-20181107103956-0000/0 is now RUNNING
+2018-11-07 10:39:56 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@6130ce58{/metrics/json,null,AVAILABLE,@Spark}
+2018-11-07 10:39:56 INFO  StandaloneSchedulerBackend:54 - SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+2018-11-07 10:39:56 INFO  SharedState:54 - loading hive config file: file:/spark/conf/hive-site.xml
+2018-11-07 10:39:56 INFO  SharedState:54 - Setting hive.metastore.warehouse.dir ('null') to the value of spark.sql.warehouse.dir ('file:/spark-warehouse').
+2018-11-07 10:39:56 INFO  SharedState:54 - Warehouse path is 'file:/spark-warehouse'.
+2018-11-07 10:39:56 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@69f347c5{/SQL,null,AVAILABLE,@Spark}
+2018-11-07 10:39:56 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@3e906ea6{/SQL/json,null,AVAILABLE,@Spark}
+2018-11-07 10:39:56 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@502cdd10{/SQL/execution,null,AVAILABLE,@Spark}
+2018-11-07 10:39:56 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@6ccacc87{/SQL/execution/json,null,AVAILABLE,@Spark}
+2018-11-07 10:39:56 INFO  ContextHandler:781 - Started o.s.j.s.ServletContextHandler@f2dbbdd{/static/sql,null,AVAILABLE,@Spark}
+2018-11-07 10:39:56 INFO  StateStoreCoordinatorRef:54 - Registered StateStoreCoordinator endpoint
+2018-11-07 10:39:57 INFO  CoarseGrainedSchedulerBackend$DriverEndpoint:54 - Registered executor NettyRpcEndpointRef(spark-client://Executor) (10.0.0.2:50268) with ID 0
+2018-11-07 10:39:57 INFO  BlockManagerMasterEndpoint:54 - Registering block manager 10.0.0.158:36677 with 366.3 MB RAM, BlockManagerId(0, 10.0.0.158, 36677, None)
+2018-11-07 10:39:58 INFO  FileSourceStrategy:54 - Pruning directories with: 
+2018-11-07 10:39:58 INFO  FileSourceStrategy:54 - Post-Scan Filters: (length(trim(value#0, None)) > 0)
+2018-11-07 10:39:58 INFO  FileSourceStrategy:54 - Output Data Schema: struct<value: string>
+2018-11-07 10:39:58 INFO  FileSourceScanExec:54 - Pushed Filters: 
+2018-11-07 10:39:58 INFO  CodeGenerator:54 - Code generated in 131.134374 ms
+2018-11-07 10:39:58 INFO  CodeGenerator:54 - Code generated in 19.797343 ms
+2018-11-07 10:39:58 INFO  MemoryStore:54 - Block broadcast_0 stored as values in memory (estimated size 341.3 KB, free 366.0 MB)
+2018-11-07 10:39:58 INFO  MemoryStore:54 - Block broadcast_0_piece0 stored as bytes in memory (estimated size 28.5 KB, free 365.9 MB)
+2018-11-07 10:39:58 INFO  BlockManagerInfo:54 - Added broadcast_0_piece0 in memory on spark-master:44975 (size: 28.5 KB, free: 366.3 MB)
+2018-11-07 10:39:58 INFO  SparkContext:54 - Created broadcast 0 from load at NativeMethodAccessorImpl.java:0
+2018-11-07 10:39:58 INFO  FileSourceScanExec:54 - Planning scan with bin packing, max size: 4194304 bytes, open cost is considered as scanning 4194304 bytes.
+2018-11-07 10:39:58 INFO  SparkContext:54 - Starting job: load at NativeMethodAccessorImpl.java:0
+2018-11-07 10:39:58 INFO  DAGScheduler:54 - Got job 0 (load at NativeMethodAccessorImpl.java:0) with 1 output partitions
+2018-11-07 10:39:58 INFO  DAGScheduler:54 - Final stage: ResultStage 0 (load at NativeMethodAccessorImpl.java:0)
+2018-11-07 10:39:58 INFO  DAGScheduler:54 - Parents of final stage: List()
+2018-11-07 10:39:58 INFO  DAGScheduler:54 - Missing parents: List()
+2018-11-07 10:39:58 INFO  DAGScheduler:54 - Submitting ResultStage 0 (MapPartitionsRDD[3] at load at NativeMethodAccessorImpl.java:0), which has no missing parents
+2018-11-07 10:39:58 INFO  MemoryStore:54 - Block broadcast_1 stored as values in memory (estimated size 8.9 KB, free 365.9 MB)
+2018-11-07 10:39:58 INFO  MemoryStore:54 - Block broadcast_1_piece0 stored as bytes in memory (estimated size 4.4 KB, free 365.9 MB)
+2018-11-07 10:39:58 INFO  BlockManagerInfo:54 - Added broadcast_1_piece0 in memory on spark-master:44975 (size: 4.4 KB, free: 366.3 MB)
+2018-11-07 10:39:58 INFO  SparkContext:54 - Created broadcast 1 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:39:58 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ResultStage 0 (MapPartitionsRDD[3] at load at NativeMethodAccessorImpl.java:0) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:39:58 INFO  TaskSchedulerImpl:54 - Adding task set 0.0 with 1 tasks
+2018-11-07 10:39:58 INFO  TaskSetManager:54 - Starting task 0.0 in stage 0.0 (TID 0, 10.0.0.158, executor 0, partition 0, PROCESS_LOCAL, 8307 bytes)
+2018-11-07 10:39:59 INFO  BlockManagerInfo:54 - Added broadcast_1_piece0 in memory on 10.0.0.158:36677 (size: 4.4 KB, free: 366.3 MB)
+2018-11-07 10:39:59 INFO  BlockManagerInfo:54 - Added broadcast_0_piece0 in memory on 10.0.0.158:36677 (size: 28.5 KB, free: 366.3 MB)
+2018-11-07 10:39:59 INFO  TaskSetManager:54 - Finished task 0.0 in stage 0.0 (TID 0) in 824 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:39:59 INFO  TaskSchedulerImpl:54 - Removed TaskSet 0.0, whose tasks have all completed, from pool 
+2018-11-07 10:39:59 INFO  DAGScheduler:54 - ResultStage 0 (load at NativeMethodAccessorImpl.java:0) finished in 0.879 s
+2018-11-07 10:39:59 INFO  DAGScheduler:54 - Job 0 finished: load at NativeMethodAccessorImpl.java:0, took 0.904961 s
+2018-11-07 10:39:59 INFO  FileSourceStrategy:54 - Pruning directories with: 
+2018-11-07 10:39:59 INFO  FileSourceStrategy:54 - Post-Scan Filters: 
+2018-11-07 10:39:59 INFO  FileSourceStrategy:54 - Output Data Schema: struct<value: string>
+2018-11-07 10:39:59 INFO  FileSourceScanExec:54 - Pushed Filters: 
+2018-11-07 10:39:59 INFO  CodeGenerator:54 - Code generated in 6.221364 ms
+2018-11-07 10:39:59 INFO  MemoryStore:54 - Block broadcast_2 stored as values in memory (estimated size 341.3 KB, free 365.6 MB)
+2018-11-07 10:39:59 INFO  MemoryStore:54 - Block broadcast_2_piece0 stored as bytes in memory (estimated size 28.5 KB, free 365.6 MB)
+2018-11-07 10:39:59 INFO  BlockManagerInfo:54 - Added broadcast_2_piece0 in memory on spark-master:44975 (size: 28.5 KB, free: 366.2 MB)
+2018-11-07 10:39:59 INFO  SparkContext:54 - Created broadcast 2 from load at NativeMethodAccessorImpl.java:0
+2018-11-07 10:39:59 INFO  FileSourceScanExec:54 - Planning scan with bin packing, max size: 4194304 bytes, open cost is considered as scanning 4194304 bytes.
+2018-11-07 10:39:59 INFO  SparkContext:54 - Starting job: load at NativeMethodAccessorImpl.java:0
+2018-11-07 10:39:59 INFO  DAGScheduler:54 - Got job 1 (load at NativeMethodAccessorImpl.java:0) with 2 output partitions
+2018-11-07 10:39:59 INFO  DAGScheduler:54 - Final stage: ResultStage 1 (load at NativeMethodAccessorImpl.java:0)
+2018-11-07 10:39:59 INFO  DAGScheduler:54 - Parents of final stage: List()
+2018-11-07 10:39:59 INFO  DAGScheduler:54 - Missing parents: List()
+2018-11-07 10:39:59 INFO  DAGScheduler:54 - Submitting ResultStage 1 (MapPartitionsRDD[8] at load at NativeMethodAccessorImpl.java:0), which has no missing parents
+2018-11-07 10:39:59 INFO  MemoryStore:54 - Block broadcast_3 stored as values in memory (estimated size 12.6 KB, free 365.6 MB)
+2018-11-07 10:39:59 INFO  MemoryStore:54 - Block broadcast_3_piece0 stored as bytes in memory (estimated size 6.8 KB, free 365.5 MB)
+2018-11-07 10:39:59 INFO  BlockManagerInfo:54 - Added broadcast_3_piece0 in memory on spark-master:44975 (size: 6.8 KB, free: 366.2 MB)
+2018-11-07 10:39:59 INFO  SparkContext:54 - Created broadcast 3 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:39:59 INFO  DAGScheduler:54 - Submitting 2 missing tasks from ResultStage 1 (MapPartitionsRDD[8] at load at NativeMethodAccessorImpl.java:0) (first 15 tasks are for partitions Vector(0, 1))
+2018-11-07 10:39:59 INFO  TaskSchedulerImpl:54 - Adding task set 1.0 with 2 tasks
+2018-11-07 10:39:59 INFO  TaskSetManager:54 - Starting task 0.0 in stage 1.0 (TID 1, 10.0.0.158, executor 0, partition 0, PROCESS_LOCAL, 8307 bytes)
+2018-11-07 10:39:59 INFO  TaskSetManager:54 - Starting task 1.0 in stage 1.0 (TID 2, 10.0.0.158, executor 0, partition 1, PROCESS_LOCAL, 8307 bytes)
+2018-11-07 10:39:59 INFO  BlockManagerInfo:54 - Added broadcast_3_piece0 in memory on 10.0.0.158:36677 (size: 6.8 KB, free: 366.3 MB)
+2018-11-07 10:40:00 INFO  BlockManagerInfo:54 - Added broadcast_2_piece0 in memory on 10.0.0.158:36677 (size: 28.5 KB, free: 366.2 MB)
+2018-11-07 10:40:00 INFO  TaskSetManager:54 - Finished task 1.0 in stage 1.0 (TID 2) in 823 ms on 10.0.0.158 (executor 0) (1/2)
+2018-11-07 10:40:00 INFO  TaskSetManager:54 - Finished task 0.0 in stage 1.0 (TID 1) in 823 ms on 10.0.0.158 (executor 0) (2/2)
+2018-11-07 10:40:00 INFO  TaskSchedulerImpl:54 - Removed TaskSet 1.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:00 INFO  DAGScheduler:54 - ResultStage 1 (load at NativeMethodAccessorImpl.java:0) finished in 0.830 s
+2018-11-07 10:40:00 INFO  DAGScheduler:54 - Job 1 finished: load at NativeMethodAccessorImpl.java:0, took 0.832649 s
+2018-11-07 10:40:00 INFO  FileSourceStrategy:54 - Pruning directories with: 
+2018-11-07 10:40:00 INFO  FileSourceStrategy:54 - Post-Scan Filters: AtLeastNNulls(n, PassengerId#10,Survived#11,Pclass#12,Name#13,Sex#14,Age#15,SibSp#16,Parch#17,Ticket#18,Fare#19,Cabin#20,Embarked#21)
+2018-11-07 10:40:00 INFO  FileSourceStrategy:54 - Output Data Schema: struct<PassengerId: int, Survived: int, Pclass: int, Name: string, Sex: string ... 10 more fields>
+2018-11-07 10:40:00 INFO  FileSourceScanExec:54 - Pushed Filters: 
+2018-11-07 10:40:00 INFO  CodeGenerator:54 - Code generated in 41.31545 ms
+2018-11-07 10:40:00 INFO  MemoryStore:54 - Block broadcast_4 stored as values in memory (estimated size 341.3 KB, free 365.2 MB)
+2018-11-07 10:40:00 INFO  MemoryStore:54 - Block broadcast_4_piece0 stored as bytes in memory (estimated size 28.5 KB, free 365.2 MB)
+2018-11-07 10:40:00 INFO  BlockManagerInfo:54 - Added broadcast_4_piece0 in memory on spark-master:44975 (size: 28.5 KB, free: 366.2 MB)
+2018-11-07 10:40:00 INFO  SparkContext:54 - Created broadcast 4 from rdd at StringIndexer.scala:138
+2018-11-07 10:40:00 INFO  FileSourceScanExec:54 - Planning scan with bin packing, max size: 4194304 bytes, open cost is considered as scanning 4194304 bytes.
+2018-11-07 10:40:00 INFO  SparkContext:54 - Starting job: countByValue at StringIndexer.scala:140
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 11
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 7
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 20
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 25
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 52
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 56
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 16
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 15
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 17
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 27
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 8
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 21
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 50
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 26
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 37
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 44
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 24
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 30
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 57
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 28
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 40
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 58
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 55
+2018-11-07 10:40:00 INFO  BlockManagerInfo:54 - Removed broadcast_1_piece0 on spark-master:44975 in memory (size: 4.4 KB, free: 366.2 MB)
+2018-11-07 10:40:00 INFO  DAGScheduler:54 - Registering RDD 15 (countByValue at StringIndexer.scala:140)
+2018-11-07 10:40:00 INFO  DAGScheduler:54 - Got job 2 (countByValue at StringIndexer.scala:140) with 1 output partitions
+2018-11-07 10:40:00 INFO  DAGScheduler:54 - Final stage: ResultStage 3 (countByValue at StringIndexer.scala:140)
+2018-11-07 10:40:00 INFO  DAGScheduler:54 - Parents of final stage: List(ShuffleMapStage 2)
+2018-11-07 10:40:00 INFO  DAGScheduler:54 - Missing parents: List(ShuffleMapStage 2)
+2018-11-07 10:40:00 INFO  DAGScheduler:54 - Submitting ShuffleMapStage 2 (MapPartitionsRDD[15] at countByValue at StringIndexer.scala:140), which has no missing parents
+2018-11-07 10:40:00 INFO  BlockManagerInfo:54 - Removed broadcast_1_piece0 on 10.0.0.158:36677 in memory (size: 4.4 KB, free: 366.2 MB)
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 43
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 13
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 53
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 45
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 47
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 31
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 54
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 12
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 48
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 38
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 18
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 23
+2018-11-07 10:40:00 INFO  MemoryStore:54 - Block broadcast_5 stored as values in memory (estimated size 27.6 KB, free 365.2 MB)
+2018-11-07 10:40:00 INFO  BlockManagerInfo:54 - Removed broadcast_3_piece0 on spark-master:44975 in memory (size: 6.8 KB, free: 366.2 MB)
+2018-11-07 10:40:00 INFO  MemoryStore:54 - Block broadcast_5_piece0 stored as bytes in memory (estimated size 11.6 KB, free 365.2 MB)
+2018-11-07 10:40:00 INFO  BlockManagerInfo:54 - Added broadcast_5_piece0 in memory on spark-master:44975 (size: 11.6 KB, free: 366.2 MB)
+2018-11-07 10:40:00 INFO  SparkContext:54 - Created broadcast 5 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:00 INFO  BlockManagerInfo:54 - Removed broadcast_3_piece0 on 10.0.0.158:36677 in memory (size: 6.8 KB, free: 366.2 MB)
+2018-11-07 10:40:00 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ShuffleMapStage 2 (MapPartitionsRDD[15] at countByValue at StringIndexer.scala:140) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:00 INFO  TaskSchedulerImpl:54 - Adding task set 2.0 with 1 tasks
+2018-11-07 10:40:00 INFO  TaskSetManager:54 - Starting task 0.0 in stage 2.0 (TID 3, 10.0.0.158, executor 0, partition 0, PROCESS_LOCAL, 8296 bytes)
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 14
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 49
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 41
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 29
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 42
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 39
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 19
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 46
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 51
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 9
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 22
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 59
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 10
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 60
+2018-11-07 10:40:00 INFO  ContextCleaner:54 - Cleaned accumulator 61
+2018-11-07 10:40:00 INFO  BlockManagerInfo:54 - Added broadcast_5_piece0 in memory on 10.0.0.158:36677 (size: 11.6 KB, free: 366.2 MB)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_4_piece0 in memory on 10.0.0.158:36677 (size: 28.5 KB, free: 366.2 MB)
+2018-11-07 10:40:01 INFO  TaskSetManager:54 - Finished task 0.0 in stage 2.0 (TID 3) in 331 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:01 INFO  TaskSchedulerImpl:54 - Removed TaskSet 2.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - ShuffleMapStage 2 (countByValue at StringIndexer.scala:140) finished in 0.341 s
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - looking for newly runnable stages
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - running: Set()
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - waiting: Set(ResultStage 3)
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - failed: Set()
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Submitting ResultStage 3 (ShuffledRDD[16] at countByValue at StringIndexer.scala:140), which has no missing parents
+2018-11-07 10:40:01 INFO  MemoryStore:54 - Block broadcast_6 stored as values in memory (estimated size 3.3 KB, free 365.2 MB)
+2018-11-07 10:40:01 INFO  MemoryStore:54 - Block broadcast_6_piece0 stored as bytes in memory (estimated size 2021.0 B, free 365.2 MB)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_6_piece0 in memory on spark-master:44975 (size: 2021.0 B, free: 366.2 MB)
+2018-11-07 10:40:01 INFO  SparkContext:54 - Created broadcast 6 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ResultStage 3 (ShuffledRDD[16] at countByValue at StringIndexer.scala:140) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:01 INFO  TaskSchedulerImpl:54 - Adding task set 3.0 with 1 tasks
+2018-11-07 10:40:01 INFO  TaskSetManager:54 - Starting task 0.0 in stage 3.0 (TID 4, 10.0.0.158, executor 0, partition 0, NODE_LOCAL, 7653 bytes)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_6_piece0 in memory on 10.0.0.158:36677 (size: 2021.0 B, free: 366.2 MB)
+2018-11-07 10:40:01 INFO  MapOutputTrackerMasterEndpoint:54 - Asked to send map output locations for shuffle 0 to 10.0.0.2:50268
+2018-11-07 10:40:01 INFO  TaskSetManager:54 - Finished task 0.0 in stage 3.0 (TID 4) in 48 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:01 INFO  TaskSchedulerImpl:54 - Removed TaskSet 3.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - ResultStage 3 (countByValue at StringIndexer.scala:140) finished in 0.055 s
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Job 2 finished: countByValue at StringIndexer.scala:140, took 0.507441 s
+2018-11-07 10:40:01 INFO  FileSourceStrategy:54 - Pruning directories with: 
+2018-11-07 10:40:01 INFO  FileSourceStrategy:54 - Post-Scan Filters: AtLeastNNulls(n, PassengerId#10,Survived#11,Pclass#12,Name#13,Sex#14,Age#15,SibSp#16,Parch#17,Ticket#18,Fare#19,Cabin#20,Embarked#21)
+2018-11-07 10:40:01 INFO  FileSourceStrategy:54 - Output Data Schema: struct<PassengerId: int, Survived: int, Pclass: int, Name: string, Sex: string ... 10 more fields>
+2018-11-07 10:40:01 INFO  FileSourceScanExec:54 - Pushed Filters: 
+2018-11-07 10:40:01 INFO  CodeGenerator:54 - Code generated in 24.304472 ms
+2018-11-07 10:40:01 INFO  MemoryStore:54 - Block broadcast_7 stored as values in memory (estimated size 341.3 KB, free 364.8 MB)
+2018-11-07 10:40:01 INFO  MemoryStore:54 - Block broadcast_7_piece0 stored as bytes in memory (estimated size 28.5 KB, free 364.8 MB)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_7_piece0 in memory on spark-master:44975 (size: 28.5 KB, free: 366.2 MB)
+2018-11-07 10:40:01 INFO  SparkContext:54 - Created broadcast 7 from rdd at StringIndexer.scala:138
+2018-11-07 10:40:01 INFO  FileSourceScanExec:54 - Planning scan with bin packing, max size: 4194304 bytes, open cost is considered as scanning 4194304 bytes.
+2018-11-07 10:40:01 INFO  SparkContext:54 - Starting job: countByValue at StringIndexer.scala:140
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Registering RDD 23 (countByValue at StringIndexer.scala:140)
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Got job 3 (countByValue at StringIndexer.scala:140) with 1 output partitions
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Final stage: ResultStage 5 (countByValue at StringIndexer.scala:140)
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Parents of final stage: List(ShuffleMapStage 4)
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Missing parents: List(ShuffleMapStage 4)
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Submitting ShuffleMapStage 4 (MapPartitionsRDD[23] at countByValue at StringIndexer.scala:140), which has no missing parents
+2018-11-07 10:40:01 INFO  MemoryStore:54 - Block broadcast_8 stored as values in memory (estimated size 27.6 KB, free 364.8 MB)
+2018-11-07 10:40:01 INFO  MemoryStore:54 - Block broadcast_8_piece0 stored as bytes in memory (estimated size 11.6 KB, free 364.8 MB)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_8_piece0 in memory on spark-master:44975 (size: 11.6 KB, free: 366.2 MB)
+2018-11-07 10:40:01 INFO  SparkContext:54 - Created broadcast 8 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ShuffleMapStage 4 (MapPartitionsRDD[23] at countByValue at StringIndexer.scala:140) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:01 INFO  TaskSchedulerImpl:54 - Adding task set 4.0 with 1 tasks
+2018-11-07 10:40:01 INFO  TaskSetManager:54 - Starting task 0.0 in stage 4.0 (TID 5, 10.0.0.158, executor 0, partition 0, PROCESS_LOCAL, 8296 bytes)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_8_piece0 in memory on 10.0.0.158:36677 (size: 11.6 KB, free: 366.2 MB)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_7_piece0 in memory on 10.0.0.158:36677 (size: 28.5 KB, free: 366.2 MB)
+2018-11-07 10:40:01 INFO  TaskSetManager:54 - Finished task 0.0 in stage 4.0 (TID 5) in 97 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:01 INFO  TaskSchedulerImpl:54 - Removed TaskSet 4.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - ShuffleMapStage 4 (countByValue at StringIndexer.scala:140) finished in 0.103 s
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - looking for newly runnable stages
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - running: Set()
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - waiting: Set(ResultStage 5)
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - failed: Set()
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Submitting ResultStage 5 (ShuffledRDD[24] at countByValue at StringIndexer.scala:140), which has no missing parents
+2018-11-07 10:40:01 INFO  MemoryStore:54 - Block broadcast_9 stored as values in memory (estimated size 3.3 KB, free 364.8 MB)
+2018-11-07 10:40:01 INFO  MemoryStore:54 - Block broadcast_9_piece0 stored as bytes in memory (estimated size 2007.0 B, free 364.8 MB)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_9_piece0 in memory on spark-master:44975 (size: 2007.0 B, free: 366.2 MB)
+2018-11-07 10:40:01 INFO  SparkContext:54 - Created broadcast 9 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ResultStage 5 (ShuffledRDD[24] at countByValue at StringIndexer.scala:140) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:01 INFO  TaskSchedulerImpl:54 - Adding task set 5.0 with 1 tasks
+2018-11-07 10:40:01 INFO  TaskSetManager:54 - Starting task 0.0 in stage 5.0 (TID 6, 10.0.0.158, executor 0, partition 0, NODE_LOCAL, 7653 bytes)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_9_piece0 in memory on 10.0.0.158:36677 (size: 2007.0 B, free: 366.2 MB)
+2018-11-07 10:40:01 INFO  MapOutputTrackerMasterEndpoint:54 - Asked to send map output locations for shuffle 1 to 10.0.0.2:50268
+2018-11-07 10:40:01 INFO  TaskSetManager:54 - Finished task 0.0 in stage 5.0 (TID 6) in 22 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:01 INFO  TaskSchedulerImpl:54 - Removed TaskSet 5.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - ResultStage 5 (countByValue at StringIndexer.scala:140) finished in 0.028 s
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Job 3 finished: countByValue at StringIndexer.scala:140, took 0.134017 s
+2018-11-07 10:40:01 INFO  FileSourceStrategy:54 - Pruning directories with: 
+2018-11-07 10:40:01 INFO  FileSourceStrategy:54 - Post-Scan Filters: AtLeastNNulls(n, PassengerId#10,Survived#11,Pclass#12,Name#13,Sex#14,Age#15,SibSp#16,Parch#17,Ticket#18,Fare#19,Cabin#20,Embarked#21)
+2018-11-07 10:40:01 INFO  FileSourceStrategy:54 - Output Data Schema: struct<PassengerId: int, Survived: int, Pclass: int, Name: string, Sex: string ... 10 more fields>
+2018-11-07 10:40:01 INFO  FileSourceScanExec:54 - Pushed Filters: 
+2018-11-07 10:40:01 INFO  CodeGenerator:54 - Code generated in 21.284741 ms
+2018-11-07 10:40:01 INFO  MemoryStore:54 - Block broadcast_10 stored as values in memory (estimated size 341.3 KB, free 364.4 MB)
+2018-11-07 10:40:01 INFO  MemoryStore:54 - Block broadcast_10_piece0 stored as bytes in memory (estimated size 28.5 KB, free 364.4 MB)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_10_piece0 in memory on spark-master:44975 (size: 28.5 KB, free: 366.1 MB)
+2018-11-07 10:40:01 INFO  SparkContext:54 - Created broadcast 10 from rdd at StringIndexer.scala:138
+2018-11-07 10:40:01 INFO  FileSourceScanExec:54 - Planning scan with bin packing, max size: 4194304 bytes, open cost is considered as scanning 4194304 bytes.
+2018-11-07 10:40:01 INFO  SparkContext:54 - Starting job: countByValue at StringIndexer.scala:140
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Registering RDD 31 (countByValue at StringIndexer.scala:140)
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Got job 4 (countByValue at StringIndexer.scala:140) with 1 output partitions
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Final stage: ResultStage 7 (countByValue at StringIndexer.scala:140)
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Parents of final stage: List(ShuffleMapStage 6)
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Missing parents: List(ShuffleMapStage 6)
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Submitting ShuffleMapStage 6 (MapPartitionsRDD[31] at countByValue at StringIndexer.scala:140), which has no missing parents
+2018-11-07 10:40:01 INFO  MemoryStore:54 - Block broadcast_11 stored as values in memory (estimated size 28.5 KB, free 364.4 MB)
+2018-11-07 10:40:01 INFO  MemoryStore:54 - Block broadcast_11_piece0 stored as bytes in memory (estimated size 11.9 KB, free 364.4 MB)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_11_piece0 in memory on spark-master:44975 (size: 11.9 KB, free: 366.1 MB)
+2018-11-07 10:40:01 INFO  SparkContext:54 - Created broadcast 11 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ShuffleMapStage 6 (MapPartitionsRDD[31] at countByValue at StringIndexer.scala:140) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:01 INFO  TaskSchedulerImpl:54 - Adding task set 6.0 with 1 tasks
+2018-11-07 10:40:01 INFO  TaskSetManager:54 - Starting task 0.0 in stage 6.0 (TID 7, 10.0.0.158, executor 0, partition 0, PROCESS_LOCAL, 8296 bytes)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_11_piece0 in memory on 10.0.0.158:36677 (size: 11.9 KB, free: 366.2 MB)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_10_piece0 in memory on 10.0.0.158:36677 (size: 28.5 KB, free: 366.1 MB)
+2018-11-07 10:40:01 INFO  TaskSetManager:54 - Finished task 0.0 in stage 6.0 (TID 7) in 121 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:01 INFO  TaskSchedulerImpl:54 - Removed TaskSet 6.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - ShuffleMapStage 6 (countByValue at StringIndexer.scala:140) finished in 0.128 s
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - looking for newly runnable stages
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - running: Set()
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - waiting: Set(ResultStage 7)
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - failed: Set()
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Submitting ResultStage 7 (ShuffledRDD[32] at countByValue at StringIndexer.scala:140), which has no missing parents
+2018-11-07 10:40:01 INFO  MemoryStore:54 - Block broadcast_12 stored as values in memory (estimated size 3.3 KB, free 364.4 MB)
+2018-11-07 10:40:01 INFO  MemoryStore:54 - Block broadcast_12_piece0 stored as bytes in memory (estimated size 2009.0 B, free 364.4 MB)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_12_piece0 in memory on spark-master:44975 (size: 2009.0 B, free: 366.1 MB)
+2018-11-07 10:40:01 INFO  SparkContext:54 - Created broadcast 12 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ResultStage 7 (ShuffledRDD[32] at countByValue at StringIndexer.scala:140) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:01 INFO  TaskSchedulerImpl:54 - Adding task set 7.0 with 1 tasks
+2018-11-07 10:40:01 INFO  TaskSetManager:54 - Starting task 0.0 in stage 7.0 (TID 8, 10.0.0.158, executor 0, partition 0, NODE_LOCAL, 7653 bytes)
+2018-11-07 10:40:01 INFO  BlockManagerInfo:54 - Added broadcast_12_piece0 in memory on 10.0.0.158:36677 (size: 2009.0 B, free: 366.1 MB)
+2018-11-07 10:40:01 INFO  MapOutputTrackerMasterEndpoint:54 - Asked to send map output locations for shuffle 2 to 10.0.0.2:50268
+2018-11-07 10:40:01 INFO  TaskSetManager:54 - Finished task 0.0 in stage 7.0 (TID 8) in 22 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:01 INFO  TaskSchedulerImpl:54 - Removed TaskSet 7.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - ResultStage 7 (countByValue at StringIndexer.scala:140) finished in 0.026 s
+2018-11-07 10:40:01 INFO  DAGScheduler:54 - Job 4 finished: countByValue at StringIndexer.scala:140, took 0.158058 s
+2018-11-07 10:40:02 INFO  FileSourceStrategy:54 - Pruning directories with: 
+2018-11-07 10:40:02 INFO  FileSourceStrategy:54 - Post-Scan Filters: AtLeastNNulls(n, PassengerId#10,Survived#11,Pclass#12,Name#13,Sex#14,Age#15,SibSp#16,Parch#17,Ticket#18,Fare#19,Cabin#20,Embarked#21)
+2018-11-07 10:40:02 INFO  FileSourceStrategy:54 - Output Data Schema: struct<PassengerId: int, Survived: int, Pclass: int, Name: string, Sex: string ... 10 more fields>
+2018-11-07 10:40:02 INFO  FileSourceScanExec:54 - Pushed Filters: 
+2018-11-07 10:40:02 INFO  CodeGenerator:54 - Code generated in 38.477646 ms
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_13 stored as values in memory (estimated size 341.3 KB, free 364.0 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_13_piece0 stored as bytes in memory (estimated size 28.5 KB, free 364.0 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_13_piece0 in memory on spark-master:44975 (size: 28.5 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 13 from rdd at Classifier.scala:82
+2018-11-07 10:40:02 INFO  FileSourceScanExec:54 - Planning scan with bin packing, max size: 4194304 bytes, open cost is considered as scanning 4194304 bytes.
+2018-11-07 10:40:02 INFO  Instrumentation:54 - RandomForestClassifier-RandomForestClassifier_41139fff4c0088ce8914-1761499732-1: training: numPartitions=1 storageLevel=StorageLevel(1 replicas)
+2018-11-07 10:40:02 INFO  Instrumentation:54 - RandomForestClassifier-RandomForestClassifier_41139fff4c0088ce8914-1761499732-1: {"seed":-4140900678877021401,"subsamplingRate":1.0,"impurity":"gini","featuresCol":"features","maxDepth":5,"minInstancesPerNode":1,"featureSubsetStrategy":"auto","checkpointInterval":10,"minInfoGain":0.0,"cacheNodeIds":false,"labelCol":"indexedSurvived","predictionCol":"prediction","maxMemoryInMB":256,"maxBins":32,"rawPredictionCol":"rawPrediction","probabilityCol":"probability","numTrees":20}
+2018-11-07 10:40:02 INFO  SparkContext:54 - Starting job: take at DecisionTreeMetadata.scala:112
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Got job 5 (take at DecisionTreeMetadata.scala:112) with 1 output partitions
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Final stage: ResultStage 8 (take at DecisionTreeMetadata.scala:112)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Parents of final stage: List()
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Missing parents: List()
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting ResultStage 8 (MapPartitionsRDD[39] at map at DecisionTreeMetadata.scala:112), which has no missing parents
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_14 stored as values in memory (estimated size 55.2 KB, free 363.9 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_14_piece0 stored as bytes in memory (estimated size 21.1 KB, free 363.9 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_14_piece0 in memory on spark-master:44975 (size: 21.1 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 14 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ResultStage 8 (MapPartitionsRDD[39] at map at DecisionTreeMetadata.scala:112) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Adding task set 8.0 with 1 tasks
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Starting task 0.0 in stage 8.0 (TID 9, 10.0.0.158, executor 0, partition 0, PROCESS_LOCAL, 8307 bytes)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_14_piece0 in memory on 10.0.0.158:36677 (size: 21.1 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_13_piece0 in memory on 10.0.0.158:36677 (size: 28.5 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Finished task 0.0 in stage 8.0 (TID 9) in 153 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Removed TaskSet 8.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - ResultStage 8 (take at DecisionTreeMetadata.scala:112) finished in 0.158 s
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Job 5 finished: take at DecisionTreeMetadata.scala:112, took 0.160950 s
+2018-11-07 10:40:02 INFO  SparkContext:54 - Starting job: count at DecisionTreeMetadata.scala:118
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Got job 6 (count at DecisionTreeMetadata.scala:118) with 1 output partitions
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Final stage: ResultStage 9 (count at DecisionTreeMetadata.scala:118)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Parents of final stage: List()
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Missing parents: List()
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting ResultStage 9 (MapPartitionsRDD[38] at retag at RandomForest.scala:103), which has no missing parents
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_15 stored as values in memory (estimated size 54.8 KB, free 363.9 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_15_piece0 stored as bytes in memory (estimated size 21.0 KB, free 363.9 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_15_piece0 in memory on spark-master:44975 (size: 21.0 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 15 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ResultStage 9 (MapPartitionsRDD[38] at retag at RandomForest.scala:103) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Adding task set 9.0 with 1 tasks
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Starting task 0.0 in stage 9.0 (TID 10, 10.0.0.158, executor 0, partition 0, PROCESS_LOCAL, 8307 bytes)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_15_piece0 in memory on 10.0.0.158:36677 (size: 21.0 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Finished task 0.0 in stage 9.0 (TID 10) in 37 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Removed TaskSet 9.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - ResultStage 9 (count at DecisionTreeMetadata.scala:118) finished in 0.041 s
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Job 6 finished: count at DecisionTreeMetadata.scala:118, took 0.043033 s
+2018-11-07 10:40:02 INFO  Instrumentation:54 - RandomForestClassifier-RandomForestClassifier_41139fff4c0088ce8914-1761499732-1: {"numFeatures":7}
+2018-11-07 10:40:02 INFO  Instrumentation:54 - RandomForestClassifier-RandomForestClassifier_41139fff4c0088ce8914-1761499732-1: {"numClasses":2}
+2018-11-07 10:40:02 INFO  SparkContext:54 - Starting job: collectAsMap at RandomForest.scala:928
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Registering RDD 41 (flatMap at RandomForest.scala:921)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Got job 7 (collectAsMap at RandomForest.scala:928) with 1 output partitions
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Final stage: ResultStage 11 (collectAsMap at RandomForest.scala:928)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Parents of final stage: List(ShuffleMapStage 10)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Missing parents: List(ShuffleMapStage 10)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting ShuffleMapStage 10 (MapPartitionsRDD[41] at flatMap at RandomForest.scala:921), which has no missing parents
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_16 stored as values in memory (estimated size 57.9 KB, free 363.8 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_16_piece0 stored as bytes in memory (estimated size 22.5 KB, free 363.8 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_16_piece0 in memory on spark-master:44975 (size: 22.5 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 16 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ShuffleMapStage 10 (MapPartitionsRDD[41] at flatMap at RandomForest.scala:921) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Adding task set 10.0 with 1 tasks
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Starting task 0.0 in stage 10.0 (TID 11, 10.0.0.158, executor 0, partition 0, PROCESS_LOCAL, 8405 bytes)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_16_piece0 in memory on 10.0.0.158:36677 (size: 22.5 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Finished task 0.0 in stage 10.0 (TID 11) in 78 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Removed TaskSet 10.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - ShuffleMapStage 10 (flatMap at RandomForest.scala:921) finished in 0.084 s
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - looking for newly runnable stages
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - running: Set()
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - waiting: Set(ResultStage 11)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - failed: Set()
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting ResultStage 11 (MapPartitionsRDD[43] at map at RandomForest.scala:923), which has no missing parents
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_17 stored as values in memory (estimated size 60.3 KB, free 363.7 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_17_piece0 stored as bytes in memory (estimated size 24.1 KB, free 363.7 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_17_piece0 in memory on spark-master:44975 (size: 24.1 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 17 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ResultStage 11 (MapPartitionsRDD[43] at map at RandomForest.scala:923) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Adding task set 11.0 with 1 tasks
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Starting task 0.0 in stage 11.0 (TID 12, 10.0.0.158, executor 0, partition 0, NODE_LOCAL, 7653 bytes)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_17_piece0 in memory on 10.0.0.158:36677 (size: 24.1 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  MapOutputTrackerMasterEndpoint:54 - Asked to send map output locations for shuffle 3 to 10.0.0.2:50268
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Finished task 0.0 in stage 11.0 (TID 12) in 58 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Removed TaskSet 11.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - ResultStage 11 (collectAsMap at RandomForest.scala:928) finished in 0.065 s
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Job 7 finished: collectAsMap at RandomForest.scala:928, took 0.153425 s
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_18 stored as values in memory (estimated size 2.2 KB, free 363.7 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_18_piece0 stored as bytes in memory (estimated size 519.0 B, free 363.7 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_18_piece0 in memory on spark-master:44975 (size: 519.0 B, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 18 from broadcast at RandomForest.scala:513
+2018-11-07 10:40:02 INFO  SparkContext:54 - Starting job: collectAsMap at RandomForest.scala:563
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Registering RDD 46 (mapPartitions at RandomForest.scala:534)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Got job 8 (collectAsMap at RandomForest.scala:563) with 1 output partitions
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Final stage: ResultStage 13 (collectAsMap at RandomForest.scala:563)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Parents of final stage: List(ShuffleMapStage 12)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Missing parents: List(ShuffleMapStage 12)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting ShuffleMapStage 12 (MapPartitionsRDD[46] at mapPartitions at RandomForest.scala:534), which has no missing parents
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_19 stored as values in memory (estimated size 62.1 KB, free 363.6 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_19_piece0 stored as bytes in memory (estimated size 24.4 KB, free 363.6 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_19_piece0 in memory on spark-master:44975 (size: 24.4 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 19 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ShuffleMapStage 12 (MapPartitionsRDD[46] at mapPartitions at RandomForest.scala:534) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Adding task set 12.0 with 1 tasks
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Starting task 0.0 in stage 12.0 (TID 13, 10.0.0.158, executor 0, partition 0, PROCESS_LOCAL, 8296 bytes)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_19_piece0 in memory on 10.0.0.158:36677 (size: 24.4 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added rdd_45_0 in memory on 10.0.0.158:36677 (size: 31.6 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_18_piece0 in memory on 10.0.0.158:36677 (size: 519.0 B, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Finished task 0.0 in stage 12.0 (TID 13) in 110 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Removed TaskSet 12.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - ShuffleMapStage 12 (mapPartitions at RandomForest.scala:534) finished in 0.117 s
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - looking for newly runnable stages
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - running: Set()
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - waiting: Set(ResultStage 13)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - failed: Set()
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting ResultStage 13 (MapPartitionsRDD[48] at map at RandomForest.scala:553), which has no missing parents
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_20 stored as values in memory (estimated size 6.7 KB, free 363.6 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_20_piece0 stored as bytes in memory (estimated size 3.2 KB, free 363.6 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_20_piece0 in memory on spark-master:44975 (size: 3.2 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 20 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ResultStage 13 (MapPartitionsRDD[48] at map at RandomForest.scala:553) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Adding task set 13.0 with 1 tasks
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Starting task 0.0 in stage 13.0 (TID 14, 10.0.0.158, executor 0, partition 0, NODE_LOCAL, 7653 bytes)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_20_piece0 in memory on 10.0.0.158:36677 (size: 3.2 KB, free: 365.9 MB)
+2018-11-07 10:40:02 INFO  MapOutputTrackerMasterEndpoint:54 - Asked to send map output locations for shuffle 4 to 10.0.0.2:50268
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Finished task 0.0 in stage 13.0 (TID 14) in 57 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Removed TaskSet 13.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - ResultStage 13 (collectAsMap at RandomForest.scala:563) finished in 0.062 s
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Job 8 finished: collectAsMap at RandomForest.scala:563, took 0.182806 s
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_21 stored as values in memory (estimated size 4.5 KB, free 363.6 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_21_piece0 stored as bytes in memory (estimated size 719.0 B, free 363.6 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_21_piece0 in memory on spark-master:44975 (size: 719.0 B, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 21 from broadcast at RandomForest.scala:513
+2018-11-07 10:40:02 INFO  SparkContext:54 - Starting job: collectAsMap at RandomForest.scala:563
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Registering RDD 49 (mapPartitions at RandomForest.scala:534)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Got job 9 (collectAsMap at RandomForest.scala:563) with 1 output partitions
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Final stage: ResultStage 15 (collectAsMap at RandomForest.scala:563)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Parents of final stage: List(ShuffleMapStage 14)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Missing parents: List(ShuffleMapStage 14)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting ShuffleMapStage 14 (MapPartitionsRDD[49] at mapPartitions at RandomForest.scala:534), which has no missing parents
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_22 stored as values in memory (estimated size 68.9 KB, free 363.5 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_22_piece0 stored as bytes in memory (estimated size 27.1 KB, free 363.5 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_22_piece0 in memory on spark-master:44975 (size: 27.1 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 22 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ShuffleMapStage 14 (MapPartitionsRDD[49] at mapPartitions at RandomForest.scala:534) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Adding task set 14.0 with 1 tasks
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Starting task 0.0 in stage 14.0 (TID 15, 10.0.0.158, executor 0, partition 0, PROCESS_LOCAL, 8296 bytes)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_22_piece0 in memory on 10.0.0.158:36677 (size: 27.1 KB, free: 365.9 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_21_piece0 in memory on 10.0.0.158:36677 (size: 719.0 B, free: 365.9 MB)
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Finished task 0.0 in stage 14.0 (TID 15) in 26 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Removed TaskSet 14.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - ShuffleMapStage 14 (mapPartitions at RandomForest.scala:534) finished in 0.032 s
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - looking for newly runnable stages
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - running: Set()
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - waiting: Set(ResultStage 15)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - failed: Set()
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting ResultStage 15 (MapPartitionsRDD[51] at map at RandomForest.scala:553), which has no missing parents
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_23 stored as values in memory (estimated size 9.6 KB, free 363.5 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_23_piece0 stored as bytes in memory (estimated size 4.2 KB, free 363.5 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_23_piece0 in memory on spark-master:44975 (size: 4.2 KB, free: 365.9 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 23 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ResultStage 15 (MapPartitionsRDD[51] at map at RandomForest.scala:553) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Adding task set 15.0 with 1 tasks
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Starting task 0.0 in stage 15.0 (TID 16, 10.0.0.158, executor 0, partition 0, NODE_LOCAL, 7653 bytes)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_23_piece0 in memory on 10.0.0.158:36677 (size: 4.2 KB, free: 365.9 MB)
+2018-11-07 10:40:02 INFO  MapOutputTrackerMasterEndpoint:54 - Asked to send map output locations for shuffle 5 to 10.0.0.2:50268
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Finished task 0.0 in stage 15.0 (TID 16) in 28 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Removed TaskSet 15.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - ResultStage 15 (collectAsMap at RandomForest.scala:563) finished in 0.032 s
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Job 9 finished: collectAsMap at RandomForest.scala:563, took 0.067600 s
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_24 stored as values in memory (estimated size 7.5 KB, free 363.5 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_24_piece0 stored as bytes in memory (estimated size 974.0 B, free 363.5 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_24_piece0 in memory on spark-master:44975 (size: 974.0 B, free: 365.9 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 24 from broadcast at RandomForest.scala:513
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 156
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 151
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 113
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 100
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 406
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 300
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 359
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 369
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 77
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 223
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 431
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 315
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 197
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 204
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 143
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 414
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 180
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 170
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 201
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 273
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 287
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 353
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 291
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned shuffle 0
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 401
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 267
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 157
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 212
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 192
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 213
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 78
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 278
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 115
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 334
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 174
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 171
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 243
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 335
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 195
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 440
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 318
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 427
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 73
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 84
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 364
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 124
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 108
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 79
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 415
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 432
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 135
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 437
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 333
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned shuffle 3
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 68
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 338
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 372
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 130
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 187
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 183
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 421
+2018-11-07 10:40:02 INFO  SparkContext:54 - Starting job: collectAsMap at RandomForest.scala:563
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_5_piece0 on spark-master:44975 in memory (size: 11.6 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Registering RDD 52 (mapPartitions at RandomForest.scala:534)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Got job 10 (collectAsMap at RandomForest.scala:563) with 1 output partitions
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Final stage: ResultStage 17 (collectAsMap at RandomForest.scala:563)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Parents of final stage: List(ShuffleMapStage 16)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Missing parents: List(ShuffleMapStage 16)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting ShuffleMapStage 16 (MapPartitionsRDD[52] at mapPartitions at RandomForest.scala:534), which has no missing parents
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_5_piece0 on 10.0.0.158:36677 in memory (size: 11.6 KB, free: 365.9 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_25 stored as values in memory (estimated size 78.0 KB, free 363.4 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 373
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 152
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_25_piece0 stored as bytes in memory (estimated size 30.1 KB, free 363.4 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 161
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 230
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 137
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 228
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 234
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 172
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 383
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 131
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 447
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_25_piece0 in memory on spark-master:44975 (size: 30.1 KB, free: 365.9 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 285
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 91
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 64
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 25 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ShuffleMapStage 16 (MapPartitionsRDD[52] at mapPartitions at RandomForest.scala:534) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_19_piece0 on spark-master:44975 in memory (size: 24.4 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Adding task set 16.0 with 1 tasks
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Starting task 0.0 in stage 16.0 (TID 17, 10.0.0.158, executor 0, partition 0, PROCESS_LOCAL, 8296 bytes)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_19_piece0 on 10.0.0.158:36677 in memory (size: 24.4 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 405
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 92
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 277
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 101
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 453
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 352
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 380
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 384
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 266
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 276
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 163
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 327
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 368
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 388
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 129
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 304
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 260
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 88
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 225
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 433
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 419
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 386
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 126
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 435
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 309
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 185
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 221
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 391
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 371
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 268
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 398
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 323
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 70
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 176
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 454
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 346
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned shuffle 2
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 214
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 342
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 89
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 337
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_15_piece0 on spark-master:44975 in memory (size: 21.0 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_25_piece0 in memory on 10.0.0.158:36677 (size: 30.1 KB, free: 365.9 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_15_piece0 on 10.0.0.158:36677 in memory (size: 21.0 KB, free: 365.9 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 179
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 356
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 344
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 138
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 390
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 231
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 347
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 255
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned shuffle 1
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 423
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_9_piece0 on spark-master:44975 in memory (size: 2007.0 B, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_9_piece0 on 10.0.0.158:36677 in memory (size: 2007.0 B, free: 365.9 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 241
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 238
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 99
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 75
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 164
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 202
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 412
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 374
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 146
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 274
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 125
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_16_piece0 on spark-master:44975 in memory (size: 22.5 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_16_piece0 on 10.0.0.158:36677 in memory (size: 22.5 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 203
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_22_piece0 on spark-master:44975 in memory (size: 27.1 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_22_piece0 on 10.0.0.158:36677 in memory (size: 27.1 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_24_piece0 in memory on 10.0.0.158:36677 (size: 974.0 B, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 139
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 119
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 216
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 184
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 159
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 191
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 166
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 308
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_17_piece0 on spark-master:44975 in memory (size: 24.1 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_17_piece0 on 10.0.0.158:36677 in memory (size: 24.1 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 261
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 62
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 134
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 299
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 263
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 93
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 120
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 443
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 177
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 426
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 392
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 112
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 376
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 293
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 182
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 379
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 322
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 132
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 341
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 394
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 381
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 259
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 136
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 106
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 66
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 339
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 169
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 188
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 314
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 117
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Finished task 0.0 in stage 16.0 (TID 17) in 34 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_14_piece0 on spark-master:44975 in memory (size: 21.1 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Removed TaskSet 16.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - ShuffleMapStage 16 (mapPartitions at RandomForest.scala:534) finished in 0.039 s
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - looking for newly runnable stages
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - running: Set()
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - waiting: Set(ResultStage 17)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - failed: Set()
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting ResultStage 17 (MapPartitionsRDD[54] at map at RandomForest.scala:553), which has no missing parents
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_14_piece0 on 10.0.0.158:36677 in memory (size: 21.1 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_26 stored as values in memory (estimated size 11.5 KB, free 363.9 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_26_piece0 stored as bytes in memory (estimated size 4.7 KB, free 363.9 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_26_piece0 in memory on spark-master:44975 (size: 4.7 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 26 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ResultStage 17 (MapPartitionsRDD[54] at map at RandomForest.scala:553) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 220
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Adding task set 17.0 with 1 tasks
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 320
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 362
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 235
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 296
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 434
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 175
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 222
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 348
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 167
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 133
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 109
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 114
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 340
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 416
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 422
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 297
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Starting task 0.0 in stage 17.0 (TID 18, 10.0.0.158, executor 0, partition 0, NODE_LOCAL, 7653 bytes)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned shuffle 5
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_11_piece0 on spark-master:44975 in memory (size: 11.9 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_11_piece0 on 10.0.0.158:36677 in memory (size: 11.9 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 181
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 94
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_6_piece0 on spark-master:44975 in memory (size: 2021.0 B, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_26_piece0 in memory on 10.0.0.158:36677 (size: 4.7 KB, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_6_piece0 on 10.0.0.158:36677 in memory (size: 2021.0 B, free: 366.0 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 208
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 240
+2018-11-07 10:40:02 INFO  MapOutputTrackerMasterEndpoint:54 - Asked to send map output locations for shuffle 6 to 10.0.0.2:50268
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 328
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 361
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 121
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 382
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 224
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 102
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 438
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 424
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 288
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 360
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 284
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 148
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 74
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 292
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 110
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 281
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 217
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 282
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 153
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_7_piece0 on spark-master:44975 in memory (size: 28.5 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_7_piece0 on 10.0.0.158:36677 in memory (size: 28.5 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 409
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 76
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 142
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 430
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 141
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 237
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 80
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 72
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 326
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 83
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 451
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 149
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 367
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_10_piece0 on spark-master:44975 in memory (size: 28.5 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_10_piece0 on 10.0.0.158:36677 in memory (size: 28.5 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 355
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 104
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 165
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 280
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 162
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 229
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 330
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 65
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 439
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 331
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 147
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 154
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 442
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 81
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 211
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 168
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 329
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 194
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 395
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 257
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 232
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_4_piece0 on spark-master:44975 in memory (size: 28.5 KB, free: 366.2 MB)
+2018-11-07 10:40:02 INFO  TaskSetManager:54 - Finished task 0.0 in stage 17.0 (TID 18) in 43 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:02 INFO  TaskSchedulerImpl:54 - Removed TaskSet 17.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_4_piece0 on 10.0.0.158:36677 in memory (size: 28.5 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 400
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 410
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 158
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 429
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 96
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 377
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 128
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - ResultStage 17 (collectAsMap at RandomForest.scala:563) finished in 0.050 s
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 116
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 446
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 302
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 286
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Job 10 finished: collectAsMap at RandomForest.scala:563, took 0.092660 s
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 375
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 200
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 417
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 190
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 233
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 82
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 63
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 345
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 173
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 349
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 264
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 118
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 350
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 436
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 452
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 196
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 244
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_18_piece0 on spark-master:44975 in memory (size: 519.0 B, free: 366.2 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_18_piece0 on 10.0.0.158:36677 in memory (size: 519.0 B, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_27 stored as values in memory (estimated size 9.3 KB, free 365.0 MB)
+2018-11-07 10:40:02 INFO  MemoryStore:54 - Block broadcast_27_piece0 stored as bytes in memory (estimated size 1145.0 B, free 365.0 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Added broadcast_27_piece0 in memory on spark-master:44975 (size: 1145.0 B, free: 366.2 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Created broadcast 27 from broadcast at RandomForest.scala:513
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 311
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned shuffle 4
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 389
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 425
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 97
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 307
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 199
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 283
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_20_piece0 on spark-master:44975 in memory (size: 3.2 KB, free: 366.2 MB)
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_20_piece0 on 10.0.0.158:36677 in memory (size: 3.2 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 269
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 111
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 351
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 95
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 305
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 396
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 385
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 324
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 444
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 399
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 122
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 270
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 403
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 413
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 218
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 85
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 407
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 258
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 316
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 189
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 448
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 321
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 441
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 275
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 160
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 357
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 215
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 358
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 312
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 420
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 236
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 445
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 207
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 227
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 90
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 279
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 144
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 290
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 336
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 408
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 363
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 150
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 301
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 198
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 242
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 378
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 209
+2018-11-07 10:40:02 INFO  ContextCleaner:54 - Cleaned accumulator 402
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_8_piece0 on spark-master:44975 in memory (size: 11.6 KB, free: 366.2 MB)
+2018-11-07 10:40:02 INFO  SparkContext:54 - Starting job: collectAsMap at RandomForest.scala:563
+2018-11-07 10:40:02 INFO  BlockManagerInfo:54 - Removed broadcast_8_piece0 on 10.0.0.158:36677 in memory (size: 11.6 KB, free: 366.1 MB)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Registering RDD 55 (mapPartitions at RandomForest.scala:534)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Got job 11 (collectAsMap at RandomForest.scala:563) with 1 output partitions
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Final stage: ResultStage 19 (collectAsMap at RandomForest.scala:563)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Parents of final stage: List(ShuffleMapStage 18)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Missing parents: List(ShuffleMapStage 18)
+2018-11-07 10:40:02 INFO  DAGScheduler:54 - Submitting ShuffleMapStage 18 (MapPartitionsRDD[55] at mapPartitions at RandomForest.scala:534), which has no missing parents
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 313
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 411
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 271
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Removed broadcast_12_piece0 on spark-master:44975 in memory (size: 2009.0 B, free: 366.2 MB)
+2018-11-07 10:40:03 INFO  MemoryStore:54 - Block broadcast_28 stored as values in memory (estimated size 92.1 KB, free 365.0 MB)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Removed broadcast_12_piece0 on 10.0.0.158:36677 in memory (size: 2009.0 B, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  MemoryStore:54 - Block broadcast_28_piece0 stored as bytes in memory (estimated size 34.4 KB, free 364.9 MB)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Added broadcast_28_piece0 in memory on spark-master:44975 (size: 34.4 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 103
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 145
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 387
+2018-11-07 10:40:03 INFO  SparkContext:54 - Created broadcast 28 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 449
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 206
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 87
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 310
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 178
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 294
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ShuffleMapStage 18 (MapPartitionsRDD[55] at mapPartitions at RandomForest.scala:534) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 71
+2018-11-07 10:40:03 INFO  TaskSchedulerImpl:54 - Adding task set 18.0 with 1 tasks
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 303
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 272
+2018-11-07 10:40:03 INFO  TaskSetManager:54 - Starting task 0.0 in stage 18.0 (TID 19, 10.0.0.158, executor 0, partition 0, PROCESS_LOCAL, 8296 bytes)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Removed broadcast_23_piece0 on spark-master:44975 in memory (size: 4.2 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Removed broadcast_23_piece0 on 10.0.0.158:36677 in memory (size: 4.2 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 193
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 289
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 140
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 317
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 123
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 325
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 319
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 107
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 298
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 262
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 186
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 219
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 265
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 366
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 127
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 332
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Removed broadcast_21_piece0 on spark-master:44975 in memory (size: 719.0 B, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Removed broadcast_21_piece0 on 10.0.0.158:36677 in memory (size: 719.0 B, free: 366.2 MB)
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 428
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 226
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 418
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 205
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 393
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 210
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 450
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 67
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 354
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 343
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 256
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 370
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 155
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 306
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 105
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Added broadcast_28_piece0 in memory on 10.0.0.158:36677 (size: 34.4 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 397
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 98
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 404
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 239
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 295
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 365
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 69
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 86
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Added broadcast_27_piece0 in memory on 10.0.0.158:36677 (size: 1145.0 B, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  TaskSetManager:54 - Finished task 0.0 in stage 18.0 (TID 19) in 34 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:03 INFO  TaskSchedulerImpl:54 - Removed TaskSet 18.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - ShuffleMapStage 18 (mapPartitions at RandomForest.scala:534) finished in 0.039 s
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - looking for newly runnable stages
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - running: Set()
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - waiting: Set(ResultStage 19)
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - failed: Set()
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Submitting ResultStage 19 (MapPartitionsRDD[57] at map at RandomForest.scala:553), which has no missing parents
+2018-11-07 10:40:03 INFO  MemoryStore:54 - Block broadcast_29 stored as values in memory (estimated size 12.8 KB, free 364.9 MB)
+2018-11-07 10:40:03 INFO  MemoryStore:54 - Block broadcast_29_piece0 stored as bytes in memory (estimated size 4.8 KB, free 364.9 MB)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Added broadcast_29_piece0 in memory on spark-master:44975 (size: 4.8 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  SparkContext:54 - Created broadcast 29 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ResultStage 19 (MapPartitionsRDD[57] at map at RandomForest.scala:553) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:03 INFO  TaskSchedulerImpl:54 - Adding task set 19.0 with 1 tasks
+2018-11-07 10:40:03 INFO  TaskSetManager:54 - Starting task 0.0 in stage 19.0 (TID 20, 10.0.0.158, executor 0, partition 0, NODE_LOCAL, 7653 bytes)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Added broadcast_29_piece0 in memory on 10.0.0.158:36677 (size: 4.8 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  MapOutputTrackerMasterEndpoint:54 - Asked to send map output locations for shuffle 7 to 10.0.0.2:50268
+2018-11-07 10:40:03 INFO  TaskSetManager:54 - Finished task 0.0 in stage 19.0 (TID 20) in 30 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:03 INFO  TaskSchedulerImpl:54 - Removed TaskSet 19.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - ResultStage 19 (collectAsMap at RandomForest.scala:563) finished in 0.036 s
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Job 11 finished: collectAsMap at RandomForest.scala:563, took 0.079486 s
+2018-11-07 10:40:03 INFO  MemoryStore:54 - Block broadcast_30 stored as values in memory (estimated size 9.1 KB, free 364.9 MB)
+2018-11-07 10:40:03 INFO  MemoryStore:54 - Block broadcast_30_piece0 stored as bytes in memory (estimated size 1148.0 B, free 364.9 MB)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Added broadcast_30_piece0 in memory on spark-master:44975 (size: 1148.0 B, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  SparkContext:54 - Created broadcast 30 from broadcast at RandomForest.scala:513
+2018-11-07 10:40:03 INFO  SparkContext:54 - Starting job: collectAsMap at RandomForest.scala:563
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Registering RDD 58 (mapPartitions at RandomForest.scala:534)
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Got job 12 (collectAsMap at RandomForest.scala:563) with 1 output partitions
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Final stage: ResultStage 21 (collectAsMap at RandomForest.scala:563)
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Parents of final stage: List(ShuffleMapStage 20)
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Missing parents: List(ShuffleMapStage 20)
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Submitting ShuffleMapStage 20 (MapPartitionsRDD[58] at mapPartitions at RandomForest.scala:534), which has no missing parents
+2018-11-07 10:40:03 INFO  MemoryStore:54 - Block broadcast_31 stored as values in memory (estimated size 107.7 KB, free 364.8 MB)
+2018-11-07 10:40:03 INFO  MemoryStore:54 - Block broadcast_31_piece0 stored as bytes in memory (estimated size 39.2 KB, free 364.8 MB)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Added broadcast_31_piece0 in memory on spark-master:44975 (size: 39.2 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  SparkContext:54 - Created broadcast 31 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ShuffleMapStage 20 (MapPartitionsRDD[58] at mapPartitions at RandomForest.scala:534) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:03 INFO  TaskSchedulerImpl:54 - Adding task set 20.0 with 1 tasks
+2018-11-07 10:40:03 INFO  TaskSetManager:54 - Starting task 0.0 in stage 20.0 (TID 21, 10.0.0.158, executor 0, partition 0, PROCESS_LOCAL, 8296 bytes)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Added broadcast_31_piece0 in memory on 10.0.0.158:36677 (size: 39.2 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Added broadcast_30_piece0 in memory on 10.0.0.158:36677 (size: 1148.0 B, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  TaskSetManager:54 - Finished task 0.0 in stage 20.0 (TID 21) in 31 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:03 INFO  TaskSchedulerImpl:54 - Removed TaskSet 20.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - ShuffleMapStage 20 (mapPartitions at RandomForest.scala:534) finished in 0.037 s
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - looking for newly runnable stages
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - running: Set()
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - waiting: Set(ResultStage 21)
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - failed: Set()
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Submitting ResultStage 21 (MapPartitionsRDD[60] at map at RandomForest.scala:553), which has no missing parents
+2018-11-07 10:40:03 INFO  MemoryStore:54 - Block broadcast_32 stored as values in memory (estimated size 12.6 KB, free 364.8 MB)
+2018-11-07 10:40:03 INFO  MemoryStore:54 - Block broadcast_32_piece0 stored as bytes in memory (estimated size 4.8 KB, free 364.8 MB)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Added broadcast_32_piece0 in memory on spark-master:44975 (size: 4.8 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  SparkContext:54 - Created broadcast 32 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ResultStage 21 (MapPartitionsRDD[60] at map at RandomForest.scala:553) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:03 INFO  TaskSchedulerImpl:54 - Adding task set 21.0 with 1 tasks
+2018-11-07 10:40:03 INFO  TaskSetManager:54 - Starting task 0.0 in stage 21.0 (TID 22, 10.0.0.158, executor 0, partition 0, NODE_LOCAL, 7653 bytes)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Added broadcast_32_piece0 in memory on 10.0.0.158:36677 (size: 4.8 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  MapOutputTrackerMasterEndpoint:54 - Asked to send map output locations for shuffle 8 to 10.0.0.2:50268
+2018-11-07 10:40:03 INFO  TaskSetManager:54 - Finished task 0.0 in stage 21.0 (TID 22) in 31 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:03 INFO  TaskSchedulerImpl:54 - Removed TaskSet 21.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - ResultStage 21 (collectAsMap at RandomForest.scala:563) finished in 0.036 s
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Job 12 finished: collectAsMap at RandomForest.scala:563, took 0.075582 s
+2018-11-07 10:40:03 INFO  MapPartitionsRDD:54 - Removing RDD 45 from persistence list
+2018-11-07 10:40:03 INFO  BlockManager:54 - Removing RDD 45
+2018-11-07 10:40:03 INFO  RandomForest:54 - Internal timing for DecisionTree:
+2018-11-07 10:40:03 INFO  RandomForest:54 -   init: 0.425398238
+  total: 1.054307561
+  findSplits: 0.192548555
+  findBestSplits: 0.597048081
+  chooseSplits: 0.589977539
+2018-11-07 10:40:03 INFO  SparkContext:54 - Starting job: first at RandomForestClassifier.scala:142
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Got job 13 (first at RandomForestClassifier.scala:142) with 1 output partitions
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Final stage: ResultStage 22 (first at RandomForestClassifier.scala:142)
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Parents of final stage: List()
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Missing parents: List()
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Submitting ResultStage 22 (MapPartitionsRDD[37] at map at Classifier.scala:82), which has no missing parents
+2018-11-07 10:40:03 INFO  MemoryStore:54 - Block broadcast_33 stored as values in memory (estimated size 54.8 KB, free 364.7 MB)
+2018-11-07 10:40:03 INFO  MemoryStore:54 - Block broadcast_33_piece0 stored as bytes in memory (estimated size 21.0 KB, free 364.7 MB)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Added broadcast_33_piece0 in memory on spark-master:44975 (size: 21.0 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  SparkContext:54 - Created broadcast 33 from broadcast at DAGScheduler.scala:1039
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Submitting 1 missing tasks from ResultStage 22 (MapPartitionsRDD[37] at map at Classifier.scala:82) (first 15 tasks are for partitions Vector(0))
+2018-11-07 10:40:03 INFO  TaskSchedulerImpl:54 - Adding task set 22.0 with 1 tasks
+2018-11-07 10:40:03 INFO  TaskSetManager:54 - Starting task 0.0 in stage 22.0 (TID 23, 10.0.0.158, executor 0, partition 0, PROCESS_LOCAL, 8307 bytes)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Added broadcast_33_piece0 in memory on 10.0.0.158:36677 (size: 21.0 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  TaskSetManager:54 - Finished task 0.0 in stage 22.0 (TID 23) in 52 ms on 10.0.0.158 (executor 0) (1/1)
+2018-11-07 10:40:03 INFO  TaskSchedulerImpl:54 - Removed TaskSet 22.0, whose tasks have all completed, from pool 
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - ResultStage 22 (first at RandomForestClassifier.scala:142) finished in 0.056 s
+2018-11-07 10:40:03 INFO  DAGScheduler:54 - Job 13 finished: first at RandomForestClassifier.scala:142, took 0.057459 s
+2018-11-07 10:40:03 INFO  Instrumentation:54 - RandomForestClassifier-RandomForestClassifier_41139fff4c0088ce8914-1761499732-1: training finished
+2018-11-07 10:40:03 INFO  FileSourceStrategy:54 - Pruning directories with: 
+2018-11-07 10:40:03 INFO  FileSourceStrategy:54 - Post-Scan Filters: AtLeastNNulls(n, PassengerId#10,Survived#11,Pclass#12,Name#13,Sex#14,Age#15,SibSp#16,Parch#17,Ticket#18,Fare#19,Cabin#20,Embarked#21)
+2018-11-07 10:40:03 INFO  FileSourceStrategy:54 - Output Data Schema: struct<PassengerId: int, Survived: int, Pclass: int, Name: string, Sex: string ... 10 more fields>
+2018-11-07 10:40:03 INFO  FileSourceScanExec:54 - Pushed Filters: 
+Traceback (most recent call last):
+  File "/usr/local/spark_code/MyFirstApp3_task1.py", line 54, in <module>
+    df_node3[2].write.format("parquet").save(path="hdfs://namenode:9000/example3/test.parquet")
+  File "/spark/python/lib/pyspark.zip/pyspark/sql/readwriter.py", line 705, in save
+  File "/spark/python/lib/py4j-0.10.7-src.zip/py4j/java_gateway.py", line 1257, in __call__
+  File "/spark/python/lib/pyspark.zip/pyspark/sql/utils.py", line 69, in deco
+pyspark.sql.utils.AnalysisException: u'path hdfs://namenode:9000/example3/test.parquet already exists.;'
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 492
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 547
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Removed broadcast_13_piece0 on spark-master:44975 in memory (size: 28.5 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  SparkContext:54 - Invoking stop() from shutdown hook
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Removed broadcast_13_piece0 on 10.0.0.158:36677 in memory (size: 28.5 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 619
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 519
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 553
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 466
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 546
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 480
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 598
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 250
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 245
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 629
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 475
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 487
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 586
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 477
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 501
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 610
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 508
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 483
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 579
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Removed broadcast_31_piece0 on spark-master:44975 in memory (size: 39.2 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Removed broadcast_31_piece0 on 10.0.0.158:36677 in memory (size: 39.2 KB, free: 366.1 MB)
+2018-11-07 10:40:03 INFO  AbstractConnector:318 - Stopped Spark@17dec579{HTTP/1.1,[http/1.1]}{0.0.0.0:4041}
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 520
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 567
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 481
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 590
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 252
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 538
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 570
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 589
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 472
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 530
+2018-11-07 10:40:03 INFO  ContextCleaner:54 - Cleaned accumulator 504
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Removed broadcast_33_piece0 on spark-master:44975 in memory (size: 21.0 KB, free: 366.2 MB)
+2018-11-07 10:40:03 INFO  SparkUI:54 - Stopped Spark web UI at http://spark-master:4041
+2018-11-07 10:40:03 INFO  BlockManagerInfo:54 - Removed broadcast_33_piece0 on 10.0.0.158:36677 in memory (size: 21.0 KB, free: 366.2 MB)
+2018-11-07 10:40:03 INFO  StandaloneSchedulerBackend:54 - Shutting down all executors
+2018-11-07 10:40:03 INFO  CoarseGrainedSchedulerBackend$DriverEndpoint:54 - Asking each executor to shut down
+2018-11-07 10:40:03 INFO  MapOutputTrackerMasterEndpoint:54 - MapOutputTrackerMasterEndpoint stopped!
+2018-11-07 10:40:03 INFO  MemoryStore:54 - MemoryStore cleared
+2018-11-07 10:40:03 INFO  BlockManager:54 - BlockManager stopped
+2018-11-07 10:40:03 INFO  BlockManagerMaster:54 - BlockManagerMaster stopped
+2018-11-07 10:40:03 INFO  OutputCommitCoordinator$OutputCommitCoordinatorEndpoint:54 - OutputCommitCoordinator stopped!
+2018-11-07 10:40:03 INFO  SparkContext:54 - Successfully stopped SparkContext
+2018-11-07 10:40:03 INFO  ShutdownHookManager:54 - Shutdown hook called
+2018-11-07 10:40:03 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-ddbf087e-a365-4732-b20a-f07d81101d60
+2018-11-07 10:40:03 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-125d4774-1a1d-42d4-ad1a-894bf5f5e5b3/pyspark-8cc78f4e-27ac-4462-93e8-11ed12fead1b
+2018-11-07 10:40:03 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-125d4774-1a1d-42d4-ad1a-894bf5f5e5b3
