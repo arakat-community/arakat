@@ -183,6 +183,7 @@ Mevcut durumda, Arakat-Core'un servis edilmesi için Flask Server kullanılmakta
 * *Shared Functions*
 * *Multi-instance Handler*
 * *Model Holder*
+* *Edge Permissions*
 
 
 ### Nod Özellikleri (Node-Specs)
@@ -1004,3 +1005,78 @@ Task, pipeline ve cv nodları compound nodlardır. Bunlar içerisinde başka nod
 İkinci problem, yukarıda bahsedilen kabul. Bu kabule göre pipeline nodu gibi bir compound nod içerisinde yer alan bir noda, sözkonusu pipeline nodu dışarısında yer alan bir noddan edge çekmemiz gerekiyor (crossing edge problem). Bu durumda, ModelHolder durumuna özel olarak bu edge'in çekilmesine izin veriyoruz. *PipelineGenerator* graph'ı parse ederken bu edge'ler special_edges olarak ele alınmaktadır.
 
 Bu durumun çözümü için graph parsing kısmında özel edge'leri işleyecek bir işlev ve nod ailesi içerisinde bu özel edge'leri dikkate almak yeterli oldu. Şu an için, bu şekilde özel durumların ele alınmasında bir problem görülmemiştir. Yalnız, core modülü karmaşıklaştıracak ve *dependency*'leri arttıracak özel durumlardan olabildiğince kaçınılmalıdır.
+
+### *Edge Permissions*
+
+*Edge Permissions*, nodlar arasında kullanılabilecek bağlantıların türünü, uyumluluğunu ve ihtiyaç duydukları ek parametrelerini belirlemek için kullanılır. Bu kurallar, gerek *validation* yapılması gerekse UI'da edge parametrelerinin yönetilmesi için kullanılabilirler.
+
+*Edge permission*, her bir nod ailesi için yaratılır ve şu formatta olmalıdır:
+
+```json
+family_id: {
+    "produces": [{"type": edge_type, "compatibility":[], "additional_parameters":[]}, ...],
+    "takes": [{"type": edge_type, "compatibility":[], "additional_parameters":[]}, ...]
+  }
+```
+
+*Edge permission*, bir nodun kabul ettiği girdi ve çıktı bağlanltılarının bilgilerini taşır. Bunlar, sırasıyla, "produces" ve "takes" alanlarında belirtilir. Her olası girdi ve çıktı bağlantı türü (*edge_type*) için bir object sağlanmalıdır. Bu object içerisinde, *edge_type*, *compatibility* ve *additional_parameters* alanları olabilir. Bunlardan *compatibility* ve *additional_parameters* opsiyoneldir.
+
+Örnek'ler üzerinden inceleyelim:
+```json
+"6": {
+    "produces": [{"type":"dataframe", "compatibility":["batch"]}, {"type":"model"}, {"type": "pipeline"}, {"type": "cv"}],
+    "takes": [{"type":"dataframe", "compatibility":["batch"]}, {"type": "pipeline"}]
+  }
+```
+
+Yukarıdaki örnek *Estimator* nod ailesi için gerekli *edge_permission*'dır. *Estimator* nod ailesi altındaki nodlar çıktı bağlantıları olarak "dataframe", "model", "pipeline" ve "cv" bağlantıları alabilirler. Girdi bağlantıları olarak ise yalnızca "dataframe" türü bağlantı kabul etmektedir. Yalnızca, *batch* veri taşıyan "dataframe" kabul edildiğinden "compatibility"'de sadece "batch" ibaresi yer almaktadır.
+
+```json
+"8": {
+    "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}],
+    "takes": [{"type":"dataframe", "compatibility":["batch", "stream"], "additional_parameters":["order"]}]
+  }
+  ```
+
+Yukarıdaki örnek *Join* nod ailesi için gerekli *edge_permission*'dır. "Join" ailesi *batch* veya *stream* "dataframe"'i girdi ve çıktı olarak kabul edebilir. Yalnız, girdi olarak birden fazla "dataframe" kabul ettiğinden bunların hangi sıra ile (left-to-right) verildiğini bilmesi gerekmektedir. Bu nedenle, ekstra bilgiye ihtiyaç duyulmaktadır. Bu bilgiyi de "additional_parameters" ile sağlamaktayız. Bu örnekte, *order* adında bir ek parametre kullanıcıya sunulmalı ve gerekli *order* bilgisi alınmalıdır.
+
+```json
+"13": {
+    "produces": [{"type":"dataframe", "compatibility":["batch"], "additional_parameters":["portion"]}],
+    "takes": [{"type":"dataframe", "compatibility":["batch"]}]
+  }
+```
+
+Yukarıdaki örnek *RandomSplit* nod ailesi için gerekli *edge_permission*'dır. BU nod ailesi, *batch* dataframe alır ve bir ya da daha fazla *dataframe* üretebilir. Bu *dataframe*'ler girdi *dataframe*'in *portion*'larıdır. Herhangi bir *target* nod ile bağlantı oluşturulurken, üretilen *portion*'lardan hangisinin kullanılmak istendiği belirtilmelidir. Bu nedenle, ek bilgi olarak *portion* değeri alınmalıdır.
+
+Bir bağlantı oluşturulabilmesi için *source* ve *kaynak* nodlarının uyumlu olduğu en az bir bağlantı türü bulunmalıdır. Bu uyumluluk için *source* nodun "produces" ve *target* nodun "takes" alanlarında ortak bağlantı türü aranmalıdır. Bu ortak bağlantı türünün de "compatibility" kıstaslarının uyumlu olması gerekmektedir.
+
+Kullanıcıya ekstra parametreler sunulacağı durumda, *convention* olarak *source* nodun ekstra parametreleri *target* nodun ekstra parametrelerinden önce sunulabilir. Burada önemli nokta bir bağlantının ekstra parametrelerinin hem *source* hem *target* noddarn gelebileceğidir. Örneğin, RandomSplit nodundan çıkan bir bağlantının Join noduna girmesi gibi (bu durumda hem portion hem de order bilgisine ihtiyaç olacaktır).
+
+"pipeline" ve "cv" türündeki bağlantıların kullanılabilmesi için nodların *parent* nodlarının kontrol edilmesi gerekmektedir. Bu kontrol, şimdilik farklı iş-mantıklarına bırakılmıştır. Bu bilgi ileride *edge_permissions*'a alınabilir. Bununla birlikte, farklı streaming mod'ları için ayrıştırıcı bilginin tutulması ileriki versiyonlarda eklenecektir.
+
+Ekstra parametrelerin değerleri sağlanırken kullanılması gereken veri türleri de *edge_permissions* altında yer almaktadır. Örneğin, UI bu bilgiye göre kullanıcıdan hangi türde veri alacağını anlayabilir. *edge_type*'lar string formatında olacaktır ve bu bilgiye dahil edilmemişlerdir. Farklı *edge_type*'ların aynı isimli ve farklı veri türünde ek parametre almasına izin verilmemektedir. Böyle bir ihtiyaç olması durumunda *parameter_info* formatını düzenleyiniz.
+
+```json
+"parameter_info":{
+    "portion": {"type": "integer", "piecewise_constraint": "portion >= 0"},
+    "order": {"type": "integer", "piecewise_constraint": "order >= 0"}
+}
+```
+
+Mevcut versiyonda yer alan bağlantı türleri şunlardır:
+* dataframe
+* model
+* pipeline
+* cv
+* upstream
+
+upstream task'lar arasında kullanılır ve *target* noddaki task'ın *source* noddaki task'tan sonra yürütülmesi gerektiğini belirtir.
+
+*dataframe* bağlantı türü iki ekstra parametre alabilir:
+* portion
+* order
+
+*dataframe* bağlantı türü iki farklı *compatibility* taşımaktadır:
+* batch
+* stream
