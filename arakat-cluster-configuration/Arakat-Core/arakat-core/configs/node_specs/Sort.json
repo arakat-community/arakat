@@ -1,0 +1,38 @@
+{
+  "node_id": 30,
+  "name": "Sort",
+  "category": 2,
+  "node_type": 0,
+  "family": 5,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "ddfo_name": "sort",
+  "parameter_props": {
+    "parameters": {
+      "column": {
+        "visible_name": "Column",
+        "type_constraint": [
+          "string",
+          "array[string]"
+        ]
+      },
+      "ascending": {
+        "visible_name": "Ascending",
+        "type_constraint": [
+          "boolean",
+          "array[boolean]"
+        ]
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": []
+}

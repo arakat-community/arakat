@@ -1,0 +1,29 @@
+{
+  "node_id": 64,
+  "name": "Model Saver",
+  "category": 3,
+  "node_type": 0,
+  "family": 11,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "parameter_props": {
+    "parameters": {
+      "model_path": {
+        "visible_name": "Model Path",
+        "type_constraint": [
+          "string"
+        ]
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": []
+}

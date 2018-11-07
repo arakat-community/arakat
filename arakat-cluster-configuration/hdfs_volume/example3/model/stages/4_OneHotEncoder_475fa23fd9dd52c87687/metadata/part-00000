@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.OneHotEncoder","timestamp":1541163214928,"sparkVersion":"2.3.2","uid":"OneHotEncoder_475fa23fd9dd52c87687","paramMap":{"dropLast":true,"inputCol":"indexedEmbarked","outputCol":"embarkedVec"}}

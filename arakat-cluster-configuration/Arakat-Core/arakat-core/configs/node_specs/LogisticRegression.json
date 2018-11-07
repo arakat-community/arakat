@@ -1,0 +1,139 @@
+{
+  "node_id": 22,
+  "name": "Logistic Regression",
+  "category": 11,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "LogisticRegression",
+  "parameter_props": {
+    "parameters": {
+      "featuresCol": {
+        "visible_name": "Features Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "features"
+      },
+      "labelCol": {
+        "visible_name": "Label Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "label"
+      },
+      "predictionCol": {
+        "visible_name": "Prediction Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "prediction"
+      },
+      "rawPredictionCol": {
+        "visible_name": "Raw Prediction Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "rawPrediction"
+      },
+      "probabilityCol": {
+        "visible_name": "Probability Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "probability"
+      },
+      "maxIter": {
+        "visible_name": "Max. Iterations",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxIter >= 0",
+        "default": 100
+      },
+      "regParam": {
+        "visible_name": "Regularization Parameter",
+        "type_constraint": [
+          "double"
+        ],
+        "piecewise_constraint": "regParam >= 0",
+        "default": 0.0
+      },
+      "elasticNetParam": {
+        "visible_name": "Elastic Net Parameter",
+        "type_constraint": [
+          "double"
+        ],
+        "piecewise_constraint": "elasticNetParam >= 0 AND elasticNetParam <= 1",
+        "default": 0.0
+      },
+      "tol": {
+        "visible_name": "Convergence Tolerance",
+        "type_constraint": [
+          "float",
+          "double"
+        ],
+        "piecewise_constraint": "tol >= 0",
+        "default": 0.000001
+      },
+      "fitIntercept": {
+        "visible_name": "Fit Intercept",
+        "type_constraint": [
+          "boolean"
+        ],
+        "optional": true
+      },
+      "thresh": {
+        "visible_name": "Convergence Threshold",
+        "type_constraint": [
+          "double"
+        ],
+        "piecewise_constraint": "thresh >= 0 AND thresh <= 1",
+        "default": 0.5
+      },
+      "standardization": {
+        "visible_name": "Fit Intercept",
+        "type_constraint": [
+          "boolean"
+        ],
+        "optional": true
+      },
+      "weightCol": {
+        "visible_name": "Weight Column",
+        "type_constraint": [
+          "string"
+        ],
+        "optional": true
+      },
+      "aggregationDepth": {
+        "visible_name": "Aggregation Depth",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "aggregationDepth >= 2",
+        "optional": true
+      },
+      "family": {
+        "visible_name": "Family",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "auto",
+          "binomial",
+          "multinomial"
+        ],
+        "default": "auto"
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [0,1,2,4,5,8,10,13]
+}
