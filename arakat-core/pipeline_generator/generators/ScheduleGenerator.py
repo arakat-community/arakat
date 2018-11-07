@@ -18,10 +18,11 @@ def generate_code(task_nodes, task_edges, args):
     dag_code.extend(__instantinate_dag(args))
     for task_node_id in task_nodes:
         dag_code.append(os.linesep)
-        dag_code.extend(__create_spark_operator(task_node_id, args))
+        # dag_code.extend(__create_spark_operator(task_node_id, args))
+        dag_code.extend(__create_bash_operator(task_node_id, args))
         dag_code.append(os.linesep)
 
-    dag_code.extend([os.linesep, os.linesep])
+    dag_code.extend([os.linesep])
     for edge in task_edges:
         node_ids=edge.split("-")
         dag_code.append(os.linesep)
@@ -42,12 +43,16 @@ def __instantinate_dag(args):
     dag_code.append(os.linesep)
     return dag_code
 
-def __create_spark_operator(task_id, args):
-    op_task_id=args["app_id"] + "_" + task_id
-    op_name='Task_'+op_task_id
-    operator_args_str=str(args["spark_operator_conf"])
-    script_path=os.path.join(args["code_base_path"], op_task_id + '.py')
-    return ["operator_args = " + operator_args_str, os.linesep, op_name + ' = SparkSubmitOperator(task_id='+CodeGenerationUtils.handle_primitive(op_task_id)+', application='+CodeGenerationUtils.handle_primitive(script_path)+', dag=dag, **operator_args)']
+def __create_bash_operator(task_id, args):
+    op_task_id = args["app_id"] + "_" + task_id
+    return ['Task_' + op_task_id + ' = BashOperator(task_id=' + CodeGenerationUtils.handle_primitive(op_task_id) + ", bash_command='" + args["bash_command"] + ' '+ CodeGenerationUtils.handle_primitive(op_task_id) + " ', dag=dag)" ]
+
+# def __create_spark_operator(task_id, args):
+#     op_task_id=args["app_id"] + "_" + task_id
+#     op_name='Task_'+op_task_id
+#     operator_args_str=str(args["spark_operator_conf"])
+#     script_path=os.path.join(args["code_base_path"], op_task_id + '.py')
+#     return ["operator_args = " + operator_args_str, os.linesep, op_name + ' = SparkSubmitOperator(task_id='+CodeGenerationUtils.handle_primitive(op_task_id)+', application='+CodeGenerationUtils.handle_primitive(script_path)+', dag=dag, **operator_args)']
 
 def __arg_dict_to_string(args):
     # Assuming that corresponding argument is a string which is appropriate for pre-defined datetime format.

@@ -70,16 +70,11 @@ data={
     },
     "dag_properties": {
         "app_id": "MyFirstApp",
-        "code_base_path": "path_to_put_spark_scripts",
+        "bash_command": "sh /usr/local/shell_scripts/run.sh",
         "schedule_interval": "@once",
         "default_args": {
             "owner": "airflow",
             "start_date": "01/01/2018"
-        },
-        "spark_operator_conf": {
-            "conn_id": "spark_con_py",
-            "depends_on_past": False,
-            "conf": {"spark.pyspark.python": "/usr/bin/python2.7"}
         }
     }
 }
