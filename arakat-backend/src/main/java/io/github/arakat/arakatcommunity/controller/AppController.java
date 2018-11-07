@@ -10,6 +10,7 @@ import io.github.arakat.arakatcommunity.utils.ApiResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,13 +21,11 @@ import java.util.List;
 public class AppController {
 
     private final AppRepository appRepository;
-    private final TaskRepository taskRepository;
     private final AppService appService;
 
     @Autowired
-    public AppController(AppRepository appRepository, TaskRepository taskRepository, AppService appService) {
+    public AppController(AppRepository appRepository, AppService appService) {
         this.appRepository = appRepository;
-        this.taskRepository = taskRepository;
         this.appService = appService;
     }
 
@@ -35,8 +34,8 @@ public class AppController {
         List<App> apps = appRepository.findAll();
 
         return ApiResponseUtils.createResponseEntity(200,
-                String.format(ApiResponseUtils.getUserMessageSuccess(), "Get category by id"),
-                String.format(ApiResponseUtils.getDevMessageSuccess(), "Get category by id", "Category"),
+                String.format(ApiResponseUtils.getUserMessageSuccess(), "Get all apps"),
+                String.format(ApiResponseUtils.getDevMessageSuccess(), "Get all apps", "App"),
                 apps, HttpStatus.OK);
     }
 
@@ -48,5 +47,15 @@ public class AppController {
                 String.format(ApiResponseUtils.getUserMessageSuccess(), "Get app ids with written tables"),
                 String.format(ApiResponseUtils.getDevMessageSuccess(), "Get app ids with written tables", "TablePathResponse"),
                 tablePathResponseList, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/delete-app{appId}", produces = { "application/json" }, method = RequestMethod.DELETE)
+    public ResponseEntity<BaseResponse> deleteApp(@PathVariable String appId) {
+        appRepository.deleteAppByAppId(appId);
+
+        return ApiResponseUtils.createResponseEntity(200,
+                String.format(ApiResponseUtils.getUserMessageSuccess(), "Delete app by appId"),
+                String.format(ApiResponseUtils.getDevMessageSuccess(), "Delete app by appId", "App"),
+                null, HttpStatus.OK);
     }
 }

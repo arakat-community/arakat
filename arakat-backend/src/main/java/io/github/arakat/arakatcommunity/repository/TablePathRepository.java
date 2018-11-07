@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface TablePathRepository extends MongoRepository<TablePath, Long> {
 
     TablePath findByTablePath(String tablePath);
+    TablePath findByTablePathId(Long tablePathId);
 }

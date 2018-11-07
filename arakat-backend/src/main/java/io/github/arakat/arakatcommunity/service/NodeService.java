@@ -94,9 +94,13 @@ public class NodeService {
 //        return mongo.getData(appPropertyValues.getDatabase());
     }
 
-    public Node save(Node node) {
+    public Node save(Node node) throws Exception {
         Long categoryId = node.getCategoryId();
         List<Category> categories = categoryRepository.findAll();
+
+        if (categories.size() == 0) {
+            throw new Exception("Please add some categories first!");
+        }
 
         Category resultCategory = searchForIndex(categories, categoryId);
 

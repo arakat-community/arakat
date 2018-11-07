@@ -1,67 +1,37 @@
 package io.github.arakat.arakatcommunity;
 
-import io.github.arakat.arakatcommunity.model.Node;
-import io.github.arakat.arakatcommunity.repository.NodeRepository;
-import io.github.arakat.arakatcommunity.service.NodeService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import io.github.arakat.arakatcommunity.model.TablePath;
+import io.github.arakat.arakatcommunity.repository.TablePathRepository;
+import io.github.arakat.arakatcommunity.service.TablePathService;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.Assertions;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-//@RunWith(SpringRunner.class)
-//@RunWith(MockitoJUnitRunner.class)
-//@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class ArakatApplicationTests {
 
-//	@Mock
-//	NodeRepository nodeRepositoryMock;
+	@Mock
+	TablePathRepository tablePathRepository;
 
-//	@InjectMocks
-//	NodeService nodeService;
+	@InjectMocks
+	TablePathService tablePathService;
 
 	@Test
-	public void contextLoads() {
+	public void findTablePathById() {
+		TablePath tablePath = new TablePath();
+		tablePath.setTablePathId(2L);
+		when(tablePathRepository.findByTablePathId(anyLong())).thenReturn(tablePath);
+
+		TablePath resultTablePath = tablePathService.getTablePathById(2L);
+		Assertions.assertEquals(tablePath, resultTablePath);
+
+		verify(tablePathRepository).findByTablePathId(2L);
 	}
-
-//	@Test
-//	public void testSaveAndRetrieveNode() {
-//		Node expectedNode = new Node("100", "test_node", "200");
-//		nodeRepositoryMock.save(expectedNode);
-//		Node actualNode = nodeRepositoryMock.findByNodeId(Integer.toString(1));
-//		assertEquals(expectedNode, actualNode);
-////		when(nodeRepositoryMock.save(testNode)).thenReturn(testNode);
-////		assertEquals(testNode, nodeRepositoryMock.findOne("100"));
-////		when(nodeRepositoryMock.save(new Node("100", "test_node", "200"))).thenReturn(nodeRepositoryMock.findByNodeId("100"));
-////		assertEquals();
-//	}
-
-//	@Test
-//	public void testSaveNode() {
-////		when(nodeRepositoryMock.save(new Node("100", "test_node", "200"))).thenReturn(new Node());
-////		when(nodeRepositoryMock.save(new Node("100", "test_node", "200")));
-//
-//		when()
-//
-////		List<Node> denemeList = new ArrayList<>();
-////		denemeList.add(new Node("100", "test_node", "200"));
-////		when(nodeRepositoryMock.findAll()).thenReturn(denemeList);
-////		assertEquals("100", nodeRepositoryMock.findByNodeId("100"));
-//	}
-
-//	@Test
-//	public void testSaveNode() {
-//		when(nodeRepositoryMock.findAll()).thenReturn()
-////		when(nodeRepositoryMock.save(new Node("100", "test_node", "200"))).thenReturn(nodeRepositoryMock.findByNodeId("100"));
-////		assertEquals();
-//	}
 }
