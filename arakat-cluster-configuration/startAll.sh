@@ -1,16 +1,16 @@
 docker swarm init --advertise-addr 127.0.0.1
 docker network create -d overlay arakatnetwork
-cd Arakat-Core
+cd arakat-core
 ./startCore.sh
 cd ..
-cd Arakat-Backend
+cd arakat-backend
 ./startBackend.sh
 cd ..
-cd Arakat-Spark
+cd arakat-spark
 ./startSpark.sh
 cd ..
-cd Arakat-Kafka
+cd arakat-kafka
 ./startKafka.sh
 cd ..
-cd Arakat-Airflow
+cd arakat-airflow
 ./startAirflow.sh

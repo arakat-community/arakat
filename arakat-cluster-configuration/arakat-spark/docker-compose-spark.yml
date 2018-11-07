@@ -1,0 +1,42 @@
+version: '3'
+services:
+  spark-master:
+    image: arakat/arakat-spark-master
+    hostname: spark-master
+    networks:
+      - sparknetwork
+    ports:
+      - "6066:6066"
+      - "7070:7070"
+      - "8082:8080"
+      - "50070:50070"
+      - "7077:7077"
+      - "5001:5000"
+    deploy:
+      replicas: 1
+      mode: replicated
+    env_file:
+      - ./hadoop.env
+    volumes:
+      - ../scripts/spark_code:/usr/local/spark_code
+      - ../spark_logs:/spark_logs
+  worker:
+    image: bde2020/spark-worker:2.3.2-hadoop2.8
+    networks:
+      - sparknetwork
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+    ports:
+      - "8081:8081"
+      - "4040:4040"
+    deploy:
+      mode: global
+    env_file:
+      - ./hadoop.env
+    volumes:
+      - ../scripts/spark_code:/usr/local/spark_code    
+      - ../spark_logs:/spark_logs
+networks:
+  sparknetwork:
+    external:
+      name: arakatnetwork
