@@ -1,3 +1,5 @@
+[![](https://dockerbuildbadges.quelltext.eu/status.svg?organization=arakat&repository=arakat-backend-automated-build)](https://hub.docker.com/r/arakat/arakat-backend-automated-build/builds/)
+
 # ARAKAT Java Servisi
 
 ## Java Servisinin Rolü
