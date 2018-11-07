@@ -1,3 +1,5 @@
+[![](https://dockerbuildbadges.quelltext.eu/status.svg?organization=arakat&repository=arakat-backend-automated-build)](https://hub.docker.com/r/arakat/arakat-backend-automated-build/builds/)
+
 # ARAKAT Java Servisi
 
 ## Java Servisinin Rolü
@@ -8,7 +10,6 @@
 * Uygulama Programlama Arayüzü(API) tanımlamak amacıyla [Swagger2.0](https://swagger.io/docs/specification/2-0/basic-structure/) kullanılmıştır.
 * [arakat-core](../arakat-core) tarafındaki _node_spec_'leri, _family_'leri ve _category_'leri tutmak için [MongoDB](https://www.mongodb.com/) kullanılmıştır.
 * [arakat-frontend](../arakat-frontend) tarafındaki grafik ve tablolara veri sağlamak amacı ile [HDFS](https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html) kullanılmıştır.
-* Uygulamanın dağıtımını kolaylaştırmak amacı ile bir container teknolojisi olan [Docker](https://www.docker.com/) kullanılmıştır.
 
 ## Geliştirme Ortamında Çalıştırmak
 
@@ -17,8 +18,6 @@
 * JDK _1.8 veya daha güncel bir versiyonu_
 * Maven _3 veya daha güncel bir versiyonu_
 * MongoDB _3.2.21 veya daha güncel bir versiyonu_
-* Hadoop _2.8.0 veya daha güncel bir versiyonu_
-* Spark _2.3.2 veya daha güncel bir versiyonu_
 
 #### Çalıştırma
 Uygulamayı geliştirme ortamında çalıştırmak için terminalinizde projenin en üst dizininde aşağıdaki komutu çalıştırmanız gerekmektedir:
