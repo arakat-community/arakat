@@ -1,0 +1,14 @@
+version: '3.2'
+services:
+  core:
+    image: arakat/arakat-core
+    networks: 
+      - sparkNet
+    ports:
+      - "5000:5000"
+  
+networks:
+  sparkNet:
+    external:
+      name: arakatnetwork
+

@@ -1,0 +1,27 @@
+{
+  "node_id": 46,
+  "name": "Vector Slicer",
+  "category": 8,
+  "node_type": 0,
+  "family": 18,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": false,
+  "transformer_name": "VectorSlicer",
+  "parameter_props": {
+    "statement": {
+      "type": [
+        "string"
+      ],
+      "constraints": [
+        12
+      ],
+      "default": "No default value, must be provided"
+    }
+  },
+  "df_constraints": [
+
+  ]
+}
