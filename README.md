@@ -1,4 +1,4 @@
-![ARAKAT](img/arakat.jpg)
+![ARAKAT](/docs/img/arakat.jpg)
 
 ## Hakkında
 İş zekası uygulamaları temelinde eldeki verinin anlamlandırılarak bilgiye dönüştürülmesi faaliyetlerini içerir. Bu bağlamda iş zekası uygulamalarının temel bileşenleri veri işleme, veri analizi ve bilgi raporlama olarak belirlenebilir. ARAKAT'ın amacı, bu ana bileşenlerin her biri için temel teşkil edebilecek açık kaynak kodlu ve platform bağımsız alt yapılar geliştirilmesidir. Karar verme, öngörü analizi, gerçek zamanlı veri işleme, "mobile first" veri görselleştirme gibi konular projenin çekirdeğinde yer almaktadır.
@@ -22,9 +22,9 @@ Teknik özellikler ve proje kurgusu ile ilgileri aşağıdaki gibi özetlenebili
 
 ARAKAT tamamen dockerize edilmiş 3 ana servisten oluşmaktadır. Bunlar sırası ile:
 
-* [Backend - Java](./docs/arakat-backend/README.md)
-* [Core - Python](./docs/arakat-core/tr/README.md)
-* [Frontend - JavaScript(TypeScript)](./docs/arakat-frontend/README.md)
+* [Backend - Java](/docs/arakat-backend/README.md)
+* [Core - Python](/docs/arakat-core/tr/README.md)
+* [Frontend - JavaScript(TypeScript)](/docs/arakat-frontend/README.md)
 
 ARAKAT küme konfigürasyonları ile ilgili detaylı bilgi için ve ARAKAT Docker container'larının nasıl çalıştırılacağını incelemek için aşağıdaki bağlantıya göz atabilirsiniz:
-* [ARAKAT Küme Konfigürasyonları](./docs/arakat-cluster-config/README.md)
+* [ARAKAT Küme Konfigürasyonları](/docs/arakat-cluster-config/README.md)
