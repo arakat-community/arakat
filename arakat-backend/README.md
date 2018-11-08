@@ -2,8 +2,6 @@
 
 # ARAKAT Java Servisi
 
-## Java Servisinin Rolü
-
 ## İçerik
 * Java web uygulamasını geliştirmek için [Spring Boot](https://spring.io/projects/spring-boot) kullanılmıştır.
 * Bağımlılık yöneticisi olarak [Maven](https://maven.apache.org/) kullanılmıştır.

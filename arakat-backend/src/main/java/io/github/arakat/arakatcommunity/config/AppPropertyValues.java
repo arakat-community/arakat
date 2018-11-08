@@ -17,15 +17,6 @@ public class AppPropertyValues {
     @Value("${spring.data.mongodb.port}")
     private String port;
 
-    @Value("${spark.pyspark.python}")
-    private String pythonVersion;
-
-    @Value("${application.path}")
-    private String applicationPath;
-
-    @Value("${connection.id}")
-    private String connectionId;
-
     @Value("${arakat.core.url}")
     private String arakatCoreUrl;
 
@@ -71,6 +62,12 @@ public class AppPropertyValues {
     @Value("${spark.logs.file.path}")
     private String sparkLogsFilePath;
 
+    @Value("${hdfs.reader.get.table.columns.with.types.endpoint}")
+    private String hdfsReaderGetTableColumnsWIthTypesEndpoint;
+
+    @Value("${bash.command}")
+    private String bashCommand;
+
     public String getDatabase() {
         return database;
     }
@@ -85,18 +82,6 @@ public class AppPropertyValues {
 
     public String getRowNodeJsonCollectionName() {
         return "rawJsonNodes";
-    }
-
-    public String getPythonVersion() {
-        return pythonVersion;
-    }
-
-    public String getApplicationPath() {
-        return applicationPath;
-    }
-
-    public String getConnectionId() {
-        return connectionId;
     }
 
     public String getArakatCoreUrl() {
@@ -157,5 +142,13 @@ public class AppPropertyValues {
 
     public String getSparkLogsFilePath() {
         return sparkLogsFilePath;
+    }
+
+    public String getHdfsReaderGetTableColumnsWIthTypesEndpoint() {
+        return hdfsReaderGetTableColumnsWIthTypesEndpoint;
+    }
+
+    public String getBashCommand() {
+        return bashCommand;
     }
 }

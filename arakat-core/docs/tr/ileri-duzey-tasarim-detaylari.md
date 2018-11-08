@@ -1,176 +1,3 @@
-# Arakat-Core
-
-## Amaç
-Arakat-Core modülü, belirli bir arayüz çerçevesinde oluşturulmuş işlem akışlarını ifade eden çizgeleri girdi olarak alıp bunları gerçekleyecek kodlara/betiklere dönüştürmeyi amaçlamaktadır.
-
-
-## İçerik
-* Terimler/Alan Bilgisi
-* Temel Akış
-* Temel Yapı
-* Temel Teknolojiler
-* İleri Düzey Tasarım Detayları
-
-## Terimler/Alan Bilgisi
-
-**İşlem akışı (data pipeline)**
-
-Veri analizi için mevcut probleme özel olarak tasarlanmış işlemler/operasyonlar bütünüdür.
-
-İşlem akışları; verinin sisteme dahil edilmesi, üzerinde gerekli analitiklerin uygulanması, modeller eğitilmesi, eğitilmiş modellerin uygulanması, oluşan modellerin kaydedilmesi, işlenen verilerin kaydedilmesi gibi işlemleri üzerinde çalışılan probleme uygun olarak anlamlı bir bütün/sıra halinde ifade edilmesi için kullanılırlar.
-
-İşlem akışlarını ifade etmek için **çizge (graph)** kullanılmaktadır.
-
-**Nod (node)** 
-
-Her nod, işlem akışını oluşturan işlemlerin gerçeklenmesi için gerekli temel işlere tekabül eder.
-İşlem akışlarını oluşturan temel elemanlardandır.
-
-**Bağlantı (edge)** 
-
-Bağlantı, nodları birbirine bağlayan çizge öğeleridir. Kaynak nodun farklı türlerdeki çıktıların ve gerekli ek bilgilerin hedef noda girdi olarak aktarılmasına yarar.
-
-**Parametre** 
-
-Parametre, bir nodu gerçekleyecek kodların üretilmesi için kullanıcıdan alınması gereken bilgiyi ifade eder.
-
-**Nod Özellikleri (Node Specs)** 
-
-Nod özellikleri, bir nodu tümüyle ifade eden bilgiler bütünüdür. Bu bilgiler gerek kullanıcı arayüzünün noda özel kısımlarının oluşturulmasında (parametre giriş ekranı gibi) gerekse nodu gerçekleyen kodun oluşturulmasında kullanılır.
-
-Nod özellikleri; nod türü, kategorisi, ailesi, akış uyumu, akış verisi uyumu, ihtiyaç duyduğu parametreleri ve bunların kıstasları gibi özellikleri kapsar.
-
-***Nod Türü:***
-
-Parametre özelliklerinde **node_id** olarak tutulmaktadır. İleride, ***node_type*** olarak değiştirilmesi planlanmaktadır. Nodun türünü ifade eder. Örneğin, *node_id: 21* *LinearSVC* nodunu ifade eder.
-
-***Nod Adı:***
-
-Parametre özelliklerinde **name** olarak tutulmaktadır. Nod türü nodu id bazında, nod adı ise string bazında ifade eder. Bu özellik, nodun kullanıcı arayüzünde konseptsel olarak ifade edilebilmesine olanak sağlar.
-
-***Nod Kategorisi:***
-
-Parametre özelliklerinde **category** olarak tutulmaktadır. Nodun ait olduğu kategoriyi ifade eder. Bu kategoriler, konseptsel olgulardır. Örneğin, *LinearSVC* nodunun kategorisi *11*'dir. Bu da, *Classification* kategorisine takabül eder.
-
-Kategoriler, alt kategoriler içerebilirler. Örneğin, *Classification* *Algorithms* kategorisi; bu da *ML* kategorisi altında yer almaktadır.
-
-***Nod Ailesi:***
-
-Parametre özelliklerinde **family** olarak tutulmaktadır. Nodun ait olduğu aileyi ifade eder. Nod aileleri, aynı kod üretim şablonuna sahip nodların kod üretiminin ortaklanmasını amaçlanmaktadır. Bu şekilde, daha sade bir tasarıma olanak sağlanması hedeflenmektedir.
-
-***is_splitter:***
-
-Nodun, girdi olarak aldığı veriyi işlemesi ile birden fazla çıktı veri oluşturması durumunda, bu özellik *True* olarak atanmalıdır. Mevcut durumda tek splitter nod *RandomSplitter* nodudur. Bu özelliğe, mevcut durumda core kısım için ihtiyaç duyulmamaktadır. Yalnız, UI kısmının bu bilgiden faydalanabileceği öngörüldüğü için bu özellik var olmaya devam etmektedir. İlerleyen versiyonlarda, bu özellik kaldırılabilir.
-
-***produces_model:***
-
-Nodun, çıktı olarak model de üretmesi durumunda, bu özellik *True* olarak atanmalıdır. Bu özelliğe, mevcut durumda core kısım için ihtiyaç duyulmamaktadır. Yalnız, UI kısmının bu bilgiden faydalanabileceği öngörüldüğü için bu özellik var olmaya devam etmektedir. İlerleyen versiyonlarda, bu özellik kaldırılabilir.
-
-***compatible_with_stream:***
-
-Nodun, akış verisi üzerinde kullanılabilirliğini ifade eder.
-
-***compatible_stream_output_modes:***
-
-Nodun, akış verisi üzerinde hangi akış modunda kullanılabilir olduğunu listeler. Bu özellik, analitik teknolojisi olarak Apache Spark kullanıldığında anlam kazanmaktadır. Diğer olası teknolojiler için anlam ifade etmeyebilir.
-
-***compatible_with_spark_pipeline:***
-
-Nodun, Apache Spark pipeline'ı içerisinde kullanılıp kullanılamayacağını gösterir.
-
-***Parametre Özellikleri (Parameter Props):***
-
-Parametreler, farklı türlerde veri girilmesini gerektirebilirler. Bu gerekler ve girilen parametreler üzerinde uygulanacak işleme seçenekleri bir alana özel dil ile ifade edilir. Bu alana özel dilden hem kullanıcı arayüzü hem de kod üretimi gerçeklenirken yararlanılır. Bir nod için gerekli parametrelerin, mevcut alana özel dil ile ifade edildiği özelliktir. Parametre özelliklerinde **parameter_props** olarak tutulmaktadır.
-
-## Temel Akış
-
-Arakat-Core Temel Akış Şablonu
-
-![Arakat-Core Basic Flow](../images/Arakat-Core_BasicFlow.png)
-
-Arakat-Core modülünün kod üretim akışı backend tarafından gönderilen REST call'u (*interpret_graph*) ile başlar. Bu *POST* call'u *json* formatında bir *graph* gönderir ve cevap olarak üretilen kodları, başarılı yürütülmeyi gösteren *result_code*'u, error bilgisini ve ek bilgileri cevap olarak kabul eder. Ek bilgiler, kod üretimi sırasında tutulması gerekli görülen bilgilerdir. Mevcut versiyonda, kod üretimi sırasında yazma işlemi yapan nodlar olduğu durumda, verinin hangi veri kaynağına yazıldığı, bu veri kaynağına erişim için gerekli bilgiler (ip, port vb.), varsa verinin hangi *path*'e kaydedildiği gibi bilgiler tutulmaktadır.
-
-*PipelineGenerator*, *CoreService* üzerinden alınan *graph*'ı önce *parse* eder. Bu işlem, graph içerisinde yer alan *task*'ların içerdikleri nod ve bağlantılar ile birlikte birbirinden ayrılmasını amaçlar. Bu sayede, her bir task birbirinden bağımsız olarak işlenebilecek ve bunlara tekabül edecek kodlar/betikler birbirinden bağımsız olarak oluşturulabilecektir. **Burada not edilecek önemli bir husus da task'lar arasında sadece takvimlemeyi belirleyen bağlantıların var olduğudur. Bir başka deyişle, farklı task'ları oluşturan nodlar arasında bir bağlantı bulunamaz.**
-
-Birbirinden ayrılan task'ların her biri için *TaskGenerator* kullanılarak bu task'ı gerçekleyen kodlar/betik oluşturulur.
-
-Task'lar yaratıldıktan sonra, takvimleme için gerekli betik *ScheduleGenerator* kullanılarak oluşturulur. Bu doğrultuda, task'lar arasında sırayı belirten bağlantılar takvimi oluşturmak için kullanılır. Buna ek olarak, graph'la beraber gönderilen takvimleme için gerekli bilgi de kullanılmaktadır. Bu bilgiler; sözkonusu takvimin *id*'si, tekrarlanma stratejisi, başlama-bitiş zamanı, takvimin sahibi vb. verilerden oluşmaktadır.
-
-*TaskGenerator* task'a ait graph'ı önişleyerek akışına başlar. Bu ön işleme ile bağlantılar incelenerek nodların hangi nodlar gerçeklendikten sonra gerçeklenebileceği ve sözkonusu nodların gerçeklenmesinin hangi nodların gerçeklenmesini mümkün kılacağı saptanır. Bu bilgiler, task'taki nodların sıraya konabilmesi için gereklidir.
-
-*TaskGenerator* bir sonraki adımda, nodları sıraya koyar. Bu sıra, bir nod için üretilen kodda, bir başka nod için üretilen kodun parçaları referans olarak kullanmak istediğinde önem arz etmektedir. Örneğin, bir nodun ürettiği makine öğrenmesi modelini kullanmak isteyen bir nod, bu modeli yaratan noddan sonra gelmelidir. Bu şekilde, modeli üreten kod betik içerisinde daha önce yer alacak ve bunu kullanmak isteyen nodlara ait kodlar da daha önce üretilmiş bu modelin referansını kullanabileceklerdir.
-
-Bir sonraki aşama, giriş (initialization) kodlarının hazırlanmasıdır. Bu kodlar, temel kütüphanelerin içerilmesi ve gerekli temel *context*'lerin yaratılması gibi işlevleri yerine getirir. Örneğin, Task bir Spark Task'ı ise gerekli Spark *context*'i ve *session*'ı bu aşamada yaratılmalıdır.
-
-Giriş kısmından sonra, belirlenen sıraya göre nodlara ait kodlar üretilir. Her nod bünyesinde yer aldığı nod ailesi tarafından ele alınır.
-
-Nodlara ait kodlar üretilirken ortak kullanılabilecek kod parçaları (genellikle *util* olarak işlev sağlayan fonksiyonlar) her nod için yaratılmaz. Paylaşılan kod parçalarını (fonksiyonlara vb.) tutan bir global set tutulmaktadır. Bu şekilde, gereksiz kod üretiminden kaçınılmaktadır.
-
-## Temel Yapı
-
-Arakat-Core Temel Yapı Şablonu
-
-![Arakat-Core Project Structure](../images/Arakat-Core_ProjectStructure.png)
-
-
-Arakat-Core'unun yapı bileşenleri şunlardır:
-
-**configs**
-
-Bu pakette, mevcut nodları ifade node-spec'ler (node özelliklerini ifade eden json'lar) ile nod aileleri ve kategorilerine ait bilgiler yer almaktadır.
-
-Node-spec'ler oluşturulurken kullanılan DSL, core modülde olduğu gibi UI vb. modüller altında da kullanılmaktadır. İleriki versiyonlarda, bu pakette yer alan node-spec'ler bir üst seviyeye taşınabilirler. Bununla birlikte, nod aileleri ve kategorilerine dair bilgiler de bir üst seviyeye taşınabilirler. Böylelikle, modüllerin farkında olması gereken arayüz bilgisi herhangi bir modülün içinde değil de modüller üstü bir seviyede tutulmuş olur.
-
-**docs**
-
-Arakat-core'una ait dokümantasyonu içerir.
-
-**domain**
-
-Bu paket, domain'e ait hata türleri, nod ailesi türleri, özel durum türleri, nodların sahip olduğu üst seviye türleri, içerme bilgileri (hangi nodun hangi *import*'lara ihtiyaç duyduğu), paylaşılan fonksiyon türleri ile bu domain bilgilerini kullanan yardımcı fonksiyonları içerir.
-
-Yardımcı fonksiyonlar dışındaki paket elemanları *enum*'lar şeklindedir. Proje içerisinde kullanılan *constant*'ların *enum*'lar halinde ifade edilmesi, kullanımı ve kontrolü kolaylaştırmaktadır.
-
-**examples**
-
-Bu paket, örnek işlem akışlarına ayrılmıştır. Temel nod ailelerinin kullanımına yönelik örnekler ile ileri seviye nod ailelerini ve uç durumları kapsayan örnekler bu paket içerisinde sunulmuştur.
-
-**pipeline_generator**
-
-Bu paket, nod ailelerini, işlem akışı graph'ının ve task'larının önişlenmesini, işlem akışı (tasklar ve takvimleme için) oluşturulmasını sağlayan işlevleri içermektedir.
-
-**service**
-
-Bu paket, Arakat-core modülünün servis edilmesini sağlayan servisi içermektedir.
-
-**utils**
-
-Bu pakette, gerek kod üretimi gerekse genel işlevler için yardımcı görevindeki fonksiyoneliteler yer almaktadır.
-
-Kod üretimi sırasında parametrelerin işlenmesi, özel durumların ele alınması gibi işlevlere tüm nod aileleri tarafından ihtiyaç duyulmaktadır. Bu işlevler, *utils* altında toplanmıştır.
-
-**validity**
-
-İşlem akışlarını ifade eden graph'ın anlamlandırılması sürecinde kontrol edilmesi gereken durumları ele alan işlevler bu paket altında sağlanmaktadır. Bu kontroller, nodlara giren bağlantıların kontrol edilmesi gibi tüm nodları kapsayan kontroller olabileceği gibi spesifik nodlara (cross-validation nodu, pipeline nodu, data-sourse nodları vb.) veya işlevlere ait kontrolleri de içerebilir.
-
-
-## Temel Teknolojiler
-
-Arakat-core modülü geniş bir yelpazeye yayılmış analitik teknolojileri ile farklı hız ve büyüklükteki veri kaynaklarını bünyesinde barındırmayı hedeflemektedir. Mevcut durumda, analitik modülü olarak Apache Spark kullanılmaktadır. Veri kaynakları olarak HDFS, Local File System ve Kafka desteklenmektedir. Takvimleme için Apache Airflow kullanılmaktadır.
-
-Apache Spark'ın akış ve yığın veri desteği ortaklı bir yapıda (dataframe'ler üzerinden) sunulduğundan tercih edilir olmuştur. Spark ile akış ve yığın veri barındıran veri kaynakları entegre edilmiştir. Makine öğrenmesi, veri madenciliği, önişleme, istatistik çıkarma, SQL-tabanlı sorgular vb. işlevler Spark üzerinden sağlanmaktadır. Mevcut nod aileleri Spark kod parçaları üretmekte ve Spark Task'ı oluşturmak için kullanılmaktadır. Farklı analitik teknolojileri eklendiğinde, bunlara ait task'lar olacaktır ve bunları oluşturmaya yarayacak nodlar eklenecektir.
-
-Arakat'ı mevcut **data pipeline generation** projelerinden farklı kılan en önemli özelliklerden biri **task'lar bazında işlem akışları oluşturulabilmesinden öte task'ın da alt parçalar kullanılarak inşa edilmesine imkan verilmesidir.** Bu bağlamda, Apache NiFi gibi Spark Job'larına tekabül eden nodlar kullanılarak işlem akışı oluşturabilmenin de ötesinde, Spark betiğini oluşturan veri kaynağı entegrasyonu ve veri analitiğine dair Spark'ın sağladığı tüm özellikler işlem akışları yaratmak için kullanılabilmektedir. Bu da **Spark ya da herhangi bir kodlama bilgisi olmadan işlem akışları oluşturulabilmesine olanak sağlamaktadır.**
-
-Akış verisinin sisteme dahil edilebilmesi için Kafka entegrasyonu desteklenmektedir. Spark Structured Streaming kullanılarak gerçeklenen akış verisi analitikleri ileriki versiyonlarda farklı teknolojilerle genişletilebilir. Bu noktada, Apache Flink ve (Kafka) K-Streams eklenilmesi hedeflenen ilk teknolojilerdir. Daha sonraki safhalar da ise bu analitiklerin Apache Beam altında toplanması değerlendirilmektedir.
-
-Takvimleme için Apache Airflow tercih edilmiştir. Airflow, yalnız Spark Job'ları değil; bash script'ler, ssh ile iş gönderme vb. birçok seçenek sunmaktadır. Bununla birlikte, karmaşık takvim akışları gerçeklenebilmektedir.
-
-Arakat-Core python2 kullanmaktadır.
-
-Mevcut durumda, Arakat-Core'un servis edilmesi için Flask Server kullanılmaktadır. İlerleyen versiyonlarda, yüksek sayıda kullanıcı ve isteğin karşılanabilmesi için farklı teknolojiler değerlendirilebilir.
-
-
 ## İleri Düzey Tasarım Detayları
 
 ### İçerik
@@ -184,7 +11,6 @@ Mevcut durumda, Arakat-Core'un servis edilmesi için Flask Server kullanılmakta
 * *Multi-instance Handler*
 * *Model Holder*
 * *Edge Permissions*
-
 
 ### Nod Özellikleri (Node-Specs)
 
@@ -454,6 +280,526 @@ Referans örneklerden *RollingStatistics* noduna bakalım.
         "type_constraint": ["string"],
         "set_constraint": ["asc", "desc"],
         "default": "desc"
+        "special_requirements": {"code": "code"}
+      },
+      "udf_return_type": {
+        "visible_name": "UDF Return Type",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "StringType",
+          "IntegerType",
+          "LongType",
+          "DoubleType",
+          "FloatType",
+          "BooleanType",
+          "ArrayType"
+        ]
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": []
+}
+```
+
+*BatchReadFromCSV Nodu:*
+```json
+{
+  "node_id": 47,
+  "name": "Batch Read from CSV",
+  "category": 0,
+  "node_type": 0,
+  "family": 0,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "can_infer_schema": true,
+  "file_type": "csv",
+  "parameter_props": {
+    "parameters": {
+      "path": {
+        "visible_name": "File Path",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "quote": {
+        "visible_name": "Quote",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "\""
+      },
+      "header": {
+        "visible_name": "Header",
+        "type_constraint": [
+          "string"
+        ],
+        "default": false
+      },
+      "sep": {
+        "visible_name": "Separator",
+        "type_constraint": [
+          "string"
+        ],
+        "default": ","
+      },
+      "schema": {
+        "visible_name": "Schema",
+        "type_constraint": [
+          "dict"
+        ],
+        "optional": true,
+        "special_requirements": {"dict": "schema"}
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": [
+
+  ]
+}
+```
+
+### Parametre Formatı
+
+Parametre özellikleri hangi parametreleri nasıl istememiz gerektiğini belirler. Parametre formatı ise alınan parametre değerlerinin graph'a nasıl dahil edileceğini belirler. Bu bölümde farklı durumlar ve parametre türleri için izlenmesi gereken format verilecektir.
+
+**primitives:**
+
+*primitive* parametreler için format şu şekildedir:
+```json
+"parameter_name": {"value": value_of_parameter, "type": type_of_parameter}
+```
+
+*type*, mevcut *primitive* değerlerinden herhangi biri olabilmektedir.\
+*value*, verilen *type* türünde herhangi bir değer olabilir.
+
+**regex:**
+
+*regex* parametreler için format şu şekildedir:
+```json
+"parameter_name": {"value": value_of_parameter, "type": "regex", "special_requirements": {"regex": regex_handler_type, ...}}
+```
+
+*type*, "regex" değerlerini alır ve string olarak verilmelidir.
+*value*, regex ifade eden bir string olmalıdır.
+Bunlara ek olarak, node-spec'te parametre için belirtilmiş "special_requirements" da bu parametrenin bilgisine eklenmelidir. Bu şekilde, özel parametrelerin nasıl ele alınacağı belirlenmiş olur. (Tüm "special_requirement" bilgisi aktarılabileceği gibi sadece verilen *type*'a ait bilgi de aktarılabilir.)
+
+**template:**
+
+*template* parametreler için format şu şekildedir:
+```json
+"parameter_name": {"value": value_of_parameter, "type": "template", "special_requirements": {"template": template_handler_type, ...}}
+```
+
+*value_of_parameter* için izlenecek format şu şekildedir:
+```json
+"value": [part_object]
+```
+
+*part_object* 2 farklı yapıda olabilir:\
+1) array
+    * {"value": ["str1", "str2", ...], "type": "array"}
+2) range
+    * {"value": {"start": start_val, "end": end_val}, "type": "range"}
+
+*template* parametresi, çok sayıda eleman içeren bir değeri, eğer belirli bir *pattern* varsa, kolayca oluşturmayı hedefler. Bu doğrultuda, *pattern*'ı oluşturan parçalar verilmelidir. Bu parçalar, *array* veya *range* içerebilirler. Örneğin, ["str1_1_", "str1_2_"], range(3-6), ["_str2_1", "_str2_2", "_str2_3"] ile oluşturacak değer listesi şu şekildedir:\
+[\
+ "str1_1_3_str2_1", "str1_1_3_str2_2", "str1_1_3_str2_3",\
+ "str1_1_4_str2_1", "str1_1_4_str2_2", "str1_1_4_str2_3",\
+ "str1_1_5_str2_1", "str1_1_5_str2_2", "str1_1_5_str2_3",\
+ "str1_2_3_str2_1", "str1_2_3_str2_2", "str1_2_3_str2_3",\
+ "str1_2_4_str2_1", "str1_2_4_str2_2", "str1_2_4_str2_3",\
+ "str1_2_5_str2_1", "str1_2_5_str2_2", "str1_2_5_str2_3",\
+ ]
+
+*part_object* içinde yer alan array türü template'e has bir terimdir, parametre özelliklerinde yer alan array ile karıştırılmamalıdır. İleride, bu karışıklığın önüne geçmek için farklı bir terim kullanılabilir.
+
+*part_object* türü array ise *value* bir string array'i almalıdır. Eğer range ise, başlangıç ve bitiş değerleri integer türünde verilmelidir. Bitiş değeri exclusive'dir: [start_val, end_val)
+
+*part_object* sayısı için bir sınır bulunmamaktadır.
+
+Bunlara ek olarak, node-spec'te parametre için belirtilmiş "special_requirements" da bu parametrenin bilgisine eklenmelidir. Bu şekilde, özel parametrelerin nasıl ele alınacağı belirlenmiş olur. (Tüm "special_requirement" bilgisi aktarılabileceği gibi sadece verilen *type*'a ait bilgi de aktarılabilir.)
+
+**code:**
+
+Bazı nodlar kod parçaları sağlanmasına ihtiyaç duymaktadır (Ör: UDF nodu). Bu durumlarda, kod parçası alınmasına yarayan parametreler bulunmaktadır. Bunları türü *code* olarak ifade edilir. Parametrenin alacağı değer girilmek istenen fonksiyondur. Bu değer string ile ifade edilir. Şu an için yalnızca python'da yazılmış pure function'lara destek verilmektedir. Bununla birlikte, gerekli indentation bilgisi string içerisinde yer almalıdır; öyle ki bu string direkt oluştutulacak betiğe yapıştırılacaktır.
+
+```json
+"parameter_name": {"value": value_of_parameter, "type": "code", "special_requirements": {"code": code_handler_type, ...}}
+```
+*Örnek:*
+
+```json
+"udf_function": {"value": "def Cat1(num):\n\tif num <= 10: return '0-10'\n\telif 10 < num and num <= 20: return '11-20'\n\telif 20 < num and num <= 30: return '21-30'\n\telif 30 < num and num <= 40: return '31-40'\n\telse: return 'morethan40'", "type": "code", "special_requirements": {"code": "code"}}
+```
+
+Yukarıdaki örnekte code_handler_type "code"'dur. Bu şu an için arka planda sağlanan handler'ın türüdür. İleride, parametre türü ile karıştırılmaması için farklı şekilde isimlendirilebilir.
+
+node-spec'te parametre için belirtilmiş "special_requirements" da bu parametrenin bilgisine eklenmelidir. Bu şekilde, özel parametrelerin nasıl ele alınacağı belirlenmiş olur. (Tüm "special_requirement" bilgisi aktarılabileceği gibi sadece verilen *type*'a ait bilgi de aktarılabilir.)
+
+**dict:**
+
+Parametre değeri olarak bir dictionary verilmek istendiğinde kullanılır.
+
+node-spec'te parametre için belirtilmiş "special_requirements" da bu parametrenin bilgisine eklenmelidir. Bu şekilde, özel parametrelerin nasıl ele alınacağı belirlenmiş olur. (Tüm "special_requirement" bilgisi aktarılabileceği gibi sadece verilen *type*'a ait bilgi de aktarılabilir.)
+
+
+Şu an için sağlanan "special_requirement" handler'lar "simple_dict" ve "schema"'dır. "simple_dict" primitive değerler içerir ve girilen dictionary'yi direkt kullanmayı hedefler. "schema" ise verilen dictionary'yi Spark dataframe'i için gerekli schema yapısına çevirir.
+
+*dict* türü parametre için kullanılan format şu şekildedir:
+
+```json
+"parameter_name": {"value": value_of_parameter, "type": "dict", "special_requirements": {"dict": dict_handler_type, ...}}
+```
+
+*Örnek:*
+```json
+"fractions": {"value": {"class1": 0.1, "class2": 0.2, "class3": 0.5}, "type": "dict", "special_requirements": {"dict": "simple_dict"}}
+```
+
+```json
+"fractions": {"value": {0: 0.1, 1: 0.2, 3: 0.5}, "type": "dict", "special_requirements": {"dict": "simple_dict"}}
+```
+
+**ALL**
+
+Parametre değeri, bir set olası eleman olduğu ve bunların hepsinin seçilmesi istendiğinde kullanılabilir. Bu şekilde, tüm elemanları teker teker sağlamak yerine, ALL parametresi ile bu işlem gerçeklenebilir.
+
+*ALL* türü parametre için kullanılan format şu şekildedir:
+
+```json
+"parameter_name": {"value": true, "type": "ALL", "special_requirements": {"ALL": ALL_handler_type, ...}}
+```
+
+Mevcut durumda, bir dataframe'in tüm kolonlarını alabilmek için kullanılan "column_selector_ALL" handler'ı bulunmaktadır.
+
+**object:**
+
+*object* türündeki parametreler mevcut nested yapılarını korumalıdırlar. *RollingStatistics* nodunun spec'inde yer alan "rolling_stats_info" parametresine bakalım. Bu parametrenin türü object'tir ve içerisinde farklı türde parametreler içermektedir. Bu parametreye karşılık gelen parametre değeri için şöyle bir örnek olabilir:
+
+```json
+"rolling_stats_info":
+{
+"value": {
+    "between_operation": {"value": "-", "type": "string"},
+    "first_argument":{
+        "value":
+            {
+            "operation": {"value": "Identity", "type": "string"},
+            "input_cols": {
+                "value": [
+                    {"value": ["pca_"], "type": "array"},
+                    {"value": {"start": 1, "end": 21}, "type": "range"},
+                    {"value": ["_warn"], "type": "array"},
+                ],
+                "type": "template",
+                "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template"}
+                }
+            },
+        "type": "object"
+    }
+    ,
+    "second_argument": {
+        "value":
+            {
+            "operation": {"value": "mean", "type": "string"},
+            "input_cols": {
+                "value": [
+                    {"value": ["pca_"], "type": "array"},
+                    {"value": {"start": 1, "end": 21}, "type": "range"},
+                    {"value": ["_warn"], "type": "array"},
+                ],
+                "type": "template",
+                "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template"}
+                }
+            },
+        "type": "object"
+    },
+    "output_cols": {
+        "value": [
+            {"value": ["pca_"], "type": "array"},
+            {"value": {"start": 1, "end": 21}, "type": "range"},
+            {"value": ["_warn_rollingdiff_"], "type": "array"}
+        ],
+        "type": "template",
+        "special_requirements": {"template": "column_selector_template"}
+    },
+    "partitioning_column": {"value": "pCol", "type": "string"},
+    "ordering_column": {"value": "oCol", "type": "string"},
+    "ordering_direction": {"value": "desc", "type": "string"},
+    "lags": {"value": [3,7,14,30,90], "type": "array[integer]"}
+},
+"type": "object"
+}
+```
+
+Örnekte de görüldüğü üzere, object'in her seviyesinde yer alan parametrelerin adı ve karşısında value, type ve gerekiyorsa special_requirements sağlanmalıdır.
+
+**array:**
+
+*array* türünde parametrelerin sağlanabilmesi için kullanılmaktadır. Temel format şu şekildedir:
+
+```json
+"parameter_name": {"value": value_of_parameter, "type": "array[type]"}
+```
+
+Farklı durumlar için örneklere bakalım:
+
+array elemanlarının primitive olması durumuna bir örnek:
+
+```json
+"input_cols": {"value": ["c1", "c2", "c3"], "type": "array[string]"}
+```
+
+array elemanlarının template olması durumuna (*UDF* nodundan) bir örnek:
+
+```json
+"udf_input_tuples": 
+{
+  "value": [
+      [
+          {"value": ["c"], "type": "array"},
+          {"value": {"start": 1, "end": 4}, "type": "range"}
+      ],
+      [
+          {"value": ["c"], "type": "array"},
+          {"value": {"start": 4, "end": 7}, "type": "range"}
+      ]
+  ],
+  "type": "array[template]",
+  "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}
+}
+```
+
+array elemanlarının object olması durumuna (*RollingStatistics* nodundan) bir örnek:
+
+```json
+"rolling_stats_info":
+{
+  "value": {
+      "between_operation": {"value": "-", "type": "string"},
+      "first_argument":{
+          "value":
+              {
+              "operation": {"value": "min", "type": "string"},
+              "input_cols": {"value": ["c1", "c2", "c3"], "type": "array[string]"}
+              },
+          "type": "object"
+      }
+      ,
+      "second_argument": {
+          "value":
+              {
+              "operation": {"value": "Identity", "type": "string"},
+              "input_cols": {"value": ["c1", "c2", "c3"], "type": "array[string]"}
+              },
+          "type": "object"
+      },
+      "output_cols": {"value": ["o1","o2","o3"], "type": "array[string]"},
+      "partitioning_column": {"value": "pCol", "type": "string"},
+      "ordering_column": {"value": "oCol", "type": "string"},
+      "ordering_direction": {"value": "desc", "type": "string"},
+      "lags": {"value": [3,7,14,30,90], "type": "array[integer]"}
+  },
+  "type": "object"
+}
+```
+
+array elemanlarının array olması durumuna (*UDF* nodundan) bir örnek:
+```json
+"udf_input_tuples": 
+{
+  "value": [["c1", "c2"], ["c3", "c4"], ["c5", "c6"]],
+  "type": "array[array[string]]",
+  "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}}
+```
+
+### Nod Aileleri
+
+Nod aileleri platformda yer alan nodların kod üretimini ortaklamak amacıyla oluşturulmuşlardır. Bu şekilde, her nod için kod üretici yazılmaktan kaçınan sade ve kontrol edilebilir bir yapı kazanılmıştır.
+
+**Nod Ailesi Oluşturmak için Temel Noktalar**
+
+Nod aileleri *generate_code(args)* fonksiyonu taşımalıdır. TaskGenerator nodlar için kod üretirken sırası gelen noda ait bu fonksiyonu çağırır. Dinamik şekilde bu işlem gerçekleştirildiğinden noda özel tüm argümanlar tek bir dictionary içerisinde sunulmalıdır.
+
+*generate_code*'a sağlanacak temel argümanlar, "node", "edges" ve "requireds_info"'dur. "node", sözkonusu noda ait sağlanan bilgileri içerir (node_specs + parameters). "edges", task'a ait tüm edge'leri içerir. "requireds_info", nodların hangi nodlardan "edge" aldığı bilgisini taşır.
+
+Nod ailesi, herhangi bir işlemden önce nodun input nodlarının uygunluğunu kontrol eder (IncomingEdgeValidityChecker). Bununla birlikte, nod ailesi kendine has girdi edge bilgisini taşımalıdır. Örneğin: {"df_count": {1}, "model_count": {0}}, nodun yalnız bir dataframe edge'i kabul etmekteyken hiç model edge'i kabul etmez.
+
+IncomingEdgeValidityChecker, girdi edge'leri kontrol ederken aynı zamanda buradan çıkardığı bilgileri düzenler ve nod ailesine sağlar. Bu şekilde, nod ailesi kullanacağı dataframe ve model ailelerini id'ler bazında da biliyor olur.
+
+*Not:* İleriki versiyonlarda girişte yapılan bu işelemleri ortaklamak adına decorator'lar kullanılabilir.
+
+Nod ailelerinin code_generation utility'lerini kullanması önerilir. Bu şekilde özel parametrelerin ele alınması tek bir merkezden kontrollü olarak yapılmış olur. Aynı zamanda, kod sadeliğine de erişilmiş olur.
+
+Nod ailesi parametreleri ele alan fonksiyonlara bazı argümanlar göndermeye ihtiyaç duyabilir. Bunlar, *node_id, input_dfs, shared_function_set, additional_local_code, errors* gibi argümanlardır.
+
+* *node_id*, nodun UI tarafından ya da farklı şekillerde verilmiş unique id'sini ifade eder.
+* *input_dfs*, noda giren dataframe id'lerini ifade eder.
+* *shared_function_set*, global olarak oluşturulacak fonksiyonların bu nod tarafından ihtiyaç duyulanlarının id'lerini tutmak için kullanılır.
+* *additional_local_code*, nod ailesine has local olarak eklenmesi gereken ekstra kodları tutmak için kullanılır.
+* *errors*, kod üretimi sırasında karşılaşılan hataları tutmak için kullanılır.
+
+Nod ailesi oluşan ekstra local kodları, kod üretim sürecinin sonunda oluşturduğu kodların üzerine ekler.
+
+*generate_code*, oluşan kodları, *shared_function_set*'i ve error'ları geri döner.
+
+Yeni eklenen nod aileleri için şu ek düzenlemeler yapılmalıdır:
+* domain paketi altındaki NodeFamilyTypes'a yeni eklenen nod ailesinin bilgisi eklenmelidir.
+* families.json'ına yeni eklenen nod ailesinin bilgisi eklenmelidir.
+* domain paketi altında yer alan ImportInfo'ya nod ailesinin gerektirdiği *import*'lar eklenmelidir.
+* Yeni error türleri gerekliyse, domain paketi altındaki ErrorTypes'a bunlar eklenmelidir.
+* Yeni *shared_function* türleri gerekliyse, domain paketi altındaki SharedFunctionTypes'a bunlar eklenmelidir.
+* Yeni *special_case*'ler gerekliyse, domain paketi altındaki SpecialCases'a bunlar eklenmelidir.
+* Eğer nod ailesi üst seviye bir nod türü oluşturmuşsa, bu tür domain paketi altındaki HighLevelNodeTypes'a eklenmelidir.
+
+Nod ailesi oluştururken gerek duyulan ekstra kontroller, *validity* paketi altında tanımlanabilir.
+
+Nod ailesi için farklı parametre türlerine ihtiyaç duyulması veya kod üretimi için (ortaklanabilir) farklı (mevcut olarak desteklenmeyen) utility'lere ihtiyaç duyulması durumunda *utils.code_generation* paketi altında yer alan utility'ler düzenlene bilir veya yenileri eklenebilir.
+
+
+### *Code Generation Utils*
+
+*utils.code_generation* altında yer alan CodeGenerationUtils bünyesinde kod üretimini sadeleştirecek fonksiyonlar sağlamaktadır. Temel olarak, fonksiyonların (şu an için Spark fonksiyonları) alacağı parametrelerin önişlemesi ve gerekli ekstra kodların oluşturulmasından sorumludurlar.
+
+Parametrelerin ele alınması için sağlanan fonksiyonalite, primitive ve array türlerini ele aldığı gibi özel gereksinimleri olan parametreleri de işler. Parametrenin primitive olduğu bilindiği durumlarda primitive'i işlemek için kullanılabilecek daha sade bir fonksiyon da mevcuttur.
+
+Parametrelerin isimleri ile birlikte argüman string'ine dönüştürülebilmesi için de fonksiyonlar sağlanmıştır. Öyle ki bir parametre dictionary'si verildiğinde "param_name1=processed_param_val1, param_name2=processed_param_val2, ..." formatında bir string oluşturulmasına imkan tanınmıştır.
+
+Bir object-instantination veya function-call için kod üretimi gerektiği durumlarda parametre dictionary'si, başlangıç string'i ve argümanlar verilerek istenen kod üretimi gerçeklenebilir.
+
+*Örnek:*
+
+```python
+code=CodeGenerationUtils.handle_instantination_or_call(node["parameters"], 'estimator_' + node["id"] + ' = ' + node["estimator_name"] + '(', args)
+```
+args içeriği ise şu şekilde olabilir:
+```python
+args = {"node_id": node["id"], "input_dfs": [df_name], "shared_function_set": shared_function_set, "additional_local_code": additional_local_code, "errors": errors}
+```
+
+Bunlara ek olarak, nod ailesinin ürettiği ana kod ve ekstra local kodun birleştirilmesini sağlayacak fonsiyonalite de sağlanmıştır.
+
+Özel gereksinimi olan parametreler ise SpecialRequirementHandlerForParameters'a yönlendirilir. Burada, node-spec'te yer alan "special_requirements" bilgisinde parametre türüne karşılık gelen "handler" seçilerek parametre işlenir. Söz konusu handler'lar ekstra local kod üretebileceği gibi *shared function*'lar da üretbilirler. Handler'lar sadece parametre değeri olarak kullanılacak string'i dönerler. Üretilen ekstra local kodları ve *shared function*'ları SpecialRequirementHandlerForParameters'ın *handle_parameter(parameter, special_requirement, args)* fonksiyonu ile gönderilen arg'ın içinde yer alan gerekli alanlara koyarlar.
+
+### *Shared Functions*
+
+Nod aileleri hedefledikleri fonksiyonaliteleri gerçekleştirebilmek için ekstra kodlar üretmeye ihtiyaç duyabilirler. Örneğin, dataframe'den belli bir template veya regex'e uygun kolonların listesini alıp bir fonksiyona argüman olarak vermek istediğimizi düşünelim. Bu durumda, template/regex match yapacak bir fonksiyona ihtiyaç duyulmaktadır. Parametre değeri olarak da bu fonksiyonu gerekli argümanları ile call eden bir kod parçası üretmek gerekmektedir. Bu işlem, ekstra local kod üretimi için de aynı şekildedir. *Shared function*'lara ihtiyaç duyulmasının nedeni ise kodu daha sade tutmaktır. Örneğimizden devam edersek, her template match ile dataframe üzerinden kolon listesi almak isteyen parametre (bir nod ailesinde bile birden fazla olabilir) bu fonksiyonu tekrar tekrar yaratacaktır. Bunun yerine tüm nod ailelerinin kullanımı için sözkonusu işleve yönelik bir tane fonksiyon yaratmak yeterlidir.
+
+Her nod ailesi, ihtiyaç duyduğu *shared function*'ları bir set'te tutar. Her noddan gelen bu set'ler TaskGenerator tarafından bir araya getirilir ve kodun baş kısmına sözkonusu fonksiyonlar eklenir.
+
+Yeni *shared function*'lar, *utils.code_generation* altında yer alan "SharedFunctionStore" altına eklenebilir. İleriki versiyonlarda, "SharedFunctionStore" çok şişmesi durumunda parçalara ayrılabilir.
+
+### *Multi-instance Handler*
+
+Özellikle aynı işlemi birden fazla kolona uygulamak istediğimiz durumlarda, tekrar tekrar nod yaratmak gerekir. Sözkonusu kolonların çok fazla olduğu durumlarda bu kullanıcıya aşırı bir efor sarfiyatı olarak yansıyacaktır. Bunu önlemek adına, bazı nodlar (şu an için transformer ve estimator nod aileleri) için multi-instance seçeneği sunulmuştur.
+
+Örneğin *StringIndexer* nodunu ele alalım. Spark'ın StringIndexer fonksiyonu tek bir kolon üzerinde çalışır ve kolondaki string'leri kategorize eder. Eğer mevcut dataframe üzerinde bunu uygulamak istediğimiz çok sayıda kolon varsa; bunlar için teker teker nod oluşturmak efor kaybına yol açacaktır. Bu işlevi tek bir nod ile ifade etmek istediğimizde hangi parametrelerin sabit kalıp hangilerinin multi-instance ihtiyacına göre değişeceğini saptamak gerekir. StringIndexer örneğinde input ve output kolonları tek bir string değeri alırken bunları array şeklinde ifade edip arka planda yer alan iş-mantığını da buna göre uyarlayabiliriz. Bu durumda, node-spec içerisinde *multi_instance_indicator* adında bir alan daha tutulur. Bunun içerisinde, multi-instance işlevi sırasında rehber olacak kullanılacak ve özel olarak ele alınacak parametre adları verilir.
+
+Multi-instance handler ile arka planda yapılan bu modifiye edilmiş parametreler üzerinden bir loop dönerek daha önce manuel olarak oluşturulan nodların otomatize edilmiş bir şekilde oluşturulmasıdır.
+
+Uyarı: Multi-instance indicator olarak kullanılacak parametreler, parameter_props'un en üst seviyesinde yer almalıdır.
+
+### *Özel Durumlar (Model Holder Case)*
+
+Task, pipeline ve cv nodları compound nodlardır. Bunlar içerisinde başka nodlar barındırabilirler. Temel kural olarak bir compound nod (veya bunun içerisinde yer alan nodlar) ile başka bir compound nod altında yer alan nodlar arasında bir edge bulunamaz. Yalnız, deneysel olarak ele alınan bir özel durum ile bu kabulün core modülü karmaşık hale getirmeden esnetilip esnetilemeyeceği deneyimlenmiştir. ModelHolder nodu bu deney için örnek oluşturmaktadır.
+
+Örneğin, makine öğrenmesi yapan bir işlem akışı düşünelim. Bu durumda, veriyi ön işleyecek ve model eğitecek bir pipeline oluşturalım. Bu pipeline'ın dışında daha önceden herhangi bir önişleme işleme nodu olduğunu farz edelim. Bu nodun eğittiği modeli pipeline'ımıza dahil etmek istediğimizde iki problem çıkıyor karşımıza:
+
+İlk problem, pipeline içerisinde daha önceden eğitilmiş bir modelin nasıl ifade edileceği. Bunu, bir "placeholder" görevi gören ModelHolder dediğimiz bir nod ile sağlayabiliriz. Bu nod, sözkonusu modeli alacak ve pipeline kodu üretilirken ifade ettiği modelin id'sini sağlayacak.
+
+İkinci problem, yukarıda bahsedilen kabul. Bu kabule göre pipeline nodu gibi bir compound nod içerisinde yer alan bir noda, sözkonusu pipeline nodu dışarısında yer alan bir noddan edge çekmemiz gerekiyor (crossing edge problem). Bu durumda, ModelHolder durumuna özel olarak bu edge'in çekilmesine izin veriyoruz. *PipelineGenerator* graph'ı parse ederken bu edge'ler special_edges olarak ele alınmaktadır.
+
+Bu durumun çözümü için graph parsing kısmında özel edge'leri işleyecek bir işlev ve nod ailesi içerisinde bu özel edge'leri dikkate almak yeterli oldu. Şu an için, bu şekilde özel durumların ele alınmasında bir problem görülmemiştir. Yalnız, core modülü karmaşıklaştıracak ve *dependency*'leri arttıracak özel durumlardan olabildiğince kaçınılmalıdır.
+
+### *Edge Permissions*
+
+*Edge Permissions*, nodlar arasında kullanılabilecek bağlantıların türünü, uyumluluğunu ve ihtiyaç duydukları ek parametrelerini belirlemek için kullanılır. Bu kurallar, gerek *validation* yapılması gerekse UI'da edge parametrelerinin yönetilmesi için kullanılabilirler.
+
+*Edge permission*, her bir nod ailesi için yaratılır ve şu formatta olmalıdır:
+
+```json
+family_id: {
+    "produces": [{"type": edge_type, "compatibility":[], "additional_parameters":[]}, ...],
+    "takes": [{"type": edge_type, "compatibility":[], "additional_parameters":[]}, ...]
+  }
+```
+
+*Edge permission*, bir nodun kabul ettiği girdi ve çıktı bağlanltılarının bilgilerini taşır. Bunlar, sırasıyla, "produces" ve "takes" alanlarında belirtilir. Her olası girdi ve çıktı bağlantı türü (*edge_type*) için bir object sağlanmalıdır. Bu object içerisinde, *edge_type*, *compatibility* ve *additional_parameters* alanları olabilir. Bunlardan *compatibility* ve *additional_parameters* opsiyoneldir.
+
+Örnek'ler üzerinden inceleyelim:
+```json
+"6": {
+    "produces": [{"type":"dataframe", "compatibility":["batch"]}, {"type":"model"}, {"type": "pipeline"}, {"type": "cv"}],
+    "takes": [{"type":"dataframe", "compatibility":["batch"]}, {"type": "pipeline"}]
+  }
+```
+
+Yukarıdaki örnek *Estimator* nod ailesi için gerekli *edge_permission*'dır. *Estimator* nod ailesi altındaki nodlar çıktı bağlantıları olarak "dataframe", "model", "pipeline" ve "cv" bağlantıları alabilirler. Girdi bağlantıları olarak ise yalnızca "dataframe" türü bağlantı kabul etmektedir. Yalnızca, *batch* veri taşıyan "dataframe" kabul edildiğinden "compatibility"'de sadece "batch" ibaresi yer almaktadır.
+
+```json
+"8": {
+    "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}],
+    "takes": [{"type":"dataframe", "compatibility":["batch", "stream"], "additional_parameters":["order"]}]
+  }
+  ```
+
+Yukarıdaki örnek *Join* nod ailesi için gerekli *edge_permission*'dır. "Join" ailesi *batch* veya *stream* "dataframe"'i girdi ve çıktı olarak kabul edebilir. Yalnız, girdi olarak birden fazla "dataframe" kabul ettiğinden bunların hangi sıra ile (left-to-right) verildiğini bilmesi gerekmektedir. Bu nedenle, ekstra bilgiye ihtiyaç duyulmaktadır. Bu bilgiyi de "additional_parameters" ile sağlamaktayız. Bu örnekte, *order* adında bir ek parametre kullanıcıya sunulmalı ve gerekli *order* bilgisi alınmalıdır.
+
+```json
+"13": {
+    "produces": [{"type":"dataframe", "compatibility":["batch"], "additional_parameters":["portion"]}],
+    "takes": [{"type":"dataframe", "compatibility":["batch"]}]
+  }
+```
+
+Yukarıdaki örnek *RandomSplit* nod ailesi için gerekli *edge_permission*'dır. BU nod ailesi, *batch* dataframe alır ve bir ya da daha fazla *dataframe* üretebilir. Bu *dataframe*'ler girdi *dataframe*'in *portion*'larıdır. Herhangi bir *target* nod ile bağlantı oluşturulurken, üretilen *portion*'lardan hangisinin kullanılmak istendiği belirtilmelidir. Bu nedenle, ek bilgi olarak *portion* değeri alınmalıdır.
+
+Bir bağlantı oluşturulabilmesi için *source* ve *kaynak* nodlarının uyumlu olduğu en az bir bağlantı türü bulunmalıdır. Bu uyumluluk için *source* nodun "produces" ve *target* nodun "takes" alanlarında ortak bağlantı türü aranmalıdır. Bu ortak bağlantı türünün de "compatibility" kıstaslarının uyumlu olması gerekmektedir.
+
+Kullanıcıya ekstra parametreler sunulacağı durumda, *convention* olarak *source* nodun ekstra parametreleri *target* nodun ekstra parametrelerinden önce sunulabilir. Burada önemli nokta bir bağlantının ekstra parametrelerinin hem *source* hem *target* noddarn gelebileceğidir. Örneğin, RandomSplit nodundan çıkan bir bağlantının Join noduna girmesi gibi (bu durumda hem portion hem de order bilgisine ihtiyaç olacaktır).
+
+"pipeline" ve "cv" türündeki bağlantıların kullanılabilmesi için nodların *parent* nodlarının kontrol edilmesi gerekmektedir. Bu kontrol, şimdilik farklı iş-mantıklarına bırakılmıştır. Bu bilgi ileride *edge_permissions*'a alınabilir. Bununla birlikte, farklı streaming mod'ları için ayrıştırıcı bilginin tutulması ileriki versiyonlarda eklenecektir.
+
+Ekstra parametrelerin değerleri sağlanırken kullanılması gereken veri türleri de *edge_permissions* altında yer almaktadır. Örneğin, UI bu bilgiye göre kullanıcıdan hangi türde veri alacağını anlayabilir. *edge_type*'lar string formatında olacaktır ve bu bilgiye dahil edilmemişlerdir. Farklı *edge_type*'ların aynı isimli ve farklı veri türünde ek parametre almasına izin verilmemektedir. Böyle bir ihtiyaç olması durumunda *parameter_info* formatını düzenleyiniz.
+
+```json
+"parameter_info":{
+    "portion": {"type": "integer", "piecewise_constraint": "portion >= 0"},
+    "order": {"type": "integer", "piecewise_constraint": "order >= 0"}
+}
+```
+
+Mevcut versiyonda yer alan bağlantı türleri şunlardır:
+* dataframe
+* model
+* pipeline
+* cv
+* upstream
+
+upstream task'lar arasında kullanılır ve *target* noddaki task'ın *source* noddaki task'tan sonra yürütülmesi gerektiğini belirtir.
+
+*dataframe* bağlantı türü iki ekstra parametre alabilir:
+* portion
+* order
+
+*dataframe* bağlantı türü iki farklı *compatibility* taşımaktadır:
+* batch
+* stream
       },
       "lags": {
         "visible_name": "Lags",

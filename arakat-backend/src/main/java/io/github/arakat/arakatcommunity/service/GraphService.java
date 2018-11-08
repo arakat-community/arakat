@@ -52,17 +52,7 @@ public class GraphService {
 
         JSONObject dagProperties = (JSONObject) graphJson.get("dag_properties");
 
-        JSONObject sparkOperatorConfDetails = new JSONObject();
-        JSONObject conf = new JSONObject();
-
-        conf.put("spark.pyspark.python", appPropertyValues.getPythonVersion());
-        sparkOperatorConfDetails.put("conn_id", appPropertyValues.getConnectionId());
-        sparkOperatorConfDetails.put("depends_on_past", false);
-        sparkOperatorConfDetails.put("conf", conf);
-
-        dagProperties.put("spark_operator_conf", sparkOperatorConfDetails);
-        dagProperties.put("code_base_path", appPropertyValues.getApplicationPath());
-
+        dagProperties.put("bash_command", appPropertyValues.getBashCommand());
         graphJson.put("dag_properties", dagProperties);
 
         return graphJson;
