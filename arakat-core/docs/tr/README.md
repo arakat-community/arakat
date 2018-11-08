@@ -5,7 +5,7 @@ Arakat-Core modülü, belirli bir arayüz çerçevesinde oluşturulmuş işlem a
 
 
 ## İçerik
-* [Terimler/Alan Bilgisi](./terimler-alan-bilgisi#terimleralan-bilgisi)
+* [Terimler/Alan Bilgisi](./terimler-alan-bilgisi.md#terimleralan-bilgisi)
 * [Temel Akış](./temel-akis#temel-akış)
 * [Temel Yapı](./temel-yapi#temel-yapı)
 * [Temel Teknolojiler](./terimler-alan-bilgisi##temel-teknolojiler)
