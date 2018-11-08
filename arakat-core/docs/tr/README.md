@@ -5,18 +5,18 @@ Arakat-Core modülü, belirli bir arayüz çerçevesinde oluşturulmuş işlem a
 
 
 ## İçerik
-* [Terimler/Alan Bilgisi](./terimler-alan-bilgisi#terimleralan-bilgisi)
-* [Temel Akış](./temel-akis#temel-akış)
-* [Temel Yapı](./temel-yapi#temel-yapı)
-* [Temel Teknolojiler](./terimler-alan-bilgisi##temel-teknolojiler)
-* [İleri Düzey Tasarım Detayları](./ileri-duzey-tasarim-detaylari#ileri-düzey-tasarım-detayları)
-    * [Nod Özellikleri (Node-Specs)](./ileri-duzey-tasarim-detaylari#ileri-düzey-tasarım-detayları#nod-özellikleri-node-specs)
-        * [Genel Özellikler](./ileri-duzey-tasarim-detaylari#nod-özellikleri-node-specs)
+* [Terimler/Alan Bilgisi](./terimler-alan-bilgisi.md#terimleralan-bilgisi)
+* [Temel Akış](./temel-akis.md#temel-akış)
+* [Temel Yapı](./temel-yapi.md#temel-yapı)
+* [Temel Teknolojiler](./temel-teknolojiler.md#temel-teknolojiler)
+* [İleri Düzey Tasarım Detayları](./ileri-duzey-tasarim-detaylari.md#ileri-düzey-tasarım-detayları)
+    * [Nod Özellikleri (Node-Specs)](./ileri-duzey-tasarim-detaylari.md#ileri-düzey-tasarım-detayları#nod-özellikleri-node-specs)
+        * [Genel Özellikler](./ileri-duzey-tasarim-detaylari.md#ileri-düzey-tasarım-detayları#nod-özellikleri-node-specs)
         * [Parametre Özellikleri (parameter_props)](./ileri-duzey-tasarim-detaylari#ileri-düzey-tasarım-detayları#nod-özellikleri-node-specs)
-    * [Parametre Formatı](./ileri-duzey-tasarim-detaylari#parametre-formati)
-    * [Nod Aileler](./ileri-duzey-tasarim-detaylari#nod-aileleri)
-    * [*Code Generation Utils*]
-    * [*Shared Functions*]
-    * [*Multi-instance Handler*]
-    * [*Model Holder*]
-    * [*Edge Permissions*]
+    * [Parametre Formatı](./ileri-duzey-tasarim-detaylari.md#parametre-formatı)
+    * [Nod Aileleri](./ileri-duzey-tasarim-detaylari.md#nod-aileleri)
+    * [*Code Generation Utils*](./ileri-duzey-tasarim-detaylari.md#code-generation-utils)
+    * [*Shared Functions*](./ileri-duzey-tasarim-detaylari.md#shared-functions)
+    * [*Multi-instance Handler*](./ileri-duzey-tasarim-detaylari.md#multi-instance-handler)
+    * [*Model Holder*](./ileri-duzey-tasarim-detaylari.md#özel-durumlar-model-holder-case-1)
+    * [*Edge Permissions*](./ileri-duzey-tasarim-detaylari.md#edge-permissions-1)
