@@ -444,20 +444,13 @@ data={
     },
     "dag_properties": {
         "app_id": "MyFirstApp3",
-        "code_base_path": "/usr/local/spark_code/",
+        "bash_command": "sh /usr/local/shell_scripts/run.sh",
         "schedule_interval": "@once",
         "default_args": {
             "owner": "airflow",
             "start_date": "01/01/2018"
-        },
-        "spark_operator_conf": {
-            "conn_id": "spark_con_py",
-            "depends_on_past": False,
-            "conf": {"spark.pyspark.python": "/usr/bin/python2.7"}
         }
     }
 }
 
 code_info, success, errors, additional_info = PipelineGenerator.generate_pipeline(data["graph"], data["dag_properties"])
-print(errors)
-print(success)
