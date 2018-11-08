@@ -51,7 +51,7 @@ public class TablePathService {
 
         return requestUtils.sendPostRequest(uri, map);
     }
-    //TODO PAGINATION: https://stackoverflow.com/questions/29227949/how-to-implement-spark-sql-pagination-query
+
     public JSONObject getDataBySpecificQuery(String tablePath, String columns) {
         String uri = appPropertyValues.getHdfsReaderUrl() + ":" + appPropertyValues.getHdfsReaderPort()
                 + "/" + appPropertyValues.getHdfsReaderGetDataEndpoint();
@@ -68,6 +68,18 @@ public class TablePathService {
         Object response = requestUtils.sendPostRequest(uri, map);
 
         return new JSONObject(response.toString());
+    }
+
+    public String getTableColumnsWithTypes(String tablePath) {
+        String uri = appPropertyValues.getHdfsReaderUrl() + ":" + appPropertyValues.getHdfsReaderPort()
+                + "/" + appPropertyValues.getHdfsReaderGetTableColumnsWIthTypesEndpoint();
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("file", tablePath);
+
+        Object response = requestUtils.sendPostRequest(uri, map);
+
+        return response.toString();
     }
 
     public TablePath getTablePathById(Long tablePathId) {

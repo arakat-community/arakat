@@ -1,6 +1,13 @@
+---
+layout: post
+title:  "Arakat Backend - Java Servisi"
+categories: jekyll update
+---
 [![](https://dockerbuildbadges.quelltext.eu/status.svg?organization=arakat&repository=arakat-backend-automated-build)](https://hub.docker.com/r/arakat/arakat-backend-automated-build/builds/)
 
 # ARAKAT Java Servisi
+
+## Java Servisinin Rolü
 
 ## İçerik
 * Java web uygulamasını geliştirmek için [Spring Boot](https://spring.io/projects/spring-boot) kullanılmıştır.
@@ -24,7 +31,7 @@ Uygulamayı geliştirme ortamında çalıştırmak için terminalinizde projenin
 $ SPRING_PROFILES_ACTIVE=development mvn spring-boot:run
 ``
 
-![mvn spring-boot:run GIF](img/arakat-backend-run.gif)
+![mvn spring-boot:run GIF](https://raw.githubusercontent.com/arakat-community/arakat/master/arakat-backend/img/arakat-backend-run.gif)
 
 ### **Docker Kullanarak Çalıştırmak**
 #### Ön Gereksinimler
@@ -46,7 +53,7 @@ arakat-backend'in Docker imajını lokal geliştirme ortamınızda çalıştırm
 $ docker run -d -p 8080:8080 arakat-backend:<SİZİN ETİKETİNİZ>
 ``
 
-![docker build from source GIF](img/arakat-backend-docker-build-from-source.gif)
+![docker build from source GIF](https://raw.githubusercontent.com/arakat-community/arakat/master/arakat-backend/img/arakat-backend-docker-build-from-source.gif)
 
 #### Docker İmajını Docker Hub'dan Çekerek Çalıştırmak
 
@@ -60,7 +67,7 @@ $ docker pull arakat/arakat-backend:<ETİKET>
 $ docker run -d -p 8080:8080 arakat-backend:<ETİKET>
 ``
 
-![docker pull from Docker Hub GIF](img/arakat-backend-docker-pull-from-docker-hub.gif)
+![docker pull from Docker Hub GIF](https://raw.githubusercontent.com/arakat-community/arakat/master/arakat-backend/img/arakat-backend-docker-pull-from-docker-hub.gif)
 
 #### Swagger Arayüzü
 
