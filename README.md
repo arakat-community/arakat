@@ -22,9 +22,9 @@ Teknik özellikler ve proje kurgusu ile ilgileri aşağıdaki gibi özetlenebili
 
 ARAKAT tamamen dockerize edilmiş 3 ana servisten oluşmaktadır. Bunlar sırası ile:
 
-* [Backend - Java](/arakat/arakat-backend/)
-* [Core - Python](/arakat/arakat-core/tr/)
-* [Frontend - JavaScript(TypeScript)](/arakat/arakat-frontend/)
+* [Backend - Java](./docs/arakat-backend/README.md)
+* [Core - Python](./docs/arakat-core/tr/README.md)
+* [Frontend - JavaScript(TypeScript)](./docs/arakat-frontend/README.md)
 
 ARAKAT küme konfigürasyonları ile ilgili detaylı bilgi için ve ARAKAT Docker container'larının nasıl çalıştırılacağını incelemek için aşağıdaki bağlantıya göz atabilirsiniz:
-* [ARAKAT Küme Konfigürasyonları](/arakat/arakat-cluster-config/)
+* [ARAKAT Küme Konfigürasyonları](./docs/arakat-cluster-config/README.md)
