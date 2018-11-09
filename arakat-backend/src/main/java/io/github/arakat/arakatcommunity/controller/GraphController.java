@@ -28,6 +28,7 @@ public class GraphController {
         try {
             JSONObject graphWithConfigs = graphService.addConfigToDagProperties(graph);
 
+            System.out.println(graphWithConfigs);
             String responseFromCore = graphService.postGraphAndDagPropsToCore(graphWithConfigs.toString());
             graphService.checkRunResult(responseFromCore);
             graphService.saveGraph(graph);
