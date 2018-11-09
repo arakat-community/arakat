@@ -43,8 +43,8 @@ public class TablePathService {
     }
 
     public Object getColumnsByTablePath(String tablePath) {
-        String uri = appPropertyValues.getHdfsReaderUrl() + ":" + appPropertyValues.getHdfsReaderPort()
-                + "/" + appPropertyValues.getHdfsReaderGetTableColumnsEndpoint();
+        String uri = appPropertyValues.getSparkHdfsHelperUrl() + ":" + appPropertyValues.getSparkHdfsHelperPort()
+                + "/" + appPropertyValues.getSparkHdfsHelperGetTableColumnsEndpoint();
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("file", tablePath);
@@ -53,8 +53,8 @@ public class TablePathService {
     }
 
     public JSONObject getDataBySpecificQuery(String tablePath, String columns) {
-        String uri = appPropertyValues.getHdfsReaderUrl() + ":" + appPropertyValues.getHdfsReaderPort()
-                + "/" + appPropertyValues.getHdfsReaderGetDataEndpoint();
+        String uri = appPropertyValues.getSparkHdfsHelperUrl() + ":" + appPropertyValues.getSparkHdfsHelperPort()
+                + "/" + appPropertyValues.getSparkHdfsHelperGetDataEndpoint();
 
         String tableTempView = FilenameUtils.getBaseName(tablePath);
         String query = "SELECT " + columns + " FROM " + tableTempView;
@@ -71,8 +71,8 @@ public class TablePathService {
     }
 
     public String getTableColumnsWithTypes(String tablePath) {
-        String uri = appPropertyValues.getHdfsReaderUrl() + ":" + appPropertyValues.getHdfsReaderPort()
-                + "/" + appPropertyValues.getHdfsReaderGetTableColumnsWIthTypesEndpoint();
+        String uri = appPropertyValues.getSparkHdfsHelperUrl() + ":" + appPropertyValues.getSparkHdfsHelperPort()
+                + "/" + appPropertyValues.getSparkHdfsHelperGetTableColumnsWithTypesEndpoint();
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("file", tablePath);
