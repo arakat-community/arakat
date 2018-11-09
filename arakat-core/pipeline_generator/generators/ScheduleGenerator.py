@@ -34,7 +34,7 @@ def generate_code(task_nodes, task_edges, args):
 
 def __generate_imports():
     import_code=["from airflow import DAG", os.linesep,
-                 "from airflow.contrib.operators.spark_submit_operator import SparkSubmitOperator", os.linesep,
+                 "from airflow.operators.bash_operator import BashOperator", os.linesep,
                  "from datetime import datetime",os.linesep,os.linesep]
     return import_code
 
