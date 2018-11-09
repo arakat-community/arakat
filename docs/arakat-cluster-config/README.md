@@ -1,4 +1,4 @@
-## Arakat Küme Konfigürasyonu
+## Arakat Küme(Cluster) Konfigürasyonu
 
 ![Arakat Konfigürasyon Şeması](./images/Arakat-Configuration.jpg)
 

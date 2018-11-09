@@ -8,6 +8,7 @@ import io.github.arakat.arakatcommunity.exception.GraphRunFailedException;
 import io.github.arakat.arakatcommunity.model.TablePath;
 import io.github.arakat.arakatcommunity.model.Task;
 import io.github.arakat.arakatcommunity.utils.FileOperationUtils;
+import io.github.arakat.arakatcommunity.utils.MongoConnectionUtils;
 import io.github.arakat.arakatcommunity.utils.RequestUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -32,18 +33,20 @@ public class GraphService {
     private AppService appService;
     private MongoTemplate mongoTemplate;
     private RequestUtils requestUtils;
+    private MongoConnectionUtils mongoConnectionUtils;
 
     @Autowired
     public GraphService(AppPropertyValues appPropertyValues, FileOperationUtils fileOperationUtils,
                         TablePathService tablePathService, TaskService taskService, AppService appService,
                         MappingMongoConverter mappingMongoConverter, MongoDbFactory mongoDbFactory,
-                        RequestUtils requestUtils) {
+                        RequestUtils requestUtils, MongoConnectionUtils mongoConnectionUtils) {
         this.appPropertyValues = appPropertyValues;
         this.fileOperationUtils = fileOperationUtils;
         this.tablePathService = tablePathService;
         this.taskService = taskService;
         this.appService = appService;
         this.requestUtils = requestUtils;
+        this.mongoConnectionUtils = mongoConnectionUtils;
         mongoTemplate = new MongoTemplate(mongoDbFactory, mappingMongoConverter);
     }
 
@@ -122,8 +125,6 @@ public class GraphService {
                     String tablePath = new JSONObject(table.toString()).get("table_path").toString();
 
                     TablePath savedTablePath = tablePathService.saveAndGetTable(tablePath);
-//                    System.out.println(saveWrittenTableToHdfsVolume(tablePath));
-
                     tablesToSave.add(savedTablePath);
                 }
 
@@ -175,7 +176,7 @@ public class GraphService {
     }
 
     public JSONObject getGraphById(String id) throws GraphNotFoundException {
-        DB db = initializeMongoConnection();
+        DB db = mongoConnectionUtils.initializeMongoConnection();
         DBCollection graphCollection = db.getCollection("graph");
 
         BasicDBObject query = new BasicDBObject();
@@ -191,11 +192,6 @@ public class GraphService {
         }
 
         return new JSONObject(JSON.serialize(cursor));
-    }
-
-    private DB initializeMongoConnection() {
-        Mongo mongo = new Mongo(appPropertyValues.getHost(), Integer.parseInt(appPropertyValues.getPort()));
-        return mongo.getDB(appPropertyValues.getDatabase());
     }
 
     private <T> Iterable<T> iteratorToIterable(Iterator<T> iterator) {
