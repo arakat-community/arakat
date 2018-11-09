@@ -26,5 +26,5 @@ ARAKAT tamamen dockerize edilmiş 3 ana servisten oluşmaktadır. Bunlar sıras�
 * [Core - Python](/docs/arakat-core/tr/README.md)
 * [Frontend - JavaScript(TypeScript)](/docs/arakat-frontend/README.md)
 
-ARAKAT küme konfigürasyonları ile ilgili detaylı bilgi için ve ARAKAT Docker container'larının nasıl çalıştırılacağını incelemek için aşağıdaki bağlantıya göz atabilirsiniz:
-* [ARAKAT Küme Konfigürasyonları](/docs/arakat-cluster-config/README.md)
+ARAKAT Docker container'larının nasıl çalıştırılacağını incelemek için aşağıdaki bağlantıya göz atabilirsiniz:
+* [ARAKAT Küme(Cluster) Konfigürasyonları](/docs/arakat-cluster-config/README.md)
