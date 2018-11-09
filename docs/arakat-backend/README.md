@@ -24,7 +24,7 @@ Uygulamayı geliştirme ortamında çalıştırmak için terminalinizde projenin
 $ SPRING_PROFILES_ACTIVE=development mvn spring-boot:run
 ``
 
-![mvn spring-boot:run GIF](img/arakat-backend-run.gif)
+![mvn spring-boot:run GIF](./img/arakat-backend-run.gif)
 
 ### **Docker Kullanarak Çalıştırmak**
 #### Ön Gereksinimler
@@ -46,7 +46,7 @@ arakat-backend'in Docker imajını lokal geliştirme ortamınızda çalıştırm
 $ docker run -d -p 8080:8080 arakat-backend:<SİZİN ETİKETİNİZ>
 ``
 
-![docker build from source GIF](img/arakat-backend-docker-build-from-source.gif)
+![docker build from source GIF](./img/arakat-backend-docker-build-from-source.gif)
 
 #### Docker İmajını Docker Hub'dan Çekerek Çalıştırmak
 
@@ -60,7 +60,7 @@ $ docker pull arakat/arakat-backend:<ETİKET>
 $ docker run -d -p 8080:8080 arakat-backend:<ETİKET>
 ``
 
-![docker pull from Docker Hub GIF](img/arakat-backend-docker-pull-from-docker-hub.gif)
+![docker pull from Docker Hub GIF](./img/arakat-backend-docker-pull-from-docker-hub.gif)
 
 #### Swagger Arayüzü
 
