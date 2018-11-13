@@ -54,32 +54,32 @@
                 "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template"}
               }
             }
+          },
+          "output_cols": {
+            "visible_name": "Output columns",
+            "type_constraint": ["array[string]", "template"],
+            "special_requirements": {"template": "column_selector_template"}
+          },
+          "partitioning_column": {
+            "visible_name": "Partition by",
+            "type_constraint": ["string"]
+          },
+          "ordering_column": {
+            "visible_name": "Order by",
+            "type_constraint": ["string"]
+          },
+          "ordering_direction": {
+            "visible_name": "Ordering direction",
+            "type_constraint": ["string"],
+            "set_constraint": ["asc", "desc"],
+            "default": "desc"
+          },
+          "lags": {
+            "visible_name": "Lags",
+            "type_constraint": ["array[integer]"],
+            "piecewise_constraint": "(window_size >= 1) OR (window_size == -1)"
           }
         }
-      },
-      "output_cols": {
-        "visible_name": "Output columns",
-        "type_constraint": ["array[string]", "template"],
-        "special_requirements": {"template": "column_selector_template"}
-      },
-      "partitioning_column": {
-        "visible_name": "Partition by",
-        "type_constraint": ["string"]
-      },
-      "ordering_column": {
-        "visible_name": "Order by",
-        "type_constraint": ["string"]
-      },
-      "ordering_direction": {
-        "visible_name": "Ordering direction",
-        "type_constraint": ["string"],
-        "set_constraint": ["asc", "desc"],
-        "default": "desc"
-      },
-      "lags": {
-        "visible_name": "Lags",
-        "type_constraint": ["array[integer]"],
-        "piecewise_constraint": "(window_size >= 1) OR (window_size == -1)"
       }
     },
     "lookup_table": {
