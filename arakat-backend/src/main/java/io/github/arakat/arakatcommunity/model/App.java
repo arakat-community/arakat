@@ -14,7 +14,6 @@ public class App {
     @Field("id")
     private Long id;
 
-    // TODO: discuss this field is unique or not.
     private String appId;
 
     @DBRef
