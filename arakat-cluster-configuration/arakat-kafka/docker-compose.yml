@@ -27,6 +27,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: 36000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./kafka_configs:/opt/kafka_2.11-2.0.1/config
 networks:
   sparkNet:
     external:
