@@ -128,7 +128,7 @@ public class GraphService {
                     tablesToSave.add(savedTablePath);
                 }
 
-                Task savedTask = taskService.saveAndGetTask(task, tablesToSave);
+                Task savedTask = taskService.saveAndGetTask(task + "-" + appId, tablesToSave);
                 tasksToSave.add(savedTask);
                 tablesToSave = new ArrayList<>();
             }
