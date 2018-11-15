@@ -26,20 +26,20 @@ def getFilesFromHDFS():
 
 
 def getHDFSContentParquet(path):
-    df= spark.read.format("parquet").load(path)
-    return df
+    hdfsParquetContent= spark.read.format("parquet").load(path)
+    return hdfsParquetContent
 
 def getHDFSContentCSV(path):
-    df = spark.read.format("csv").load(path, quote="\"", header=True, inferSchema=True, sep=',')
-    return df
+    hdfsCSVContent = spark.read.format("csv").load(path, quote="\"", header=True, inferSchema=True, sep=',')
+    return hdfsCSVContent
 
 def getHDFSContentORC(path):
-    df = spark.read.format("orc").load(path)
-    return df
+    hdfsORCContent = spark.read.format("orc").load(path)
+    return hdfsORCContent
 
 def readData(file):
-    length = len(file.split('.'))
-    fileType = file.split('.')[length - 1]
+    sizeOfArray = len(file.split('.'))
+    fileType = file.split('.')[sizeOfArray - 1]
     if fileType=="parquet":
         return getHDFSContentParquet(file)
     elif fileType=="orc":
@@ -51,29 +51,29 @@ def readData(file):
 
 @app.route('/get-table-columns',methods=['POST'])
 def getTableColumns():
-    file = request.form["file"]
-    content = readData(file)
+    filePath = request.form["file"]
+    content = readData(filePath)
     return json.dumps(content.columns)
 
 
 @app.route('/get-table-columns-with-types',methods=['POST'])
 def getTableColumnsWithTypes():
-    file = request.form["file"]
-    content = readData(file)
+    filePath = request.form["file"]
+    content = readData(filePath)
     typeList = content.dtypes
-    dict={}
-    headers=["column","column-type"]
+    tableInfoJson=[]
+    headers=["column","columnType"]
     index=1
     for type in typeList:
-        map={}
+        cell={}
         i=0
         for header in headers:
-            map[header]=type[i]
+            cell[header]=type[i]
             i=i+1
-        dict["col_"+str(index)]=map
+        tableInfoJson.append(cell)
         index = index+1
 
-    return json.dumps(dict)
+    return json.dumps(tableInfoJson)
 
 @app.route('/test',methods=['GET'])
 def test():
@@ -91,10 +91,10 @@ def getData():
     selectItem = request.form["selectItem"].split(",")
     content = readData(file)
     content.createOrReplaceTempView(table)
-    res = spark.sql(query).collect()
+    queryResult = spark.sql(query).collect()
     data = {}
     i=0
-    for item in res:
+    for item in queryResult:
         subData={}
         index = 0
         for subItem in item:
@@ -123,5 +123,15 @@ def runSparkJob():
        return "True"
     except:
        return "False"
+
+@app.route('/write-to-topic', methods=['POST'])
+def writeToTopic():
+   connection_info = request.form["connection_info"]
+   key_column=request.form["key_column"]
+   data = request.form["data"]
+   if(not isinstance(data, list)):
+       data=[data]
+   cur_df=spark.createDataFrame(data)
+   cur_df.selectExpr("CAST("+key_column+" AS STRING) AS key", "to_json(struct(*)) AS value").write.format("kafka").option("kafka.bootstrap.servers", connection_info["host"]+":"+connection_info["port"]).option("topic", connection_info["topic"]).save()
 
 app.run(host="0.0.0.0", port=5000)
