@@ -8,6 +8,7 @@ import io.github.arakat.arakatcommunity.model.Category;
 import io.github.arakat.arakatcommunity.model.Node;
 import io.github.arakat.arakatcommunity.repository.CategoryRepository;
 import io.github.arakat.arakatcommunity.repository.NodeRepository;
+import io.github.arakat.arakatcommunity.utils.MongoConnectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +23,23 @@ public class NodeService {
     private CategoryRepository categoryRepository;
     private NodeRepository nodeRepository;
     private AppPropertyValues appPropertyValues;
-    private MongoTemplate mongoTemplate;
+    private MongoConnectionUtils mongoConnectionUtils;
 
     private Logger logger = LoggerFactory.getLogger(NodeController.class);
 
     @Autowired
     public NodeService(CategoryRepository categoryRepository, NodeRepository nodeRepository,
-                       MongoTemplate mongoTemplate, AppPropertyValues appPropertyValues) {
+                       AppPropertyValues appPropertyValues,
+                       MongoConnectionUtils mongoConnectionUtils) {
         this.categoryRepository = categoryRepository;
         this.nodeRepository = nodeRepository;
-        this.mongoTemplate = mongoTemplate;
         this.appPropertyValues = appPropertyValues;
+        this.mongoConnectionUtils = mongoConnectionUtils;
     }
 
     public Object getRawNode(String nodeId) {
-        DBCollection collection = initializeMongoConnection().getCollection(appPropertyValues.getRowNodeJsonCollectionName());
+        DBCollection collection = mongoConnectionUtils.initializeMongoConnection()
+                .getCollection(appPropertyValues.getRowNodeJsonCollectionName());
 
         BasicDBObject query = new BasicDBObject();
         BasicDBObject fields = new BasicDBObject();
@@ -47,56 +50,25 @@ public class NodeService {
 
         DBCursor cursor = collection.find(query, fields);
 
-//        Query query = new Query();
-//        query.addCriteria(Criteria.where("node_id").is(nodeId));
-////        return mongoTemplate.findAl(query, null, "rawJsonNodes");
-//        return mongoTemplate.findById()
         return cursor.toArray().size() != 0 ? cursor.toArray().get(0) : null;
     }
 
     public List<DBObject> getAllRawNodes() {
-        DBCollection collection = initializeMongoConnection().getCollection(appPropertyValues.getRowNodeJsonCollectionName());
-
-        BasicDBObject query = new BasicDBObject();
-        BasicDBObject fields = new BasicDBObject();
-        fields.put("_id", 0);
-        fields.put("_class", 0);
-
-        return collection.find(query, fields).toArray();
-//        FindIterable<Document> records = initializeMongoConnection().getCollection(appPropertyValues.getRowNodeJsonCollectionName()).find();
-//        MongoCursor<Document> iterator = records.iterator();
-
-//        return records.iterator();
-//        DBCursor cursor = collection.find();
-
-//        return Collections.singletonList(cursor.toArray());
-    }
-
-//    public MongoCursor<Document> getAllRawNodes() {
-//        FindIterable<Document> records = initializeMongoConnection().getCollection(appPropertyValues.getRowNodeJsonCollectionName()).find();
-////        MongoCursor<Document> iterator = records.iterator();
-//
-//        return records.iterator();
-////        DBCursor cursor = collection.find();
-//
-////        return Collections.singletonList(cursor.toArray());
-//    }
-
-    private DB initializeMongoConnection() {
-        Mongo mongo = new Mongo(appPropertyValues.getHost(), Integer.parseInt(appPropertyValues.getPort()));
-        return mongo.getDB(appPropertyValues.getDatabase());
+        return mongoConnectionUtils.getAllObjectsInACollection(appPropertyValues.getRowNodeJsonCollectionName());
     }
 
     private MongoDatabase initializeMongoConnectionDeprecated() {
         MongoClient client = new MongoClient(appPropertyValues.getHost(), Integer.parseInt(appPropertyValues.getPort()));
         return client.getDatabase(appPropertyValues.getDatabase());
-//        Mongo mongo = new Mongo(appPropertyValues.getHost(), Integer.parseInt(appPropertyValues.getPort()));
-//        return mongo.getData(appPropertyValues.getDatabase());
     }
 
-    public Node save(Node node) {
+    public Node save(Node node) throws Exception {
         Long categoryId = node.getCategoryId();
         List<Category> categories = categoryRepository.findAll();
+
+        if (categories.size() == 0) {
+            throw new Exception("Please add some categories first!");
+        }
 
         Category resultCategory = searchForIndex(categories, categoryId);
 
@@ -113,7 +85,6 @@ public class NodeService {
             Category category = categories.get(i);
 
             if(checkForCategoryId(categoryId, category.getCategoryId())) {
-//                logger.info("Category ID: " + category.getCategoryId());
                 return category;
             }
 

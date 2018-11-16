@@ -1,0 +1,31 @@
+version: '3.2'
+services:
+  
+  mongodb:
+    hostname: mongodb
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks: 
+      - sparkNet
+    volumes:
+      - ./mongo_vol:/data/db
+  backend:
+    image: arakat/arakat-backend
+    networks: 
+      - sparkNet
+    ports:
+      - "9098:9098"
+    depends_on:
+      - mongodb
+    volumes:
+      - ../scripts/airflow_dags:/airflow_dag
+      - ../scripts/spark_code/:/spark_codes
+      - ../spark_logs/:/spark_logs
+      - ../../arakat-core/configs/node_specs/:/node_specs
+
+networks:
+  sparkNet:
+    external:
+      name: arakatnetwork
+

@@ -4,7 +4,7 @@ from domain.ErrorTypes import ErrorTypes
 from domain.NodeFamilyTypes import NodeFamilyTypes
 from utils.code_generation import CodeGenerationUtils, MultiInstanceHandlerUtils
 from validity import IncomingEdgeValidityChecker, PipelineValidityChecker
-
+from domain.SharedFunctionTypes import SharedFunctionTypes
 
 def generate_code(args):
     node = args["node"]
@@ -30,7 +30,7 @@ def generate_code(args):
             gen_code, error = __generate_stages(node["nodes"], pipeline_order, df_name, my_args)
             if(error == ErrorTypes.NO_ERROR):
                 gen_code.append(os.linesep)
-                gen_code.extend(__generate_code_for_pipeline_instantination(node, pipeline_order))
+                gen_code.extend(__generate_code_for_pipeline_instantination(node, pipeline_order, my_args))
 
                 gen_code.extend(['model_' + node["id"] + "=" + 'pipeline_' + node["id"] + ".fit(" + df_name + ")", os.linesep])
                 # Following might not be logical for pipelines with an estimator
@@ -40,17 +40,31 @@ def generate_code(args):
 
     return final_code, shared_function_set, error
 
-def __generate_code_for_pipeline_instantination(pipeline_node, pipeline_order):
-    code=['pipeline_'+pipeline_node["id"] + "=Pipeline(stages=["]
+def __generate_code_for_pipeline_instantination(pipeline_node, pipeline_order, args):
+    code=["stages_" + pipeline_node["id"] + "=["]
+    need_flattening=False
     for node_id in pipeline_order:
-        if(pipeline_node["nodes"][node_id]["family"] == NodeFamilyTypes.ModelHolder.value):
-            code.extend(["model_" + pipeline_node["nodes"][node_id]["model_provider_id"], ", "])
+        if(MultiInstanceHandlerUtils.should_generate_multiple_instances(pipeline_node["nodes"][node_id])):
+            need_flattening=True
+            if (pipeline_node["nodes"][node_id]["family"] == NodeFamilyTypes.ModelHolder.value):
+                code.extend(["stages_" + pipeline_node["nodes"][node_id]["model_provider_id"], ", "])
+            else:
+                code.extend(["stages_" + node_id, ", "])
         else:
-            code.extend(["pipeline_stage_"+ node_id, ", "])
+            if(pipeline_node["nodes"][node_id]["family"] == NodeFamilyTypes.ModelHolder.value):
+                code.extend(["model_" + pipeline_node["nodes"][node_id]["model_provider_id"], ", "])
+            else:
+                code.extend(["pipeline_stage_"+ node_id, ", "])
 
     # We already validated that pipeline has at least one node.
     code.pop()
-    code.extend(["])", os.linesep])
+    code.extend(["]", os.linesep])
+
+    if(need_flattening):
+        args["shared_function_set"].add(SharedFunctionTypes.FLATTEN_IRREGULAR_LIST)
+        code.extend(["stages_" + pipeline_node["id"] + " = [i for i in flatten(" + "stages_" + pipeline_node["id"] + ")]", os.linesep])
+
+    code.extend(['pipeline_' + pipeline_node["id"] + "=Pipeline(stages=", "stages_" + pipeline_node["id"] , ")", os.linesep])
 
     return code
 

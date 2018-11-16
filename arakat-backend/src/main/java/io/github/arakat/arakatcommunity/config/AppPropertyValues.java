@@ -17,15 +17,6 @@ public class AppPropertyValues {
     @Value("${spring.data.mongodb.port}")
     private String port;
 
-    @Value("${spark.pyspark.python}")
-    private String pythonVersion;
-
-    @Value("${application.path}")
-    private String applicationPath;
-
-    @Value("${connection.id}")
-    private String connectionId;
-
     @Value("${arakat.core.url}")
     private String arakatCoreUrl;
 
@@ -56,14 +47,26 @@ public class AppPropertyValues {
     @Value("${airflow.dag.logs.file.path}")
     private String airflowDagLogsFilePath;
 
-    @Value("${spark.url}")
-    private String sparkUrl;
+    @Value("${spark.hdfs.helper.url}")
+    private String sparkHdfsHelperUrl;
 
-    @Value("${hdfs.url}")
-    private String hdfsUrl;
+    @Value("${spark.hdfs.helper.port}")
+    private String sparkHdfsHelperPort;
 
-    @Value("${spark.master}")
-    private String sparkMaster;
+    @Value("${spark.hdfs.helper.get.table.columns.endpoint}")
+    private String sparkHdfsHelperGetTableColumnsEndpoint;
+
+    @Value("${spark.hdfs.helper.get.table.columns.with.types.endpoint}")
+    private String sparkHdfsHelperGetTableColumnsWithTypesEndpoint;
+
+    @Value("${spark.hdfs.helper.get.data.endpoint}")
+    private String sparkHdfsHelperGetDataEndpoint;
+
+    @Value("${spark.hdfs.helper.get.spark.log.endpoint}")
+    private String sparkHdfsHelperGetSparkLogEndpoint;
+
+    @Value("${bash.command}")
+    private String bashCommand;
 
     public String getDatabase() {
         return database;
@@ -79,18 +82,6 @@ public class AppPropertyValues {
 
     public String getRowNodeJsonCollectionName() {
         return "rawJsonNodes";
-    }
-
-    public String getPythonVersion() {
-        return pythonVersion;
-    }
-
-    public String getApplicationPath() {
-        return applicationPath;
-    }
-
-    public String getConnectionId() {
-        return connectionId;
     }
 
     public String getArakatCoreUrl() {
@@ -133,15 +124,31 @@ public class AppPropertyValues {
         return airflowDagLogsFilePath;
     }
 
-    public String getSparkUrl() {
-        return sparkUrl;
+    public String getSparkHdfsHelperUrl() {
+        return sparkHdfsHelperUrl;
     }
 
-    public String getHdfsUrl() {
-        return hdfsUrl;
+    public String getSparkHdfsHelperPort() {
+        return sparkHdfsHelperPort;
     }
 
-    public String getSparkMaster() {
-        return sparkMaster;
+    public String getSparkHdfsHelperGetTableColumnsEndpoint() {
+        return sparkHdfsHelperGetTableColumnsEndpoint;
+    }
+
+    public String getSparkHdfsHelperGetTableColumnsWithTypesEndpoint() {
+        return sparkHdfsHelperGetTableColumnsWithTypesEndpoint;
+    }
+
+    public String getSparkHdfsHelperGetDataEndpoint() {
+        return sparkHdfsHelperGetDataEndpoint;
+    }
+
+    public String getSparkHdfsHelperGetSparkLogEndpoint() {
+        return sparkHdfsHelperGetSparkLogEndpoint;
+    }
+
+    public String getBashCommand() {
+        return bashCommand;
     }
 }

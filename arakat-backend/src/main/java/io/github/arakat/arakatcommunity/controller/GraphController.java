@@ -1,9 +1,9 @@
 package io.github.arakat.arakatcommunity.controller;
 
+import io.github.arakat.arakatcommunity.exception.GraphNotFoundException;
 import io.github.arakat.arakatcommunity.exception.GraphRunFailedException;
 import io.github.arakat.arakatcommunity.model.BaseResponse;
 import io.github.arakat.arakatcommunity.service.GraphService;
-import io.github.arakat.arakatcommunity.service.SparkService;
 import io.github.arakat.arakatcommunity.utils.ApiResponseUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 public class GraphController {
 
     private GraphService graphService;
-    private SparkService sparkService;
 
     @Autowired
-    public GraphController(GraphService graphService, SparkService sparkService) {
+    public GraphController(GraphService graphService) {
         this.graphService = graphService;
-        this.sparkService = sparkService;
     }
 
     @RequestMapping(value = "/run-graph", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
@@ -31,14 +28,16 @@ public class GraphController {
         try {
             JSONObject graphWithConfigs = graphService.addConfigToDagProperties(graph);
 
+            System.out.println(graphWithConfigs);
             String responseFromCore = graphService.postGraphAndDagPropsToCore(graphWithConfigs.toString());
             graphService.checkRunResult(responseFromCore);
+            graphService.saveGraph(graph);
             graphService.saveWrittenTablesToDatabase(responseFromCore);
             graphService.sendGeneratedCodeToAirflow(responseFromCore);
 
             return ApiResponseUtils.createResponseEntity(200,
-                    "Spark script is successfully generated, you can check the result from the ResultsView page.",
-                    "Spark script is successfully generated, you can check the result from the ResultsView page.",
+                    "Spark and Airflow scripts are successfully generated, you can check the results from the ResultsView page.",
+                    "Spark and Airflow scripts are successfully generated, you can check the results from the ResultsView page.",
                     null, HttpStatus.OK);
 
         } catch (GraphRunFailedException e) {
@@ -54,13 +53,21 @@ public class GraphController {
         }
     }
 
-    @RequestMapping(value = "/mock-response-core", method = RequestMethod.POST)
-    public void mockResponseCore(@RequestBody String responseFromCore) {
-        graphService.saveWrittenTablesToDatabase(responseFromCore);
-    }
+    @RequestMapping(value = "/get-graph/{graphId}", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<BaseResponse> getGraphById(@PathVariable String graphId) {
+        try {
+            JSONObject returnedGraph = graphService.getGraphById(graphId);
+            JSONObject graphWithConfigs = graphService.addConfigToDagProperties(returnedGraph.toString());
 
-    @RequestMapping(value = "/spark-deneme", method = RequestMethod.POST)
-    public List<String> runGraph() {
-        return sparkService.readFileFromHDFS();
+            return ApiResponseUtils.createResponseEntity(200,
+                    "Get graph by id",
+                    "Get graph by id",
+                    graphWithConfigs.toString(), HttpStatus.OK);
+        } catch (GraphNotFoundException e) {
+            return ApiResponseUtils.createResponseEntity(404,
+                    e.getMessage(),
+                    e.getMessage(),
+                    null, HttpStatus.NOT_FOUND);
+        }
     }
 }

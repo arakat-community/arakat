@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Map;
 
 @RestController
@@ -35,9 +36,16 @@ public class StatsController {
     }
 
     @RequestMapping(value = "/get-task-logs-from-airflow/{dagId}/{taskId}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, String>> getTaskLogs(@PathVariable("dagId") String dagId,
+    public ResponseEntity<Map<String, String>> getTaskLogsFromAirflow(@PathVariable("dagId") String dagId,
                                            @PathVariable("taskId") String taskId) throws IOException {
 
         return new ResponseEntity<>(statsService.getDagLogsFromAirflow(dagId, taskId), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/get-task-logs-from-spark/{appId}/{taskId}", method = RequestMethod.GET)
+    public ResponseEntity<String> getTaskLogsFromSpark(@PathVariable("appId") String appId,
+                                                           @PathVariable("taskId") String taskId) throws IOException, URISyntaxException {
+
+        return new ResponseEntity<>(statsService.getTaskLogsFromSpark(appId, taskId), HttpStatus.OK);
     }
 }

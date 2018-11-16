@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AppRepository extends MongoRepository<App, Long> {
 
+    void deleteAppByAppId(String appId);
+    App findByAppId(String appId);
 }

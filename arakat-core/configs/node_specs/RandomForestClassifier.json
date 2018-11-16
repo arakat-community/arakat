@@ -75,7 +75,7 @@
         "default": "gini"
       },
       "featureSubsetStrategy": {
-        "visible_name": "Impurity",
+        "visible_name": "Feature Subset Strategy",
         "type_constraint": [
           "string"
         ],

@@ -43,7 +43,7 @@ data={
                   "ddfo_name": "sampleBy",
                   "parameters": {
                         "col": {"value": "c1", "type": "string"},
-                        "fractions": {"value": {"class1": 0.1, "class2": 0.2, "class3": 0.5}, "type": "simple_dict"},
+                        "fractions": {"value": {"class1": 0.1, "class2": 0.2, "class3": 0.5}, "type": "dict", "special_requirements": {"dict": "simple_dict"}},
                         "seed": {"value": 1234, "type": "integer"}
                     }
                 },
@@ -64,7 +64,7 @@ data={
                   "ddfo_name": "sampleBy",
                   "parameters": {
                         "col": {"value": "label", "type": "string"},
-                        "fractions": {"value": {0: 0.1, 1: 0.2, 3: 0.5}, "type": "simple_dict"},
+                        "fractions": {"value": {0: 0.1, 1: 0.2, 3: 0.5}, "type": "dict", "special_requirements": {"dict": "simple_dict"}},
                         "seed": {"value": 1234, "type": "integer"}
                     }
                 },
@@ -82,16 +82,11 @@ data={
     },
     "dag_properties": {
         "app_id": "MyFirstApp",
-        "code_base_path": "path_to_put_spark_scripts",
+        "bash_command": "sh /usr/local/shell_scripts/run.sh",
         "schedule_interval": "@once",
         "default_args": {
             "owner": "airflow",
             "start_date": "01/01/2018"
-        },
-        "spark_operator_conf": {
-            "conn_id": "spark_con_py",
-            "depends_on_past": False,
-            "conf": {"spark.pyspark.python": "/usr/bin/python2.7"}
         }
     }
 }

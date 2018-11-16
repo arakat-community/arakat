@@ -1,0 +1,1 @@
+curl -d "command=/spark/bin/spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0 --master spark://spark-master:7077 /usr/local/spark_code/$1.py&file=$1" -X POST http://spark-master:5000/run-spark-job

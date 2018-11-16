@@ -73,7 +73,8 @@ data={
                                 ]
                         ],
                         "type": "array[template]",
-                        "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}},
+                        "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}
+                        },
                         "udf_outputs": {"value": ["o1","o2"], "type": "array[string]", "special_requirements": {"template": "column_selector_template"}},
                         "udf_return_type": {"value": "IntegerType", "type": "string"},
                         "udf_function": {"value": "def my_f(arg1,arg2,arg3):\n\tprint('Cool UDF')\n\treturn 1", "type": "code", "special_requirements": {"code": "code"}}
@@ -93,16 +94,11 @@ data={
     },
     "dag_properties": {
         "app_id": "MyFirstApp",
-        "code_base_path": "path_to_put_spark_scripts",
+        "bash_command": "sh /usr/local/shell_scripts/run.sh",
         "schedule_interval": "@once",
         "default_args": {
             "owner": "airflow",
             "start_date": "01/01/2018"
-        },
-        "spark_operator_conf": {
-            "conn_id": "spark_con_py",
-            "depends_on_past": False,
-            "conf": {"spark.pyspark.python": "/usr/bin/python2.7"}
         }
     }
 }

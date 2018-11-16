@@ -2,6 +2,7 @@ package io.github.arakat.arakatcommunity.utils;
 
 import io.github.arakat.arakatcommunity.model.BaseResponse;
 import io.github.arakat.arakatcommunity.model.Meta;
+import org.json.JSONArray;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -11,14 +12,13 @@ public class ApiResponseUtils {
 
     /* OPERATION MESSAGES FOR THE USER */
     private static final String USER_MESSAGE_SUCCESS = "%s operation successful.";
-    private static final String USER__MESSAGE_ERROR = "An error occurred while performing %s.";
+    private static final String USER__MESSAGE_ERROR = "Error! %s while performing %s.";
     private static final String USER__MESSAGE_SERVICE_NOT_AVAILABLE = "Server is not currently available. Please try again later.";
 
     /* OPERATION MESSAGES FOR THE DEVELOPER */
     private static final String DEV_MESSAGE_SUCCESS = "%s operation is successful on %s object.";
-    private static final String DEV_MESSAGE_ERROR = "An error occurred while performing %s operation on %s object.";
+    private static final String DEV_MESSAGE_ERROR = "Error! %s while performing %s on %s object.";
 
-    // TODO: Controller'larda try catch kullanarak, hata oldugunda uygun mesaji don.
     public static ResponseEntity<BaseResponse> createResponseEntity(int code, String userMessage, String devMessage,
                                                                      Object responseData, HttpStatus httpStatus) {
         Meta meta = createMeta(code, userMessage, devMessage);
