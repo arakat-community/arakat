@@ -102,7 +102,7 @@ class NodeTreeComponent extends Component<AllProps> {
         } else {
             return (
                 <DraggableNodeComponent
-                    node_id={arr.node_id}
+                    nodeID={arr.node_id}
                     title={arr.name}
                     depth={depth}
                 >

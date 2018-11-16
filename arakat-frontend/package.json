@@ -15,7 +15,7 @@
   "keywords": [
     "react"
   ],
-  "author": "Murat Catal",
+  "author": "Ozan Aydın Balçık",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -119,6 +119,7 @@
     "history": "^4.7.2",
     "html2canvas": "^1.0.0-alpha.12",
     "intl": "^1.2.5",
+    "jslint": "^0.12.0",
     "jsonexport": "^2.3.0",
     "jspdf": "^1.4.1",
     "jss-rtl": "^0.2.3",
@@ -127,6 +128,7 @@
     "mousetrap": "^1.6.2",
     "rc-menu": "^7.4.9",
     "react": "^16.5.0",
+    "react-ace": "^6.2.0",
     "react-color": "^2.14.1",
     "react-contexify": "^3.0.3",
     "react-custom-scrollbars": "^4.2.1",

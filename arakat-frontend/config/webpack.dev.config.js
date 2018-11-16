@@ -17,7 +17,6 @@ module.exports = env => {
         mode: "development",
         entry: ["@babel/polyfill", "./src/index.tsx"],
         output: {
-
             path: path.resolve(__dirname, "../", "dist"),
             filename: "bundle.js",
             publicPath: "/"
@@ -27,14 +26,15 @@ module.exports = env => {
         },
         devServer: {
             inline: true,
-            hot: true,
+            // hot: true,
             port: 3000,
             contentBase: path.join(__dirname, "../", "dist"),
             open: true,
             overlay: true, // shows when an error occurrs on page.
-            progress: false,
+            progress: true,
             watchContentBase: true, // when true, the source under dist file changes will force browser to be refreshed
             // redirects all fallbacks to index.html
+            publicPath: "/",
             historyApiFallback: true,
             watchOptions: {
                 poll: true,
@@ -47,21 +47,7 @@ module.exports = env => {
         },
         devtool: "inline-source-map",
         module: {
-            rules: [{
-                    test: /\.(tsx)$/,
-                    enforce: 'pre',
-                    loader: 'tslint-loader',
-                    include: path.resolve(__dirname, "../", 'src'),
-                    exclude: /node_modules/,
-                    options: {
-                        emitErrors: true,
-                        failOnHint: true,
-                        typeCheck: true,
-                        configFile: "config/tslint.json",
-                        tsConfigFile: "config/tsconfig.json",
-                        fix: true,
-                    }
-                },
+            rules: [
                 {
                     test: /\.(tsx|js)?$/,
                     include: path.resolve(__dirname, "../", 'src'),
@@ -96,7 +82,8 @@ module.exports = env => {
                     loader: 'url-loader?limit=8192',
                     options: {
                         fallback: 'responsive-loader',
-                        quality: 85
+                        quality: 85,
+                        publicPath: 'http://localhost:3000/',
                     }
                 },
                 {
@@ -123,7 +110,6 @@ module.exports = env => {
                 chunkModules: true,
                 exclude: [/node_modules[\\\/]react/]
             }),
-            new HardSourceWebpackPlugin(),
             new webpack.NamedModulesPlugin(),
             new webpack.HotModuleReplacementPlugin(),
             new CaseSensitivePathsPlugin(),
