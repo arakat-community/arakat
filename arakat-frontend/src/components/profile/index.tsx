@@ -1,6 +1,5 @@
-import { Avatar, Button, IconButton, Menu, MenuItem, Theme, Typography, WithStyles, withStyles } from "@material-ui/core";
+import { Button, WithStyles, withStyles } from "@material-ui/core";
 import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
 
 const styles: any = () => ({
     name: {
@@ -20,8 +19,7 @@ const styles: any = () => ({
 });
 
 export interface IProfileMenuProps {
-    id: string;
-    onChangeThemeClick: () => void;
+    setIsGraphPropertiesDialogOpen: (isOpen: boolean) => void;
 }
 
 interface IProfileMenuState {
@@ -44,12 +42,9 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
         };
     }
 
-    /**
-     * opens menu on click
-     */
-    public handleOpenMenu = (event: any) => {
-        this.setState({ anchorEl: event.currentTarget });
-      }
+    public openDagPropertiesDialog = () => {
+        this.props.setIsGraphPropertiesDialogOpen(true);
+    }
 
       /**
        * closes menu on item selected
@@ -63,52 +58,18 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
      */
     public render(): JSX.Element {
         const {anchorEl} = this.state;
-        const {classes, id} = this.props;
 
         return (
             <>
                 <Button
-                  aria-owns={anchorEl ? id : null}
+                  aria-owns={anchorEl ? 'id' : null}
                   aria-haspopup="true"
-                  onClick={this.handleOpenMenu}
-                  children="Tema"
-                />
-                <Menu
-                  anchorOrigin={{
-                    horizontal: "right",
-                    vertical: "center",
-                  }}
-                  transformOrigin={{
-                    horizontal: "right",
-                    vertical: "center",
-                  }}
-                  id={id}
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={this.handleClose}
-                >
-                    <MenuItem
-                        onClick={this.handleChangeTheme}
-                    >
-                        <Typography
-                            variant="body1"
-                        >
-                            <FormattedMessage
-                                id="menu.item.change.theme"
-                            />
-                        </Typography>
-                    </MenuItem>
-                </Menu>
+                  onClick={this.openDagPropertiesDialog}
+                  children="çalıştır"
+                />                
+                
             </>
         );
-    }
-
-    private handleChangeTheme = (event: any) => {
-        this.handleClose(event);
-        const {onChangeThemeClick} = this.props;
-        if (onChangeThemeClick) {
-            onChangeThemeClick();
-        }
     }
 }
 

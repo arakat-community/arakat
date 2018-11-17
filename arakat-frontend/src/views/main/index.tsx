@@ -112,8 +112,6 @@ class MainView extends Component<AllProps, IMainViewState> {
                             routes={appbarShortcutRoutes}
                         />
                         <ProfileMenu
-                            id="profile-menu"
-                            onChangeThemeClick={this.handleThemeChange}
                         />
                         <Hidden
                             xsDown={true}

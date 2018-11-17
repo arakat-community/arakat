@@ -19,6 +19,7 @@ export interface IApplicationState {
     appConfig: IApplicationConfigState;
     drawer: IDrawerState;
     cyto: ICytoState;
+    // nodeParameters: INodeParametersState;
     form: any;
     localization: ILocalizationState;
     request: ILoadingProgressState;
@@ -30,6 +31,7 @@ export const reducers: Reducer<IApplicationState> = combineReducers<IApplication
     appConfig: appConfigReducer,
     drawer: drawerReducer,
     cyto: cytoReducer,
+    // nodeParameters: nodeParametersReducer,
     form: reduxFormReducer,
     localization: localizationReducer,
     request: loadingProgressReducer,
