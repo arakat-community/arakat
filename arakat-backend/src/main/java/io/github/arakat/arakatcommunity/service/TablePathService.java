@@ -1,7 +1,7 @@
 package io.github.arakat.arakatcommunity.service;
 
 import io.github.arakat.arakatcommunity.config.AppPropertyValues;
-import io.github.arakat.arakatcommunity.model.ColumnResponse;
+import io.github.arakat.arakatcommunity.model.response.ColumnResponse;
 import io.github.arakat.arakatcommunity.model.TablePath;
 import io.github.arakat.arakatcommunity.repository.TablePathRepository;
 import io.github.arakat.arakatcommunity.utils.RequestUtils;
@@ -57,7 +57,7 @@ public class TablePathService {
         return requestUtils.sendPostRequest(uri, map);
     }
 
-    public JSONObject getDataBySpecificQuery(String tablePath, String columns) {
+    public List<ColumnResponse> getDataBySpecificQuery(String tablePath, String columns) {
         String uri = appPropertyValues.getSparkHdfsHelperUrl() + ":" + appPropertyValues.getSparkHdfsHelperPort()
                 + "/" + appPropertyValues.getSparkHdfsHelperGetDataEndpoint();
 
@@ -70,9 +70,23 @@ public class TablePathService {
         map.add("path", tablePath);
         map.add("selectItem", columns);
 
-        Object response = requestUtils.sendPostRequest(uri, map);
+        JSONObject response = new JSONObject(requestUtils.sendPostRequest(uri, map).toString());
+        JSONArray jsonArray = (JSONArray) response.get("data");
+        List<ColumnResponse> columnResponseList = new ArrayList<>();
 
-        return new JSONObject(response.toString());
+        for (Object o : jsonArray) {
+            JSONArray rows = (JSONArray) o;
+            for (Object row : rows) {
+                JSONObject rowObject = (JSONObject)row;
+
+                ColumnResponse columnResponse = new ColumnResponse(rowObject.get("column").toString(), null,
+                        rowObject.get("value").toString());
+
+                columnResponseList.add(columnResponse);
+            }
+        }
+
+        return columnResponseList;
     }
 
     public List<ColumnResponse> getTableColumnsWithTypes(String tablePath) {
@@ -89,7 +103,7 @@ public class TablePathService {
             String columnName = new JSONObject(column.toString()).get("column").toString();
             String columnType = new JSONObject(column.toString()).get("columnType").toString();
 
-            columnResponseList.add(new ColumnResponse(columnName, columnType));
+            columnResponseList.add(new ColumnResponse(columnName, columnType, null));
         }
 
         return columnResponseList;

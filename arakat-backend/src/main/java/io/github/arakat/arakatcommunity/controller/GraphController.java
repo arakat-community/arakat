@@ -2,7 +2,7 @@ package io.github.arakat.arakatcommunity.controller;
 
 import io.github.arakat.arakatcommunity.exception.GraphNotFoundException;
 import io.github.arakat.arakatcommunity.exception.GraphRunFailedException;
-import io.github.arakat.arakatcommunity.model.BaseResponse;
+import io.github.arakat.arakatcommunity.model.response.BaseResponse;
 import io.github.arakat.arakatcommunity.service.GraphService;
 import io.github.arakat.arakatcommunity.utils.ApiResponseUtils;
 import org.json.JSONObject;
@@ -28,7 +28,6 @@ public class GraphController {
         try {
             JSONObject graphWithConfigs = graphService.addConfigToDagProperties(graph);
 
-            System.out.println(graphWithConfigs);
             String responseFromCore = graphService.postGraphAndDagPropsToCore(graphWithConfigs.toString());
             graphService.checkRunResult(responseFromCore);
             graphService.saveGraph(graph);
