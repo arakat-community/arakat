@@ -1,8 +1,7 @@
 package io.github.arakat.arakatcommunity.utils;
 
-import io.github.arakat.arakatcommunity.model.BaseResponse;
-import io.github.arakat.arakatcommunity.model.Meta;
-import org.json.JSONArray;
+import io.github.arakat.arakatcommunity.model.response.BaseResponse;
+import io.github.arakat.arakatcommunity.model.response.Meta;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;

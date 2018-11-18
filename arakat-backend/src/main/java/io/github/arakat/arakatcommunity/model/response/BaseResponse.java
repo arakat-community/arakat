@@ -1,4 +1,4 @@
-package io.github.arakat.arakatcommunity.model;
+package io.github.arakat.arakatcommunity.model.response;
 
 public class BaseResponse {
 
