@@ -1,7 +1,7 @@
 package io.github.arakat.arakatcommunity.controller;
 
 import com.mongodb.DBObject;
-import io.github.arakat.arakatcommunity.model.BaseResponse;
+import io.github.arakat.arakatcommunity.model.response.BaseResponse;
 import io.github.arakat.arakatcommunity.model.Node;
 import io.github.arakat.arakatcommunity.repository.NodeRepository;
 import io.github.arakat.arakatcommunity.service.NodeService;

@@ -1,6 +1,7 @@
 package io.github.arakat.arakatcommunity.service;
 
 import io.github.arakat.arakatcommunity.model.*;
+import io.github.arakat.arakatcommunity.model.response.TablePathResponse;
 import io.github.arakat.arakatcommunity.repository.AppRepository;
 import io.github.arakat.arakatcommunity.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,7 @@
 package io.github.arakat.arakatcommunity.controller;
 
 import com.mongodb.DBObject;
-import io.github.arakat.arakatcommunity.model.BaseResponse;
-import io.github.arakat.arakatcommunity.model.Category;
+import io.github.arakat.arakatcommunity.model.response.BaseResponse;
 import io.github.arakat.arakatcommunity.service.EdgePermissionService;
 import io.github.arakat.arakatcommunity.utils.ApiResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 public class EdgePermissionController {

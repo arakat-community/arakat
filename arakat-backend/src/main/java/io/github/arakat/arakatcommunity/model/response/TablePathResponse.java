@@ -1,4 +1,6 @@
-package io.github.arakat.arakatcommunity.model;
+package io.github.arakat.arakatcommunity.model.response;
+
+import io.github.arakat.arakatcommunity.model.TablePath;
 
 import java.util.List;
 
