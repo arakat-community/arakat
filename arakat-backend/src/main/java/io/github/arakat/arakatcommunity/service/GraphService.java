@@ -138,17 +138,6 @@ public class GraphService {
         }
     }
 
-//    private String saveWrittenTableToHdfsVolume(String tablePath) {
-//        String uri = appPropertyValues.getHdfsReaderUrl() + ":" + appPropertyValues.getHdfsReaderPort()
-//                + "/" + appPropertyValues.getHdfsReaderGetGraphEndpoint();
-//
-//        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-////        map.add("path", "hdfs://namenode:9000/example3/test.parquet");
-//        map.add("path", tablePath);
-//
-//        return requestUtils.sendPostRequest(uri, map);
-//    }
-
     private Boolean isGraphSuccessful(String responseFromCore) {
         JSONObject response = new JSONObject(responseFromCore);
 
