@@ -77,18 +77,30 @@ public class StatsService {
             folderNamesAndFiles.put(folder.getName(), fileOperationUtils.readFileInDirectory(folder));
 
             folderNamesAndFiles.forEach((folderName, logFile) ->
-                    folderNamesAndFileContents.put(folderName, fileOperationUtils.readFileAsString(logFile)));
+            {
+                try {
+                    folderNamesAndFileContents.put(folderName, fileOperationUtils.readFileAsString(logFile));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         });
 
         return folderNamesAndFileContents;
     }
 
-    public String getTaskLogsFromSpark(String appId, String taskId) throws IOException, URISyntaxException {
-        String uri = appPropertyValues.getSparkHdfsHelperUrl() + ":" + appPropertyValues.getSparkHdfsHelperPort()
-                + "/" + appPropertyValues.getSparkHdfsHelperGetSparkLogEndpoint();
+    public String getTaskLogsFromSpark(String appId, String taskId) throws IOException {
+        String filePath = appPropertyValues.getSparkLogsFilePath() + "log_" + appId + "_" + taskId;
 
-        return requestUtils.getSparkLogs(uri, appId + "_" + taskId);
+        return fileOperationUtils.readFileAsString(filePath);
     }
+
+//    public String getTaskLogsFromSpark(String appId, String taskId) throws IOException, URISyntaxException {
+//        String uri = appPropertyValues.getSparkHdfsHelperUrl() + ":" + appPropertyValues.getSparkHdfsHelperPort()
+//                + "/" + appPropertyValues.getSparkHdfsHelperGetSparkLogEndpoint();
+//
+//        return requestUtils.getSparkLogs(uri, appId + "_" + taskId);
+//    }
 
     private <T> Iterable<T> iteratorToIterable(Iterator<T> iterator) {
         return () -> iterator;

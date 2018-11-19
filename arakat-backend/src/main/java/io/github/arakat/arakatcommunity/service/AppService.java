@@ -24,6 +24,20 @@ public class AppService {
         this.idSequenceService = idSequenceService;
     }
 
+    public List<App> getAllApps() {
+        List<App> apps = appRepository.findAll();
+
+        for (App app : apps) {
+            List<Task> tasks = app.getTasks();
+
+            for (Task task : tasks) {
+                task.setTaskName(task.getTaskName().split("-")[0]);
+            }
+        }
+
+        return apps;
+    }
+
     public void saveApp(String appId, List<Task> tasksToSave) {
         if(appAlreadyExists(appId)) {
             return;
