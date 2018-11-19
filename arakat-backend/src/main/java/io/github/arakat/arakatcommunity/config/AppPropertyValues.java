@@ -47,6 +47,9 @@ public class AppPropertyValues {
     @Value("${airflow.dag.logs.file.path}")
     private String airflowDagLogsFilePath;
 
+    @Value("${spark.logs.file.path}")
+    private String sparkLogsFilePath;
+
     @Value("${spark.hdfs.helper.url}")
     private String sparkHdfsHelperUrl;
 
@@ -122,6 +125,10 @@ public class AppPropertyValues {
 
     public String getAirflowDagLogsFilePath() {
         return airflowDagLogsFilePath;
+    }
+
+    public String getSparkLogsFilePath() {
+        return sparkLogsFilePath;
     }
 
     public String getSparkHdfsHelperUrl() {

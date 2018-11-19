@@ -44,8 +44,11 @@ public class StatsController {
 
     @RequestMapping(value = "/get-task-logs-from-spark/{appId}/{taskId}", method = RequestMethod.GET)
     public ResponseEntity<String> getTaskLogsFromSpark(@PathVariable("appId") String appId,
-                                                           @PathVariable("taskId") String taskId) throws IOException, URISyntaxException {
-
-        return new ResponseEntity<>(statsService.getTaskLogsFromSpark(appId, taskId), HttpStatus.OK);
+                                                           @PathVariable("taskId") String taskId) {
+        try {
+            return new ResponseEntity<>(statsService.getTaskLogsFromSpark(appId, taskId), HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
