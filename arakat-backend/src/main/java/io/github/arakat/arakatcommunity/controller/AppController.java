@@ -30,7 +30,7 @@ public class AppController {
 
     @RequestMapping(value = "/get-all-apps", produces = { "application/json" }, method = RequestMethod.GET)
     public ResponseEntity<BaseResponse> getAllApps() {
-        List<App> apps = appRepository.findAll();
+        List<App> apps = appService.getAllApps();
 
         return ApiResponseUtils.createResponseEntity(200,
                 String.format(ApiResponseUtils.getUserMessageSuccess(), "Get all apps"),

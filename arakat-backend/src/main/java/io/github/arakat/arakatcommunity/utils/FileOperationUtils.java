@@ -22,16 +22,8 @@ public class FileOperationUtils {
         Files.write(Paths.get(directoryToWrite + file), stringToWrite.getBytes(), StandardOpenOption.CREATE);
     }
 
-    public String readFileAsString(String file) {
-        String content = null;
-        
-        try {
-            content = new String(Files.readAllBytes(Paths.get(file)));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        return content;
+    public String readFileAsString(String file) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(file)));
     }
 
     public String readFileInDirectory(File folder) {
