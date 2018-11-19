@@ -83,7 +83,7 @@ def test():
 
 
 
-@app.route('/get-data',methods=['POST'])
+@app.route('/get-data', methods=['POST'])
 def getData():
     query = request.form["query"]
     table = request.form["table"]
@@ -91,18 +91,22 @@ def getData():
     selectItem = request.form["selectItem"].split(",")
     content = readData(file)
     content.createOrReplaceTempView(table)
-    queryResult = spark.sql(query).collect()
-    data = {}
-    i=0
-    for item in queryResult:
-        subData={}
+    res = spark.sql(query).collect()
+    dataset = []
+    i = 0
+    for item in res:
+
         index = 0
+        row = []
         for subItem in item:
-            subData[selectItem[index]] = subItem
-            index = index+1
-        data["row_" + str(i + 1)] = subData
+            subData = {}
+            subData["column"] = selectItem[index]
+            subData["value"] = subItem
+            row.append(subData)
+            index = index + 1
+        dataset.append(row)
         i = i + 1
-    return jsonify(results = data)
+    return jsonify(dataset)
 
 
 def run_command(command):
