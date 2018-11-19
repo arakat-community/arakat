@@ -1,7 +1,7 @@
 version: '3.2'
 services:
   core:
-    image: arakat/arakat-core
+    image: arakat/arakat-core-automated-build
     networks: 
       - sparkNet
     ports:

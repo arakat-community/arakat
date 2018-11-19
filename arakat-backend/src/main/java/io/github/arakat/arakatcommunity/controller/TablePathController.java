@@ -35,7 +35,6 @@ public class TablePathController {
     @RequestMapping(value = "/get-columns-by-table-path/{tablePath}", produces = { "application/json" },
             method = RequestMethod.GET)
     public ResponseEntity<BaseResponse> getColumnsByTablePath(@PathVariable String tablePath) {
-//        Object columns = tablePathService.getColumnsByTablePath(requestUtils.reformatUrl(tablePath));
         List<ColumnResponse> columns = tablePathService.getTableColumnsWithTypes(requestUtils.reformatUrl(tablePath));
 
         return ApiResponseUtils.createResponseEntity(200,
