@@ -1,13 +1,12 @@
 package io.github.arakat.arakatcommunity.controller;
 
-import io.github.arakat.arakatcommunity.model.BaseResponse;
-import io.github.arakat.arakatcommunity.model.ColumnResponse;
+import io.github.arakat.arakatcommunity.model.response.BaseResponse;
+import io.github.arakat.arakatcommunity.model.response.ColumnResponse;
 import io.github.arakat.arakatcommunity.model.Task;
 import io.github.arakat.arakatcommunity.repository.TaskRepository;
 import io.github.arakat.arakatcommunity.service.TablePathService;
 import io.github.arakat.arakatcommunity.utils.ApiResponseUtils;
 import io.github.arakat.arakatcommunity.utils.RequestUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -37,7 +35,6 @@ public class TablePathController {
     @RequestMapping(value = "/get-columns-by-table-path/{tablePath}", produces = { "application/json" },
             method = RequestMethod.GET)
     public ResponseEntity<BaseResponse> getColumnsByTablePath(@PathVariable String tablePath) {
-//        Object columns = tablePathService.getColumnsByTablePath(requestUtils.reformatUrl(tablePath));
         List<ColumnResponse> columns = tablePathService.getTableColumnsWithTypes(requestUtils.reformatUrl(tablePath));
 
         return ApiResponseUtils.createResponseEntity(200,
@@ -67,11 +64,11 @@ public class TablePathController {
     @RequestMapping(value = "/get-data/{tablePath}/{columns}", produces = {"application/json"},
             method = RequestMethod.GET)
     public ResponseEntity<BaseResponse> getData(@PathVariable String tablePath, @PathVariable String columns) {
-        JSONObject queryResult = tablePathService.getDataBySpecificQuery(requestUtils.reformatUrl(tablePath), columns);
+        List<ColumnResponse> data = tablePathService.getDataBySpecificQuery(requestUtils.reformatUrl(tablePath), columns);
 
         return ApiResponseUtils.createResponseEntity(200,
                 String.format(ApiResponseUtils.getUserMessageSuccess(), "Get table paths by task id"),
                 String.format(ApiResponseUtils.getDevMessageSuccess(), "Get table paths by task id", "TablePath"),
-                queryResult.toString(), HttpStatus.OK);
+                data, HttpStatus.OK);
     }
 }
