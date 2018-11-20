@@ -24,7 +24,7 @@
         "type_constraint": [
           "dict"
         ],
-        "optional": true
+        "special_requirements": {"dict": "schema"}
       }
     },
     "relational_constraints": [
