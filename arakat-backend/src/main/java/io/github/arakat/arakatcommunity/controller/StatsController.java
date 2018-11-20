@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Map;
 
 @RestController
@@ -23,11 +22,22 @@ public class StatsController {
         this.statsService = statsService;
     }
 
-    @RequestMapping(value = "/get-dag-stats-from-airflow/{dagId}", method = RequestMethod.GET)
-    public ResponseEntity<String> getDagStats(@PathVariable("dagId") String dagId) throws IOException {
-
-        return new ResponseEntity<>(statsService.getDAGStatsFromAirflow(dagId).toString(), HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/get-dag-stats-from-airflow/{dagId}", method = RequestMethod.GET)
+//    public ResponseEntity<BaseResponse> getDagStats(@PathVariable("dagId") String dagId) throws IOException {
+//        JSONArray result = statsService.getDAGStatsFromAirflow(dagId);
+//
+//        if(result == null) {
+//            return ApiResponseUtils.createResponseEntity(404,
+//                    ApiResponseUtils.getUserMessageResourceNotFound(),
+//                    ApiResponseUtils.getUserMessageResourceNotFound(),
+//                    null, HttpStatus.NOT_FOUND);
+//        }
+//
+//        return ApiResponseUtils.createResponseEntity(200,
+//                String.format(ApiResponseUtils.getUserMessageSuccess(), "Get dag stats from airflow"),
+//                String.format(ApiResponseUtils.getDevMessageSuccess(), "Get dag stats from airflow", "App"),
+//                result.toString(), HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "/get-dag-logs-from-airflow/{taskId}", method = RequestMethod.GET)
     public ResponseEntity<String> getTaskStats(@PathVariable("taskId") String taskId) throws IOException {

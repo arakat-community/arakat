@@ -1,6 +1,7 @@
 package io.github.arakat.arakatcommunity.controller;
 
 import io.github.arakat.arakatcommunity.model.App;
+import io.github.arakat.arakatcommunity.model.response.AppResponse;
 import io.github.arakat.arakatcommunity.model.response.BaseResponse;
 import io.github.arakat.arakatcommunity.model.response.TablePathResponse;
 import io.github.arakat.arakatcommunity.repository.AppRepository;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -30,12 +32,20 @@ public class AppController {
 
     @RequestMapping(value = "/get-all-apps", produces = { "application/json" }, method = RequestMethod.GET)
     public ResponseEntity<BaseResponse> getAllApps() {
-        List<App> apps = appService.getAllApps();
+        try {
+            List<AppResponse> appResponses = appService.getAllAppResponses();
 
-        return ApiResponseUtils.createResponseEntity(200,
-                String.format(ApiResponseUtils.getUserMessageSuccess(), "Get all apps"),
-                String.format(ApiResponseUtils.getDevMessageSuccess(), "Get all apps", "App"),
-                apps, HttpStatus.OK);
+            return ApiResponseUtils.createResponseEntity(200,
+                    String.format(ApiResponseUtils.getUserMessageSuccess(), "Get all apps"),
+                    String.format(ApiResponseUtils.getDevMessageSuccess(), "Get all apps", "App"),
+                    appResponses, HttpStatus.OK);
+
+        } catch (IOException e) {
+            return ApiResponseUtils.createResponseEntity(500,
+                    String.format(ApiResponseUtils.getUserMessageSuccess(), "Internal server error"),
+                    String.format(ApiResponseUtils.getDevMessageSuccess(), "An error occurred while retrieving the logs from airflow", "App"),
+                    null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @RequestMapping(value = "/get-all-apps-with-written-tables", produces = { "application/json" }, method = RequestMethod.GET)

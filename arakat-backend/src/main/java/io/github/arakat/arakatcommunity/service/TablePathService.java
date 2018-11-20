@@ -57,12 +57,12 @@ public class TablePathService {
         return requestUtils.sendPostRequest(uri, map);
     }
 
-    public List<ColumnResponse> getDataBySpecificQuery(String tablePath, String columns) {
+    public List<ColumnResponse> getDataBySpecificQuery(String tablePath, String columns, String orderByColumn, String sortBy) {
         String uri = appPropertyValues.getSparkHdfsHelperUrl() + ":" + appPropertyValues.getSparkHdfsHelperPort()
                 + "/" + appPropertyValues.getSparkHdfsHelperGetDataEndpoint();
 
         String tableTempView = FilenameUtils.getBaseName(tablePath);
-        String query = "SELECT " + columns + " FROM " + tableTempView;
+        String query = "SELECT " + columns + " FROM " + tableTempView + " ORDER BY " + orderByColumn + " " + sortBy;
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("query", query);
@@ -99,7 +99,7 @@ public class TablePathService {
         JSONArray response = new JSONArray(requestUtils.sendPostRequest(uri, map).toString());
         List<ColumnResponse> columnResponseList = new ArrayList<>();
 
-        for(Object column : response) {
+        for (Object column : response) {
             String columnName = new JSONObject(column.toString()).get("column").toString();
             String columnType = new JSONObject(column.toString()).get("columnType").toString();
 

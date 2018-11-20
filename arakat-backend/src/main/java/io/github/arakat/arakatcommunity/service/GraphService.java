@@ -121,7 +121,7 @@ public class GraphService {
             for (String task : iteratorToIterable(tasks.keys())) {
                 JSONArray tables = tasks.getJSONArray(task);
 
-                for(Object table : tables) {
+                for (Object table : tables) {
                     String tablePath = new JSONObject(table.toString()).get("table_path").toString();
 
                     TablePath savedTablePath = tablePathService.saveAndGetTable(tablePath);
