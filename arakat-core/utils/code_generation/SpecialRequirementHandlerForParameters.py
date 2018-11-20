@@ -24,22 +24,21 @@ def __handle_element_of_multi_instance(parameter, args):
     return parameter[args["element_index"]]
 
 def __handle_schema(parameter, args):
-    # schema_info: [{"column_name":"name", "data_type": "StringType", "is_nullable": True}, {"column_name":"name", "data_type": "ArrayType", "is_nullable": True, "array_extra":{"data_type": "IntegerType", "is_nullable": False}}, ...]
-    schema_info=parameter["schema"]["value"]
-    additional_code = ["schema_" + args["node_id"] + "=" + "StructType(["]
-    for elem in schema_info:
+    # schema_info: {"0": {"column_name":"name", "data_type": "StringType", "is_nullable": True}, "1": {"column_name":"name", "data_type": "ArrayType", "is_nullable": True, "extra":{"data_type": "IntegerType", "is_nullable": False}}, ...}
+    schema_info=parameter["value"]
+    additional_code = ["schema_" + args["node_id"] + "=" + "StructType()"]
+    num_of_cols=len(schema_info)
+    for i in range(num_of_cols):
+        elem=schema_info[str(i)]
         if (elem["data_type"] == "ArrayType"):
-            additional_code.extend(['StructField("' + elem["column_name"] + '", ArrayType(' + elem["array_extra"][
-                "data_type"] + '(), ' + str(elem["array_extra"]["is_nullable"]) + '), ' + str(
-                elem["is_nullable"]) + ")", ", "])
+            additional_code.extend(['.add(StructField("' + elem["column_name"] + '", ArrayType(' + elem["extra"][
+                "data_type"] + '(), ' + str(elem["extra"]["is_nullable"]) + '), ' + str(
+                elem["is_nullable"]) + "))"])
         else:
-            additional_code.extend(['StructField("' + elem["column_name"] + '", ' + elem["data_type"] + '(), ' + str(
-                elem["is_nullable"]) + ")", ", "])
+            additional_code.extend(['.add(StructField("' + elem["column_name"] + '", ' + elem["data_type"] + '(), ' + str(
+                elem["is_nullable"]) + "))"])
 
-    # Might be an unnecessary check
-    if (len(schema_info) > 0):
-        additional_code.pop()
-    additional_code.extend(["])", os.linesep])
+    additional_code.extend([os.linesep])
 
     param_string="schema_"+args["node_id"]
     args["additional_local_code"].extend(additional_code)
