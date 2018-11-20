@@ -1,6 +1,6 @@
 FROM bde2020/spark-master:2.3.2-hadoop2.8
 
-RUN apt-get update && apt-get install -y python-pip
+RUN apt-get update && apt-get install -y python-pip && apt-get install -y kafkacat
 
 ENV PATH="/spark/bin:${PATH}"
 
