@@ -19,7 +19,8 @@ def generate_pipeline(graph, args):
     if(error == ErrorTypes.NO_ERROR):
         task_codes, task_errors, additional_info = __generate_task_codes(task_nodes,  args["app_id"])
         scheduler_code, scheduler_errors= ScheduleGenerator.generate_code(task_nodes, task_edges, args)
-        # print_codes(task_codes, scheduler_code)
+
+        #print_codes(args["app_id"], task_codes, scheduler_code)
 
         if(not (bool(task_errors) or bool(scheduler_errors))):
             success=True
@@ -36,7 +37,7 @@ def __add_app_id_to_task_nodes(task_nodes, app_id):
     for task_node_id in task_nodes:
         task_nodes[task_node_id]["app_id"]=app_id
 
-def print_codes(task_codes, scheduler_code):
+def print_codes(app_id, task_codes, scheduler_code):
     print("Scheduler code")
     pprint(''.join(scheduler_code))
     with open("/home/eyanik/ALL/Arakat/Playground/Trials/Test/DAG.py", "w") as text_file:
@@ -45,7 +46,7 @@ def print_codes(task_codes, scheduler_code):
     for tc in task_codes:
         print("Task_"+tc)
         pprint(task_codes[tc])
-        with open("/home/eyanik/ALL/Arakat/Playground/Trials/Test/"+tc+".py", "w") as text_file:
+        with open("/home/eyanik/ALL/Arakat/Playground/Trials/Test/"+app_id+"_"+tc+".py", "w") as text_file:
             text_file.write(task_codes[tc])
         print("--------------------------------------------------------------------")
 

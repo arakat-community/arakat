@@ -1,0 +1,15 @@
+Flask_Cors-3.0.6.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+Flask_Cors-3.0.6.dist-info/METADATA,sha256=sz8vkjy7C-0W0Ya_mhqsnnH6p4DtOWZJ9p5e88PdWsc,5170
+Flask_Cors-3.0.6.dist-info/RECORD,,
+Flask_Cors-3.0.6.dist-info/WHEEL,sha256=gduuPyBvFJQSQ0zdyxF7k0zynDXbIbvg5ZBHoXum5uk,110
+Flask_Cors-3.0.6.dist-info/top_level.txt,sha256=aWye_0QNZPp_QtPF4ZluLHqnyVLT9CPJsfiGhwqkWuo,11
+flask_cors/__init__.py,sha256=ymYAYrah_35eGzD51UdEHdBRSkLTteY4O3412xdOWMA,924
+flask_cors/__init__.pyc,,
+flask_cors/core.py,sha256=AKdfzOKSHNf9a004XLkssG__OtlZdla1-rxTAFrRdGM,13803
+flask_cors/core.pyc,,
+flask_cors/decorator.py,sha256=iiwjUi0lVeCm4OJJHY5Cvuzj2nENbUns3Iq6zqKXuss,4937
+flask_cors/decorator.pyc,,
+flask_cors/extension.py,sha256=lMEVcpvPBiqjUpfppq6ORETDAZaHIylUZe57HIJ-BdY,7435
+flask_cors/extension.pyc,,
+flask_cors/version.py,sha256=CDrF7ZuVPf2iv0oruW7EHmnEThkmylzR7xWICjw4EtM,22
+flask_cors/version.pyc,,

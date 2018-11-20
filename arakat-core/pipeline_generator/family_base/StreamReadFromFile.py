@@ -21,9 +21,8 @@ def generate_code(args):
         if(error == ErrorTypes.NO_ERROR):
             my_args = {"node_id": node["id"], "shared_function_set": shared_function_set, "additional_local_code": additional_local_code, "errors": errors}
             # Must be a valid schema at this point.
-            additional_code, param_string = CodeGenerationUtils.handle_parameter(node["parameter"]["schema"], my_args)
+            param_string = CodeGenerationUtils.handle_parameter(node["parameter"]["schema"], my_args)
             gen_code=[]
-            gen_code.extend(additional_code)
 
             gen_code.extend(["df_" + node["id"] + ' = spark.readStream.schema(' + param_string +")." + node["file_type"] +"(" + CodeGenerationUtils.handle_primitive(node["parameters"]["path"]["value"]) + ")", os.linesep])
 
