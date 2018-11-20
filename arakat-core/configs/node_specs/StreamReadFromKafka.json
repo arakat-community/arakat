@@ -30,12 +30,22 @@
           "string"
         ]
       },
+      "startingOffset": {
+        "visible_name": "Starting Offset",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "latest",
+          "earliest"
+        ],
+        "default": "latest"
+      },
       "schema": {
         "visible_name": "Schema",
         "type_constraint": [
           "dict"
         ],
-        "optional": true,
         "special_requirements": {"dict": "schema"}
       }
     },
