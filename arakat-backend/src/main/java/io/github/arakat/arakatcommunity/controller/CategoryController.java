@@ -1,6 +1,6 @@
 package io.github.arakat.arakatcommunity.controller;
 
-import io.github.arakat.arakatcommunity.model.BaseResponse;
+import io.github.arakat.arakatcommunity.model.response.BaseResponse;
 import io.github.arakat.arakatcommunity.model.Category;
 import io.github.arakat.arakatcommunity.repository.CategoryRepository;
 import io.github.arakat.arakatcommunity.service.CategoryService;

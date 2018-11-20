@@ -1,10 +1,9 @@
 package io.github.arakat.arakatcommunity.controller;
 
 import io.github.arakat.arakatcommunity.model.App;
-import io.github.arakat.arakatcommunity.model.BaseResponse;
-import io.github.arakat.arakatcommunity.model.TablePathResponse;
+import io.github.arakat.arakatcommunity.model.response.BaseResponse;
+import io.github.arakat.arakatcommunity.model.response.TablePathResponse;
 import io.github.arakat.arakatcommunity.repository.AppRepository;
-import io.github.arakat.arakatcommunity.repository.TaskRepository;
 import io.github.arakat.arakatcommunity.service.AppService;
 import io.github.arakat.arakatcommunity.utils.ApiResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class AppController {
 
     @RequestMapping(value = "/get-all-apps", produces = { "application/json" }, method = RequestMethod.GET)
     public ResponseEntity<BaseResponse> getAllApps() {
-        List<App> apps = appRepository.findAll();
+        List<App> apps = appService.getAllApps();
 
         return ApiResponseUtils.createResponseEntity(200,
                 String.format(ApiResponseUtils.getUserMessageSuccess(), "Get all apps"),

@@ -12,7 +12,7 @@ Teknik özellikler ve proje kurgusu ile ilgileri aşağıdaki gibi özetlenebili
 
 - **Açık Kaynak Kodlu ve Apache-2.0 Lisanslı Geliştirme:** Proje kurgusu tamamı ile açık kaynak üzerine kurgulanmıştır. Buradaki temel amaç geliştirimi devam eden ve/veya yeni geliştirilecek uygulamaların jenerik kısımları için açık kaynak camiasının desteğini almak ve bu desteği alırken de projelere özgü içeriği ayırarak farklı paydaşların bu ortak alt yapıları kullanabilmesine olanak tanımaktır.
 
-- **Linux tabanlı ve platform bağımsız dağıtım:** Projenin geliştirme ve derleme ortamları tamamen Linux tabanlı (Debian türevleri) sistemlerdir. Bununla birlikte proje çıktısı çerçevelerin sınandığı referans uygulama bileşenleri de Docker imajları halinde yayınlanmıştır :whale: ARAKAT Docker imajlarına [bu bağlantıyı](https://hub.docker.com/r/arakat/) kullanarak ulabilirsiniz. Bu sayede ölçeklenebilir (buluta hazır) ve platform bağımsız yapıların geliştirildiği garanti altına alınmıştır. Docker imajlarından oluşan container'ları yönetmek için [Docker Swarm](https://docs.docker.com/engine/swarm/) kullanmıştır.
+- **Linux tabanlı ve platform bağımsız dağıtım:** Projenin geliştirme ve derleme ortamları tamamen Linux tabanlı (Debian türevleri) sistemlerdir. Bununla birlikte proje çıktısı çerçevelerin sınandığı referans uygulama bileşenleri de Docker imajları halinde yayınlanmıştır :whale: ARAKAT Docker imajlarına [bu bağlantıyı](https://hub.docker.com/r/arakat/) kullanarak ulaşabilirsiniz. Bu sayede ölçeklenebilir (buluta hazır) ve platform bağımsız yapıların geliştirildiği garanti altına alınmıştır. Docker imajlarından oluşan container'ları yönetmek için [Docker Swarm](https://docs.docker.com/engine/swarm/) kullanmıştır.
 
 - **Eğitsel içerik ve Uygulama Programlama Arayüzü(API) dokümantasyonu:** Geliştirilecek alt yapılara ilişkin API (Uygulama Programlama Arayüzü) dokümantasyonları Türkçe olarak sürekli entegrasyon sunucusundaki son adım olarak devamlı üretilecek ve dokümantasyonun güncel ve yeterli olduğu kullanıcı geri dönüşleri ile izlenecektir. Söz konusu içerikte Türkiye içinde bir ilk olacak bu materyal hem bu alana yeni giren bireyler/kurumlar için hem de bu alanda öğretim veren kurumlar için faydalanılabilir olacaktır.
 
@@ -26,5 +26,5 @@ ARAKAT tamamen dockerize edilmiş 3 ana servisten oluşmaktadır. Bunlar sıras�
 * [Core - Python](/docs/arakat-core/tr/README.md)
 * [Frontend - JavaScript(TypeScript)](/docs/arakat-frontend/README.md)
 
-ARAKAT küme konfigürasyonları ile ilgili detaylı bilgi için ve ARAKAT Docker container'larının nasıl çalıştırılacağını incelemek için aşağıdaki bağlantıya göz atabilirsiniz:
-* [ARAKAT Küme Konfigürasyonları](/docs/arakat-cluster-config/README.md)
+ARAKAT Docker container'larının nasıl çalıştırılacağını incelemek için aşağıdaki bağlantıya göz atabilirsiniz:
+* [ARAKAT Küme(Cluster) Konfigürasyonları](/docs/arakat-cluster-config/README.md)

@@ -2,7 +2,7 @@ package io.github.arakat.arakatcommunity.controller;
 
 import io.github.arakat.arakatcommunity.exception.GraphNotFoundException;
 import io.github.arakat.arakatcommunity.exception.GraphRunFailedException;
-import io.github.arakat.arakatcommunity.model.BaseResponse;
+import io.github.arakat.arakatcommunity.model.response.BaseResponse;
 import io.github.arakat.arakatcommunity.service.GraphService;
 import io.github.arakat.arakatcommunity.utils.ApiResponseUtils;
 import org.json.JSONObject;

@@ -12,7 +12,6 @@ function* nodeSpecsFetch() {
             yield put(nodeSpecsFetched(fetchNodeSpecsResponse));
         }
     } catch ( error ) {
-        error.
         console.log("nodeSpecsFetch() -> Node specs fetch failed!");
     }
 }

@@ -1,7 +1,7 @@
 package io.github.arakat.arakatcommunity.utils;
 
-import io.github.arakat.arakatcommunity.model.BaseResponse;
-import io.github.arakat.arakatcommunity.model.Meta;
+import io.github.arakat.arakatcommunity.model.response.BaseResponse;
+import io.github.arakat.arakatcommunity.model.response.Meta;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,6 @@ public class ApiResponseUtils {
     private static final String DEV_MESSAGE_SUCCESS = "%s operation is successful on %s object.";
     private static final String DEV_MESSAGE_ERROR = "Error! %s while performing %s on %s object.";
 
-    // TODO: Controller'larda try catch kullanarak, hata oldugunda uygun mesaji don.
     public static ResponseEntity<BaseResponse> createResponseEntity(int code, String userMessage, String devMessage,
                                                                      Object responseData, HttpStatus httpStatus) {
         Meta meta = createMeta(code, userMessage, devMessage);

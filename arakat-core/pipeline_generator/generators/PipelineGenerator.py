@@ -19,7 +19,8 @@ def generate_pipeline(graph, args):
     if(error == ErrorTypes.NO_ERROR):
         task_codes, task_errors, additional_info = __generate_task_codes(task_nodes,  args["app_id"])
         scheduler_code, scheduler_errors= ScheduleGenerator.generate_code(task_nodes, task_edges, args)
-        print_codes(args["app_id"], task_codes, scheduler_code)
+
+        #print_codes(args["app_id"], task_codes, scheduler_code)
 
         if(not (bool(task_errors) or bool(scheduler_errors))):
             success=True

@@ -4,6 +4,8 @@ import { CytoActions, ICytoState } from "./types";
 export const initialState: ICytoState = {
     nodeSpecs: [],
     existingNodes: [],
+    selectedNode: null,
+    isDialogOpen: false,
     cvNodesLength: 0,
     pipelineNodesLength: 0,
     taskNodesLength: 0,
@@ -12,6 +14,12 @@ export const initialState: ICytoState = {
         y: 0,
     },
     isPrimitiveLevelLayoutRefreshBlocked: false,
+    edgePermissions: {},
+    graph: undefined,
+    graphNodes: {},
+    graphEdges: {},
+    graphProperties: undefined,
+    isGraphPropertiesDialogOpen: false,
 };
 
 const reducer: Reducer<ICytoState> = (state: ICytoState = initialState, action: CytoActions) => {
@@ -59,6 +67,74 @@ const reducer: Reducer<ICytoState> = (state: ICytoState = initialState, action: 
                 ...state,
                 lastDroppedNodeOffset: action.payload.offset,
             };
+        case "@@cyto/SET_SELECTEDNODE":
+            return {
+                ...state,
+                selectedNode: action.payload.selectedNode,
+            };
+        case "@@cyto/SET_ISNODEPARAMETERSDIALOG_OPEN":
+            return {
+                ...state,
+                isDialogOpen: action.payload.isDialogOpen,
+            };
+        case "@@cyto/ADD_NODE_TO_GRAPH_NODES":
+            let newDagNodes = {};
+            if (state.graphNodes) {
+                newDagNodes = state.graphNodes;
+            }
+            newDagNodes[action.payload.node.id] = (action.payload.node);
+            return {
+                ...state,
+                graphNodes: newDagNodes,
+            };
+        case "@@cyto/UPDATE_GRAPH_NODE":
+            let updatedGraphNodes = {};
+            if (state.graphNodes) {
+                updatedGraphNodes = state.graphNodes;
+            }
+            updatedGraphNodes[action.payload.node.id] = action.payload.node;
+            return {
+                ...state,
+                graphNodes: updatedGraphNodes,
+            };
+        case '@@cyto/ADD_EDGE_TO_GRAPH_EDGES':
+            let newDagEdges = {};
+            if (state.graphEdges) {
+                newDagEdges = state.graphEdges;
+            }
+            newDagEdges[action.payload.key] = (action.payload.edge);
+            return {
+                ...state,
+                graphEdges: newDagEdges,
+            };
+        case "@@cyto/FETCH_EDGEPERMISSIONS":
+            return {
+                ...state,
+            };
+        case "@@cyto/EDGEPERMISSIONS_FETCHED":
+            return {
+                ...state,
+                edgePermissions: action.payload.edgePermissions
+            }
+        case '@@cyto/PREPARE_GRAPH':
+            return {
+                ...state,
+                graph: action.payload.graph
+            }
+        case '@@cyto/SAVE_GRAPH':
+            return {
+                ...state,
+            }
+        case '@@cyto/SET_IS_GRAPH_PROPERTIES_DIALOG_OPEN':
+            return {
+                ...state,
+                isGraphPropertiesDialogOpen: action.payload.isOpen,
+            }
+        case '@@cyto/SET_GRAPH_PROPERTIES':
+            return {
+                ...state,
+                graphProperties: action.payload.graphProperties
+            }
         default:
             return {
                 ...state,

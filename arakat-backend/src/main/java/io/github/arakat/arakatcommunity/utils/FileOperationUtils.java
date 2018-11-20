@@ -12,28 +12,18 @@ import java.util.stream.Collectors;
 public class FileOperationUtils {
 
     public void writeToFile(String file, String stringToWrite, String directoryToWrite) throws IOException {
-        String filePathToWrite = System.getProperty("user.dir") + directoryToWrite;
-
-        File f = new File(filePathToWrite);
+        File f = new File(directoryToWrite);
         boolean makeDirResult = f.mkdirs();
 
-        if (Files.notExists(Paths.get(filePathToWrite + file), LinkOption.NOFOLLOW_LINKS)) {
-            Files.createFile(Paths.get(filePathToWrite + file));
+        if (Files.notExists(Paths.get(directoryToWrite + file), LinkOption.NOFOLLOW_LINKS)) {
+            Files.createFile(Paths.get(directoryToWrite + file));
         }
 
-        Files.write(Paths.get(filePathToWrite + file), stringToWrite.getBytes(), StandardOpenOption.CREATE);
+        Files.write(Paths.get(directoryToWrite + file), stringToWrite.getBytes(), StandardOpenOption.CREATE);
     }
 
-    public String readFileAsString(String file) {
-        String content = null;
-        
-        try {
-            content = new String(Files.readAllBytes(Paths.get(file)));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        return content;
+    public String readFileAsString(String file) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(file)));
     }
 
     public String readFileInDirectory(File folder) {

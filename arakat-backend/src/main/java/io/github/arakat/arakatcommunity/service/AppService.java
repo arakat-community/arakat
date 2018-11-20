@@ -1,6 +1,7 @@
 package io.github.arakat.arakatcommunity.service;
 
 import io.github.arakat.arakatcommunity.model.*;
+import io.github.arakat.arakatcommunity.model.response.TablePathResponse;
 import io.github.arakat.arakatcommunity.repository.AppRepository;
 import io.github.arakat.arakatcommunity.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,20 @@ public class AppService {
         this.appRepository = appRepository;
         this.taskRepository = taskRepository;
         this.idSequenceService = idSequenceService;
+    }
+
+    public List<App> getAllApps() {
+        List<App> apps = appRepository.findAll();
+
+        for (App app : apps) {
+            List<Task> tasks = app.getTasks();
+
+            for (Task task : tasks) {
+                task.setTaskName(task.getTaskName().split("-")[0]);
+            }
+        }
+
+        return apps;
     }
 
     public void saveApp(String appId, List<Task> tasksToSave) {

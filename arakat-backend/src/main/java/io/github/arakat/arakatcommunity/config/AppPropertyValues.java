@@ -47,23 +47,26 @@ public class AppPropertyValues {
     @Value("${airflow.dag.logs.file.path}")
     private String airflowDagLogsFilePath;
 
-    @Value("${hdfs.reader.url}")
-    private String hdfsReaderUrl;
-
-    @Value("${hdfs.reader.port}")
-    private String hdfsReaderPort;;
-
-    @Value("${hdfs.reader.get.table.columns.endpoint}")
-    private String hdfsReaderGetTableColumnsEndpoint;
-
-    @Value("${hdfs.reader.get.data.endpoint}")
-    private String hdfsReaderGetDataEndpoint;
-
     @Value("${spark.logs.file.path}")
     private String sparkLogsFilePath;
 
-    @Value("${hdfs.reader.get.table.columns.with.types.endpoint}")
-    private String hdfsReaderGetTableColumnsWIthTypesEndpoint;
+    @Value("${spark.hdfs.helper.url}")
+    private String sparkHdfsHelperUrl;
+
+    @Value("${spark.hdfs.helper.port}")
+    private String sparkHdfsHelperPort;
+
+    @Value("${spark.hdfs.helper.get.table.columns.endpoint}")
+    private String sparkHdfsHelperGetTableColumnsEndpoint;
+
+    @Value("${spark.hdfs.helper.get.table.columns.with.types.endpoint}")
+    private String sparkHdfsHelperGetTableColumnsWithTypesEndpoint;
+
+    @Value("${spark.hdfs.helper.get.data.endpoint}")
+    private String sparkHdfsHelperGetDataEndpoint;
+
+    @Value("${spark.hdfs.helper.get.spark.log.endpoint}")
+    private String sparkHdfsHelperGetSparkLogEndpoint;
 
     @Value("${bash.command}")
     private String bashCommand;
@@ -124,28 +127,32 @@ public class AppPropertyValues {
         return airflowDagLogsFilePath;
     }
 
-    public String getHdfsReaderUrl() {
-        return hdfsReaderUrl;
-    }
-
-    public String getHdfsReaderPort() {
-        return hdfsReaderPort;
-    }
-
-    public String getHdfsReaderGetTableColumnsEndpoint() {
-        return hdfsReaderGetTableColumnsEndpoint;
-    }
-
-    public String getHdfsReaderGetDataEndpoint() {
-        return hdfsReaderGetDataEndpoint;
-    }
-
     public String getSparkLogsFilePath() {
         return sparkLogsFilePath;
     }
 
-    public String getHdfsReaderGetTableColumnsWIthTypesEndpoint() {
-        return hdfsReaderGetTableColumnsWIthTypesEndpoint;
+    public String getSparkHdfsHelperUrl() {
+        return sparkHdfsHelperUrl;
+    }
+
+    public String getSparkHdfsHelperPort() {
+        return sparkHdfsHelperPort;
+    }
+
+    public String getSparkHdfsHelperGetTableColumnsEndpoint() {
+        return sparkHdfsHelperGetTableColumnsEndpoint;
+    }
+
+    public String getSparkHdfsHelperGetTableColumnsWithTypesEndpoint() {
+        return sparkHdfsHelperGetTableColumnsWithTypesEndpoint;
+    }
+
+    public String getSparkHdfsHelperGetDataEndpoint() {
+        return sparkHdfsHelperGetDataEndpoint;
+    }
+
+    public String getSparkHdfsHelperGetSparkLogEndpoint() {
+        return sparkHdfsHelperGetSparkLogEndpoint;
     }
 
     public String getBashCommand() {

@@ -2,17 +2,15 @@ package io.github.arakat.arakatcommunity.service;
 
 import io.github.arakat.arakatcommunity.config.AppPropertyValues;
 import io.github.arakat.arakatcommunity.utils.FileOperationUtils;
+import io.github.arakat.arakatcommunity.utils.RequestUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,11 +25,14 @@ public class StatsService {
 
     private AppPropertyValues appPropertyValues;
     private FileOperationUtils fileOperationUtils;
+    private RequestUtils requestUtils;
 
     @Autowired
-    public StatsService(AppPropertyValues appPropertyValues, FileOperationUtils fileOperationUtils) {
+    public StatsService(AppPropertyValues appPropertyValues, FileOperationUtils fileOperationUtils,
+                        RequestUtils requestUtils) {
         this.appPropertyValues = appPropertyValues;
         this.fileOperationUtils = fileOperationUtils;
+        this.requestUtils = requestUtils;
     }
 
     public JSONArray getDAGStatsFromAirflow(String dagId) throws IOException {
@@ -49,11 +50,11 @@ public class StatsService {
     }
 
     private JSONArray getStatsById(String url, String id) throws IOException {
-        JSONObject result = sendGetRequestAndReturnResponse(url);
+        JSONObject result = new JSONObject(requestUtils.sendGetRequestAndReturnResponse(url));
 
-        for (String key : iteratorToIterable(result != null ? result.keys() : null)) {
+        for (String key : iteratorToIterable(result.keys())) {
             if (key.equalsIgnoreCase(id)) {
-                return (JSONArray) (result != null ? result.get(key) : null);
+                return (JSONArray) result.get(key);
             }
         }
 
@@ -76,43 +77,30 @@ public class StatsService {
             folderNamesAndFiles.put(folder.getName(), fileOperationUtils.readFileInDirectory(folder));
 
             folderNamesAndFiles.forEach((folderName, logFile) ->
-                    folderNamesAndFileContents.put(folderName, fileOperationUtils.readFileAsString(logFile)));
+            {
+                try {
+                    folderNamesAndFileContents.put(folderName, fileOperationUtils.readFileAsString(logFile));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         });
 
         return folderNamesAndFileContents;
     }
 
-    public String getTaskLogsFromSpark(String appId, String taskId) {
-//        TODO: ask this path
-        String folderPathToRead = appPropertyValues.getSparkLogsFilePath() + appId + "_" + taskId;
+    public String getTaskLogsFromSpark(String appId, String taskId) throws IOException {
+        String filePath = appPropertyValues.getSparkLogsFilePath() + "log_" + appId + "_" + taskId;
 
-        return fileOperationUtils.readFileAsString(folderPathToRead);
+        return fileOperationUtils.readFileAsString(filePath);
     }
 
-    private JSONObject sendGetRequestAndReturnResponse(String url) throws IOException {
-        URL urlForGetRequest = new URL(url);
-        String readLine;
-
-        HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
-        connection.setRequestMethod("GET");
-
-        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-
-            while ((readLine = bufferedReader.readLine()) != null) {
-                response.append(readLine);
-            }
-
-            bufferedReader.close();
-            return new JSONObject(response.toString());
-
-        } else {
-            //TODO: throw an exception or something.
-            System.out.println("ERROR");
-            return null;
-        }
-    }
+//    public String getTaskLogsFromSpark(String appId, String taskId) throws IOException, URISyntaxException {
+//        String uri = appPropertyValues.getSparkHdfsHelperUrl() + ":" + appPropertyValues.getSparkHdfsHelperPort()
+//                + "/" + appPropertyValues.getSparkHdfsHelperGetSparkLogEndpoint();
+//
+//        return requestUtils.getSparkLogs(uri, appId + "_" + taskId);
+//    }
 
     private <T> Iterable<T> iteratorToIterable(Iterator<T> iterator) {
         return () -> iterator;

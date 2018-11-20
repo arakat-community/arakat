@@ -13,7 +13,7 @@ const style: any = (theme: Theme) => ({
 });
 
 export interface IDraggableNodeProps {
-    node_id: string;
+    nodeID: string;
     title: string;
     depth: number;
 }
@@ -28,7 +28,7 @@ type AllProps = IDraggableNodeProps & WithStyles<"root">;
 const DraggableNodeComponent: React.SFC<AllProps> = ({classes, ...props}: AllProps) => {
 
     const draggableItem = {
-        node_id: props.node_id,
+        node_id: props.nodeID,
     };
     return (
         <div
@@ -40,7 +40,7 @@ const DraggableNodeComponent: React.SFC<AllProps> = ({classes, ...props}: AllPro
             <Draggable
                 type={DraggableType.Node}
                 item={draggableItem}
-                key={`draggable-${props.node_id}`}
+                key={`draggable-${props.nodeID}`}
             >
                 <span> {props.title}</span>
             </Draggable>
