@@ -41,7 +41,7 @@ def __generate_select_expr_helpers():
 # Add checks and error handling later...
 def __generate_pattern_creator_for_select_expr_code():
     code = [os.linesep]
-    code.extend(['def pattern_creator_for_select_expr(input_cols, output_cols, prev, next, sep, pop_last, beginning, ending):', os.linesep])
+    code.extend(['def pattern_creator_for_select_expr(input_cols, output_cols, prev, next, sep, pop_n, beginning, ending):', os.linesep])
     code.extend(['\tpattern = [beginning]', os.linesep])
     code.extend(['\tif (len(input_cols) == len(output_cols)):', os.linesep])
     code.extend(['\t\tfor v1, v2 in zip(input_cols, output_cols):', os.linesep])
@@ -54,7 +54,7 @@ def __generate_pattern_creator_for_select_expr_code():
     code.extend(['\tpattern.append(ending)', os.linesep])
     code.extend(['\tif (len(input_cols) > len(output_cols) and len(output_cols) == 1):', os.linesep])
     code.extend(['\t\tpattern.append(" as " + output_cols[0])', os.linesep])
-    code.extend(['\treturn pattern', os.linesep])
+    code.extend(['\treturn "".join(pattern)', os.linesep])
     code.append(os.linesep)
     return code
 
@@ -63,17 +63,19 @@ def __generate_single_select_expr_generator_code():
     code = [os.linesep]
     code.extend(['def single_select_expr_generator(input_cols, output_cols, operation):', os.linesep])
     code.extend(['\tone_to_one_ops={"Identity", "abs", "round", "dayofmonth", "dayofweek", "dayofyear"}', os.linesep])
-    code.extend(['\tif (operation in one_to_one_ops):', os.linesep])
-    code.extend(['\t\tif (operation == "Identity"):', os.linesep])
-    code.extend(['\t\t\tpattern = pattern_creator_for_select_expr(input_cols, output_cols, "", "", ", ", 1, "", "")', os.linesep])
-    code.extend(['\t\telse:', os.linesep])
-    code.extend(['\t\t\tpattern = pattern_creator_for_select_expr(input_cols, output_cols, operation + "(", ")", ", ", 1, "", "")', os.linesep])
+    code.extend(['\tpattern=[]', os.linesep])
+    code.extend(['\tif(operation in one_to_one_ops):', os.linesep])
+    code.extend(['\t\tfor inC, outC in zip(input_cols, output_cols):', os.linesep])
+    code.extend(['\t\t\tif (operation == "Identity"):', os.linesep])
+    code.extend(['\t\t\t\tpattern.append(pattern_creator_for_select_expr([inC], [outC], "", "", ", ", 1, "", ""))', os.linesep])
+    code.extend(['\t\t\telse:', os.linesep])
+    code.extend(['\t\t\t\tpattern.append(pattern_creator_for_select_expr([inC], [outC], "(", ")", ", ", 1, "", ""))',os.linesep])
     code.extend(['\telse:', os.linesep])
-    code.extend(['\t\tif (operation == "concat"):', os.linesep])
-    code.extend(['\t\t\tpattern = pattern_creator_for_select_expr(input_cols, output_cols, "", "", ", ", 1, "concat(", ")")', os.linesep])
+    code.extend(['\t\tif(operation == "concat"):', os.linesep])
+    code.extend(['\t\t\tpattern.append(pattern_creator_for_select_expr(input_cols, output_cols, "", "", ", ", 1, "concat(", ")"))', os.linesep])
     code.extend(['\t\telse:', os.linesep])
-    code.extend(['\t\t\tpattern = pattern_creator_for_select_expr(input_cols, output_cols, "", " " + operation, " ", 2, "", "")', os.linesep])
-    code.extend(['\treturn "".join(pattern)', os.linesep])
+    code.extend(['\t\t\tpattern.append(pattern_creator_for_select_expr(input_cols, output_cols, "", " " + operation, " ", 2, "", ""))', os.linesep])
+    code.extend(['\treturn pattern', os.linesep])
     code.append(os.linesep)
     return code
 

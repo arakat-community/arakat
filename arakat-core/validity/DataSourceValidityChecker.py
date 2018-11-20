@@ -14,7 +14,7 @@ def check_validity(node):
 def __check_schema(node):
     is_schema_appropriate = False
     if ("schema" in node["parameters"] and bool(node["parameters"]["schema"])):
-        error = __is_schema_valid(node["parameters"]["schema"])
+        error = __is_schema_valid(node["parameters"]["schema"]["value"])
         if (error == ErrorTypes.NO_ERROR):
             is_schema_appropriate = True
         else:
@@ -26,11 +26,11 @@ def __check_schema(node):
 
 def __is_schema_valid(schema):
     for elem in schema:
-        if(elem["data_type"] == "ArrayType"):
-            if(not DomainUtils.is_data_type_allowed(elem["array_extra"]["data_type"])):
+        if(schema[elem]["data_type"] == "ArrayType"):
+            if(not DomainUtils.is_data_type_allowed(schema[elem]["extra"]["data_type"])):
                 return ErrorTypes.UNSUPPORTED_DATA_TYPE_ERROR
         else:
-            if(not DomainUtils.is_data_type_allowed(elem["data_type"])):
+            if(not DomainUtils.is_data_type_allowed(schema[elem]["data_type"])):
                 return ErrorTypes.UNSUPPORTED_DATA_TYPE_ERROR
 
     return ErrorTypes.NO_ERROR
