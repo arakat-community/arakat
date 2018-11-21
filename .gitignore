@@ -325,3 +325,4 @@ Temporary Items
 .apdisk
 
 ./arakat-cluster-configuration/arakat-backend/mongo_vol
+./arakat-core/venv
