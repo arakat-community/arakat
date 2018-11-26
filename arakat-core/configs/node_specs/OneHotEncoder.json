@@ -32,7 +32,7 @@
         "type_constraint": [
           "boolean"
         ],
-        "optional": true
+        "default": true
       }
     },
   "relational_constraints": [
