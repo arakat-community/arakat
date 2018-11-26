@@ -125,7 +125,8 @@ __import_statements={0: ["from pyspark.ml.recommendation import ALS"],
                      79: [],
                      80: [],
                      81: [],
-                     82: []
+                     82: [],
+                     83: []
                      }
 
 def get_import_statements(node):
