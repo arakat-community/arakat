@@ -81,10 +81,10 @@ public class NodeService {
     private Category searchForIndex(List<Category> categories, Long categoryId) {
         Category childCategory = null;
 
-        for(int i = 0 ; i < categories.size() && childCategory == null; i++) {
+        for (int i = 0 ; i < categories.size() && childCategory == null; i++) {
             Category category = categories.get(i);
 
-            if(checkForCategoryId(categoryId, category.getCategoryId())) {
+            if (checkForCategoryId(categoryId, category.getCategoryId())) {
                 return category;
             }
 
