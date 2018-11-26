@@ -49,8 +49,8 @@
       "takes": [{"type":"model"}]
     },
     "12": {
-      "produces": [{"type":"dataframe", "compatibility":["batch"]}],
-      "takes": [{"type":"dataframe", "compatibility":["batch"]}, {"type":"model"}]
+      "produces": [{"type":"dataframe", "compatibility":["batch"]}, {"type":"model"}],
+      "takes": [{"type":"dataframe", "compatibility":["batch"]}]
     },
     "13": {
       "produces": [{"type":"dataframe", "compatibility":["batch"], "additional_parameters":["portion"]}],
