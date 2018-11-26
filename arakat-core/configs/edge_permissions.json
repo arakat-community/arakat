@@ -17,8 +17,8 @@
       "takes": [{"type":"dataframe", "compatibility":["batch"]}]
     },
     "4": {
-      "produces": [{"type":"dataframe", "compatibility":["batch"]}],
-      "takes": [{"type":"dataframe", "compatibility":["batch"]}, {"type":"model"}]
+      "produces": [{"type":"dataframe", "compatibility":["batch"]}, {"type":"model"}],
+      "takes": [{"type":"dataframe", "compatibility":["batch"]}]
     },
     "5": {
       "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}],
@@ -37,8 +37,8 @@
       "takes": [{"type":"dataframe", "compatibility":["batch", "stream"], "additional_parameters":["order"]}]
     },
     "9": {
-      "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}, {"type":"model"}],
-      "takes": [{"type":"dataframe", "compatibility":["batch", "stream"]}]
+      "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch", "stream"]}, {"type":"model"}]
     },
     "10": {
       "produces": [{"type":"model"}],
