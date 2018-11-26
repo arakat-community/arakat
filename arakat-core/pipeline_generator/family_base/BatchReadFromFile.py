@@ -29,6 +29,6 @@ def generate_code(args):
 
                 gen_code = CodeGenerationUtils.handle_instantination_or_call(node["parameters"], "df_" + node["id"] + "=" + "spark.read.format(" + CodeGenerationUtils.handle_primitive(node["file_type"]) + ").load(", my_args)
 
-                final_code=CodeGenerationUtils.merge_with_additional_code(gen_code, additional_local_code)
+            final_code=CodeGenerationUtils.merge_with_additional_code(gen_code, additional_local_code)
 
     return final_code, shared_function_set, error

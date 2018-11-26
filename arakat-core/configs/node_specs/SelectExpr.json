@@ -50,7 +50,6 @@
               "array[string]",
               "template"
             ],
-            "optional": true,
             "special_requirements": {"template": "column_selector_template"}
           }
         }

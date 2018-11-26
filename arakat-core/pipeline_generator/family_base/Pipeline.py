@@ -80,7 +80,6 @@ def __generate_stages(nodes, pipeline_order, df_name, args):
 
     return code, error
 
-
 def __generate_code_for_estimator_instantination(node, df_name, args):
     if (MultiInstanceHandlerUtils.should_generate_multiple_instances(node)):
         args["in_pipeline"]=True

@@ -1,0 +1,34 @@
+{
+  "node_id": 83,
+  "name": "Rename Column",
+  "category": 14,
+  "node_type": 0,
+  "family": 5,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "ddfo_name": "withColumnRenamed",
+  "parameter_props": {
+    "parameters": {
+      "existing": {
+        "visible_name": "Current Column Name",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "new": {
+        "visible_name": "New Column Name",
+        "type_constraint": [
+          "string"
+        ]
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": []
+}

@@ -51,6 +51,25 @@
         ],
         "piecewise_constraint": "numPartitions >= 1",
         "optional": true
+      },
+      "model_elements_save_paths": {
+        "visible_name": "Paths to save model elements",
+        "type_constraint": [
+          "object"
+        ],
+        "object_info": {
+          "associationRules": {
+            "visible_name": "Path for association rules",
+            "type_constraint": ["string"],
+            "optional": true
+          },
+          "freqItemsets":{
+            "visible_name": "Path for frequent item-sets",
+            "type_constraint": ["string"],
+            "optional": true
+          }
+        },
+        "optional": true
       }
     },
     "relational_constraints": [

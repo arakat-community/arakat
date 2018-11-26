@@ -55,7 +55,7 @@ def __handle_in_op_out_trio(node, args):
     in_op_out_trio_list = node["parameters"]["in_op_out_trio_list"]["value"]
 
     code = ["df_" + args["node_id"] + " = " + args["input_dfs"][0], os.linesep]
-    code.extend(["df_" + args["node_id"] + " = " + "df_" + args["node_id"] + " .agg("])
+    code.extend(["df_" + args["node_id"] + " = " + "df_" + args["node_id"] + ".agg("])
     for elem in in_op_out_trio_list:
         code.extend(["F." + elem["operation"]["value"] + "(" + CodeGenerationUtils.handle_primitive(elem["input_column"]["value"]) + ").alias(" + CodeGenerationUtils.handle_primitive(elem["output_column"]["value"]) + ")", ", "])
 
