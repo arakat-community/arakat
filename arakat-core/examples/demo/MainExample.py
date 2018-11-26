@@ -359,7 +359,7 @@ data={
                 "parameters": {
                     "host": {"value": "kafka", "type": "string"},
                     "port": {"value": "9092", "type": "string"},
-                    "topic": {"value": "main_example_test_dataZ2", "type": "string"},
+                    "topic": {"value": "main_example_test_data", "type": "string"},
                     "unique_column_name": {"value": 'name', "type": "string"}
                 }
             },
@@ -381,7 +381,7 @@ data={
                 "parameters": {
                     "host": {"value": "kafka", "type": "string"},
                     "port": {"value": "9092", "type": "string"},
-                    "topic": {"value": "main_example_test_dataZ2", "type": "string"},
+                    "topic": {"value": "main_example_test_data", "type": "string"},
                     "startingOffsets": {"value": "earliest", "type": "string"},
                     "schema": {
                             "value": {
@@ -593,7 +593,7 @@ data={
         }
     },
     "dag_properties": {
-        "app_id": "Demo_MainExampleZ2",
+        "app_id": "Demo_MainExample",
         "bash_command": "sh /usr/local/shell_scripts/run.sh",
         "schedule_interval": "@once",
         "default_args": {
