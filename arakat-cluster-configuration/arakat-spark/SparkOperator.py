@@ -110,6 +110,33 @@ def getData():
     dataset["data"]=subDataset
     return jsonify(dataset)
 
+def getTableContentAndColumnsOfFile(file):
+    content = readData(file)
+    return content, content.columns
+
+@app.route('/get-raw-data', methods=['POST'])
+def getRawData():
+
+    file = request.form["path"]
+    content,selectItem = getTableContentAndColumnsOfFile(file)
+    content.createOrReplaceTempView("RESULT")
+    res = spark.sql("SELECT * FROM RESULT").collect()
+    dataset = {}
+    subDataset = []
+    i = 0
+    for item in res:
+        index = 0
+        row = []
+        for subItem in item:
+            subData = {}
+            subData["column"] = selectItem[index]
+            subData["value"] = subItem
+            row.append(subData)
+            index = index + 1
+        subDataset.append(row)
+        i = i + 1
+    dataset["data"] = subDataset
+    return jsonify(dataset)
 
 def run_command(command):
     p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -174,4 +201,4 @@ def convert(data):
 
 #    return "True"
 
-app.run(host="0.0.0.0", port=5000)
+app.run(host="0.0.0.0", port=5000, threaded=True)
