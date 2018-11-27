@@ -57,7 +57,7 @@ public class TablePathService {
         return requestUtils.sendPostRequest(uri, map);
     }
 
-    public List<ColumnResponse> getRawData(String tablePath) {
+    public List<List<ColumnResponse>> getRawData(String tablePath) {
         String uri = appPropertyValues.getSparkHdfsHelperUrl() + ":" + appPropertyValues.getSparkHdfsHelperPort()
                 + "/" + appPropertyValues.getSparkHdfsHelperGetRawDataEndpoint();
 
@@ -69,7 +69,7 @@ public class TablePathService {
         return returnColumnResponseFromRawJson(response);
     }
 
-    public List<ColumnResponse> getDataBySpecificQuery(String tablePath, String columns, String orderByColumn,
+    public List<List<ColumnResponse>> getDataBySpecificQuery(String tablePath, String columns, String orderByColumn,
                                                        String sortBy, int limit) {
         String uri = appPropertyValues.getSparkHdfsHelperUrl() + ":" + appPropertyValues.getSparkHdfsHelperPort()
                 + "/" + appPropertyValues.getSparkHdfsHelperGetDataEndpoint();
@@ -88,24 +88,27 @@ public class TablePathService {
         return returnColumnResponseFromRawJson(response);
     }
 
-    private List<ColumnResponse> returnColumnResponseFromRawJson(JSONObject response) {
+    private List<List<ColumnResponse>> returnColumnResponseFromRawJson(JSONObject response) {
 
         JSONArray jsonArray = (JSONArray) response.get("data");
-        List<ColumnResponse> columnResponseList = new ArrayList<>();
+        List<List<ColumnResponse>> responseList = new ArrayList<>();
 
         for (Object o : jsonArray) {
-            JSONArray rows = (JSONArray) o;
-            for (Object row : rows) {
-                JSONObject rowObject = (JSONObject)row;
+            JSONArray columns = (JSONArray) o;
+            List<ColumnResponse> columnResponseList = new ArrayList<>();
+            for (Object column : columns) {
+                JSONObject columnObject = (JSONObject) column;
 
-                ColumnResponse columnResponse = new ColumnResponse(rowObject.get("column").toString(), null,
-                        rowObject.get("value").toString());
+                ColumnResponse columnResponse = new ColumnResponse(columnObject.get("column").toString(), null,
+                        columnObject.get("value").toString());
 
                 columnResponseList.add(columnResponse);
             }
+
+            responseList.add(columnResponseList);
         }
 
-        return columnResponseList;
+        return responseList;
     }
 
     public List<ColumnResponse> getTableColumnsWithTypes(String tablePath) {
