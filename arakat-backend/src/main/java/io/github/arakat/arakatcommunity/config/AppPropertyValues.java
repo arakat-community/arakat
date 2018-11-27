@@ -65,6 +65,9 @@ public class AppPropertyValues {
     @Value("${spark.hdfs.helper.get.data.endpoint}")
     private String sparkHdfsHelperGetDataEndpoint;
 
+    @Value("${spark.hdfs.helper.get.raw.data.endpoint}")
+    private String sparkHdfsHelperGetRawDataEndpoint;
+
     @Value("${spark.hdfs.helper.get.spark.log.endpoint}")
     private String sparkHdfsHelperGetSparkLogEndpoint;
 
@@ -157,5 +160,9 @@ public class AppPropertyValues {
 
     public String getBashCommand() {
         return bashCommand;
+    }
+
+    public String getSparkHdfsHelperGetRawDataEndpoint() {
+        return sparkHdfsHelperGetRawDataEndpoint;
     }
 }
