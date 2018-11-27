@@ -7,7 +7,6 @@ import io.github.arakat.arakatcommunity.repository.TaskRepository;
 import io.github.arakat.arakatcommunity.service.TablePathService;
 import io.github.arakat.arakatcommunity.utils.ApiResponseUtils;
 import io.github.arakat.arakatcommunity.utils.RequestUtils;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,7 +62,7 @@ public class TablePathController {
     public ResponseEntity<BaseResponse> getData(@PathVariable String tablePath, @PathVariable String columns,
                                                 @RequestParam("orderBy") String orderByColumn, @RequestParam("sortBy") String sortBy,
                                                 @RequestParam("limit") int limit) {
-        List<ColumnResponse> data = tablePathService.getDataBySpecificQuery(requestUtils.reformatUrl(tablePath), columns,
+        List<List<ColumnResponse>> data = tablePathService.getDataBySpecificQuery(requestUtils.reformatUrl(tablePath), columns,
                 orderByColumn, sortBy, limit);
 
         return ApiResponseUtils.createResponseEntity(200,
@@ -75,7 +74,7 @@ public class TablePathController {
     @RequestMapping(value = "/get-raw-data/{tablePath}/", produces = {"application/json"},
             method = RequestMethod.GET)
     public ResponseEntity<BaseResponse> getRawData(@PathVariable String tablePath) {
-        List<ColumnResponse> data = tablePathService.getRawData(requestUtils.reformatUrl(tablePath));
+        List<List<ColumnResponse>> data = tablePathService.getRawData(requestUtils.reformatUrl(tablePath));
 
         return ApiResponseUtils.createResponseEntity(200,
                 String.format(ApiResponseUtils.getUserMessageSuccess(), "Get table paths by task id"),
