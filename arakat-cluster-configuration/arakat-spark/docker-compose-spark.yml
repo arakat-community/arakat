@@ -1,7 +1,7 @@
 version: '3'
 services:
   spark-master:
-    image: arakat/arakat-spark-master
+    image: arakat/arakat-spark-master-automated-build
     hostname: spark-master
     networks:
       - sparknetwork

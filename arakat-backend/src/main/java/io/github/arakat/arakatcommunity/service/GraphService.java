@@ -7,6 +7,7 @@ import io.github.arakat.arakatcommunity.exception.GraphNotFoundException;
 import io.github.arakat.arakatcommunity.exception.GraphRunFailedException;
 import io.github.arakat.arakatcommunity.model.TablePath;
 import io.github.arakat.arakatcommunity.model.Task;
+import io.github.arakat.arakatcommunity.model.response.GraphResponse;
 import io.github.arakat.arakatcommunity.utils.FileOperationUtils;
 import io.github.arakat.arakatcommunity.utils.MongoConnectionUtils;
 import io.github.arakat.arakatcommunity.utils.RequestUtils;
@@ -164,9 +165,23 @@ public class GraphService {
 //        mongoTemplate.insert(doc);
     }
 
+    public String saveTempGraph(String graph) {
+        Document document = Document.parse(graph);
+        mongoTemplate.insert(document, "tempGraph");
+        return document.getObjectId("_id").toString();
+    }
+
     public JSONObject getGraphById(String id) throws GraphNotFoundException {
+        return fetchOneGraph("graph", id);
+    }
+
+    public JSONObject getTempGraphById(String id) throws GraphNotFoundException {
+        return fetchOneGraph("tempGraph", id);
+    }
+
+    private JSONObject fetchOneGraph(String collectionName, String id) throws GraphNotFoundException {
         DB db = mongoConnectionUtils.initializeMongoConnection();
-        DBCollection graphCollection = db.getCollection("graph");
+        DBCollection graphCollection = db.getCollection(collectionName);
 
         BasicDBObject query = new BasicDBObject();
         BasicDBObject fields = new BasicDBObject();
@@ -181,6 +196,34 @@ public class GraphService {
         }
 
         return new JSONObject(JSON.serialize(cursor));
+    }
+
+    public List<GraphResponse> getAllGraphs() throws GraphNotFoundException {
+        DB db = mongoConnectionUtils.initializeMongoConnection();
+        DBCollection graphCollection = db.getCollection("graph");
+        DBCollection tempGraphCollection = db.getCollection("tempGraph");
+        List<GraphResponse> graphResponseList = new ArrayList<>();
+
+        DBCursor graphs = graphCollection.find();
+        DBCursor tempGraphs = tempGraphCollection.find();
+
+        if (graphs == null || tempGraphs == null) {
+            throw new GraphNotFoundException("all");
+        }
+
+        addToGraphResponse(graphs, graphResponseList);
+        addToGraphResponse(tempGraphs, graphResponseList);
+
+        return graphResponseList;
+    }
+
+    private void addToGraphResponse(DBCursor dbCursor, List<GraphResponse> graphResponseList) {
+        for (DBObject keys : dbCursor) {
+            ObjectId objectId = (ObjectId) keys.get("_id");
+            BasicDBObject dagProps = (BasicDBObject) keys.get("dag_properties");
+            String appId = (String) dagProps.get("app_id");
+            graphResponseList.add(new GraphResponse(appId, objectId.toString()));
+        }
     }
 
     private <T> Iterable<T> iteratorToIterable(Iterator<T> iterator) {
