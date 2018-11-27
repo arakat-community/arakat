@@ -1,6 +1,8 @@
 package io.github.arakat.arakatcommunity.controller;
 
+import io.github.arakat.arakatcommunity.model.response.BaseResponse;
 import io.github.arakat.arakatcommunity.service.StatsService;
+import io.github.arakat.arakatcommunity.utils.ApiResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,10 +55,16 @@ public class StatsController {
     }
 
     @RequestMapping(value = "/get-task-logs-from-spark/{appId}/{taskId}", method = RequestMethod.GET)
-    public ResponseEntity<String> getTaskLogsFromSpark(@PathVariable("appId") String appId,
-                                                           @PathVariable("taskId") String taskId) {
+    public ResponseEntity<BaseResponse> getTaskLogsFromSpark(@PathVariable("appId") String appId,
+                                                             @PathVariable("taskId") String taskId) {
         try {
-            return new ResponseEntity<>(statsService.getTaskLogsFromSpark(appId, taskId), HttpStatus.OK);
+            String logs = statsService.getTaskLogsFromSpark(appId, taskId);
+
+            return ApiResponseUtils.createResponseEntity(200,
+                    "Get spark logs successful",
+                    "Get spark logs successful",
+                    logs, HttpStatus.OK);
+
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
