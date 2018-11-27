@@ -57,20 +57,39 @@ public class TablePathService {
         return requestUtils.sendPostRequest(uri, map);
     }
 
-    public List<ColumnResponse> getDataBySpecificQuery(String tablePath, String columns, String orderByColumn, String sortBy) {
+    public List<ColumnResponse> getRawData(String tablePath) {
+        String uri = appPropertyValues.getSparkHdfsHelperUrl() + ":" + appPropertyValues.getSparkHdfsHelperPort()
+                + "/" + appPropertyValues.getSparkHdfsHelperGetRawDataEndpoint();
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("path", tablePath);
+
+        JSONObject response = new JSONObject(requestUtils.sendPostRequest(uri, map).toString());
+
+        return returnColumnResponseFromRawJson(response);
+    }
+
+    public List<ColumnResponse> getDataBySpecificQuery(String tablePath, String columns, String orderByColumn,
+                                                       String sortBy, int limit) {
         String uri = appPropertyValues.getSparkHdfsHelperUrl() + ":" + appPropertyValues.getSparkHdfsHelperPort()
                 + "/" + appPropertyValues.getSparkHdfsHelperGetDataEndpoint();
 
         String tableTempView = FilenameUtils.getBaseName(tablePath);
-        String query = "SELECT " + columns + " FROM " + tableTempView + " ORDER BY " + orderByColumn + " " + sortBy;
+        String query = "SELECT " + columns + " FROM " + tableTempView + " ORDER BY " + orderByColumn + " " + sortBy +
+                " LIMIT " + limit;
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("query", query);
         map.add("table", tableTempView);
         map.add("path", tablePath);
         map.add("selectItem", columns);
-
         JSONObject response = new JSONObject(requestUtils.sendPostRequest(uri, map).toString());
+
+        return returnColumnResponseFromRawJson(response);
+    }
+
+    private List<ColumnResponse> returnColumnResponseFromRawJson(JSONObject response) {
+
         JSONArray jsonArray = (JSONArray) response.get("data");
         List<ColumnResponse> columnResponseList = new ArrayList<>();
 
