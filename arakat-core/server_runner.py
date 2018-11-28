@@ -11,4 +11,4 @@ my_func(func_args)
 
 # Example usage from command line:
 # cd to arakat-core
-# python __main__.py service.CoreService run_my_server 10.154.3.18 5001
+# python server_runner.py src.service.CoreService run_my_server 127.0.0.1 5001
