@@ -1,4 +1,4 @@
-from pipeline_generator.generators import PipelineGenerator
+from src.pipeline_generator.generators import PipelineGenerator
 
 # Although UI may send all node-specs, in this example I will omit some of them...
 
