@@ -47,5 +47,5 @@ def __single_generation(node, df_name, args, model_elements_save_paths):
     code.extend(['df_' + node["id"] + "=" + 'model_' + node["id"] + '.transform(' + df_name + ')', os.linesep])
     if(model_elements_save_paths is not None):
         for elem in model_elements_save_paths:
-            code.extend(['model_' + node["id"] + "." + elem + ".write.format(parquet).save(" + CodeGenerationUtils.handle_primitive(model_elements_save_paths[elem]["value"]) + ")", os.linesep])
+            code.extend(['model_' + node["id"] + "." + elem + ".write.format('parquet').save(" + CodeGenerationUtils.handle_primitive(model_elements_save_paths[elem]["value"]) + ")", os.linesep])
     return code

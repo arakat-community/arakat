@@ -7,7 +7,6 @@ import io.github.arakat.arakatcommunity.repository.TaskRepository;
 import io.github.arakat.arakatcommunity.service.TablePathService;
 import io.github.arakat.arakatcommunity.utils.ApiResponseUtils;
 import io.github.arakat.arakatcommunity.utils.RequestUtils;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,9 +60,21 @@ public class TablePathController {
     @RequestMapping(value = "/get-data/{tablePath}/{columns}", produces = {"application/json"},
             method = RequestMethod.GET)
     public ResponseEntity<BaseResponse> getData(@PathVariable String tablePath, @PathVariable String columns,
-                                                @RequestParam("order-by") String orderByColumn, @RequestParam("sort-by") String sortBy) {
-        List<ColumnResponse> data = tablePathService.getDataBySpecificQuery(requestUtils.reformatUrl(tablePath), columns,
-                orderByColumn, sortBy);
+                                                @RequestParam("orderBy") String orderByColumn, @RequestParam("sortBy") String sortBy,
+                                                @RequestParam("limit") int limit) {
+        List<List<ColumnResponse>> data = tablePathService.getDataBySpecificQuery(requestUtils.reformatUrl(tablePath), columns,
+                orderByColumn, sortBy, limit);
+
+        return ApiResponseUtils.createResponseEntity(200,
+                String.format(ApiResponseUtils.getUserMessageSuccess(), "Get table paths by task id"),
+                String.format(ApiResponseUtils.getDevMessageSuccess(), "Get table paths by task id", "TablePath"),
+                data, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/get-raw-data/{tablePath}/", produces = {"application/json"},
+            method = RequestMethod.GET)
+    public ResponseEntity<BaseResponse> getRawData(@PathVariable String tablePath) {
+        List<List<ColumnResponse>> data = tablePathService.getRawData(requestUtils.reformatUrl(tablePath));
 
         return ApiResponseUtils.createResponseEntity(200,
                 String.format(ApiResponseUtils.getUserMessageSuccess(), "Get table paths by task id"),

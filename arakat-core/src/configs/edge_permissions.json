@@ -78,7 +78,7 @@
     },
     "19": {
       "produces": [{"type":"pipeline"}],
-      "takes": [{"type":"model"}]
+      "takes": [{"type":"model"}, {"type":"pipeline"}]
     },
     "20": {
       "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}],
