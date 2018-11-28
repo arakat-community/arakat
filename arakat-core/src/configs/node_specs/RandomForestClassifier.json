@@ -1,0 +1,145 @@
+{
+  "node_id": 32,
+  "name": "Random Forest Classifier",
+  "category": 11,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "RandomForestClassifier",
+  "parameter_props": {
+    "parameters": {
+      "featuresCol": {
+        "visible_name": "Features Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "features"
+      },
+      "labelCol": {
+        "visible_name": "Label Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "label"
+      },
+      "predictionCol": {
+        "visible_name": "Prediction Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "prediction"
+      },
+      "probabilityCol": {
+        "visible_name": "Probability Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "probability"
+      },
+      "rawPredictionCol": {
+        "visible_name": "Raw Prediction Column",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "rawPrediction"
+      },
+      "numTrees": {
+        "visible_name": "# of Trees",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "numTrees >= 1",
+        "default": 20
+      },
+      "maxDepth": {
+        "visible_name": "Max. Depth",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxDepth >= 0",
+        "default": 5
+      },
+      "impurity": {
+        "visible_name": "Impurity",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "entropy",
+          "gini"
+        ],
+        "default": "gini"
+      },
+      "featureSubsetStrategy": {
+        "visible_name": "Feature Subset Strategy",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "auto",
+          "all",
+          "onethird",
+          "sqrt"
+        ],
+        "default": "auto"
+      },
+      "maxBins": {
+        "visible_name": "Max. Bins",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxBins >= 2",
+        "optional": true
+      },
+      "minInstancesPerNode": {
+        "visible_name": "Min. Instances per Node",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "minInstancesPerNode >= 1",
+        "optional": true
+      },
+      "checkpointInterval": {
+        "visible_name": "Checkpoint Interval",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "checkpointInterval >= 1",
+        "default": 10,
+        "optional": true
+      },
+      "cacheNodeIds": {
+        "visible_name": "Cache Node Ids",
+        "type_constraint": [
+          "boolean"
+        ],
+        "optional": true
+      },
+      "seed": {
+        "visible_name": "Seed",
+        "type_constraint": [
+          "integer"
+        ],
+        "optional": true
+      },
+      "subsamplingRate": {
+        "type_constraint": [
+          "double",
+          "float"
+        ],
+        "piecewise_constraint": "subsamplingRate > 0.0 AND subsamplingRate <= 1.0",
+        "default": 1.0,
+        "optional": true
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [0,1,4,5,8,10,11,13]
+}
