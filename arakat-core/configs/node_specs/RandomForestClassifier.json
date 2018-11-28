@@ -127,7 +127,7 @@
         "optional": true
       },
       "subsamplingRate": {
-        "type": [
+        "type_constraint": [
           "double",
           "float"
         ],
