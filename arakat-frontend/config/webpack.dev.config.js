@@ -38,12 +38,12 @@ module.exports = env => {
             historyApiFallback: true,
             watchOptions: {
                 poll: true,
-                ignored: [/config/,"package.json", /node_modules/] 
+                ignored: [/config/,"package.json", /node_modules/]
             }
         },
         watchOptions: {
             poll: true,
-            ignored: [/config/,"package.json", /node_modules/] 
+            ignored: [/config/,"package.json", /node_modules/]
         },
         devtool: "inline-source-map",
         module: {
@@ -101,7 +101,7 @@ module.exports = env => {
         },
         plugins: [
             new Dotenv({
-                path: './config/.env'            
+                path: './config/.env'
             }),
             new webpack.EnvironmentPlugin({
                 API_WORKSPACE: env.API_WORKSPACE
@@ -169,5 +169,5 @@ module.exports = env => {
         },
         stats: 'errors-only'
     };
-    
+
 }
