@@ -12,6 +12,7 @@ import {
     MenuItem,
     TextField
 } from "@material-ui/core";
+
 const style: any = (theme: Theme) => ({
     dialogContent: {
         backgroundColor: theme.palette.background.default,
@@ -22,8 +23,8 @@ const style: any = (theme: Theme) => ({
     typeSelect: {
         // --
     },
-    typeSelectDiv: {
-
+    typeSelectComponent: {
+        margin: '5px'
     },
     additional: {
 
@@ -39,6 +40,7 @@ export interface IEdgeDialogProps {
     sourceID: string;
     targetID: string;
     addEdgeToGraphEdges: (edge, sourceID, targetID) => void;
+    setIsDialogOpenCallBack: (isEdgeDialogOpen) => void;
     
 }
 interface IEdgeDialogState {
@@ -49,12 +51,14 @@ interface IEdgeDialogState {
 
 
 type AllTypes = IEdgeDialogProps & WithStyles<'dialogContent' | 'typeSelect' | 'typeSelectDiv' | 'additional' |
-                                              'additionalDiv'>;
+                                              'additionalDiv' | 'typeSelectComponent'>;
 
 /**
  * DrawerComponent
  */
-class EdgeDialogComponent extends Component<AllTypes, IEdgeDialogState> {
+// class EdgeDialogComponent extends Component<AllTypes, IEdgeDialogState> {
+class EdgeDialogComponent extends React.PureComponent<AllTypes, IEdgeDialogState> {
+
     constructor(props: AllTypes) {
         super(props);
         this.state = {
@@ -64,13 +68,11 @@ class EdgeDialogComponent extends Component<AllTypes, IEdgeDialogState> {
         }
     }
 
-    componentWillReceiveProps = (nextProps) => {
-        if( nextProps.isDialogOpen ) {
+    componentDidMount = () => {
+        if( this.props.isDialogOpen ) {
             this.setState({
-                type: nextProps.commonEdgeTypes[0].type
+                type: this.props.commonEdgeTypes[0].type
             });
-
-            
         }
     }
 
@@ -82,27 +84,32 @@ class EdgeDialogComponent extends Component<AllTypes, IEdgeDialogState> {
     }
     public getAdditionalParameterComponents = () => {
         const { classes } = this.props;
-        this.props.commonEdgeTypes.map((edgeObject) => {
-            if( edgeObject.type === this.state.type && 
-                edgeObject.additional_parameters ) {
-                edgeObject.additional_parameters.map((additional_parameter) => {
-                    return (
-                        <div
-                            className={classes.additionalDiv}          
-                        >
-                            <TextField
-                                id={additional_parameter}
-                                onChange={this.setAdditionalParameterValue(additional_parameter)}
-                                required={true}
-                                label={additional_parameter}
-                                placeholder='>= 0'
-                                className={classes.additional}
-                            />
-                        </div>
-                    );
-                })  
-            }
-        })
+        let additionalParameters = [];
+        if( this.props.commonEdgeTypes.length > 0 ) {
+            this.props.commonEdgeTypes.map((edgeObject) => {
+                if( edgeObject.type === this.state.type && 
+                    edgeObject.additional_parameters ) {                        
+                    additionalParameters = edgeObject.additional_parameters.map((additional_parameter) => 
+                    {
+                        return (
+                            <div
+                                className={classes.additionalDiv}          
+                            >
+                                <TextField
+                                    id={additional_parameter}
+                                    onChange={this.setAdditionalParameterValue(additional_parameter)}
+                                    required={true}
+                                    label={additional_parameter}
+                                    placeholder='>= 0'
+                                    className={classes.additional}
+                                />
+                            </div>
+                        );
+                    })
+                }
+            })
+        }
+        return additionalParameters;
         
     }
     public setTypeValue = () => (event) => {
@@ -118,19 +125,28 @@ class EdgeDialogComponent extends Component<AllTypes, IEdgeDialogState> {
                 menuItems.push(<MenuItem value={item.type}> { item.type } </MenuItem>)
             });
             return (
-                <Select
-                    className={ classes.typeSelect }
-                    value={this.state.type}
-                    autoWidth={true}
-                    onChange={this.setTypeValue()}
-                >
-                    {menuItems}
-                </Select>
+                <div>
+                    <span
+                        className={ classes.typeSelectComponent }
+                    >
+                        Bağlantı Tipi:
+                    </span>
+                    <Select
+                        className={ classes.typeSelect }
+                        value={this.state.type}
+                        autoWidth={true}
+                        onChange={this.setTypeValue()}
+                    >
+                        {menuItems}
+                    </Select>
+                </div>
+                
             )
         }        
     }
     public handleClose = () => {
-        console.log('closed.')
+        this.props.setIsDialogOpenCallBack(false);
+        console.log('closed.');
     }
 
     public handleOK = () => {
@@ -140,12 +156,12 @@ class EdgeDialogComponent extends Component<AllTypes, IEdgeDialogState> {
             portion: this.state.portion !== -1 ? this.state.portion : undefined,
         }
         this.props.addEdgeToGraphEdges(edgeObject, this.props.sourceID, this.props.targetID);
+        this.props.setIsDialogOpenCallBack(false);
     }
     /**
      * render output of cyto
      */
     public render(): JSX.Element {
-        const { classes } = this.props;
         let dialogTitle = "Bağlantı Parametreleri";
         return (
                 <div>
@@ -182,7 +198,6 @@ class EdgeDialogComponent extends Component<AllTypes, IEdgeDialogState> {
                     </Dialog>
                 </div>
         );
-
     }
 
 }

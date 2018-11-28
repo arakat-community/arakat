@@ -16,7 +16,6 @@ export interface INodeParametersProps {
     selectedNode: any;
     isDialogOpen: boolean;
     setIsNodeParametersDialogOpen: (isDialogOpen: boolean) => void;
-    addNodeToDagNodes: (node: any) => void;
     updateDagNode: (node: any) => void;
 
 }
@@ -55,7 +54,7 @@ class NodeParametersDialogComponent extends Component<AllTypes, INodeParametersD
             delete finalNode.parameter_props;
             delete finalNode.df_constraints;
             finalNode['parameters'] = this.state.finalParameters;
-            this.props.addNodeToDagNodes(finalNode);
+            this.props.updateDagNode(finalNode);
         } else {
             alert("please fill the required fields.");
         }
@@ -89,7 +88,11 @@ class NodeParametersDialogComponent extends Component<AllTypes, INodeParametersD
                     );
                 }
             }
-            return parameterComponents;
+            if( parameterComponents.length > 0 ) {  
+                return parameterComponents;
+            } else {
+                return <span> Seçili noda ait parametre bulunmamaktadır. </span>
+            }
         } else {
             return (
                 <p> Please re-open the dialog.</p>
@@ -164,7 +167,8 @@ class NodeParametersDialogComponent extends Component<AllTypes, INodeParametersD
         const { classes } = this.props;
         let dialogTitle = "Parameters";
         if( this.props.selectedNode ) {
-            dialogTitle = this.props.selectedNode.name + " Nod Parametreleri";
+            dialogTitle = this.props.selectedNode.name + ' (' +
+            this.props.selectedNode.id + ')' + ' Nod Parametreleri';
         }
         return (
                 <div>
@@ -177,7 +181,10 @@ class NodeParametersDialogComponent extends Component<AllTypes, INodeParametersD
                         <DialogTitle
                             id="scroll-dialog-title"
                         >
-                            { dialogTitle }
+                            <h3>
+                                {dialogTitle}
+                            </h3>
+                            
                         </DialogTitle>
 
                         <DialogContent>

@@ -7,7 +7,9 @@ export const darkTheme: ThemeOptions = {
     overrides: {
         MuiAppBar: {
             colorPrimary: {
-                backgroundColor: "#424242",
+                // backgroundColor: "#424242",
+                backgroundColor: "white",
+
             },
         },
     },

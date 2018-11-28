@@ -18,6 +18,8 @@ import 'brace/mode/java';
 import 'brace/theme/github';
 import 'brace/theme/monokai';
 import TemplateSubComponent from '../template-subcomponent';
+import JSONInput from 'react-json-editor-ajrm';
+import locale from 'react-json-editor-ajrm/locale/en';
 
 
 const style: any = (theme: Theme) => ({
@@ -53,6 +55,9 @@ const style: any = (theme: Theme) => ({
     },
     parameterComponent: {
         marginTop: '5px'
+    },
+    jsonEditorDiv: {
+        marginTop: '25px'
     }
 });
 
@@ -70,7 +75,7 @@ interface INodeParameterComponentState {
 
 type AllTypes = INodeParameterComponentProps & WithStyles< 'textField' | 'label' | 'select' | 'object' | 'addButton' |
                                                             'typeSelectContainer' | 'typeSelect' | 'parameterComponent' |
-                                                            'typeElement' >;
+                                                            'typeElement' | 'jsonEditorDiv' >;
 
 /**
  * NodeParameterComponent
@@ -275,12 +280,19 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
 
     public updateCodeParameterValue = (key) => (value) => {
         let finalParameterSet = this.state.finalParameterSet;    
-        finalParameterSet[key].value = value
+        finalParameterSet[key].value = value.jsObject;
         this.setState({
             finalParameterSet
         });
     }
 
+    public updateDictValue = (key) => (value) => {
+        let finalParameterSet = this.state.finalParameterSet;
+        finalParameterSet[key].value = value.jsObject;
+        this.setState({
+            finalParameterSet
+        });
+    }
     public handleCheckboxChange = (key) => (event) => {
         let finalParameterSet = this.state.finalParameterSet;        
         finalParameterSet[key].value = event.target.checked;
@@ -422,7 +434,6 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
             </div>
         );
     }
-    // TODO:
     public getComponentForObject = (parameter) => {
         const { object_info } = parameter;
         const { classes } = this.props;
@@ -448,6 +459,26 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
             </div>
             
         );
+    }
+
+    public getComponentForDict = (parameter) => {
+        const { classes } = this.props;
+        const sampleData = {
+            parametre_adi: parameter.visible_name
+        }
+        return (
+            <div
+                className={ classes.jsonEditorDiv }
+            >   
+                <JSONInput
+                    id          = 'a_unique_id'
+                    locale      = { locale }
+                    onChange    = { this.updateDictValue(parameter.key)}
+                    height      = '350px'
+                    placeholder = {sampleData}
+                />
+            </div>
+        )
     }
 
     public getComponentForSelect = (parameter) => {
@@ -545,6 +576,7 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
                     case "array[integer]":
                     case "array[float]":
                     case "array[long]":
+                    case "array[double]":
                         component = this.getComponentForNumberAndString(parameter, "arrayOfNumber");
                         break;
                     case "array[regex]":
@@ -568,6 +600,9 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
                         break;
                     case "object":
                         component = this.getComponentForObject(parameter);
+                        break;
+                    case 'dict':
+                        component = this.getComponentForDict(parameter);
                         break;
                     default:
                         component = <p> empty </p>;

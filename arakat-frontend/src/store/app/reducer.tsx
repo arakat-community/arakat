@@ -3,7 +3,7 @@ import LocalizationLanguages from "../../localization/languages";
 import { AppConfigActions, IApplicationConfigState } from "./types";
 
 export const initialState: IApplicationConfigState  = {
-    appLogo: "/assets/images/logo.png",
+    appLogo: "/assets/images/arakat.jpg",
     appName: "BI",
     appBrand: "ASTAR",
     theme: {

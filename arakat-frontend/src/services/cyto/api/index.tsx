@@ -24,7 +24,7 @@ export const fetchEdgePermissions: () => AxiosPromise<any[]> = () => {
  * 
  * @param graph 
  */
-export const saveGraph: (graph: any) => AxiosPromise<any> = (graph: any) => {
+export const runGraph: (graph: any) => AxiosPromise<any> = (graph: any) => {
     return (
         new Request<any>(Api.Backend, "arakat-java-service/run-graph").post<any>(graph)
     );

@@ -16,7 +16,7 @@ import {IApplicationState} from "./store";
 //TODO: is this initialization necessary? why? it is done in reducers already.
 const applicationInitialState: IApplicationState = {
     appConfig: {
-        appLogo: "/assets/images/logo.png",
+        appLogo: "/assets/images/arakat.jpg",
         appBrand: "ARAKAT",
         appName: "",
         theme: {
@@ -89,7 +89,8 @@ const runApp: () => void = () => {
                     </ConnectedRouter>
             </LocalizerContainer>
         </Provider>,
-        document.getElementById("root"));
+        document.getElementById("root")
+    );    
 };
 
 /**

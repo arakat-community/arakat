@@ -10,6 +10,7 @@ import MouseTrap from "mousetrap";
 import React, { Component } from "react";
 import { ConnectDropTarget, DropTarget} from "react-dnd";
 import { NodeTypes } from "../../common/models/cyto-elements/node-types";
+import { NodeFamilies } from "../../common/models/cyto-elements/node-families";
 import NodeParametersDialogContainer from "../../containers/node-parameters-dialog";
 import { ICytoState } from "../../store/cyto/types";
 import { layout } from "./layout";
@@ -45,9 +46,10 @@ export interface ICytoProps {
   increaseTaskNodesLength: () => void;
   setSelectedNode: (selectedNode) => void;
   setIsNodeParametersDialogOpen: (isDialogOpen: boolean) => void;
+  addNodeToDagNodes: (node: any) => void;
   addEdgeToGraphEdges: (key: string, edge: any) => void;
   setGraph: (graph: any) => void;
-  saveGraph: (graph: any) => void;
+  runGraph: (graph: any) => void;
   setGraphProperties: (graphProperties: any) => void;
   edgeAdditionPolicy?: any;
   highlighted?: boolean;
@@ -130,16 +132,9 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
       nextProps.cytoState.nodeSpecs.map((nodeSpec) => {
         // TODO: dragItem.node_id should be int.
         if (nodeSpec.node_id === parseInt(nextProps.dragItem.node_id, 10)) {
-          this.props.addNodeToExistingNodes(nodeSpec);
-          let isAlreadyExist = false;
-          if( this.cydyna.elements ) {
-            isAlreadyExist = this.cydyna._private.elements.some((existingNode) => {
-                return existingNode._private.data.nodeID === nodeSpec.node_id;                                     
-            })
-          }            
-          if( !isAlreadyExist ) {
-            this.addNode(nodeSpec);
-          }
+          this.props.addNodeToExistingNodes(nodeSpec);          
+          this.addNode(nodeSpec);
+          
           return;
         }
       });
@@ -158,7 +153,6 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
         },
         dag_properties: graphProperties
       }
-      let existingTaskNodes = [];
       this.cydyna._private.elements.map((element) => {
         if (element._private.data.nodeType === NodeTypes.taskNode) {
           graph.graph.nodes[element._private.data.id] = {
@@ -169,7 +163,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
         }
       })
       this.props.setGraph(graph);
-      this.props.saveGraph(graph);
+      this.props.runGraph(graph);
       this.props.setGraphProperties(undefined);
     }
   }
@@ -185,7 +179,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
       selectionType: "additive",
       style: def_style,
       panningEnabled: false,
-      zoomingEnabled: true,
+      userZoomingEnabled: true // not working, needs panning.
     });
 
     this.cydyna
@@ -308,12 +302,12 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
       }
       let commonEdgeTypes = [];
       if( edgeType === '' ) {
-        commonEdgeTypes = this.getCommonEdgeTypes(sourceNodeFamily, targetNodeFamily);
+        commonEdgeTypes = this.getCommonEdgeTypes(sourceNodeFamily, targetNodeFamily);      
         const sourceID = addedEles[0]._private.data.source;
         const targetID = addedEles[0]._private.data.target;
         if( commonEdgeTypes.length === 0 ) {
             edgeType = 'wrong';
-        } else if( commonEdgeTypes['additional_parameters'] || commonEdgeTypes.length > 1) {
+        } else if( commonEdgeTypes[0]['additional_parameters'] !== undefined || commonEdgeTypes.length > 1) {          
             this.setState({
               edgeDialogPropObject: {
                 isEdgeDialogOpen: true,
@@ -328,16 +322,15 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
       }
       if( edgeType === 'wrong' ) {
         this.removeLastEdge(addedEles);
-      } 
-      // TODO: remove edge if not okay
-    
+      }     
     })
+    
   }
 
   public addEdgeToGraphEdges = (edge, sourceID, targetID) => {
       let key = `${sourceID}-${targetID}`;
       this.props.addEdgeToGraphEdges(key, edge);  
-      this.clearStatesAboutEdgeDialog();
+      // this.clearStatesAboutEdgeDialog();
   }
 
   public removeLastEdge = (addedEles) => {
@@ -451,8 +444,9 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
     let isAllowed = true;
     if( parent.nodeType === 2 && nodeSpec.compatible_with_spark_pipeline === false) {
       isAllowed = false;
-    } else if( parent.nodeType === 3 && ( nodeSpec.family !== 6 || 
-                                          nodeSpec.family !== 7 ) ) {
+    } else if( parent.nodeType === NodeTypes.cvNode && 
+             ( nodeSpec.family !== NodeFamilies.Estimator && 
+               nodeSpec.family !== NodeFamilies.Evaluator )) {
       isAllowed = false;                                    
     }
     return isAllowed;
@@ -469,8 +463,8 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
     let nodeID = -1;
     const nodeOffset = this.props.cytoState.lastDroppedNodeOffset;
     const existingNodesLength = this.props.cytoState.existingNodes ?
-                                this.props.cytoState.existingNodes.length + 1 :
-                                1;
+                                this.props.cytoState.existingNodes.length:
+                                0;
                                 
     const nodeData = {
         id: `node${existingNodesLength}`,
@@ -496,6 +490,13 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
           break;
       }
       this.refreshLayout();
+      // --------
+      let nodeSpecCopy = Object.assign({}, nodeSpec);
+      delete nodeSpecCopy.parameter_props;
+      delete nodeSpecCopy.df_constraints;
+      nodeSpecCopy['id'] = nodeData.id;
+      this.props.addNodeToDagNodes(nodeSpecCopy);
+      // -----------
       return nodeID;      
     } else {
       alert('not allowed.')
@@ -568,6 +569,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
         },
       })
       .id();
+   
    return nodeID;
   }
 
@@ -616,10 +618,10 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
       this.props.cytoState.taskNodesLength &&
       this.props.cytoState.taskNodesLength > 0
     ) {
-        id += `${this.props.cytoState.taskNodesLength}`;
+        id += `${this.props.cytoState.taskNodesLength + 1}`;
         visibleName += `${this.props.cytoState.taskNodesLength + 1}`;
     } else {
-        id += "0";
+        id += "1";
         visibleName += "1";
     }
     return {
@@ -779,16 +781,30 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
     );
   }
 
+  public setIsEdgeDialogOpen = (isEdgeDialogOpen) => {
+    const { commonEdgeTypes, sourceID, targetID } = this.state.edgeDialogPropObject;
+    this.setState({
+      edgeDialogPropObject: {
+        isEdgeDialogOpen: isEdgeDialogOpen,
+        commonEdgeTypes,
+        sourceID,
+        targetID
+      }
+    })
+  }
   public getEdgeDialogComponent = () => {
-    return (
-      <EdgeDialogComponent
-        isDialogOpen={this.state.edgeDialogPropObject.isEdgeDialogOpen}
-        commonEdgeTypes={this.state.edgeDialogPropObject.commonEdgeTypes}
-        sourceID={this.state.edgeDialogPropObject.sourceID}
-        targetID={this.state.edgeDialogPropObject.targetID}
-        addEdgeToGraphEdges={this.addEdgeToGraphEdges}
-      />
-    );
+    if( this.state.edgeDialogPropObject.commonEdgeTypes.length > 0 ) {
+      return (
+        <EdgeDialogComponent
+          isDialogOpen={this.state.edgeDialogPropObject.isEdgeDialogOpen}
+          setIsDialogOpenCallBack = {this.setIsEdgeDialogOpen}
+          commonEdgeTypes={this.state.edgeDialogPropObject.commonEdgeTypes}
+          sourceID={this.state.edgeDialogPropObject.sourceID}
+          targetID={this.state.edgeDialogPropObject.targetID}
+          addEdgeToGraphEdges={this.addEdgeToGraphEdges}
+        />
+      );
+    }
   }
 
   public getGraphPropertiesDialogComponent = () => {

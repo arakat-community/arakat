@@ -18,7 +18,7 @@ import {
     ISetGraph,
     ISetIsDagPropertiesDialogOpen,
     ISetDagProperties,
-    ISaveGraph
+    IRunGraph
 } from "./types";
 
 export const fetchNodeSpecs: ActionCreator<IFetchNodeSpecs> = () => ({
@@ -126,7 +126,7 @@ export const setGraphProperties: ActionCreator<ISetDagProperties> = (graphProper
     type: '@@cyto/SET_GRAPH_PROPERTIES',
 });
 
-export const saveGraph: ActionCreator<ISaveGraph> = (graph: any) => ({
+export const runGraph: ActionCreator<IRunGraph> = (graph: any) => ({
     payload: {
         graph
     },

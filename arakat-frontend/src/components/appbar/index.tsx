@@ -25,7 +25,7 @@ const styles: any = (theme: Theme) => ({
     },
     logo: {
         height: theme.spacing.unit * 5,
-        width: theme.spacing.unit * 5,
+        width: theme.spacing.unit * 22,
     },
     navigation: {
         position: "absolute",
@@ -46,12 +46,6 @@ type PropsWithStyle = IAppBarProps & WithStyles<"sidebarClosed" | "sidebarPinned
 const AppBar: React.SFC<IAppBarProps> = ({classes, ...props}: PropsWithStyle) => (
     <MuiAppBar
         position="absolute"
-        // className={
-        //     classNames({
-        //         [classes.sidebarClosed]: !props.sidebarPinned,
-        //         [classes.sidebarPinned]: props.sidebarPinned,
-        //     })
-        // }
     >
         <Toolbar>
             <Button

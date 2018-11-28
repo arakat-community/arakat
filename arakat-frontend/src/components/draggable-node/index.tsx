@@ -1,4 +1,4 @@
-import {Chip, Grid, Theme, WithStyles, withStyles} from "@material-ui/core";
+import { Theme, WithStyles, withStyles } from "@material-ui/core";
 import React from "react";
 import { DraggableType } from "../../common/models/draggable/type";
 import Draggable from "../draggable";
@@ -10,6 +10,9 @@ const style: any = (theme: Theme) => ({
         color: "white",
         paddingTop: "8px",
     },
+    draggableDiv : {
+
+    }
 });
 
 export interface IDraggableNodeProps {
@@ -17,14 +20,9 @@ export interface IDraggableNodeProps {
     title: string;
     depth: number;
 }
-/*
-export interface IDraggableNodesProps {
-    chips: IDraggableNode[];
-}
-*/
+
 type AllProps = IDraggableNodeProps & WithStyles<"root">;
 
-// TODO: type, component and key props of Draggable component may be unnecessary ?
 const DraggableNodeComponent: React.SFC<AllProps> = ({classes, ...props}: AllProps) => {
 
     const draggableItem = {
@@ -35,6 +33,7 @@ const DraggableNodeComponent: React.SFC<AllProps> = ({classes, ...props}: AllPro
             className={classes.root}
             style={{
                 paddingLeft: ( props.depth + 2) * 2 + "vw",
+                paddingTop: '15px'
             }}
         >
             <Draggable
@@ -42,7 +41,7 @@ const DraggableNodeComponent: React.SFC<AllProps> = ({classes, ...props}: AllPro
                 item={draggableItem}
                 key={`draggable-${props.nodeID}`}
             >
-                <span> {props.title}</span>
+                <span> {props.title} </span>
             </Draggable>
         </div>
 

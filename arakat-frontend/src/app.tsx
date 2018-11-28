@@ -9,7 +9,6 @@ import JssProvider from "react-jss/lib/JssProvider";
 import {connect} from "react-redux";
 import {Route, RouteComponentProps, Switch, withRouter} from "react-router";
 import { ITheme } from "./common/models/theme";
-import SecureRoute from "./components/route/secure";
 import { ILocalizationLanguage } from "./localization/languages";
 import {IApplicationState} from "./store";
 import { getTheme } from "./theme";

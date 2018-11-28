@@ -104,7 +104,7 @@ export const baseTheme: (locale: ILocalizationLanguage) => ThemeOptions = (local
                 },
                 title: {
                     fontSize: "2.1rem",
-                },
+                }
             },
             MuiListSubheader: {
                 root: {

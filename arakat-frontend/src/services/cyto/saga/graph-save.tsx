@@ -1,14 +1,16 @@
 import {call, takeLatest} from "redux-saga/effects";
-import { saveGraph } from "../api";
+import { runGraph } from "../api";
 
 /**
  * graph save
  */
-function* graphSave(action) {
+function* graphRun(action) {
     try {
-        yield call(saveGraph, action.payload.graph);
+        const response = yield call(runGraph, action.payload.graph);
+        console.log('response:');
+        console.log(response);        
     } catch ( error ) {
-        console.log("graphSave() -> failed! | error: ");
+        console.log("graphRun() -> failed! | error: ");
         console.log(error);
     }
 }
@@ -16,6 +18,6 @@ function* graphSave(action) {
 /**
  * watcher
  */
-export function* saveGraphWatcher() {
-    yield takeLatest("@@cyto/SAVE_GRAPH", graphSave);
+export function* runGraphWatcher() {
+    yield takeLatest("@@cyto/SAVE_GRAPH", graphRun);
 }

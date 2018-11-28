@@ -4,7 +4,7 @@
   "description": "astar|us|bi production family",
   "main": "./src/index.js",
   "scripts": {
-    "start": "webpack-dev-server --env.API_WORKSPACE=$API_WORKSPACE --config ./config/webpack.dev.config.js",
+    "start": "webpack-dev-server --hot --env.API_WORKSPACE=$API_WORKSPACE --config ./config/webpack.dev.config.js",
     "build": "webpack --config ./config/webpack.prod.config.js",
     "test": "jest",
     "snapshot-update": "jest -u",
@@ -137,7 +137,9 @@
     "react-dom": "^16.5.0",
     "react-grid-layout": "^0.16.6",
     "react-helmet": "^5.2.0",
+    "react-hot-loader": "^4.3.12",
     "react-intl": "^2.4.0",
+    "react-json-editor-ajrm": "^2.5.8",
     "react-pivottable": "^0.6.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",

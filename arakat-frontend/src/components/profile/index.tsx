@@ -16,6 +16,9 @@ const styles: any = () => ({
     title: {
         fontWeight: 600,
     },
+    buttonSpan : {
+        color: 'black'
+    }
 });
 
 export interface IProfileMenuProps {
@@ -27,7 +30,7 @@ interface IProfileMenuState {
     selectedItem: string;
 }
 
-type Props = IProfileMenuProps & WithStyles<"name" | "profile" | "title">;
+type Props = IProfileMenuProps & WithStyles<"name" | "profile" | "title" | 'buttonSpan'>;
 
 /**
  * menu component
@@ -58,15 +61,31 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
      */
     public render(): JSX.Element {
         const {anchorEl} = this.state;
-
+        const { classes } = this.props;
         return (
             <>
                 <Button
                   aria-owns={anchorEl ? 'id' : null}
                   aria-haspopup="true"
                   onClick={this.openDagPropertiesDialog}
-                  children="çalıştır"
-                />                
+                >
+                    <span
+                        className = { classes.buttonSpan }
+                    > 
+                        Çalıştır 
+                    </span>
+                </Button> 
+                <Button
+                  aria-owns={anchorEl ? 'id' : null}
+                  aria-haspopup="true"
+                  onClick={this.openDagPropertiesDialog}
+                >
+                    <span
+                        className = { classes.buttonSpan }
+                    > 
+                        Kaydet 
+                    </span>
+                </Button>                 
                 
             </>
         );

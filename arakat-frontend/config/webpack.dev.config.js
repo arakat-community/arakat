@@ -2,12 +2,9 @@ const webpack = require("webpack");
 const path = require("path");
 const Dotenv = require("dotenv-webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 var StatsPlugin = require('stats-webpack-plugin');
 require('@babel/polyfill');
 
@@ -15,7 +12,10 @@ module.exports = env => {
     console.log('env.API_WORKSPACE:' + env.API_WORKSPACE);
     return {
         mode: "development",
-        entry: ["@babel/polyfill", "./src/index.tsx"],
+        entry: [
+                "@babel/polyfill", 
+                "./src/index.tsx",
+        ],
         output: {
             path: path.resolve(__dirname, "../", "dist"),
             filename: "bundle.js",

@@ -15,10 +15,11 @@ import {
     setLastDroppedNodeOffset,
     setSelectedNode,
     fetchEdgePermissions,
+    addNodeToDagNodes,
     addEdgeToGraphEdges,
     setGraph,
     setGraphProperties,
-    saveGraph
+    runGraph
 } from "../../store/cyto/actions";
 import { ICytoState } from "../../store/cyto/types";
 
@@ -37,9 +38,10 @@ interface IDispatchProps {
     setSelectedNode: (node) => void;
     setIsNodeParametersDialogOpen: (isDialogOpen: boolean) => void;
     fetchEdgePermissions: () => void;
+    addNodeToDagNodes: (node: any) => void;
     addEdgeToGraphEdges: (key: string, edge: any) => void;
     setGraph: (graph: any) => void;
-    saveGraph: (graph: any) => void;
+    runGraph: (graph: any) => void;
     setGraphProperties: (graphProperties: any) => void;
 }
 
@@ -78,6 +80,9 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
         fetchEdgePermissions: () => {
             dispatch(fetchEdgePermissions());
         },
+        addNodeToDagNodes: (node: any) => {
+            dispatch(addNodeToDagNodes(node));
+        },
         addEdgeToGraphEdges: (key: string, edge: any) => {
             dispatch(addEdgeToGraphEdges(key, edge));
         },
@@ -87,8 +92,8 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
         setGraphProperties: (graphProperties: any) => {
             dispatch(setGraphProperties(graphProperties));
         },
-        saveGraph: (graph: any) => {
-            dispatch(saveGraph(graph));
+        runGraph: (graph: any) => {
+            dispatch(runGraph(graph));
         }
     };
 };

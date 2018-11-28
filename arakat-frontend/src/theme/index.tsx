@@ -6,6 +6,8 @@ import {ILocalizationLanguage} from "../localization/languages";
 import { baseTheme } from "./base";
 import { darkTheme } from "./dark";
 import { lightTheme } from "./light";
+import "./app.css";
+
 
 export const getTheme: (theme: ITheme, locale: ILocalizationLanguage) => Theme = (theme: ITheme, locale: ILocalizationLanguage) => {
     let themeOptions: ThemeOptions = baseTheme(locale);

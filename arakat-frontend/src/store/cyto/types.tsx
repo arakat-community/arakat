@@ -118,7 +118,7 @@ export interface ISetGraph extends Action {
     type: '@@cyto/PREPARE_GRAPH'
 }
 
-export interface ISaveGraph extends Action {
+export interface IRunGraph extends Action {
     payload: {
         graph: any;
     },
@@ -137,4 +137,4 @@ export type CytoActions = IFetchNodeSpecs | INodeSpecsFetched | IAddNodeToExisti
                           IIncreasePipelineNodesLength | ISetSelectedNode | ISetIsNodeParametersDialogOpen |
                           IAddNodeToGraphNodes | IUpdateGraphNode | IFetchEdgePermissions | IEdgePermissionsFetched |
                           IAddEdgeToGraphEdges | ISetGraph | ISetIsDagPropertiesDialogOpen | ISetDagProperties |
-                          ISaveGraph;
+                          IRunGraph;
