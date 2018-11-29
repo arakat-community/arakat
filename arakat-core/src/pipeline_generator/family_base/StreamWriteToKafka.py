@@ -20,7 +20,7 @@ def generate_code(args):
         else:
             df_name = "df_" + extra["dfs"][0]["source_id"]
 
-        code.append(df_name + '.selectExpr("CAST(' + node["parameters"]["unique_column_name"]["value"] + ' AS STRING) AS key", "to_json(struct(*)) AS value").writeStream.format("kafka").option("kafka.bootstrap.servers", ')
+        code.append("query_" + node["id"] + "=" + df_name + '.selectExpr("CAST(' + node["parameters"]["unique_column_name"]["value"] + ' AS STRING) AS key", "to_json(struct(*)) AS value").writeStream.format("kafka").option("kafka.bootstrap.servers", ')
         code.append(CodeGenerationUtils.handle_primitive(node["parameters"]["host"]["value"] + ":" + node["parameters"]["port"]["value"]) + ")")
         code.append(".trigger(" + __generate_trigger_code(node) + ")")
         code.append('.option("topic", ' + CodeGenerationUtils.handle_primitive(node["parameters"]["topic"]["value"]) + ")")
