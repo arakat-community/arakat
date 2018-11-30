@@ -79,7 +79,6 @@ const labels: any = defineMessages({
 });
 
 /**
- * Column Series Component
  * Component creates a folder hierarchy with the given data
  */
 class RcTreeComponent extends Component<PropWithStyles, IState, {}> {

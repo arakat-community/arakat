@@ -140,6 +140,7 @@
     "react-hot-loader": "^4.3.12",
     "react-intl": "^2.4.0",
     "react-json-editor-ajrm": "^2.5.8",
+    "react-jss": "^8.6.1",
     "react-pivottable": "^0.6.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
