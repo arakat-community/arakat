@@ -159,7 +159,6 @@ class RcTreeComponent extends Component<PropWithStyles, IState, {}> {
                 </TreeNode>;
             treeNodeList.push(treeNode);
         });
-      
         return treeNodeList;
     }
 }
