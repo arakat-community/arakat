@@ -7,7 +7,7 @@ import Request from "../../request";
  */
 export const fetchNodeSpecs: () => AxiosPromise<any[]> = () => {
     return (
-        new Request<any[]>(Api.Backend, "arakat-java-service/get-raw-nodes").get()
+        new Request<any[]>("", Api.Backend + "arakat-java-service/get-raw-nodes").get()
     );
 };
 
@@ -16,7 +16,7 @@ export const fetchNodeSpecs: () => AxiosPromise<any[]> = () => {
  */
 export const fetchEdgePermissions: () => AxiosPromise<any[]> = () => {
     return (
-        new Request<any[]>(Api.Backend, "arakat-java-service/get-edge-permissions").get()
+        new Request<any[]>("", Api.Backend + "arakat-java-service/get-edge-permissions").get()
     );
 };
 
@@ -26,7 +26,7 @@ export const fetchEdgePermissions: () => AxiosPromise<any[]> = () => {
  */
 export const runGraph: (graph: any) => AxiosPromise<any> = (graph: any) => {
     return (
-        new Request<any>(Api.Backend, "arakat-java-service/run-graph").post<any>(graph)
+        new Request<any>("", Api.Backend + "arakat-java-service/run-graph").post<any>(graph)
     );
 };
 
@@ -36,7 +36,7 @@ export const runGraph: (graph: any) => AxiosPromise<any> = (graph: any) => {
  */
 export const saveGraph: (graph: any) => AxiosPromise<any> = (graph: any) => {
     return (
-        new Request<any>(Api.Backend, "arakat-java-service/save-temp-graph").post<any>(graph)
+        new Request<any>("", Api.Backend + "arakat-java-service/save-temp-graph").post<any>(graph)
     );
 };
 
@@ -45,7 +45,7 @@ export const saveGraph: (graph: any) => AxiosPromise<any> = (graph: any) => {
  */
 export const fetchGraphs: () => AxiosPromise<any[]> = () => {
     return (
-        new Request<any[]>(Api.Backend, "arakat-java-service/get-graphs/").get()
+        new Request<any[]>("", Api.Backend + "arakat-java-service/get-graphs/").get()
     );
 };
 

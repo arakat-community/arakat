@@ -12,8 +12,6 @@ import { ILocalizationLanguage } from "./localization/languages";
 import { IApplicationState } from "./store";
 import { getTheme } from "./theme";
 import MainView from "./views/main";
-import TestView from "./views/test";
-import ChartDecisionComponent from "./components/chartDecision";
 
 export interface IAppState {
     location: Location;

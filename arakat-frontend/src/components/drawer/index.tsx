@@ -8,7 +8,6 @@ const style: any = (theme: Theme) => ({
         backgroundColor: theme.palette.background.default,
         width: theme.spacing.unit * 35,
         height: "100vh",
-        color: "white",
         overflowY: "auto",
     },
     root: {

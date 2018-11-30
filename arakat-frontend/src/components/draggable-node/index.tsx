@@ -7,7 +7,6 @@ const style: any = (theme: Theme) => ({
     root: {
         fontSize: "1.25rem",
         backgroundColor: theme.palette.background.default,
-        color: "white",
         paddingTop: "8px",
     },
     draggableDiv : {

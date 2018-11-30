@@ -1,10 +1,11 @@
 import { Theme, withStyles, WithStyles } from "@material-ui/core";
-import Menu, { MenuItem, SubMenu } from "rc-menu";
+import Menu, {MenuItem, SubMenu} from "rc-menu";
 import "rc-menu/assets/index.css";
 import React, { Component } from "react";
 import { INodeTree } from "../../common/models/node-tree";
 import DraggableNodeComponent from "../draggable-node";
 import { animation } from "./animation";
+
 
 const style: any = (theme: Theme) => ({
     black: {
@@ -24,7 +25,6 @@ const style: any = (theme: Theme) => ({
     menuItem: {
         backgroundColor: theme.palette.background.default,
         fontFamily: "Roboto, Helvetica, Arial, sans-serif",
-        color: "white",
         fontSize: "1.4rem",
     },
 });
@@ -81,14 +81,14 @@ class NodeTreeComponent extends Component<AllProps> {
                 );
             }
         } else if (arr.nodes && arr.nodes.length > 0) {
-          return (
-            <SubMenu
-                title={`${arr.categoryId} - ${arr.name}`}
-                className={this.props.classes.menuItem}
-            >
-              {arr.nodes.map((node) => this.createNodeTree(node, TreeItemType.node, depth))}
-            </SubMenu>
-          );
+            return (
+                <SubMenu
+                    title={`${arr.categoryId} - ${arr.name}`}
+                    className={this.props.classes.menuItem}
+                >
+                    {arr.nodes.map((node) => this.createNodeTree(node, TreeItemType.node, depth))}
+                </SubMenu>
+            );
         }
         if (treeItemType === TreeItemType.category) {
             return (
@@ -153,4 +153,4 @@ class NodeTreeComponent extends Component<AllProps> {
 
 }
 
-export default withStyles(style, {withTheme: true})(NodeTreeComponent);
+export default withStyles(style, { withTheme: true })(NodeTreeComponent);
