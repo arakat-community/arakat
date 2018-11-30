@@ -1,6 +1,5 @@
-import { ClickAwayListener, Drawer, Theme, withStyles, WithStyles } from "@material-ui/core";
+import { Drawer, Theme, withStyles, WithStyles } from "@material-ui/core";
 import classnames from "classnames";
-import { relative } from "path";
 import React, { Component } from "react";
 import { IDrawerState } from "../../store/drawer/types";
 

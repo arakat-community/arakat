@@ -78,7 +78,7 @@ class GraphPropertiesDialogComponent extends Component<AllTypes, IGraphPropertie
      */
     public render(): JSX.Element {
         const { classes } = this.props;
-        let dialogTitle = "Çizge Özellikleri";
+        let dialogTitle = "Uygulama Adı";
         return (
                 <div>
                     <Dialog
@@ -101,7 +101,7 @@ class GraphPropertiesDialogComponent extends Component<AllTypes, IGraphPropertie
                                     id={'appID'}
                                     onChange={this.setAppID()}
                                     required={true}
-                                    label={'Uygulama İsmi'}
+                                    label={'Uygulama 1'}
                                     className={classes.textField}
                                 />
                             </div>

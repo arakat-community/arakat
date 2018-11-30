@@ -71,6 +71,7 @@ interface INodeParameterComponentState {
         [key: string]: any
     };
     templateSubComponent: any;
+    // arrayOfObjectIndex: boolean;
 }
 
 type AllTypes = INodeParameterComponentProps & WithStyles< 'textField' | 'label' | 'select' | 'object' | 'addButton' |
@@ -86,7 +87,8 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
         super(props);        
         this.state = {
             finalParameterSet: {},
-            templateSubComponent: {}
+            templateSubComponent: {},
+            // arrayOfObjectIndex: undefined
         }
     }
     
@@ -107,6 +109,11 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
         const parameterKey = parameter.key;
         let finalParameterSet = {};
         let value = undefined;
+        /*
+        if( parameter.type_constraint[0] === 'array[object]' ) {
+            value = [];
+        } 
+        */ 
 
         if( parameter.object_info ) {
             let childParentKeys = [...parentKeys];
@@ -452,14 +459,14 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
                 </span>
                 <div
                     className={ classes.object}
-                >
-                
+                >                
                     { objectParameters }
                 </div>
             </div>
             
         );
     }
+
 
     public getComponentForDict = (parameter) => {
         const { classes } = this.props;
@@ -600,6 +607,9 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
                         break;
                     case "object":
                         component = this.getComponentForObject(parameter);
+                        break;
+                    case "array[object]":
+                        // TODO:
                         break;
                     case 'dict':
                         component = this.getComponentForDict(parameter);

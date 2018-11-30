@@ -43,11 +43,16 @@ const applicationInitialState: IApplicationState = {
         },
         isPrimitiveLevelLayoutRefreshBlocked: false,
         edgePermissions: {},
+        loadedGraphs: [],
         graph: undefined,
+        isGraphLoaded: false,
         graphNodes: {},
         graphEdges: {},
         graphProperties: undefined,
         isGraphPropertiesDialogOpen: false,
+        isLoadedGraphsDialogOpen: false,
+        isAboutToRun: false,
+        isAboutToSave: false
     },
     form: null,
     localization: {

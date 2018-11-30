@@ -16,9 +16,17 @@ import {
     IEdgePermissionsFetched,
     IAddEdgeToGraphEdges,
     ISetGraph,
-    ISetIsDagPropertiesDialogOpen,
+    ISetIsGraphPropertiesDialogOpen,
     ISetDagProperties,
-    IRunGraph
+    IRunGraph,
+    ISaveGraph,
+    ISetIsAboutToRun,
+    ISetIsAboutToSave,
+    IFetchGraphs,
+    IFetchGraph,
+    IGraphsFetched,
+    IGraphFetched,
+    ISetIsLoadedGraphsDialogOpen
 } from "./types";
 
 export const fetchNodeSpecs: ActionCreator<IFetchNodeSpecs> = () => ({
@@ -62,6 +70,20 @@ export const setSelectedNode: ActionCreator<ISetSelectedNode> = (selectedNode: a
         selectedNode,
     },
     type: "@@cyto/SET_SELECTEDNODE",
+});
+
+export const setIsAboutToRun: ActionCreator<ISetIsAboutToRun> = (isAboutToRun: boolean) => ({
+    payload: {
+        isAboutToRun,
+    },
+    type: "@@cyto/SET_IS_ABOUT_TO_RUN",
+});
+
+export const setIsAboutToSave: ActionCreator<ISetIsAboutToSave> = (isAboutToSave: boolean) => ({
+    payload: {
+        isAboutToSave,
+    },
+    type: "@@cyto/SET_IS_ABOUT_TO_SAVE",
 });
 
 export const setIsNodeParametersDialogOpen: ActionCreator<ISetIsNodeParametersDialogOpen> = (isDialogOpen: boolean) => ({
@@ -109,14 +131,14 @@ export const setGraph: ActionCreator<ISetGraph> = (graph: any) => ({
     payload: {
         graph
     },
-    type: '@@cyto/PREPARE_GRAPH',
+    type: '@@cyto/SET_GRAPH',
 });
 
-export const setIsGraphPropertiesDialogOpen: ActionCreator<ISetIsDagPropertiesDialogOpen> = (isOpen: boolean) => ({
+export const setIsGraphPropertiesDialogOpen: ActionCreator<ISetIsGraphPropertiesDialogOpen> = (isOpen: boolean) => ({
     payload: {
         isOpen
     },
-    type: '@@cyto/SET_IS_GRAPH_PROPERTIES_DIALOG_OPEN',
+    type: '@@cyto/SET_IS_GRAPH_EXECUTE_DIALOG_OPEN',
 });
 
 export const setGraphProperties: ActionCreator<ISetDagProperties> = (graphProperties: any) => ({
@@ -130,5 +152,41 @@ export const runGraph: ActionCreator<IRunGraph> = (graph: any) => ({
     payload: {
         graph
     },
+    type: '@@cyto/RUN_GRAPH',
+});
+
+export const saveGraph: ActionCreator<ISaveGraph> = (graph: any) => ({
+    payload: {
+        graph
+    },
     type: '@@cyto/SAVE_GRAPH',
+});
+
+export const fetchGraphs: ActionCreator<IFetchGraphs> = () => ({
+    type: '@@cyto/FETCH_GRAPHS',
+});
+
+export const fetchGraph: ActionCreator<IFetchGraph> = () => ({
+    type: '@@cyto/FETCH_GRAPH',
+});
+
+export const graphsFetched: ActionCreator<IGraphsFetched> = (graphs: any[]) => ({
+    payload: {
+        graphs,
+    },
+    type: "@@cyto/GRAPHS_FETCHED",
+});
+
+export const graphFetched: ActionCreator<IGraphFetched> = (graph: any) => ({
+    payload: {
+        graph,
+    },
+    type: "@@cyto/GRAPH_FETCHED",
+});
+
+export const setIsLoadedGraphsDialogOpen: ActionCreator<ISetIsLoadedGraphsDialogOpen> = (isOpen: boolean) => ({
+    payload: {
+        isOpen
+    },
+    type: '@@cyto/SET_IS_LOADED_GRAPHS_DIALOG_OPEN',
 });

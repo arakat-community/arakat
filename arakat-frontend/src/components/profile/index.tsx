@@ -1,4 +1,9 @@
-import { Button, WithStyles, withStyles } from "@material-ui/core";
+import { 
+    Button, 
+    WithStyles, 
+    withStyles,
+    MenuItem
+ } from "@material-ui/core";
 import React, { Component } from "react";
 
 const styles: any = () => ({
@@ -22,7 +27,13 @@ const styles: any = () => ({
 });
 
 export interface IProfileMenuProps {
+    graph: any;
+    loadedGraphs: any[];
     setIsGraphPropertiesDialogOpen: (isOpen: boolean) => void;
+    saveGraph: (graph: any) => void;
+    setIsAboutToSave: (isAboutToSave: boolean) => void;
+    setIsAboutToRun: (isAboutToRun: boolean) => void;
+    setIsLoadedGraphsDialogOpen: (isOpen: boolean) => void;
 }
 
 interface IProfileMenuState {
@@ -45,7 +56,9 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
         };
     }
 
-    public openDagPropertiesDialog = () => {
+    public openGraphPropertiesDialogForRun = () => {
+        this.props.setIsAboutToRun(true);
+        this.props.setIsAboutToSave(false);
         this.props.setIsGraphPropertiesDialogOpen(true);
     }
 
@@ -56,6 +69,20 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
         this.setState({ anchorEl: null, selectedItem: event.currentTarget.textContent });
       }
 
+    
+    public checkIfGraphIsLoaded = () => {
+        if( this.props.graph.dag_properties ) {
+            this.props.saveGraph(this.props.graph);
+        } else {
+            this.props.setIsAboutToSave(true);
+            this.props.setIsAboutToRun(false);
+            this.props.setIsGraphPropertiesDialogOpen(true);
+        }
+    }
+
+    public openLoadedGraphsDialog = () => {
+        this.props.setIsLoadedGraphsDialogOpen(true);
+    }
     /**
      * renders output
      */
@@ -67,7 +94,18 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
                 <Button
                   aria-owns={anchorEl ? 'id' : null}
                   aria-haspopup="true"
-                  onClick={this.openDagPropertiesDialog}
+                  onClick={this.openLoadedGraphsDialog}
+                >
+                    <span
+                        className = { classes.buttonSpan }
+                    > 
+                        Yükle 
+                    </span>
+                </Button>
+                <Button
+                  aria-owns={anchorEl ? 'id' : null}
+                  aria-haspopup="true"
+                  onClick={this.openGraphPropertiesDialogForRun}
                 >
                     <span
                         className = { classes.buttonSpan }
@@ -78,7 +116,7 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
                 <Button
                   aria-owns={anchorEl ? 'id' : null}
                   aria-haspopup="true"
-                  onClick={this.openDagPropertiesDialog}
+                  onClick={this.checkIfGraphIsLoaded}
                 >
                     <span
                         className = { classes.buttonSpan }

@@ -30,3 +30,23 @@ export const runGraph: (graph: any) => AxiosPromise<any> = (graph: any) => {
     );
 };
 
+/**
+ * 
+ * @param graph 
+ */
+export const saveGraph: (graph: any) => AxiosPromise<any> = (graph: any) => {
+    return (
+        new Request<any>(Api.Backend, "arakat-java-service/save-temp-graph").post<any>(graph)
+    );
+};
+
+/**
+ * fetch graphs
+ */
+export const fetchGraphs: () => AxiosPromise<any[]> = () => {
+    return (
+        new Request<any[]>(Api.Backend, "arakat-java-service/get-graphs/").get()
+    );
+};
+
+

@@ -18,6 +18,7 @@ import { def_style, getBackground, getShape, MAX_ZOOM } from "./style";
 import EdgeDialogComponent from '../edge-dialog';
 import GraphPropertiesDialogContainer from '../../containers/graph-properties-dialog';
 import { DraggableType }  from '../../common/models/draggable/type';
+import LoadedGraphsDialogContainer from '../../containers/loaded-graphs-dialog';
 
 const style: any = (theme: Theme) => ({
   default: {
@@ -50,7 +51,10 @@ export interface ICytoProps {
   addEdgeToGraphEdges: (key: string, edge: any) => void;
   setGraph: (graph: any) => void;
   runGraph: (graph: any) => void;
+  saveGraph: (graph: any) => void;
   setGraphProperties: (graphProperties: any) => void;
+  fetchGraphs: () => void;
+  fetchGraph: (graphId: string) => void;
   edgeAdditionPolicy?: any;
   highlighted?: boolean;
   hovered?: boolean;
@@ -163,7 +167,12 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
         }
       })
       this.props.setGraph(graph);
-      this.props.runGraph(graph);
+      console.log('isAboutToRun: ' + this.props.cytoState.isAboutToRun);
+      if( this.props.cytoState.isAboutToRun ) {
+        this.props.runGraph(graph);
+      } else if (this.props.cytoState.isAboutToSave) {
+        this.props.saveGraph(graph);
+      }
       this.props.setGraphProperties(undefined);
     }
   }
@@ -807,11 +816,20 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
     }
   }
 
-  public getGraphPropertiesDialogComponent = () => {
+  public getGraphPropertiesDialogContainer = () => {
     return (
-      <GraphPropertiesDialogContainer
-      />
+      <GraphPropertiesDialogContainer/>
     )
+  }
+  public getLoadedGraphsDialog = () => {
+    if( this.props.cytoState.isLoadedGraphsDialogOpen ) {
+      return (
+        <LoadedGraphsDialogContainer/>
+      )
+    } else {
+      return null;
+    }
+    
   }
   /**
    * render output of cyto
@@ -826,7 +844,8 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
           >
             {this.getNodeParametersDialogComponent()}
             {this.getEdgeDialogComponent()}
-            {this.getGraphPropertiesDialogComponent()}
+            {this.getGraphPropertiesDialogContainer()}
+            {this.getLoadedGraphsDialog()}
           </div>,
         )
         

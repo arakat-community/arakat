@@ -15,11 +15,16 @@ export const initialState: ICytoState = {
     },
     isPrimitiveLevelLayoutRefreshBlocked: false,
     edgePermissions: {},
+    loadedGraphs: [],
     graph: undefined,
+    isGraphLoaded: false,
     graphNodes: {},
     graphEdges: {},
     graphProperties: undefined,
     isGraphPropertiesDialogOpen: false,
+    isLoadedGraphsDialogOpen: false,
+    isAboutToRun: false,
+    isAboutToSave: false
 };
 
 const reducer: Reducer<ICytoState> = (state: ICytoState = initialState, action: CytoActions) => {
@@ -116,18 +121,22 @@ const reducer: Reducer<ICytoState> = (state: ICytoState = initialState, action: 
                 ...state,
                 edgePermissions: action.payload.edgePermissions
             }
-        case '@@cyto/PREPARE_GRAPH':
+        case '@@cyto/SET_GRAPH':
             return {
                 ...state,
                 graph: action.payload.graph
             }
-        case '@@cyto/SAVE_GRAPH':
+        case '@@cyto/RUN_GRAPH':
             console.log('graph: ');
             console.log(action.payload.graph);                        
             return {
                 ...state,
             }
-        case '@@cyto/SET_IS_GRAPH_PROPERTIES_DIALOG_OPEN':
+        case '@@cyto/SAVE_GRAPH':
+            return {
+                ...state
+            }
+        case '@@cyto/SET_IS_GRAPH_EXECUTE_DIALOG_OPEN':
             return {
                 ...state,
                 isGraphPropertiesDialogOpen: action.payload.isOpen,
@@ -136,6 +145,39 @@ const reducer: Reducer<ICytoState> = (state: ICytoState = initialState, action: 
             return {
                 ...state,
                 graphProperties: action.payload.graphProperties
+            }
+        case '@@cyto/SET_IS_ABOUT_TO_SAVE':
+            return {
+                ...state,
+                isAboutToSave: action.payload.isAboutToSave
+            }
+        case '@@cyto/SET_IS_ABOUT_TO_RUN':
+            return {
+                ...state,
+                isAboutToRun: action.payload.isAboutToRun
+            }
+        case '@@cyto/FETCH_GRAPHS':
+            return {
+                ...state,
+            }
+        case '@@cyto/FETCH_GRAPH':
+            return {
+                ...state,
+            }
+        case '@@cyto/GRAPHS_FETCHED':
+            return {
+                ...state,
+                loadedGraphs: action.payload.graphs
+            }
+        case '@@cyto/GRAPH_FETCHED':
+            return {
+                ...state,
+                graph: action.payload.graph
+            }
+        case '@@cyto/SET_IS_LOADED_GRAPHS_DIALOG_OPEN':
+            return {
+                ...state,
+                isLoadedGraphsDialogOpen: action.payload.isOpen
             }
         default:
             return {

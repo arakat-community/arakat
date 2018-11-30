@@ -19,7 +19,10 @@ import {
     addEdgeToGraphEdges,
     setGraph,
     setGraphProperties,
-    runGraph
+    runGraph,
+    saveGraph,
+    fetchGraphs,
+    fetchGraph
 } from "../../store/cyto/actions";
 import { ICytoState } from "../../store/cyto/types";
 
@@ -42,7 +45,8 @@ interface IDispatchProps {
     addEdgeToGraphEdges: (key: string, edge: any) => void;
     setGraph: (graph: any) => void;
     runGraph: (graph: any) => void;
-    setGraphProperties: (graphProperties: any) => void;
+    saveGraph: (graph: any) => void;
+    setGraphProperties: (graphProperties: any) => void;    
 }
 
 const mapStateToProps = (state: IApplicationState): ICytoContainerState => {
@@ -94,7 +98,11 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
         },
         runGraph: (graph: any) => {
             dispatch(runGraph(graph));
-        }
+        },
+        saveGraph: (graph: any) => {
+            dispatch(saveGraph(graph));
+        },
+        
     };
 };
 
