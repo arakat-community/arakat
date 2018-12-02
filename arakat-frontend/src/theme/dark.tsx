@@ -11,7 +11,18 @@ export const darkTheme: ThemeOptions = {
                 backgroundColor: "white",
 
             },
+        },        
+        MuiDialog: {
+            paper: {
+                backgroundColor: '#545C61',
+                outline: 'none'
+            }
         },
+        MuiDrawer: {
+            paper: {
+                backgroundColor: '#E56364'
+            },
+        }
     },
     palette: {
         type: "dark",
