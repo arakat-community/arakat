@@ -8,6 +8,7 @@ export const baseTheme: (locale: ILocalizationLanguage) => ThemeOptions = (local
             MuiAppBar: {
                 root: {
                     padding: 0,
+                    boxShadow: '1px 1px 6px #545C61'
                 },
             },
             MuiButton: {

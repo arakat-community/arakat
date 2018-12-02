@@ -1,23 +1,10 @@
 import Img from "@fdmg/ts-react-image";
 import { AppBar as MuiAppBar, Button, Theme, Toolbar, Typography, WithStyles, withStyles } from "@material-ui/core";
-import classNames from "classnames";
 import React from "react";
 import { IRouteGroup } from "../../common/models/route/group";
-import { ILocalizationLanguage } from "../../localization/languages";
 import HorizontalMenuComponent from "../horizontal-menu";
 
 const styles: any = (theme: Theme) => ({
-    sidebarClosed: {
-        width: `calc(100% - ${(theme.spacing.unit * 7)}px)`,
-        [theme.breakpoints.up("sm")]: {
-            width: `calc(100% - ${(theme.spacing.unit * 8)}px)`,
-        },
-    },
-    sidebarPinned: {
-        [theme.breakpoints.up("sm")]: {
-            width: `calc(100% - ${(theme.spacing.unit * 32)}px)`,
-        },
-    },
     toolbarRightItems: {
         alignItems: "center",
         display: "flex",
@@ -41,7 +28,7 @@ export interface IAppBarProps {
     onLogoClick: () => void;
 }
 
-type PropsWithStyle = IAppBarProps & WithStyles<"sidebarClosed" | "sidebarPinned" | "toolbarRightItems" | "logo" | "navigation">;
+type PropsWithStyle = IAppBarProps & WithStyles<"toolbarRightItems" | "logo" | "navigation">;
 
 const AppBar: React.SFC<IAppBarProps> = ({classes, ...props}: PropsWithStyle) => (
     <MuiAppBar

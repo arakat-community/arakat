@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import { withStyles, WithStyles, Theme, Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import NodeParameterComponent from "../node-parameter";
-import { INodeParameterWithValue } from "../../common/models/cyto-elements/node-parameter-with-value";
 
 const style: any = (theme: Theme) => ({
     dialogContent: {
         backgroundColor: theme.palette.background.default,
         // width: theme.spacing.unit * 35,
-        width: theme.spacing.unit * 75,
-        
+        width: theme.spacing.unit * 75,        
     },
 });
 

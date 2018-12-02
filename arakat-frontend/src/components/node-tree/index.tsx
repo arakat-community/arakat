@@ -6,23 +6,21 @@ import { INodeTree } from "../../common/models/node-tree";
 import DraggableNodeComponent from "../draggable-node";
 import { animation } from "./animation";
 
+const treeBackgroundColor = '#545C61';
 const style: any = (theme: Theme) => ({
-    black: {
-        marginTop: "10vh",
-        backgroundColor: theme.palette.background.default,
-    },
     root: {
-        marginTop: "8vh",
+        paddingTop: "8vh",
         marginLeft: "0",
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: treeBackgroundColor,
+        fontWeight: 'bold'
     },
     tree: {
-        margin: "0px",
         border: "none",
         boxShadow: "none",
+        backgroundColor: treeBackgroundColor,
     },
     menuItem: {
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: treeBackgroundColor,
         fontFamily: "Roboto, Helvetica, Arial, sans-serif",
         color: "white",
         fontSize: "1.4rem",
@@ -41,7 +39,7 @@ export interface INodeTreeProps {
     nodeTree: INodeTree;
 }
 
-type AllProps = INodeTreeProps & WithStyles<"root" | "black" | "tree" | "menuItem">;
+type AllProps = INodeTreeProps & WithStyles<"root" | "tree" | "menuItem">;
 
 /**
  * NodeTreeComponent class

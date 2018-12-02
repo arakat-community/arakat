@@ -14,11 +14,21 @@ import { NodeFamilies } from "../../common/models/cyto-elements/node-families";
 import NodeParametersDialogContainer from "../../containers/node-parameters-dialog";
 import { ICytoState } from "../../store/cyto/types";
 import { layout } from "./layout";
-import { def_style, getBackground, getShape, MAX_ZOOM } from "./style";
 import EdgeDialogComponent from '../edge-dialog';
 import GraphPropertiesDialogContainer from '../../containers/graph-properties-dialog';
 import { DraggableType }  from '../../common/models/draggable/type';
 import LoadedGraphsDialogContainer from '../../containers/loaded-graphs-dialog';
+import { 
+  def_style, 
+  getBackground, 
+  getShape, 
+  MAX_ZOOM, 
+  taskNodeStyle, 
+  cvNodeStyle, 
+  innerNodeStyle,
+  pipelineNodeStyle
+} from "./style";
+
 
 const style: any = (theme: Theme) => ({
   default: {
@@ -569,13 +579,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
         data: nodeData,
         group: "nodes",
         position: { x: nodeOffset.x, y: nodeOffset.y},
-        style: {
-          backgroundColor: "white",
-          height: 50,
-          shape: "ellipse",
-          width: 50,
-          color: "white",
-        },
+        style: innerNodeStyle,
       })
       .id();
    
@@ -588,13 +592,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
           data: nodeData,
           group: "nodes",
           position: { x: nodeOffset.x, y: nodeOffset.y},
-          style: {
-            backgroundColor: "green",
-            height: 50,
-            shape: "rectangle",
-            width: 100,
-            color: "white",
-          },
+          style: pipelineNodeStyle,
         })
         .id();
     this.props.increasePipelineNodesLength();
@@ -607,13 +605,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
           data: nodeData,
           group: "nodes",
           position: { x: nodeOffset.x, y: nodeOffset.y},
-          style: {
-            backgroundColor: "orange",
-            height: 75,
-            shape: "rectangle",
-            width: 150,
-            color: "white",
-          },
+          style: cvNodeStyle,
         })
         .id();
     this.props.increaseCVNodesLength();
@@ -653,13 +645,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
       position: { x: nodeOffset.x, y: nodeOffset.y},
       //locked: false,
       //removed: false,
-      style: {
-        backgroundOpacity: 0.333,
-        height: 125,
-        shape: "ellipse",
-        width: 125,
-        color: "white",
-      },
+      style: taskNodeStyle,
     });
     this.props.increaseTaskNodesLength();
     this.refreshLayout();

@@ -2,7 +2,6 @@ import {
     Button, 
     WithStyles, 
     withStyles,
-    MenuItem
  } from "@material-ui/core";
 import React, { Component } from "react";
 

@@ -94,6 +94,38 @@ export const def_style =
         },
 ];
 
+export const taskNodeStyle = {
+    backgroundOpacity: 0.777,
+    backgroundColor: '#545C61',
+    height: 125,
+    shape: "ellipse",
+    width: 125,
+    color: "black",
+    fontWeight: 'bold'
+}
+export const cvNodeStyle = {
+    backgroundColor: "orange",
+    height: 75,
+    shape: "rectangle",
+    width: 150,
+    color: "white",
+}
+
+export const innerNodeStyle = {
+    backgroundColor: "white",
+    height: 50,
+    shape: "ellipse",
+    width: 50,
+    color: "white",
+}
+
+export const pipelineNodeStyle = {
+    backgroundColor: "green",
+    height: 50,
+    shape: "rectangle",
+    width: 100,
+    color: "white",
+}
 export const MAX_ZOOM = 6;
 
 export const getBackground = (ele) => {

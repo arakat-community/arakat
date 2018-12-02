@@ -483,6 +483,7 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
                     onChange    = { this.updateDictValue(parameter.key)}
                     height      = '350px'
                     placeholder = {sampleData}
+                    theme       = {'light_mitsuketa_tribute'}
                 />
             </div>
         )
