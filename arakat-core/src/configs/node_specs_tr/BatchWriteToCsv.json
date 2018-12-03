@@ -1,0 +1,53 @@
+{
+  "node_id": 59,
+  "name": "CSV Dosyasına Toplu Yazma",
+  "category": 1,
+  "node_type": 0,
+  "family": 2,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "file_type": "csv",
+  "parameter_props": {
+    "parameters": {
+      "path": {
+        "visible_name": "Dosya Yolu",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "quote": {
+        "visible_name": "Alıntı",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "\""
+      },
+      "header": {
+        "visible_name": "Başlık",
+        "type_constraint": [
+          "string"
+        ],
+        "default": false
+      },
+      "sep": {
+        "visible_name": "Ayırıcı",
+        "type_constraint": [
+          "string"
+        ],
+        "default": ","
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": [
+
+  ]
+}

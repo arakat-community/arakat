@@ -1,0 +1,48 @@
+{
+  "node_id": 31,
+  "name": "Temel Bileşen Analizi (PCA)",
+  "category": 8,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "PCA",
+  "parameter_props": {
+    "parameters": {
+      "inputCol": {
+        "visible_name": "Girdi Sütunu",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "outputCol": {
+        "visible_name": "Çıktı Sütunu",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "k": {
+        "visible_name": "Temel Bileşen Sayısı",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "k >= 1"
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [
+  	1,
+  	2,
+  	3,
+  	4,
+    10,
+    13
+  ]
+}

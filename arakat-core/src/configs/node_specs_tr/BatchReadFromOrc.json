@@ -1,0 +1,33 @@
+{
+  "node_id": 48,
+  "name": "Orc Dosyasından Toplu Okuma",
+  "category": 0,
+  "node_type": 0,
+  "family": 0,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "can_infer_schema": false,
+  "file_type": "orc",
+  "parameter_props": {
+    "parameters": {
+      "path": {
+        "visible_name": "Dosya Yolu",
+        "type_constraint": [
+          "string"
+        ]
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": [
+
+  ]
+}

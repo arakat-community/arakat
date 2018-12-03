@@ -1,0 +1,44 @@
+{
+  "node_id": 29,
+  "name": "Normalleştirici",
+  "category": 7,
+  "node_type": 0,
+  "family": 18,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "transformer_name": "Normalizer",
+  "parameter_props": {
+    "parameters": {
+      "inputCol": {
+        "visible_name": "Girdi Sütunu",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "outputCol": {
+        "visible_name": "Çıktı Sütunu",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "p": {
+        "visible_name": "p norm",
+        "type_constraint": [
+          "double"
+        ],
+        "optional": true
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [
+  	3,
+  	10
+  ]
+}

@@ -1,0 +1,198 @@
+[
+    {
+      "categoryId": 0,
+      "name": "Veri kaynakları",
+      "nodes": [
+        51,
+        48,
+        53,
+        49,
+        50,
+        47,
+        52,
+        54
+      ],
+      "categories": []
+    },
+    {
+      "categoryId": 1,
+      "name": "Veri Alıcısı",
+      "nodes": [
+        61,
+        57,
+        60,
+        58,
+        56,
+        59,
+        55,
+        62
+      ],
+      "categories": []
+    },
+    {
+      "categoryId": 2,
+      "name": "ETL",
+      "nodes": [
+        68,
+        76,
+        39,
+        10,
+        71,
+        30,
+        79,
+        9,
+        36,
+        38,
+        81,
+        42,
+        16,
+        8,
+        80,
+        43,
+        78,
+        28,
+        77,
+        40,
+        44,
+        11,
+        45,
+        82,
+        34
+      ],
+      "categories": []
+    },
+    {
+      "categoryId": 3,
+      "name": "ML",
+      "nodes": [
+        70,
+        66,
+        67,
+        64,
+        65,
+        63
+      ],
+      "categories": [
+        {
+          "categoryId": 4,
+          "name": "Önişleme",
+          "nodes": [
+            72
+          ],
+          "categories": [
+            {
+              "categoryId": 6,
+              "name": "Öznitelik çıkarma",
+              "nodes": [
+                73
+              ],
+              "categories": []
+            },
+            {
+              "categoryId": 7,
+              "name": "Ölçekleme",
+              "nodes": [
+                24,
+                41,
+                23,
+                29
+              ],
+              "categories": []
+            },
+            {
+              "categoryId": 8,
+              "name": "Öznitelik İndirgeme/Seçme",
+              "nodes": [
+                31,
+                69,
+                46,
+                37,
+                2
+              ],
+              "categories": []
+            }
+          ]
+        },
+        {
+          "categoryId": 5,
+          "name": "Algoritmalar",
+          "nodes": [],
+          "categories": [
+            {
+              "categoryId": 9,
+              "name": "Kümeleme",
+              "nodes": [
+                13,
+                18,
+                19
+              ],
+              "categories": []
+            },
+            {
+              "categoryId": 10,
+              "name": "Regresyon",
+              "nodes": [
+                15,
+                17,
+                33,
+                6,
+                20
+              ],
+              "categories": []
+            },
+            {
+              "categoryId": 11,
+              "name": "Sınıflandırma",
+              "nodes": [
+                32,
+                27,
+                14,
+                22,
+                5,
+                26,
+                21
+              ],
+              "categories": []
+            }
+          ]
+        },
+        {
+          "categoryId": 12,
+          "name": "Değerlendirme",
+          "nodes": [
+            35,
+            3,
+            25,
+            1
+          ],
+          "categories": []
+        }
+      ]
+    },
+    {
+      "categoryId": 13,
+      "name": "Veri Madenciliği",
+      "nodes": [
+        12,
+        0
+      ],
+      "categories": []
+    },
+    {
+      "categoryId": 14,
+      "name": "İstatistik",
+      "nodes": [
+        74,
+        7,
+        4,
+        75
+      ],
+      "categories": []
+    },
+    {
+      "categoryId": 15,
+      "name": "Görselleştirme",
+      "nodes": [],
+      "categories": []
+    }
+  ]

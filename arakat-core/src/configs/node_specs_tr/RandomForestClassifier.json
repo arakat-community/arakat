@@ -1,0 +1,145 @@
+{
+  "node_id": 32,
+  "name": "Rastgele Orman Sınıflandırıcı",
+  "category": 11,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "RandomForestClassifier",
+  "parameter_props": {
+    "parameters": {
+      "featuresCol": {
+        "visible_name": "Öznitelikler Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "features"
+      },
+      "labelCol": {
+        "visible_name": "Etiket Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "label"
+      },
+      "predictionCol": {
+        "visible_name": "Tahmin Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "prediction"
+      },
+      "probabilityCol": {
+        "visible_name": "Olasılık Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "probability"
+      },
+      "rawPredictionCol": {
+        "visible_name": "Ham Tahmin Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "rawPrediction"
+      },
+      "numTrees": {
+        "visible_name": "Ağaç Sayısı",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "numTrees >= 1",
+        "default": 20
+      },
+      "maxDepth": {
+        "visible_name": "Maksimum Derinlik",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxDepth >= 0",
+        "default": 5
+      },
+      "impurity": {
+        "visible_name": "Karmaşıklık",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "entropy",
+          "gini"
+        ],
+        "default": "gini"
+      },
+      "featureSubsetStrategy": {
+        "visible_name": "Öznitelik AltKümesi Stratejisi",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "auto",
+          "all",
+          "onethird",
+          "sqrt"
+        ],
+        "default": "auto"
+      },
+      "maxBins": {
+        "visible_name": "Maksimum İkili Sayısı",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxBins >= 2",
+        "optional": true
+      },
+      "minInstancesPerNode": {
+        "visible_name": "Her Düğüm İçin Minimum Örnek Sayısı",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "minInstancesPerNode >= 1",
+        "optional": true
+      },
+      "checkpointInterval": {
+        "visible_name": "Denetim Sıklığı",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "checkpointInterval >= 1",
+        "default": 10,
+        "optional": true
+      },
+      "cacheNodeIds": {
+        "visible_name": "Düğüm Numaralarını Önbellekte Sakla",
+        "type_constraint": [
+          "boolean"
+        ],
+        "optional": true
+      },
+      "seed": {
+        "visible_name": "Başlangıç Değeri",
+        "type_constraint": [
+          "integer"
+        ],
+        "optional": true
+      },
+      "subsamplingRate": {
+        "type": [
+          "double",
+          "float"
+        ],
+        "piecewise_constraint": "subsamplingRate > 0.0 AND subsamplingRate <= 1.0",
+        "default": 1.0,
+        "optional": true
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [0,1,4,5,8,10,11,13]
+}

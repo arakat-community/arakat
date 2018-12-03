@@ -1,0 +1,83 @@
+{
+  "node_id": 27,
+  "name": "Naive Bayes",
+  "category": 11,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "NaiveBayes",
+  "parameter_props": {
+    "parameters": {
+      "featuresCol": {
+        "visible_name": "Öznitelikler Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "features"
+      },
+      "labelCol": {
+        "visible_name": "Etiket Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "label"
+      },
+      "predictionCol": {
+        "visible_name": "Tahmin Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "prediction"
+      },
+      "rawPredictionCol": {
+        "visible_name": "Ham Tahmin Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "rawPrediction"
+      },
+      "probabilityCol": {
+        "visible_name": "Olasılık Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "probability"
+      },
+      "smoothing": {
+        "visible_name": "Yumuşatma",
+        "type_constraint": [
+          "double"
+        ],
+        "piecewise_constraint": "smoothing >= 0",
+        "default": 1.0
+      },
+      "modelType": {
+        "visible_name": "Model Tipi",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "multinomial",
+          "bernoulli"
+        ],
+        "default": "multinomial"
+      },
+      "weightCol": {
+        "visible_name": "Ağırlık Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "optional": true
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [0,1,4,5,8,10,11,13]
+}

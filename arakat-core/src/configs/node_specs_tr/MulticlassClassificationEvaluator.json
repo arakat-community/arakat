@@ -1,0 +1,53 @@
+{
+  "node_id": 25,
+  "name": "Çoklu-Sınıf Sınıflandırma Hesaplayıcısı",
+  "category": 12,
+  "node_type": 0,
+  "family": 7,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "evaluator_name": "MulticlassClassificationEvaluator",
+  "parameter_props": {
+    "parameters": {
+      "predictionCol": {
+        "visible_name": "Tahmin Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "prediction"
+      },
+      "labelCol": {
+        "visible_name": "Etiket Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "label"
+      },
+      "metricName": {
+        "visible_name": "Ölçü İsmi",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": ["f1", "weightedPrecision", "weightedRecall", "accuracy"],
+        "default": "f1"
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [
+  	0,
+  	1,
+  	2,
+  	3,
+  	4,
+  	10,
+  	11,
+  	13
+  ]
+}
