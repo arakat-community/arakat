@@ -1,0 +1,103 @@
+{
+  "node_id": 0,
+  "name": "Değişimli En Küçük Kareler (ALS)",
+  "category": 13,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "ALS",
+  "parameter_props": {
+    "parameters": {
+      "rank": {
+        "visible_name": "Mertebe",
+        "type_constraint": [
+          "integer"
+        ],
+        "default": 10
+      },
+      "maxIter": {
+        "visible_name": "Maksimum İterasyon Sayısı",
+        "type_constraint": [
+          "integer"
+        ],
+        "default": 10,
+        "piecewise_constraint": "maxIter >= 0"
+      },
+      "regParam": {
+        "visible_name": "Düzenleme Parametresi",
+        "type_constraint": [
+          "double"
+        ],
+        "default": 0.1,
+        "piecewise_constraint": "regParam >= 0"
+      },
+      "numUserBlocks": {
+        "visible_name": "Kullanıcı Bloğu Sayısı",
+        "type_constraint": [
+          "integer"
+        ],
+        "default": 10
+      },
+      "numItemBlocks": {
+        "visible_name": "Öğe Bloğu Sayısı",
+        "type_constraint": [
+          "integer"
+        ],
+        "default": 10
+      },
+      "userCol": {
+        "visible_name": "Kullanıcı Sütun Adı",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "user"
+      },
+      "itemCol": {
+        "visible_name": "Öğe Sütun Adı",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "item"
+      },
+      "ratingCol": {
+        "visible_name": "Puanlama Sütun İsmi",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "rating"
+      },
+      "seed": {
+        "visible_name": "Başlangıç Değeri",
+        "type_constraint": [
+          "integer"
+        ],
+        "default": 10
+      },
+      "nonnegative": {
+        "visible_name": "Negatif Olmayan",
+        "type_constraint": [
+          "boolean"
+        ],
+        "default": false
+      },
+      "checkpointInterval": {
+        "visible_name": "Denetim Sıklığı",
+        "type_constraint": [
+          "integer"
+        ],
+        "default": 10
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": [0,1,2,4,5,7,8,13]
+}

@@ -1,0 +1,56 @@
+{
+  "node_id": 55,
+  "name": "CSV Dosyasına Akış Yazıcı",
+  "category": 1,
+  "node_type": 0,
+  "family": 16,
+  "compatible_with_stream": true,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "file_type": "csv",
+  "parameter_props": {
+    "parameters": {
+      "path": {
+        "visible_name": "Dosya Yolu",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "checkpointLocation": {
+        "visible_name": "Denetim Sıklığı",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "trigger_type": {
+        "visible_name": "Tetikleyici Türü",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "once",
+          "processingTime",
+          "continuous"
+        ],
+        "default": "once"
+      },
+      "trigger_value": {
+        "visible_name": "Tetikleyici Değeri",
+        "type_constraint": [
+          "string"
+        ]
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": [
+
+  ]
+}

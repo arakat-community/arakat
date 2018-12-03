@@ -1,0 +1,83 @@
+{
+  "node_id": 18,
+  "name": "K-Means",
+  "category": 9,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "KMeans",
+  "parameter_props": {
+    "parameters": {
+      "featuresCol": {
+        "visible_name": "Öznitelikler Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "features"
+      },
+      "predictionCol": {
+        "visible_name": "Tahmin Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "prediction"
+      },
+      "k": {
+        "visible_name": "k",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxDepth >= 1",
+        "default": 2
+      },
+      "tol": {
+        "visible_name": "Yakınsama Toleransı",
+        "type_constraint": [
+          "float",
+          "double"
+        ],
+        "piecewise_constraint": "tol > 0",
+        "default": 0.0001
+      },
+      "maxIter": {
+        "visible_name": "Maksimum İterasyon Sayısı",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxIter >= 0",
+        "default": 20
+      },
+      "initMode": {
+        "visible_name": "Başlatma Modu",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": ["random", "k-means||"],
+        "default": "k-means||"
+      },
+      "initSteps": {
+        "visible_name": "Başlatma Adımları",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "initSteps > 0",
+        "default": 2
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [
+		1,
+		3,
+		4,
+        10,
+		13
+  ]
+}

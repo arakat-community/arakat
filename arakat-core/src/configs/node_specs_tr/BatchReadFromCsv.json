@@ -1,0 +1,62 @@
+{
+  "node_id": 47,
+  "name": "CSV Dosyasından Toplu Okuma",
+  "category": 0,
+  "node_type": 0,
+  "family": 0,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "can_infer_schema": true,
+  "file_type": "csv",
+  "parameter_props": {
+    "parameters": {
+      "path": {
+        "visible_name": "Dosya Yolu",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "quote": {
+        "visible_name": "Alıntı",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "\""
+      },
+      "header": {
+        "visible_name": "Başlık",
+        "type_constraint": [
+          "boolean"
+        ],
+        "default": false
+      },
+      "sep": {
+        "visible_name": "Ayırıcı",
+        "type_constraint": [
+          "string"
+        ],
+        "default": ","
+      },
+      "schema": {
+        "visible_name": "Şema",
+        "type_constraint": [
+          "dict"
+        ],
+        "optional": true,
+        "special_requirements": {"dict": "schema"}
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": [
+
+  ]
+}

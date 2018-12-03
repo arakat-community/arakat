@@ -1,0 +1,49 @@
+{
+  "node_id": 62,
+  "name": "Kafka Topic Toplu Yazma",
+  "category": 1,
+  "node_type": 0,
+  "family": 3,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "parameter_props": {
+    "parameters": {
+      "host": {
+        "visible_name": "Sunucu",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "port": {
+        "visible_name": "Port",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "topic": {
+        "visible_name": "Topic İsmi",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "unique_column_name": {
+        "visible_name": "Anahtar Sütun İsmi",
+        "type_constraint": [
+          "string"
+        ]
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": [
+
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "node_id": 17,
+  "name": "İzotonik Regresyon",
+  "category": 10,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "IsotonicRegression",
+  "parameter_props": {
+    "parameters": {
+      "featuresCol": {
+        "visible_name": "Öznitelikler Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "features"
+      },
+      "labelCol": {
+        "visible_name": "Etiket Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "label"
+      },
+      "predictionCol": {
+        "visible_name": "Tahmin Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "prediction"
+      },
+      "weightCol": {
+        "visible_name": "Ağırlık Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "optional": true
+      },
+      "isotonic": {
+        "visible_name": "İzotonik",
+        "type_constraint": [
+          "boolean"
+        ],
+        "default": true
+      },
+      "featureIndex": {
+        "visible_name": "Öznitelik İndeksi",
+        "type_constraint": [
+          "integer"
+        ],
+        "default": 0
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [0,1,4,5,7,10,13]
+}

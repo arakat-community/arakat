@@ -1,0 +1,114 @@
+{
+  "node_id": 5,
+  "name": "Karar Ağacı Sınıflandırıcı",
+  "category": 11,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "DecisionTreeClassifier",
+  "parameter_props": {
+    "parameters": {
+      "featuresCol": {
+        "visible_name": "Öznitelikler Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "features"
+      },
+      "labelCol": {
+        "visible_name": "Etiket Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "label"
+      },
+      "predictionCol": {
+        "visible_name": "Tahmin Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "prediction"
+      },
+      "probabilityCol": {
+        "visible_name": "Olasılık Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "probability"
+      },
+      "rawPredictionCol": {
+        "visible_name": "Ham Tahmin Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "rawPrediction"
+      },
+      "maxDepth": {
+        "visible_name": "Maksimum Derinlik",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxDepth >= 0",
+        "default": 5
+      },
+      "maxBins": {
+        "visible_name": "Maksimum İkili Sayısı",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxBins >= 2",
+        "optional": true
+      },
+      "minInstancesPerNode": {
+        "visible_name": "Her Düğüm İçin Minimum Örnek Sayısı",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "minInstancesPerNode >= 1",
+        "optional": true
+      },
+      "impurity": {
+        "visible_name": "Karmaşıklık",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "entropy",
+          "gini"
+        ],
+        "default": "gini"
+      },
+      "checkpointInterval": {
+        "visible_name": "Denetleme Sıklığı",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "checkpointInterval >= 1",
+        "default": 10
+      },
+      "cacheNodeIds": {
+        "visible_name": "Düğüm Numaralarını Önbellekte Sakla",
+        "type_constraint": [
+          "boolean"
+        ],
+        "optional": true
+      },
+      "seed": {
+        "visible_name": "Başlangıç Değeri",
+        "type_constraint": [
+          "integer"
+        ],
+        "optional": true
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [0,1,4,5,10,11,13]
+}

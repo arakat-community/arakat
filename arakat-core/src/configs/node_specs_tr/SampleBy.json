@@ -1,0 +1,42 @@
+{
+  "node_id": 81,
+  "name": "Örnekleyici",
+  "category": 2,
+  "node_type": 0,
+  "family": 5,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "ddfo_name": "sampleBy",
+  "parameter_props": {
+    "parameters": {
+      "col": {
+        "visible_name": "Katman Sütunu",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "fractions": {
+        "visible_name": "Kesirler",
+        "type_constraint": [
+          "dict"
+        ],
+        "special_requirements": {"dict": "simple_dict"}
+      },
+      "seed": {
+        "visible_name": "Başlangıç Değeri",
+        "type_constraint": [
+          "string"
+        ],
+        "optional": true
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": []
+}
