@@ -11,17 +11,16 @@ export interface IContentProps {
     routes: Array<IRouteGroup | IRouteItem>;
     isDrawerOpen: boolean;
 }
-const contentBackgroundColor = '#F2F3F4';
+
 const style: any = (theme: Theme) => ({
     narrower: {
-        backgroundColor: contentBackgroundColor,
+        backgroundColor: theme.palette.background.default,
         flexGrow: 1,
         width: "80vw",
-        transition: `width 2s`,
+        transition: `width 2s`, // TODO:
     },
     wider: {
-        // backgroundColor: theme.palette.background.default,
-        backgroundColor: contentBackgroundColor,        
+        backgroundColor: theme.palette.background.default,
         flexGrow: 1,
         width: "100vw",
 

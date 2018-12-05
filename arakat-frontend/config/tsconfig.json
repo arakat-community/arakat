@@ -11,13 +11,18 @@
         "noEmit": true,
         "strict": true,
         "isolatedModules": true,
-        "esModuleInterop": true    
+        "esModuleInterop": true,
+        "strictNullChecks": false,
+        "noImplicitThis": false,
+        "noImplicitReturns": false,
+        "resolveJsonModule": true,
+        "strictFunctionTypes": false,
     },
     "exclude": [
-        "../node_modules",
-        "../src/**/.spec.tsx",
+        "node_modules",
+        "**/.spec.tsx",
     ],
     "include": [
-        "../src/**/*",
-    ]  
+        "../src/**/*"
+    ]
 }

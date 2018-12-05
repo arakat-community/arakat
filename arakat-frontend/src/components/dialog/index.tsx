@@ -1,27 +1,27 @@
 import {
+    AppBar,
     Dialog,
-    DialogActions,
     DialogContent,
     DialogContentText,
     DialogTitle,
+    IconButton,
+    Toolbar,
 } from "@material-ui/core";
-import React, { Component } from "react";
+import CloseIcon from "@material-ui/icons/Close";
+import React from "react";
+import { DialogState } from "../../common/models/dialog/state";
+import { FormState } from "../../common/models/form-state/index";
 import { FormattedMessage } from "react-intl";
-import ButtonType from "../../common/models/button/type";
-import { ButtonVariant } from "../../common/models/button/variant";
-import {DialogState} from "../../common/models/dialog/state";
-import { FormState } from "../../common/models/form-state";
-import Button from "../button";
 
 export interface IDialogProps {
     loading?: boolean;
-    onSave: () => void;
+    onSave?: () => void;
     onClose: () => void;
     id: string;
-    formState: FormState;
+    formState?: FormState;
     state: DialogState;
-    content: JSX.Element;
-    title: JSX.Element;
+    content?: JSX.Element;
+    title?: string;
     fullScreen?: boolean;
 }
 
@@ -31,11 +31,8 @@ export interface IDialogState {
 
 type AllProps = IDialogProps;
 
-/**
- * dialog component that accepts any component to render
- */
 const DialogComponent: React.SFC<AllProps> = (props: AllProps) => {
-    const {id, title, content, formState, onClose, onSave, state, loading, fullScreen} = props;
+    const { onClose, id, state, content, title, fullScreen } = props;
 
     return (
         <Dialog
@@ -45,43 +42,31 @@ const DialogComponent: React.SFC<AllProps> = (props: AllProps) => {
             aria-labelledby={id}
             aria-describedby={`${id}-description`}
         >
+            <AppBar style={{ position: "relative", flexDirection: "row-reverse" }}>
+                <Toolbar>
+                    <IconButton onClick={onClose}>
+                        <CloseIcon></CloseIcon>
+                    </IconButton>
+                </Toolbar>
+            </AppBar>
             <DialogTitle
                 id={id}
             >
-                {title}
+                {
+                    title &&
+                    <FormattedMessage
+                        id={title}
+                    />
+                }
             </DialogTitle>
+
             <DialogContent>
                 <DialogContentText
                     id={`${id}-description`}
                 >
-                {content}
                 </DialogContentText>
+                {content}
             </DialogContent>
-            <DialogActions>
-                <Button
-                    variant={ButtonVariant.flat}
-                    onClick={onClose}
-                    label={
-                            <FormattedMessage
-                                id="dialog.button.cancel"
-                            />
-                        }
-                    type={ButtonType.action}
-                />
-                <Button
-                    variant={ButtonVariant.flat}
-                    onClick={onSave}
-                    autoFocus={true}
-                    disabled={formState === FormState.invalid}
-                    loading={loading}
-                    label={
-                        <FormattedMessage
-                            id="dialog.button.save"
-                        />
-                    }
-                    type={ButtonType.action}
-                />
-            </DialogActions>
         </Dialog>
     );
 };

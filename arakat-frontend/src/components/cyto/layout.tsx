@@ -1,5 +1,5 @@
 export const layout = {
-    animate : true,
+    animate : false,
     fit: true,
     name: "cose-bilkent",
     nodeRepulsion: 4500,

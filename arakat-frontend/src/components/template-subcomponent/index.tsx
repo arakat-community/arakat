@@ -12,7 +12,7 @@ const style: any = (theme: Theme) => ({
         marginTop: '5px'
     },
     textField: {
-        // fontFamily: 'Lato', // TODO: fontFamily should be in root style of project.
+        fontFamily: 'Lato', // TODO: fontFamily should be in root style of project.
         // margin: '5px'
     },
     rangeStart: {

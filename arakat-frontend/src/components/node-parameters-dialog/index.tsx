@@ -1,25 +1,14 @@
 import React, { Component } from "react";
 import { withStyles, WithStyles, Theme, Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import NodeParameterComponent from "../node-parameter";
-import { FormattedMessage } from "react-intl";
+import { INodeParameterWithValue } from "../../common/models/cyto-elements/node-parameter-with-value";
 
 const style: any = (theme: Theme) => ({
     dialogContent: {
         backgroundColor: theme.palette.background.default,
         // width: theme.spacing.unit * 35,
-        width: theme.spacing.unit * 75,        
-    },
-    dialogHeader: {
-        fontSize: '1.7rem',
-        fontWeight: 'normal'
-    },
-
-    cancelButton: {
-        marginRight: '1vw',
-        backgroundColor: '#E75050'
-    },
-    okButton: {
-        backgroundColor: 'white',
+        width: theme.spacing.unit * 75,
+        
     },
 });
 
@@ -34,8 +23,7 @@ interface INodeParametersDialogComponentState {
     finalParameters: any;
 }
 
-type AllTypes = INodeParametersProps & WithStyles<"dialogContent" | 'dialogHeader' | 'cancelButton' |
-                                                  'okButton' | 'okButtonText'>;
+type AllTypes = INodeParametersProps & WithStyles<"dialogContent">;
 
 /**
  * DrawerComponent
@@ -177,18 +165,11 @@ class NodeParametersDialogComponent extends Component<AllTypes, INodeParametersD
      */
     public render(): JSX.Element {
         const { classes } = this.props;
-        let dialogTitle = undefined;
+        let dialogTitle = "Parameters";
         if( this.props.selectedNode ) {
-            dialogTitle = 
-            <span
-                className={classes.dialogHeader}
-            > 
-                {this.props.selectedNode.name} Node Parametreleri
-                
-            </span>;
+            dialogTitle = this.props.selectedNode.name + ' (' +
+            this.props.selectedNode.id + ')' + ' Nod Parametreleri';
         }
-        // <FormattedMessage id='dialog.button.ok'/>
-
         return (
                 <div>
                     <Dialog
@@ -206,23 +187,21 @@ class NodeParametersDialogComponent extends Component<AllTypes, INodeParametersD
                             
                         </DialogTitle>
 
-                        <DialogContent
-                            className={classes.dialogContent}
-                        >
+                        <DialogContent>
                             {this.getParameterComponents()}
                         </DialogContent>
                         <DialogActions>
                         <Button
                             onClick={this.handleClose}
-                            className={classes.cancelButton}
+                            color="primary"
                         >
-                            <FormattedMessage id='dialog.button.cancel'/>
+                            Cancel
                         </Button>
                         <Button
                             onClick={this.handleOK}
-                            className={classes.okButton}
+                            color="primary"
                         >
-                            <FormattedMessage id='dialog.button.ok'/>
+                            OK
                         </Button>
                         </DialogActions>
                     </Dialog>

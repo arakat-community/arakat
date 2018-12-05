@@ -3,24 +3,28 @@ import classnames from "classnames";
 import React, { Component } from "react";
 import { IDrawerState } from "../../store/drawer/types";
 
-const drawerBackgroundColor = '#545C61'
 const style: any = (theme: Theme) => ({
+    black: {
+        backgroundColor: theme.palette.background.default,
+        width: theme.spacing.unit * 35,
+        height: "100vh",
+        overflowY: "auto",
+    },
     root: {
-        backgroundColor: drawerBackgroundColor,
-        width: theme.spacing.unit * 40,
+        backgroundColor: theme.palette.background.default,
+        width: theme.spacing.unit * 35,
         height: "100vh",
         outline: "none",
         overflowY: "auto",
     },
     dockWhenDrawerIsOpened: {
-        backgroundColor: drawerBackgroundColor,        
+        backgroundColor: theme.palette.background.default,
     },
     dockWhenDrawerIsClosed: {
-        backgroundColor: drawerBackgroundColor,        
+        backgroundColor: theme.palette.background.default,
         position: "absolute",
         zIndex: -1,
     },
-    
 });
 
 export interface IDrawerProps {
@@ -31,7 +35,7 @@ export interface IDrawerProps {
     drawerState: IDrawerState; // from props
 }
 
-type AllTypes = IDrawerProps & WithStyles<"root" | "dockWhenDrawerIsOpened" | "dockWhenDrawerIsClosed" | "button">;
+type AllTypes = IDrawerProps & WithStyles<"black" | "root" | "dockWhenDrawerIsOpened" | "dockWhenDrawerIsClosed" | "button">;
 
 /**
  * DrawerComponent
@@ -44,14 +48,11 @@ class DrawerComponent extends Component<AllTypes> {
     /**
      * render output of cyto
      */
-    
-    
     public render(): JSX.Element {
         const { classes } = this.props;
         return (
                 <div>
                     <Drawer
-                        id='drawer'
                         key={this.props.id}
                         className={classnames({
                                 [classes.dockWhenDrawerIsClosed]: !this.props.drawerState.isOpen,
@@ -63,7 +64,10 @@ class DrawerComponent extends Component<AllTypes> {
                         variant="persistent"
                         PaperProps={
                             {
-                                className: classes.root
+                                className: classnames({
+                                    [classes.black]: this.props.blackTheme,
+                                    [classes.root]: !this.props.blackTheme,
+                                }),
                             }
                         }
 

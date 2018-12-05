@@ -1,3 +1,4 @@
+import { Typography } from "@material-ui/core";
 import React, { Component } from "react";
 import { IMenuItem } from "../../common/models/menu/item";
 import LocalizationLanguages, { ILocalizationLanguage } from "../../localization/languages";

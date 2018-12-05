@@ -24,7 +24,7 @@ module.exports = {
     devServer: {
         inline: true,
         hot: true,
-        port: 8081,
+        port: 8080,
         contentBase: path.join(__dirname, "../", "dist"),
         open: true,
         overlay: true, // shows when an error occurrs on page.
@@ -34,12 +34,12 @@ module.exports = {
         historyApiFallback: true,
         watchOptions: {
             poll: true,
-            ignored: [/config/, "package.json", /node_modules/]
+            ignored: [/config/,"package.json", /node_modules/] 
         }
     },
     watchOptions: {
         poll: true,
-        ignored: [/config/, "package.json", /node_modules/]
+        ignored: [/config/,"package.json", /node_modules/] 
     },
     devtool: "inline-source-map",
     module: {
@@ -49,20 +49,20 @@ module.exports = {
                 include: path.resolve(__dirname, "../", 'src'),
                 exclude: /node_modules/,
                 use: [{
-                    // convert es6 to es5
-                    loader: "babel-loader",
-                    options: {
-                        cacheDirectory: true
+                        // convert es6 to es5
+                        loader: "babel-loader",
+                        options: {
+                            cacheDirectory: true
+                        }
+                    },
+                    {
+                        // converts type-script code to es6
+                        loader: "ts-loader",
+                        options: {
+                            configFile: 'config/tsconfig.json',
+                            transpileOnly: true
+                        }
                     }
-                },
-                {
-                    // converts type-script code to es6
-                    loader: "ts-loader",
-                    options: {
-                        configFile: 'config/tsconfig.json',
-                        transpileOnly: true
-                    }
-                }
                 ]
             },
             {
@@ -123,8 +123,8 @@ module.exports = {
             from: "./assets",
             to: "assets"
         }], {
-                debug: 'warning'
-            }),
+            debug: 'warning'
+        }),
         // new BundleAnalyzerPlugin()
     ],
     node: {

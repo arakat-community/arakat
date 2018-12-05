@@ -193,13 +193,6 @@ export interface ISetDagProperties extends Action {
     type: '@@cyto/SET_GRAPH_PROPERTIES'
 }
 
-export interface ISetIsGraphLoaded extends Action {
-    payload: {
-        isGraphLoaded
-    },
-    type: '@@cyto/SET_IS_GRAPH_LOADED'
-}
-
 
 export type CytoActions = IFetchNodeSpecs | INodeSpecsFetched | IAddNodeToExistingNodes |
                           IIncreaseTaskNodesLength | ISetLastDroppedNodeOffset | IIncreaseCVNodesLength |
@@ -207,4 +200,4 @@ export type CytoActions = IFetchNodeSpecs | INodeSpecsFetched | IAddNodeToExisti
                           IAddNodeToGraphNodes | IUpdateGraphNode | IFetchEdgePermissions | IEdgePermissionsFetched |
                           IAddEdgeToGraphEdges | ISetGraph | ISetIsGraphPropertiesDialogOpen | ISetDagProperties |
                           IRunGraph | ISaveGraph | ISetIsAboutToRun | ISetIsAboutToSave | IFetchGraphs | IFetchGraph |
-                          IGraphsFetched | IGraphFetched | ISetIsLoadedGraphsDialogOpen | ISetIsGraphLoaded;
+                          IGraphsFetched | IGraphFetched | ISetIsLoadedGraphsDialogOpen;

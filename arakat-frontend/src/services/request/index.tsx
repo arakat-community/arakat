@@ -1,5 +1,6 @@
-import axios, {AxiosError, AxiosPromise, AxiosRequestConfig, AxiosResponse, Canceler} from "axios";
-import Exception from "../../common/models/exception";
+import axios, { AxiosError, AxiosPromise, AxiosRequestConfig, AxiosResponse, Canceler } from "axios";
+/* import { get as getCookie } from "es-cookie";
+import Exception from "../../common/models/exception"; */
 
 const config: AxiosRequestConfig = {
     cancelToken: new axios.CancelToken((cancel: Canceler) => {
@@ -9,13 +10,8 @@ const config: AxiosRequestConfig = {
     maxRedirects: 5,
     responseType: "json",
     timeout: 10000,
-    transformResponse: [
-        (data: any) => {
-            return data.hasOwnProperty("meta") && !data.meta.messageCode ? data.data : data;
-        },
-      ],
     validateStatus: (status: number) => status >= 200 && status < 300,
-    withCredentials: false,
+    withCredentials: true,
 };
 
 /**
@@ -23,7 +19,7 @@ const config: AxiosRequestConfig = {
  * request class is a generic class that waits a return type.
  * each function used for requests are generic functions that waits type of parameter
  */
-class Request <T> {
+class Request<T> {
     public endPoint: string = "";
 
     /**
@@ -34,22 +30,19 @@ class Request <T> {
     constructor(baseUrl: string, endPoint: string) {
 
         /**
-         * this part intercepts request and adds access_token to header
+         * this part intercepts request and adds accessToken to header
          */
-
         axios.interceptors.request.use((axiosConfig: AxiosRequestConfig) => {
             axiosConfig.baseURL = baseUrl;
 
             /**
              * in ts of getcookie, return type is undefined or 0, however it returns 0 when a cookie is set
              */
-            /*
-            if (getCookie("access_token")) {
-                axiosConfig.headers.Authorization = `Bearer ${getCookie("access_token")}`;
+           /*  if (getCookie("accessToken")) {
+                axiosConfig.headers.Authorization = `Bearer ${getCookie("accessToken")}`;
             } else {
                 axiosConfig.headers.Authorization = "Basic YXN0YXJ1czphc3RhcnVzc2VjcmV0";
-            }
-            */
+            } */
 
             return axiosConfig;
         });
@@ -61,8 +54,8 @@ class Request <T> {
      * get request
      * @param parameters get parameter
      */
-    public async get<K>(parameters?: K): Promise <any> {
-        const result: any = await axios.get < T > (`${this.endPoint}?${this.getUrlParam(parameters)}`, config)
+    public async get<K>(parameters?: K): Promise<any> {
+        const result: any = await axios.get<T>(`${this.endPoint}${this.getUrlParam(parameters)}`, config)
             .then(this.handleResponse)
             .catch(this.handleError);
         return result;
@@ -72,8 +65,8 @@ class Request <T> {
      * delete request
      * @param parameter delete parameter
      */
-    public async delete<K>(parameter: K): Promise < any > {
-        const result: any = await axios.delete(`${this.endPoint}${parameter}`, config)
+    public async delete<K>(parameter: K): Promise<any> {
+        const result: any = await axios.delete(`${this.endPoint}${this.getUrlParam(parameter)}`, config)
             .then(this.handleResponse)
             .catch(this.handleError);
         return result;
@@ -83,8 +76,8 @@ class Request <T> {
      * head request
      * @param parameters head parameter
      */
-    public async head<K>(parameters: K): Promise < any > {
-        const result: any = await axios.head(`${this.endPoint}?${this.getUrlParam(parameters)}`, config)
+    public async head<K>(parameters: K): Promise<any> {
+        const result: any = await axios.head(`${this.endPoint}${this.getUrlParam(parameters)}`, config)
             .then(this.handleResponse)
             .catch(this.handleError);
         return result;
@@ -94,8 +87,8 @@ class Request <T> {
      * post request
      * @param data post data
      */
-    public async post<K>(data: K): Promise < any > {
-        const result: any = await axios.post < T > (`${this.endPoint}`, data, config)
+    public async post<K>(data: K): Promise<any> {
+        const result: any = await axios.post<T>(`${this.endPoint}`, data, config)
             .then(this.handleResponse)
             .catch(this.handleError);
         return result;
@@ -105,8 +98,8 @@ class Request <T> {
      * put request
      * @param data put data
      */
-    public async put<K>(data: K): Promise <any> {
-        const result: any = await axios.put<T> (`${this.endPoint}`, data, config)
+    public async put<K>(data: K): Promise<any> {
+        const result: any = await axios.put<T>(`${this.endPoint}`, data, config)
             .then(this.handleResponse)
             .catch(this.handleError);
         return result;
@@ -116,8 +109,8 @@ class Request <T> {
      * patch request
      * @param data patch data
      */
-    public async patch<K>(data: K): Promise <any> {
-        const result: any = await axios.patch<T> (`${this.endPoint}`, data, config)
+    public async patch<K>(data: K): Promise<any> {
+        const result: any = await axios.patch<T>(`${this.endPoint}`, data, config)
             .then(this.handleResponse)
             .catch(this.handleError);
         return result;
@@ -127,7 +120,9 @@ class Request <T> {
      * handles response data
      */
     private handleResponse(response: AxiosResponse): T {
-        return response.data as T;
+        const data: any = response.data.hasOwnProperty("meta")
+            && !response.data.meta.messageCode ? response.data.data : response.data;
+        return data as T;
     }
 
     /**
@@ -135,11 +130,11 @@ class Request <T> {
      */
     private handleError = (error: AxiosError) => {
         if (error.response) {
-            const {meta} = error.response.data;
-            throw new Exception(meta.messageCode);
+            const { meta } = error.response.data;
+           /*  throw new Exception(meta.message); */
         } else {
-            throw new Exception("response.message.network.error");
-        }
+/*             throw new Exception("response.message.network.error");
+ */        }
     }
 
     /**
@@ -149,13 +144,18 @@ class Request <T> {
         let query: string = "";
 
         if (parameters) {
-            Object
-                .keys(parameters)
-                .forEach((key) => {
-                    if (parameters[key] !== undefined && parameters[key] !== null) {
-                        query += `${key}=${parameters[key]}&`;
-                    }
-                });
+            if (Object.keys(parameters).length > 0) {
+                query = "?";
+                Object
+                    .keys(parameters)
+                    .forEach((key) => {
+                        if (parameters[key] !== undefined && parameters[key] !== null) {
+                            query += `${key}=${parameters[key]}&`;
+                        }
+                    });
+            } else {
+                query = `/${parameters}`;
+            }
         }
 
         return query;

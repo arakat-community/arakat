@@ -26,8 +26,7 @@ import {
     IFetchGraph,
     IGraphsFetched,
     IGraphFetched,
-    ISetIsLoadedGraphsDialogOpen,
-    ISetIsGraphLoaded
+    ISetIsLoadedGraphsDialogOpen
 } from "./types";
 
 export const fetchNodeSpecs: ActionCreator<IFetchNodeSpecs> = () => ({
@@ -94,7 +93,7 @@ export const setIsNodeParametersDialogOpen: ActionCreator<ISetIsNodeParametersDi
     type: "@@cyto/SET_ISNODEPARAMETERSDIALOG_OPEN",
 });
 
-export const addNodeToGraphNodes: ActionCreator<IAddNodeToGraphNodes> = (node: any) => ({
+export const addNodeToDagNodes: ActionCreator<IAddNodeToGraphNodes> = (node: any) => ({
     payload: {
         node,
     },
@@ -167,10 +166,7 @@ export const fetchGraphs: ActionCreator<IFetchGraphs> = () => ({
     type: '@@cyto/FETCH_GRAPHS',
 });
 
-export const fetchGraph: ActionCreator<IFetchGraph> = (graphMongoId: string) => ({
-    payload: {
-        graphMongoId
-    },
+export const fetchGraph: ActionCreator<IFetchGraph> = () => ({
     type: '@@cyto/FETCH_GRAPH',
 });
 
@@ -193,11 +189,4 @@ export const setIsLoadedGraphsDialogOpen: ActionCreator<ISetIsLoadedGraphsDialog
         isOpen
     },
     type: '@@cyto/SET_IS_LOADED_GRAPHS_DIALOG_OPEN',
-});
-
-export const setIsGraphLoaded: ActionCreator<ISetIsGraphLoaded> = (isGraphLoaded: boolean) => ({
-    payload: {
-        isGraphLoaded
-    },
-    type: '@@cyto/SET_IS_GRAPH_LOADED',
 });

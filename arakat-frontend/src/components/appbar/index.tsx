@@ -7,6 +7,17 @@ import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
 import { History } from "history";
 
 const styles: any = (theme: Theme) => ({
+    sidebarClosed: {
+        width: `calc(100% - ${(theme.spacing.unit * 7)}px)`,
+        [theme.breakpoints.up("sm")]: {
+            width: `calc(100% - ${(theme.spacing.unit * 8)}px)`,
+        },
+    },
+    sidebarPinned: {
+        [theme.breakpoints.up("sm")]: {
+            width: `calc(100% - ${(theme.spacing.unit * 32)}px)`,
+        },
+    },
     toolbarRightItems: {
         alignItems: "center",
         display: "flex",
@@ -30,7 +41,7 @@ export interface IAppBarProps {
     onLogoClick: () => void;
 }
 
-type PropsWithStyle = RouteComponentProps<any> & IAppBarProps & WithStyles<"toolbarRightItems" | "logo" | "navigation">;
+type PropsWithStyle = RouteComponentProps<any> & IAppBarProps & WithStyles<"sidebarClosed" | "sidebarPinned" | "toolbarRightItems" | "logo" | "navigation">;
 
 const navigate = (history: History, link) => {
     history.go(link)

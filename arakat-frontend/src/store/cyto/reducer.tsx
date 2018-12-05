@@ -172,18 +172,12 @@ const reducer: Reducer<ICytoState> = (state: ICytoState = initialState, action: 
         case '@@cyto/GRAPH_FETCHED':
             return {
                 ...state,
-                graph: action.payload.graph,
-                isGraphLoaded: true
+                graph: action.payload.graph
             }
         case '@@cyto/SET_IS_LOADED_GRAPHS_DIALOG_OPEN':
             return {
                 ...state,
                 isLoadedGraphsDialogOpen: action.payload.isOpen
-            }
-        case '@@cyto/SET_IS_GRAPH_LOADED':
-            return {
-                ...state,
-                isGraphLoaded: action.payload.isGraphLoaded
             }
         default:
             return {
