@@ -9,8 +9,8 @@ COPY requirements.txt /
 RUN pip install -r /requirements.txt 
 
 COPY SparkOperator.py /
-
 COPY master.sh /
+COPY script.py /
 
 RUN mkdir /spark_logs
 

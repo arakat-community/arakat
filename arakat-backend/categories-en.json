@@ -1,0 +1,101 @@
+[
+  {
+    "categoryId": 0,
+    "name": "Data Sources",
+    "nodes": [],
+    "categories": []
+  },
+  {
+    "categoryId": 1,
+    "name": "Data Sinks",
+    "nodes": [],
+    "categories": []
+  },
+  {
+    "categoryId": 2,
+    "name": "ETL",
+    "nodes": [],
+    "categories": []
+  },
+  {
+    "categoryId": 3,
+    "name": "ML",
+    "nodes": [],
+    "categories": [
+      {
+        "categoryId": 4,
+        "name": "Preprocessing",
+        "nodes": [],
+        "categories": [
+          {
+            "categoryId": 6,
+            "name": "Feature Extraction",
+            "nodes": [],
+            "categories": []
+          },
+          {
+            "categoryId": 7,
+            "name": "Scaling",
+            "nodes": [],
+            "categories": []
+          },
+          {
+            "categoryId": 8,
+            "name": "Feature Reduction/Selection",
+            "nodes": [],
+            "categories": []
+          }
+        ]
+      },
+      {
+        "categoryId": 5,
+        "name": "Algorithms",
+        "nodes": [],
+        "categories": [
+          {
+            "categoryId": 9,
+            "name": "Clustering",
+            "nodes": [],
+            "categories": []
+          },
+          {
+            "categoryId": 10,
+            "name": "Regression",
+            "nodes": [],
+            "categories": []
+          },
+          {
+            "categoryId": 11,
+            "name": "Classificiation",
+            "nodes": [],
+            "categories": []
+          }
+        ]
+      },
+      {
+        "categoryId": 12,
+        "name": "Evaluation",
+        "nodes": [],
+        "categories": []
+      }
+    ]
+  },
+  {
+    "categoryId": 13,
+    "name": "Data Mining",
+    "nodes": [],
+    "categories": []
+  },
+  {
+    "categoryId": 14,
+    "name": "Statistics",
+    "nodes": [],
+    "categories": []
+  },
+  {
+    "categoryId": 15,
+    "name": "Visualizations",
+    "nodes": [],
+    "categories": []
+  }
+]
