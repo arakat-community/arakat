@@ -20,44 +20,53 @@ import 'brace/theme/monokai';
 import TemplateSubComponent from '../template-subcomponent';
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
+import classNames from "classnames";
+
 
 
 const style: any = (theme: Theme) => ({
     textField: {
-        fontFamily: 'Lato', // TODO: fontFamily should be in root style of project.
+        width: '530px',
+        marginRight: '43px'
+    },
+    textFieldShort: {
+        width: '380px',
     },
     label: {
-        fontSize: 'small',
-        fontFamily: 'Lato',
-        color: 'white'
+        fontSize: '1rem',
+        color: 'white',
     },
     select: {
         color: 'white',
-        margin: '20px'
     },
     typeSelectContainer: {
         minWidth: 80,
         position: 'absolute',
-        top: '19px',
-        right: '0px',
+        top: '23px',
+        marginLeft: '21vw',
+        marginRight: '50px'
     },
     typeSelect: {
-        fontSize: 'small',
+        fontSize: '1rem',
+        maxWidth: '150px',
     },
     typeElement: {
-        color: 'black'
+        color: 'black',
     },
     object: {
         margin: '20px'
-    },
-    addButton: {
-        // margin: theme.spacing.unit * 2,
     },
     parameterComponent: {
         marginTop: '5px'
     },
     jsonEditorDiv: {
-        marginTop: '25px'
+        marginTop: '25px',
+    },
+    textFieldLabel: {
+        fontSize: '1rem'
+    },
+    aceEditor: {
+        
     }
 });
 
@@ -74,15 +83,15 @@ interface INodeParameterComponentState {
     // arrayOfObjectIndex: boolean;
 }
 
-type AllTypes = INodeParameterComponentProps & WithStyles< 'textField' | 'label' | 'select' | 'object' | 'addButton' |
+type AllTypes = INodeParameterComponentProps & WithStyles< 'textField' | 'label' | 'select' | 'object' |
                                                             'typeSelectContainer' | 'typeSelect' | 'parameterComponent' |
-                                                            'typeElement' | 'jsonEditorDiv' >;
+                                                            'typeElement' | 'jsonEditorDiv' | 'typeOption' | 'textFieldLabel' |
+                                                            'textFieldShort' | 'aceEditor'>;
 
 /**
  * NodeParameterComponent
  */
 class NodeParameterComponent extends Component<AllTypes, INodeParameterComponentState> {
-    // TODO: optional parameter checking.
     constructor(props: AllTypes) {
         super(props);        
         this.state = {
@@ -180,7 +189,17 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
 
     public getComponentForNumberAndString = (parameter, type: string) => {
         const { classes } = this.props;
-        const isRequired = parameter.optional ? false : true;        
+        const isRequired = parameter.optional ? false : true;
+        let isThereTypeSelection = false;
+        if (parameter.type_constraint.length > 1) {
+            isThereTypeSelection = true;
+        }
+        const label = 
+        <span
+            className={classes.textFieldLabel}
+        >
+            {parameter.visible_name}
+        </span>
         return (
             <div
                 className={ classes.parameterComponent }          
@@ -189,12 +208,15 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
                     id={parameter.key}
                     onChange={this.callProperUpdateFunction(parameter.key, type)}
                     required={isRequired}
-                    label={parameter.visible_name}
+                    label={label}
                     defaultValue={
                         this.state.finalParameterSet[parameter.key].value ?
                         this.state.finalParameterSet[parameter.key].value : ""
                     }
-                    className={classes.textField}
+                    className={classNames({
+                                [classes.textField]: !isThereTypeSelection,
+                                [classes.textFieldShort]: isThereTypeSelection,
+                            })}
                 />
             </div>
         );
@@ -287,7 +309,7 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
 
     public updateCodeParameterValue = (key) => (value) => {
         let finalParameterSet = this.state.finalParameterSet;    
-        finalParameterSet[key].value = value.jsObject;
+        finalParameterSet[key].value = value;
         this.setState({
             finalParameterSet
         });
@@ -390,7 +412,6 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
                     variant="outlined" 
                     color="primary" 
                     aria-label="Add" 
-                    className={classes.addButton}
                     size='small'                    
                     onClick={() => {
                         this.addTemplateSubComponent(parameter.key)
@@ -417,25 +438,27 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
     public getComponentForCode = (parameter) => {
         const { classes } = this.props;
         // const isRequired = parameter.optional ? false : true; //TODO: ??
+        let value = '\n // UDF Function';
+        if( this.state.finalParameterSet[parameter.key].value ) {
+            value = this.state.finalParameterSet[parameter.key].value;
+        }
         return (
             <div
                 className={ classes.parameterComponent }
             >
-                <span
-                    className={ classes.label }
-                > 
-                    { parameter.visible_name }:
-                </span>
                 <AceEditor
                     mode="python"
                     theme="monokai"
-                    value={this.state.finalParameterSet[parameter.key].value}
+                    value={value}
                     onChange={this.updateCodeParameterValue(parameter.key)}
                     name="UNIQUE_ID_OF_DIV"
                     editorProps={{$blockScrolling: true}}
                     style={{
                         height: "200px",
-                        margin: "20px"
+                        marginTop: '24px',
+                        marginBottom: '24px',
+                        fontSize: '1rem'
+                        
                     }}
                 />
             </div>
@@ -482,6 +505,7 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
                     locale      = { locale }
                     onChange    = { this.updateDictValue(parameter.key)}
                     height      = '350px'
+                    width       = '530px'
                     placeholder = {sampleData}
                 />
             </div>
@@ -538,7 +562,7 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
                     value={ item }
                     className={ classes.typeElement }
                 > 
-                    { item } 
+                    { item }
                 </option> 
             );
         });
@@ -590,6 +614,7 @@ class NodeParameterComponent extends Component<AllTypes, INodeParameterComponent
                         component = this.getComponentForArrayOfRegex(parameter);
                         break;
                     case "array[string]":
+                    case "array[array[string]]": // TODO:
                         component = this.getComponentForNumberAndString(parameter, "arrayOfString");
                         break;
                     case "ALL":

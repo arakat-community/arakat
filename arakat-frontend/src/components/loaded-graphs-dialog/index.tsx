@@ -17,8 +17,7 @@ const style: any = (theme: Theme) => ({
         backgroundColor: theme.palette.background.default,
         // width: theme.spacing.unit * 35,
         width: theme.spacing.unit * 75,
-        overflowX: 'hidden',
-        color: 'white'
+        
     }
 });
 
@@ -97,11 +96,7 @@ class LoadedGraphsDialogComponent extends React.PureComponent<AllTypes, ILoadedG
                     <Dialog
                         open={this.props.isDialogOpen}
                         onClose={this.handleClose}
-                        style={{
-                            width:"100%", 
-                            maxWidth: "none",
-                            overflowX: 'hidden',             
-                        }}
+                        style={{width:"100%", maxWidth: "none"}}
                         aria-labelledby="scroll-dialog-title"
                     >
                         <DialogTitle

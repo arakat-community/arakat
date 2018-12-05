@@ -162,6 +162,7 @@
     "uglifyjs-webpack-plugin": "^2.0.1",
     "url-loader": "^1.0.1",
     "validator": "^10.7.1",
+    "webfontloader": "^1.6.28",
     "webpack": "4.19.0",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.1.0",

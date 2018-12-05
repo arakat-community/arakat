@@ -6,8 +6,6 @@ import { runGraph } from "../api";
  */
 function* graphRun(action) {
     try {
-        console.log('run: ');
-        console.log(action.payload.graph);
         const response = yield call(runGraph, action.payload.graph);
         console.log('response:');
         console.log(response);        

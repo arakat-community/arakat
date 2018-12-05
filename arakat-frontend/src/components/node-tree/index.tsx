@@ -1,32 +1,32 @@
 import { Theme, withStyles, WithStyles } from "@material-ui/core";
-import Menu, {MenuItem, SubMenu} from "rc-menu";
+import Menu, { MenuItem, SubMenu } from "rc-menu";
 import "rc-menu/assets/index.css";
 import React, { Component } from "react";
 import { INodeTree } from "../../common/models/node-tree";
 import DraggableNodeComponent from "../draggable-node";
 import { animation } from "./animation";
 
+const treeBackgroundColor = '#545C61';
 
 const style: any = (theme: Theme) => ({
-    black: {
-        marginTop: "10vh",
-        backgroundColor: theme.palette.background.default,
-    },
     root: {
-        marginTop: "8vh",
+        paddingTop: "8vh",
         marginLeft: "0",
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: treeBackgroundColor,
     },
     tree: {
-        margin: "0px",
         border: "none",
         boxShadow: "none",
+        backgroundColor: treeBackgroundColor,
     },
     menuItem: {
-        backgroundColor: theme.palette.background.default,
-        fontFamily: "Roboto, Helvetica, Arial, sans-serif",
-        fontSize: "1.4rem",
+        backgroundColor: treeBackgroundColor,
+        color: '#E75050' // color of arrow
     },
+    nodeCategoryTitle: {
+        fontSize: '1.1rem',
+        color: 'white'
+    }
 });
 
 /**
@@ -41,7 +41,7 @@ export interface INodeTreeProps {
     nodeTree: INodeTree;
 }
 
-type AllProps = INodeTreeProps & WithStyles<"root" | "black" | "tree" | "menuItem">;
+type AllProps = INodeTreeProps & WithStyles<"root" | "tree" | "menuItem" | 'nodeCategoryTitle'>;
 
 /**
  * NodeTreeComponent class
@@ -55,15 +55,19 @@ class NodeTreeComponent extends Component<AllProps> {
     /**
      * create node repository
      */
-    public createNodeTree = (arr: any, treeItemType: TreeItemType, depth: number = 0) => {
+    public createNodeTree = (arr: any, treeItemType: TreeItemType, depth: number = -1) => {
+        depth++;
+        const menuTitle = <span className={this.props.classes.nodeCategoryTitle}> { arr.name } </span>
         if (arr.categories && arr.categories.length > 0) {
-            depth++;
             if (arr.nodes && arr.nodes.length > 0) {
                 return (
                     <SubMenu
                         className={this.props.classes.menuItem}
                         popupClassName={this.props.classes.menuItem}
-                        title={`${arr.categoryId} - ${arr.name}`}
+                        title={menuTitle}
+                        style={{
+                            paddingTop: '12px'                            
+                        }}
                     >
                         {arr.nodes.map((node) => this.createNodeTree(node, TreeItemType.node, depth))}
                         {arr.categories.map((subcategory) => this.createNodeTree(subcategory, TreeItemType.category, depth))}
@@ -74,28 +78,37 @@ class NodeTreeComponent extends Component<AllProps> {
                     <SubMenu
                         className={this.props.classes.menuItem}
                         popupClassName={this.props.classes.menuItem}
-                        title={`${arr.categoryId} - ${arr.name}`}
+                        title={menuTitle}
+                        style={{
+                            paddingTop: '12px'                            
+                        }}
                     >
                         {arr.categories.map((subcategory) => this.createNodeTree(subcategory, TreeItemType.category, depth))}
                     </SubMenu>
                 );
             }
         } else if (arr.nodes && arr.nodes.length > 0) {
-            return (
-                <SubMenu
-                    title={`${arr.categoryId} - ${arr.name}`}
-                    className={this.props.classes.menuItem}
-                >
-                    {arr.nodes.map((node) => this.createNodeTree(node, TreeItemType.node, depth))}
-                </SubMenu>
-            );
+          return (
+            <SubMenu
+                title={menuTitle}
+                className={this.props.classes.menuItem}
+                style={{
+                    paddingTop: '12px'                            
+                }}
+            >
+              {arr.nodes.map((node) => this.createNodeTree(node, TreeItemType.node, depth))}
+            </SubMenu>
+          );
         }
         if (treeItemType === TreeItemType.category) {
             return (
                 <MenuItem
                     className={this.props.classes.menuItem}
+                    style={{
+                        paddingTop: '18px'                            
+                    }}
                 >
-                    {arr.categoryId} - {arr.name}
+                    {menuTitle}
                 </MenuItem>
             );
         } else {
@@ -103,11 +116,12 @@ class NodeTreeComponent extends Component<AllProps> {
                 <DraggableNodeComponent
                     nodeID={arr.node_id}
                     title={arr.name}
-                    depth={depth}
+                    depth={depth}   
                 >
                 </DraggableNodeComponent>
             );
         }
+        
     }
 
     /**
@@ -153,4 +167,4 @@ class NodeTreeComponent extends Component<AllProps> {
 
 }
 
-export default withStyles(style, { withTheme: true })(NodeTreeComponent);
+export default withStyles(style, {withTheme: true})(NodeTreeComponent);
