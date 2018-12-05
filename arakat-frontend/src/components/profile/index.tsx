@@ -98,20 +98,9 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
                     <span
                         className = { classes.buttonSpan }
                     > 
-                        Load
+                        Yükle
                     </span>
                 </Button>
-                <Button
-                  aria-owns={anchorEl ? 'id' : null}
-                  aria-haspopup="true"
-                  onClick={this.openGraphPropertiesDialogForRun}
-                >
-                    <span
-                        className = { classes.buttonSpan }
-                    > 
-                        Save 
-                    </span>                    
-                </Button> 
                 <Button
                   aria-owns={anchorEl ? 'id' : null}
                   aria-haspopup="true"
@@ -120,7 +109,18 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
                     <span
                         className = { classes.buttonSpan }
                     > 
-                        Run
+                        Kaydet 
+                    </span>                    
+                </Button> 
+                <Button
+                  aria-owns={anchorEl ? 'id' : null}
+                  aria-haspopup="true"
+                  onClick={this.openGraphPropertiesDialogForRun}
+                >
+                    <span
+                        className = { classes.buttonSpan }
+                    > 
+                        Çalıştır
                     </span>
                 </Button>                 
                 
