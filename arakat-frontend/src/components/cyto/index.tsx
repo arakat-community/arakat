@@ -14,11 +14,24 @@ import { NodeFamilies } from "../../common/models/cyto-elements/node-families";
 import NodeParametersDialogContainer from "../../containers/node-parameters-dialog";
 import { ICytoState } from "../../store/cyto/types";
 import { layout } from "./layout";
-import { def_style, getBackground, getShape, MAX_ZOOM } from "./style";
 import EdgeDialogComponent from '../edge-dialog';
 import GraphPropertiesDialogContainer from '../../containers/graph-properties-dialog';
 import { DraggableType }  from '../../common/models/draggable/type';
 import LoadedGraphsDialogContainer from '../../containers/loaded-graphs-dialog';
+import { 
+  def_style, 
+  getBackground, 
+  getShape, 
+  MAX_ZOOM, 
+  taskNodeStyle, 
+  cvNodeStyle, 
+  innerNodeStyle,
+  pipelineNodeStyle
+} from "./style";
+import { getCytoReadableGraphObject } from './load-functions';
+import { FormattedMessage } from "react-intl";
+
+
 
 const style: any = (theme: Theme) => ({
   default: {
@@ -47,7 +60,7 @@ export interface ICytoProps {
   increaseTaskNodesLength: () => void;
   setSelectedNode: (selectedNode) => void;
   setIsNodeParametersDialogOpen: (isDialogOpen: boolean) => void;
-  addNodeToDagNodes: (node: any) => void;
+  addNodeToGraphNodes: (node: any) => void;
   addEdgeToGraphEdges: (key: string, edge: any) => void;
   setGraph: (graph: any) => void;
   runGraph: (graph: any) => void;
@@ -55,6 +68,7 @@ export interface ICytoProps {
   setGraphProperties: (graphProperties: any) => void;
   fetchGraphs: () => void;
   fetchGraph: (graphId: string) => void;
+  setIsGraphLoaded: (isGraphLoaded: boolean) => void; 
   edgeAdditionPolicy?: any;
   highlighted?: boolean;
   hovered?: boolean;
@@ -137,13 +151,57 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
         // TODO: dragItem.node_id should be int.
         if (nodeSpec.node_id === parseInt(nextProps.dragItem.node_id, 10)) {
           this.props.addNodeToExistingNodes(nodeSpec);          
-          this.addNode(nodeSpec);
-          
+          this.addNode(nodeSpec);          
           return;
         }
       });
     }
+    else if (!this.props.cytoState.isGraphLoaded && nextProps.cytoState.isGraphLoaded) {
+      this.props.setIsGraphLoaded(false);
+      const cytoReadableGraph = getCytoReadableGraphObject(nextProps.cytoState.graph);
+      cytoReadableGraph.nodes.map((node) => {
+        let nodeSpec = undefined;
+        switch( node['data']['nodeType'] ) {
+          case NodeTypes.innerNode:
+              nodeSpec = this.findInNodeSpecs(node['data']['nodeID']);
+              this.props.addNodeToExistingNodes(nodeSpec);
+              break;
+          case NodeTypes.pipelineNode:
+              nodeSpec = this.findInNodeSpecs(node['data']['nodeID']);
+              this.props.addNodeToExistingNodes(nodeSpec);
+              this.props.increasePipelineNodesLength();
+              break;
+          case NodeTypes.cvNode:
+              nodeSpec = this.findInNodeSpecs(node['data']['nodeID']);
+              this.props.addNodeToExistingNodes(nodeSpec);
+              this.props.increaseCVNodesLength();
+              break;
+          case NodeTypes.taskNode:
+              this.props.increaseTaskNodesLength();
+              break;
+        }      
+      })
+      for( let key in nextProps.cytoState.graph.graph.nodes) {
+        this.props.addNodeToGraphNodes(nextProps.cytoState.graph.graph.nodes[key]);
+      }
+      for( let key in nextProps.cytoState.graph.graph.edges) {
+        this.props.addEdgeToGraphEdges(key, nextProps.cytoState.graph.graph.edges[key]);
+      }
 
+      this.createGraph(cytoReadableGraph);
+      this.addEventHandlers();
+
+    }
+
+  }
+  public findInNodeSpecs = (nodeID: number) => {
+    let targetNodeSpec = undefined;
+    this.props.cytoState.nodeSpecs.map((nodeSpec) => {
+      if( nodeSpec['node_id'] === nodeID ) {
+        targetNodeSpec = nodeSpec;
+      }
+    })
+    return targetNodeSpec;
   }
   public componentDidUpdate = () => {
     if( this.props.cytoState.graphProperties ) {
@@ -167,9 +225,9 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
         }
       })
       this.props.setGraph(graph);
-      console.log('isAboutToRun: ' + this.props.cytoState.isAboutToRun);
       if( this.props.cytoState.isAboutToRun ) {
         this.props.runGraph(graph);
+        // Burak
       } else if (this.props.cytoState.isAboutToSave) {
         this.props.saveGraph(graph);
       }
@@ -182,15 +240,21 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
   }
   */
 
-  public createGraph = () => {
+  public createGraph = (cytoReadableGraph: any = undefined) => {
     this.cydyna = cytoscape({
       container: document.getElementById("cydyna"),
       selectionType: "additive",
+      elements: cytoReadableGraph,  
       style: def_style,
       panningEnabled: false,
       userZoomingEnabled: true // not working, needs panning.
     });
 
+    if( cytoReadableGraph ) {
+      this.cydyna.fit();
+      this.cydyna.panningEnabled(true);
+      this.cydyna.userZoomingEnabled(true);
+    }
     this.cydyna
       .style()
       .selector("node")
@@ -247,6 +311,8 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
       const existingNodes = this.props.cytoState.existingNodes;
       let selectedNode = {};
       existingNodes.map((node) => {
+        console.log('node: ');
+        console.log(node);
         if (node.node_id === nodeID) {          
               selectedNode = node;
         }
@@ -272,10 +338,10 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
     // this.cydyna.on("select", this.nodeSelect);
     this.cydyna.on("cxttap", "node", (evt) => {
       // TODO: evt.target's index:0 is in infinite loop!
-      const nodeID = evt.target._private.data.nodeID;            
+      const nodeID = evt.target._private.data.nodeID;
       const selectedNode = this.getNodeFromExistingNodes(nodeID);
       selectedNode['id'] = evt.target._private.data.id;
-      selectedNode['parent'] = evt.target._private.data.parent;
+      selectedNode['parent'] = evt.target._private.data.parent; // TODO: başka bi yerde set et.
       if (selectedNode['node_id'] >= 0) {
         this.props.setSelectedNode(selectedNode);
         this.props.setIsNodeParametersDialogOpen(true);
@@ -504,8 +570,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
       delete nodeSpecCopy.parameter_props;
       delete nodeSpecCopy.df_constraints;
       nodeSpecCopy['id'] = nodeData.id;
-      this.props.addNodeToDagNodes(nodeSpecCopy);
-      // -----------
+      this.props.addNodeToGraphNodes(nodeSpecCopy);
       return nodeID;      
     } else {
       alert('not allowed.')
@@ -568,17 +633,11 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
       .add({
         data: nodeData,
         group: "nodes",
-        position: { x: nodeOffset.x, y: nodeOffset.y},
-        style: {
-          backgroundColor: "white",
-          height: 50,
-          shape: "ellipse",
-          width: 50,
-          color: "white",
-        },
+        position: { x: nodeOffset.x - 42, y: nodeOffset.y - 10},
+        style: innerNodeStyle,
       })
       .id();
-   
+   // TODO: do i need increaseInnerNode action?
    return nodeID;
   }
 
@@ -588,13 +647,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
           data: nodeData,
           group: "nodes",
           position: { x: nodeOffset.x, y: nodeOffset.y},
-          style: {
-            backgroundColor: "green",
-            height: 50,
-            shape: "rectangle",
-            width: 100,
-            color: "white",
-          },
+          style: pipelineNodeStyle,
         })
         .id();
     this.props.increasePipelineNodesLength();
@@ -607,13 +660,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
           data: nodeData,
           group: "nodes",
           position: { x: nodeOffset.x, y: nodeOffset.y},
-          style: {
-            backgroundColor: "orange",
-            height: 75,
-            shape: "rectangle",
-            width: 150,
-            color: "white",
-          },
+          style: cvNodeStyle,
         })
         .id();
     this.props.increaseCVNodesLength();
@@ -621,7 +668,9 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
   }
   public prepareTaskNodeData = () => {
     let id = "task";
-    let visibleName = "Task node ";
+    // let visibleName = <FormattedMessage id='graph.nodes.task'/> ; //TODO: 
+    // let visibleNameStr = String(visibleName);
+    let visibleName = "İş Nodu ";
     if
     (
       this.props.cytoState.taskNodesLength &&
@@ -653,13 +702,7 @@ class CytoGraph extends Component<PropsAndStyle, ICytoLocalState, ICytoState > {
       position: { x: nodeOffset.x, y: nodeOffset.y},
       //locked: false,
       //removed: false,
-      style: {
-        backgroundOpacity: 0.333,
-        height: 125,
-        shape: "ellipse",
-        width: 125,
-        color: "white",
-      },
+      style: taskNodeStyle,
     });
     this.props.increaseTaskNodesLength();
     this.refreshLayout();
