@@ -1,0 +1,51 @@
+{
+  "node_id": 3,
+  "name": "Kümeleme Değerlendiricisi",
+  "category": 12,
+  "node_type": 0,
+  "family": 7,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "evaluator_name": "ClusteringEvaluator",
+  "parameter_props": {
+    "parameters": {
+      "predictionCol": {
+        "visible_name": "Tahmin Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "prediction"
+      },
+      "featuresCol": {
+        "visible_name": "Öznitelikler Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "features"
+      },
+      "metricName": {
+        "visible_name": "Ölçü İsmi",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": ["silhouette"],
+        "default": "silhouette"
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [
+  	0,
+  	3,
+  	4,
+  	11,
+  	10,
+  	13
+  ]
+}

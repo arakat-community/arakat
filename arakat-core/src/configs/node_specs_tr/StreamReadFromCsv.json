@@ -1,0 +1,40 @@
+{
+  "node_id": 51,
+  "name": "CSV Dosyasından Akış Okuyucu",
+  "category": 0,
+  "node_type": 0,
+  "family": 14,
+  "compatible_with_stream": true,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "can_infer_schema": true,
+  "file_type": "csv",
+  "parameter_props": {
+    "parameters": {
+      "path": {
+        "visible_name": "Dosya Yolu",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "schema": {
+        "visible_name": "Şema",
+        "type_constraint": [
+          "dict"
+        ],
+        "special_requirements": {"dict": "schema"}
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": [
+
+  ]
+}

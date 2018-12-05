@@ -1,0 +1,74 @@
+{
+  "node_id": 58,
+  "name": "Kafka Topic Akış Yazıcı",
+  "category": 1,
+  "node_type": 0,
+  "family": 17,
+  "compatible_with_stream": true,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "parameter_props": {
+    "parameters": {
+      "host": {
+        "visible_name": "Sunucu",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "port": {
+        "visible_name": "Port",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "topic": {
+        "visible_name": "Topic İsmi",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "trigger_type": {
+        "visible_name": "Tetikleyici Türü",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "once",
+          "processingTime",
+          "continuous"
+        ],
+        "default": "once"
+      },
+      "trigger_value": {
+        "visible_name": "Tetikleyici Değeri",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "unique_column_name": {
+        "visible_name": "Anahtar Sütun İsmi",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "checkpointLocation": {
+        "visible_name": "Denetim Sıklığı",
+        "type_constraint": [
+          "string"
+        ]
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": [
+
+  ],
+  "explanation": "Stream write to Kafka Topic."
+}

@@ -1,0 +1,60 @@
+{
+  "node_id": 72,
+  "name": "Pencere Doldurucu",
+  "category": 4,
+  "node_type": 0,
+  "family": 21,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "parameter_props": {
+    "parameters": {
+      "input_cols": {
+        "visible_name": "Girdi Sütunları",
+        "type_constraint": [
+          "array[string]",
+          "regex",
+          "template",
+          "ALL"
+        ],
+        "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}
+      },
+      "output_cols": {
+        "visible_name": "Çıktı Sütunları",
+        "type_constraint": [
+          "array[string]",
+          "template"
+        ],
+        "optional": true,
+        "special_requirements": {"template": "column_selector_template"}
+      },
+      "partitioning_column": {
+        "visible_name": "Bölüntüle",
+        "type_constraint": ["string"]
+      },
+      "ordering_column": {
+        "visible_name": "İle Sırala",
+        "type_constraint": ["string"]
+      },
+      "ordering_direction": {
+        "visible_name": "Sıralama Yönü",
+        "type_constraint": ["string"],
+        "set_constraint": ["asc", "desc"],
+        "default": "desc"
+      },
+      "window_size": {
+        "visible_name": "Pencere Büyüklüğü",
+        "type_constraint": ["integer"],
+        "piecewise_constraint": "window_size >= 1"
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": []
+}

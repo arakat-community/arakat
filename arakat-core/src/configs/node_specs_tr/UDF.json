@@ -1,0 +1,62 @@
+{
+  "node_id": 71,
+  "name": "Kullanıcı Tanımlı Fonksiyon (UDF)",
+  "category": 2,
+  "node_type": 0,
+  "family": 20,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "parameter_props": {
+    "parameters": {
+      "udf_input_tuples": {
+        "visible_name": "Girdi Grupları",
+        "type_constraint": [
+          "array[array[string]]",
+          "array[regex]",
+          "array[template]",
+          "array[ALL]"
+        ],
+        "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}
+      },
+      "udf_outputs": {
+        "visible_name": "Çıktı Sütunları",
+        "type_constraint": [
+          "array[string]",
+          "template"
+        ],
+        "optional": true,
+        "special_requirements": {"template": "column_selector_template"}
+      },
+      "udf_function": {
+        "visible_name": "UDF Fonksiyonu",
+        "type_constraint": [
+          "code"
+        ],
+        "special_requirements": {"code": "code"}
+      },
+      "udf_return_type": {
+        "visible_name": "UDF Dönüş Tipi",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "StringType",
+          "IntegerType",
+          "LongType",
+          "DoubleType",
+          "FloatType",
+          "BooleanType",
+          "ArrayType"
+        ]
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": []
+}

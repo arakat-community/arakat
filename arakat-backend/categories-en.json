@@ -1,13 +1,13 @@
 [
   {
     "categoryId": 0,
-    "name": "Veri kaynakları",
+    "name": "Data Sources",
     "nodes": [],
     "categories": []
   },
   {
     "categoryId": 1,
-    "name": "Veri Alıcısı",
+    "name": "Data Sinks",
     "nodes": [],
     "categories": []
   },
@@ -24,24 +24,24 @@
     "categories": [
       {
         "categoryId": 4,
-        "name": "Önişleme",
+        "name": "Preprocessing",
         "nodes": [],
         "categories": [
           {
             "categoryId": 6,
-            "name": "Öznitelik çıkarma",
+            "name": "Feature Extraction",
             "nodes": [],
             "categories": []
           },
           {
             "categoryId": 7,
-            "name": "Ölçekleme",
+            "name": "Scaling",
             "nodes": [],
             "categories": []
           },
           {
             "categoryId": 8,
-            "name": "Öznitelik İndirgeme/Seçme",
+            "name": "Feature Reduction/Selection",
             "nodes": [],
             "categories": []
           }
@@ -49,24 +49,24 @@
       },
       {
         "categoryId": 5,
-        "name": "Algoritmalar",
+        "name": "Algorithms",
         "nodes": [],
         "categories": [
           {
             "categoryId": 9,
-            "name": "Kümeleme",
+            "name": "Clustering",
             "nodes": [],
             "categories": []
           },
           {
             "categoryId": 10,
-            "name": "Regresyon",
+            "name": "Regression",
             "nodes": [],
             "categories": []
           },
           {
             "categoryId": 11,
-            "name": "Sınıflandırma",
+            "name": "Classificiation",
             "nodes": [],
             "categories": []
           }
@@ -74,7 +74,7 @@
       },
       {
         "categoryId": 12,
-        "name": "Değerlendirme",
+        "name": "Evaluation",
         "nodes": [],
         "categories": []
       }
@@ -82,19 +82,19 @@
   },
   {
     "categoryId": 13,
-    "name": "Veri Madenciliği",
+    "name": "Data Mining",
     "nodes": [],
     "categories": []
   },
   {
     "categoryId": 14,
-    "name": "İstatistik",
+    "name": "Statistics",
     "nodes": [],
     "categories": []
   },
   {
     "categoryId": 15,
-    "name": "Görselleştirme",
+    "name": "Visualizations",
     "nodes": [],
     "categories": []
   }

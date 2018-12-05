@@ -1,0 +1,142 @@
+{
+  "node_id": 73,
+  "name": "İstatistik Yuvarlayıcı",
+  "category": 6,
+  "node_type": 0,
+  "family": 22,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "parameter_props": {
+    "parameters": {
+      "rolling_stats_info": {
+        "visible_name": "İstatistikleri Yuvarla",
+        "type_constraint": ["object"],
+        "object_info": {
+          "between_operation": {
+            "visible_name": "İşlem Arasında",
+            "type_constraint": ["string"],
+            "set_constraint": ["Identity", "+", "*", "-"],
+            "default": "Identity"
+          },
+          "first_argument": {
+            "visible_name": "İlk Argüman",
+            "type_constraint": ["object"],
+            "object_info": {
+              "operation": {
+                "visible_name": "İşlem",
+                "type_constraint": ["string"],
+                "set_constraint": ["Identity", "max", "min", "mean", "std"],
+                "default": "Identity"
+              },
+              "input_cols": {
+                "visible_name": "Girdi Sütunları",
+                "type_constraint": ["array[string]", "regex", "template"],
+                "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template"}
+              }
+            }
+          },
+          "second_argument": {
+            "visible_name": "İkinci Argüman",
+            "type_constraint": ["object"],
+            "object_info": {
+              "operation": {
+                "visible_name": "işlem",
+                "type_constraint": ["string"],
+                "set_constraint": ["Identity", "max", "min", "mean", "std"],
+                "default": "Identity"
+              },
+              "input_cols": {
+                "visible_name": "Girdi Sütunları",
+                "type_constraint": ["array[string]", "regex", "template"],
+                "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template"}
+              }
+            }
+          },
+          "output_cols": {
+            "visible_name": "Çıktı Sütunları",
+            "type_constraint": ["array[string]", "template"],
+            "special_requirements": {"template": "column_selector_template"}
+          },
+          "partitioning_column": {
+            "visible_name": "Bölümle",
+            "type_constraint": ["string"]
+          },
+          "ordering_column": {
+            "visible_name": "Sırala",
+            "type_constraint": ["string"]
+          },
+          "ordering_direction": {
+            "visible_name": "Sıralama Yönü",
+            "type_constraint": ["string"],
+            "set_constraint": ["asc", "desc"],
+            "default": "desc"
+          },
+          "lags": {
+            "visible_name": "Gecikmeler",
+            "type_constraint": ["array[integer]"],
+            "piecewise_constraint": "(window_size >= 1) OR (window_size == -1)"
+          }
+        }
+      }
+    },
+    "lookup_table": {
+      "v1": {
+        "trace": "rolling_stats_info-object_info-first_argument-object_info-value",
+        "field": "type"
+      },
+      "v2": {
+        "const": "array[string]"
+      },
+      "v3": {
+        "trace": "new_column_names",
+        "field": "type"
+      },
+      "v4": {
+        "trace": "rolling_stats_info-object_info-first_argument-object_info-value",
+        "field": "length"
+      },
+      "v5": {
+        "trace": "new_column_names",
+        "field": "length"
+      },
+      "v6": {
+        "trace": "rolling_stats_info-object_info-second_argument-object_info-value",
+        "field": "type"
+      },
+      "v7": {
+        "trace": "rolling_stats_info-object_info-second_argument-object_info-value",
+        "field": "length"
+      },
+      "v8": {
+        "trace": "rolling_stats_info-object_info-between_operation",
+        "field": "value"
+      },
+      "v9": {
+        "const": "Identity"
+      }
+    },
+    "relational_constraints": [
+      "(((v1 == v2) AND (v3 == v2)) => (v4 == v5)) AND (((v6 == v2) AND (v3 == v2)) => (v7 == v5))"
+    ],
+    "visibility_constraints": [
+      {
+        "condition": "v8 != v9",
+        "action": {
+          "type": "set_visible",
+          "trace": "expressions-object_info-second_argument"
+        }
+      },
+      {
+        "condition": "v8 == v9",
+        "action": {
+          "type": "hide",
+          "trace": "expressions-object_info-second_argument"
+        }
+      }
+    ]
+  },
+  "df_constraints": []
+}

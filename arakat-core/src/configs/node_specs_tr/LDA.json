@@ -1,0 +1,103 @@
+{
+  "node_id": 19,
+  "name": "Gizli Dirichlet Ayrımı (LDA)",
+  "category": 9,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "LDA",
+  "parameter_props": {
+    "parameters": {
+      "featuresCol": {
+        "visible_name": "Öznitelikler Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "features"
+      },
+      "k": {
+        "visible_name": "k",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "k > 1",
+        "default": 10
+      },
+      "optimizer": {
+        "visible_name": "İyileştirici",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "em",
+          "online"
+        ],
+        "default": "online"
+      },
+      "maxIter": {
+        "visible_name": "Maksimum İterasyon Sayısı",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxIter >= 0",
+        "default": 20
+      },
+      "checkpointInterval": {
+        "visible_name": "Denetim Sıklığı",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "checkpointInterval >= 1 OR checkpointInterval == -1",
+        "default": 10
+      },
+      "learningOffset": {
+        "visible_name": "Öğrenme Ofseti",
+        "type_constraint": [
+          "float",
+          "double"
+        ],
+        "piecewise_constraint": "learningOffset > 0",
+        "default": 1024
+      },
+      "subsamplingRate": {
+        "visible_name": "Alt Örnekleme Oranı",
+        "type_constraint": [
+          "float",
+          "double"
+        ],
+        "piecewise_constraint": "subsamplingRate > 0 AND subsamplingRate <= 1",
+        "default": 0.05
+      },
+      "optimizeDocConcentration": {
+        "visible_name": "Doc Yoğunlaşmasını İyileştir",
+        "type_constraint": [
+          "boolean"
+        ],
+        "optional": true
+      },
+      "keepLastCheckpoint": {
+        "visible_name": "Son Denetim Noktasını Koru",
+        "type_constraint": [
+          "boolean"
+        ],
+        "optional": true
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [
+  	1,
+  	2,
+    3,
+    4,
+    5,
+    10
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "node_id": 70,
+  "name": "Model Tutucu",
+  "category": 3,
+  "node_type": 0,
+  "family": 19,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": false,
+  "parameter_props": {
+    "parameters": {
+
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ],
+    "df_constraints": []
+  }
+}
