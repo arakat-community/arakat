@@ -1,12 +1,25 @@
 import React, { Component } from "react";
 import { withStyles, WithStyles, Theme, Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import NodeParameterComponent from "../node-parameter";
+import { FormattedMessage } from "react-intl";
 
 const style: any = (theme: Theme) => ({
     dialogContent: {
         backgroundColor: theme.palette.background.default,
         // width: theme.spacing.unit * 35,
         width: theme.spacing.unit * 75,        
+    },
+    dialogHeader: {
+        fontSize: '1.7rem',
+        fontWeight: 'normal'
+    },
+
+    cancelButton: {
+        marginRight: '1vw',
+        backgroundColor: '#E75050'
+    },
+    okButton: {
+        backgroundColor: 'white',
     },
 });
 
@@ -21,7 +34,8 @@ interface INodeParametersDialogComponentState {
     finalParameters: any;
 }
 
-type AllTypes = INodeParametersProps & WithStyles<"dialogContent">;
+type AllTypes = INodeParametersProps & WithStyles<"dialogContent" | 'dialogHeader' | 'cancelButton' |
+                                                  'okButton' | 'okButtonText'>;
 
 /**
  * DrawerComponent
@@ -163,11 +177,18 @@ class NodeParametersDialogComponent extends Component<AllTypes, INodeParametersD
      */
     public render(): JSX.Element {
         const { classes } = this.props;
-        let dialogTitle = "Parameters";
+        let dialogTitle = undefined;
         if( this.props.selectedNode ) {
-            dialogTitle = this.props.selectedNode.name + ' (' +
-            this.props.selectedNode.id + ')' + ' Nod Parametreleri';
+            dialogTitle = 
+            <span
+                className={classes.dialogHeader}
+            > 
+                {this.props.selectedNode.name} Node Parametreleri
+                
+            </span>;
         }
+        // <FormattedMessage id='dialog.button.ok'/>
+
         return (
                 <div>
                     <Dialog
@@ -185,21 +206,23 @@ class NodeParametersDialogComponent extends Component<AllTypes, INodeParametersD
                             
                         </DialogTitle>
 
-                        <DialogContent>
+                        <DialogContent
+                            className={classes.dialogContent}
+                        >
                             {this.getParameterComponents()}
                         </DialogContent>
                         <DialogActions>
                         <Button
                             onClick={this.handleClose}
-                            color="primary"
+                            className={classes.cancelButton}
                         >
-                            Cancel
+                            <FormattedMessage id='dialog.button.cancel'/>
                         </Button>
                         <Button
                             onClick={this.handleOK}
-                            color="primary"
+                            className={classes.okButton}
                         >
-                            OK
+                            <FormattedMessage id='dialog.button.ok'/>
                         </Button>
                         </DialogActions>
                     </Dialog>

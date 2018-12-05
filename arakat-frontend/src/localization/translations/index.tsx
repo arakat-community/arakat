@@ -44,7 +44,9 @@ const getTranslatedMessages: any = (languageCode: string) => {
                       require("./form-elements/en"),
                       require("./breadcrumbs/en"),
                       require("./worksheet/en"),
+                      require("./graph/en"),
                       require("./data-grid/en"));
+
         break;
         case LocalizationLanguages.Turkish.code:
         Object.assign(messages,
@@ -57,6 +59,7 @@ const getTranslatedMessages: any = (languageCode: string) => {
                       require("./form-elements/tr"),
                       require("./breadcrumbs/tr"),
                       require("./worksheet/tr"),
+                      require("./graph/tr"),
                       require("./data-grid/tr"));
         break;
     }

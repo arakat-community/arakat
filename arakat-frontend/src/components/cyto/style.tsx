@@ -9,6 +9,7 @@ export const def_style =
           selector: "node",
           style: {
             content: "data(visibleName)",
+            backgroundColor: 'black'
           },
         },
         {
@@ -93,38 +94,45 @@ export const def_style =
           },
         },
 ];
-
+const cytoFontFamily = "Lemon Milk, Sans-Serif";
 export const taskNodeStyle = {
+    fontFamily: cytoFontFamily,
     backgroundOpacity: 0.777,
-    backgroundColor: '#545C61',
+    backgroundColor: 'white',
     height: 125,
     shape: "ellipse",
     width: 125,
     color: "black",
-    fontWeight: 'bold'
+    fontWeight: 'bold',
 }
+
 export const cvNodeStyle = {
-    backgroundColor: "orange",
+    fontFamily: cytoFontFamily,
+    backgroundColor: "#ccaaa1",
+    backgroundOpacity: 0.555,
     height: 75,
     shape: "rectangle",
     width: 150,
-    color: "white",
+    color: "black",
 }
 
 export const innerNodeStyle = {
-    backgroundColor: "white",
+    fontFamily: cytoFontFamily,
+    backgroundColor: "#E75050",
     height: 50,
     shape: "ellipse",
     width: 50,
-    color: "white",
+    color: "black",
 }
 
 export const pipelineNodeStyle = {
-    backgroundColor: "green",
-    height: 50,
+    fontFamily: cytoFontFamily,
+    backgroundColor: "#9eb0ff",
+    backgroundOpacity: 0.555,
+    height: 100,
     shape: "rectangle",
-    width: 100,
-    color: "white",
+    width: 175,
+    color: "black",
 }
 export const MAX_ZOOM = 6;
 

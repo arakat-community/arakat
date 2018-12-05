@@ -13,6 +13,7 @@ import { ILocalizationLanguage } from "./localization/languages";
 import {IApplicationState} from "./store";
 import { getTheme } from "./theme";
 import MainView from "./views/main";
+import WebFont from 'webfontloader';
 
 export interface IAppState {
   location: Location;
@@ -27,24 +28,30 @@ const jss: any = create({ plugins: [...preset, rtl()] });
 const generateClassName: any = createGenerateClassName();
 
 const app: React.SFC <AllTypes> = (props: AllTypes) => {
-  document.body.setAttribute("dir", props.locale.rtl ? "rtl" : "ltr");
-  return (
-    <JssProvider
-            jss={jss}
-            generateClassName={generateClassName}
-    >
-            <MuiThemeProvider
-                theme={getTheme(props.theme, props.locale)}
-            >
-                <Switch>
-                    <Route
-                        path="/"
-                        component={MainView}
-                    />
-                </Switch>
-            </MuiThemeProvider>
-    </JssProvider>
-    );
+    WebFont.load({
+        google: {
+            families: ['Lemon Milk', 'Sans-Serif']
+        }
+    });
+    document.body.setAttribute("dir", props.locale.rtl ? "rtl" : "ltr");
+
+    return (
+        <JssProvider
+                jss={jss}
+                generateClassName={generateClassName}
+        >
+                <MuiThemeProvider
+                    theme={getTheme(props.theme, props.locale)}
+                >
+                    <Switch>
+                        <Route
+                            path="/"
+                            component={MainView}
+                        />
+                    </Switch>
+                </MuiThemeProvider>
+        </JssProvider>
+        );
 };
 
 const mapStateToProps: (state: IApplicationState) => IAppState = (state: IApplicationState): IAppState =>

@@ -151,7 +151,8 @@
     "redux-form": "^7.4.2",
     "redux-persist": "^5.10.0",
     "redux-saga": "^0.16.0",
-    "validator": "^10.7.1"
+    "validator": "^10.7.1",
+    "webfontloader": "^1.6.28"
   },
   "jest": {
     "setupFiles": [
