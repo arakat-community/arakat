@@ -1,4 +1,4 @@
-import axios, { AxiosPromise } from "axios";
+import { AxiosPromise } from "axios";
 import Api from "../../../config/api";
 import Request from "../../request";
 import { IChartDecisionTreeModel } from "../../../models/chartDecision/chartDecisionTreeModel";

@@ -3,6 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="f162d244-0e1e-492b-9803-ac65f63761ba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/components/chartDecision.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/components/chartDecision.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/components/decisionForm/form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/components/decisionForm/form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/services/chartDecision/api/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/services/chartDecision/api/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/services/chartDecision/app/allApps/api/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/services/chartDecision/app/allApps/api/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/services/chartDecision/tablePath/column/api/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/services/chartDecision/tablePath/column/api/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/services/chartDecision/tablePath/data/api/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/services/chartDecision/tablePath/data/api/index.tsx" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -57,12 +63,12 @@
         <counts>
           <entry key="ts" value="321" />
           <entry key="tsx" value="224" />
-          <entry key="txt" value="336" />
+          <entry key="txt" value="372" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="336" />
+          <entry key="PLAIN_TEXT" value="372" />
           <entry key="TypeScript" value="321" />
           <entry key="TypeScript JSX" value="224" />
         </counts>
@@ -86,8 +92,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/arakat-frontend/src/services/cyto/api/index.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="3" lean-forward="true" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
+            <state relative-caret-position="320">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -165,32 +171,6 @@
             <path>
               <item name="Arakat" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-            <path>
-              <item name="Arakat" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="arakat-frontend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="Arakat" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="arakat-frontend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="Arakat" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="arakat-frontend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="services" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="Arakat" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="arakat-frontend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="services" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="chartDecision" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
@@ -282,7 +262,7 @@
       <workItem from="1536154482224" duration="3000" />
       <workItem from="1543390007414" duration="397000" />
       <workItem from="1543562747833" duration="7373000" />
-      <workItem from="1543999870710" duration="278000" />
+      <workItem from="1543999870710" duration="2092000" />
     </task>
     <task id="LOCAL-00001" summary="merge fix">
       <created>1543563281998</created>
@@ -312,11 +292,18 @@
       <option name="project" value="LOCAL" />
       <updated>1544000148919</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="* database folder has been deleted">
+      <created>1544000208867</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1544000208867</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17694000" />
+    <option name="totallyTimeSpent" value="19508000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-1088" width="1936" height="1056" extended-state="6" />
@@ -360,6 +347,13 @@
                   <UserGroup>
                     <option name="users">
                       <list>
+                        <option value="mergefix" />
+                      </list>
+                    </option>
+                  </UserGroup>
+                  <UserGroup>
+                    <option name="users">
+                      <list>
                         <option value="origin/master" />
                       </list>
                     </option>
@@ -378,7 +372,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="community/dev-frontend" />
+                        <option value="mergefix" />
                       </list>
                     </value>
                   </entry>
@@ -406,7 +400,8 @@
     <MESSAGE value="request service methods restored, tested" />
     <MESSAGE value=".idea files deleted" />
     <MESSAGE value="* new services folder has been implemented&#10;* line, column, and pie chart has been finished&#10;* chart configuration model has been modified&#10;* app bar redirect buttons has been implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="* new services folder has been implemented&#10;* line, column, and pie chart has been finished&#10;* chart configuration model has been modified&#10;* app bar redirect buttons has been implemented" />
+    <MESSAGE value="* database folder has been deleted" />
+    <option name="LAST_COMMIT_MESSAGE" value="* database folder has been deleted" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/arakat-frontend/config/webpack.config.js" />
@@ -522,8 +517,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/arakat-frontend/src/services/cyto/api/index.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="3" lean-forward="true" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
+        <state relative-caret-position="320">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

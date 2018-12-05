@@ -4,7 +4,7 @@ import {
 } from "@material-ui/core";
 import React, { Component } from "react";
 import * as am4core from "@amcharts/amcharts4/core";
-import { InjectedIntlProps, injectIntl, FormattedRelative } from "react-intl";
+import { InjectedIntlProps, injectIntl } from "react-intl";
 import SelectComponent from "../../components/Select";
 import {
     IChartDecisionTreeModel,
@@ -14,9 +14,9 @@ import {
 import { ITreeDataModel } from "../../models/chartDecision/chartDecisionTreeModel";
 import RCTreeComponent from "../../components/decisionForm/RCTreeComponent";
 import { NodeType } from "../../models/enums/nodeType";
-import { IColumnInformation, IRowData, IColumnData, ITableData } from "../../models/databaseModels/tableOptions/tableInfo";
+import { IColumnInformation, IRowData } from "../../models/databaseModels/tableOptions/tableInfo";
 import { InternalTreeNode } from "rc-tree";
-import { getTableColumns } from "../../services/database/databaseColumn/api/index";
+import { getTableColumns } from "../../services/chartDecision/tablePath/column/api/index";
 import SwapVert from "@material-ui/icons/SwapVert";
 import SaveIcon from "@material-ui/icons/Save";
 import cloneDeep from "lodash/cloneDeep";
@@ -25,7 +25,7 @@ import { ChartType } from "../../models/enums/chartType/ChartType";
 import Button from "../../components/button/index";
 import { FormattedMessage } from "react-intl";
 import ButtonType from "../../common/models/button/type";
-import { getData } from "../../services/database/databaseTable/api";
+import { getData } from "../../services/chartDecision/tablePath/data/api/index";
 import { ChartGroupType } from "../../models/enums/chartType";
 import { LegendPosition } from "../../models/enums/legendPosition";
 import { XYChartType } from "../../models/enums/xyChartType";
@@ -53,6 +53,7 @@ interface IFormComponentState {
     selectedOrderBy?: string;
     components: JSX.Element[];
     orderBySelectMenu?: JSX.Element;
+    selectedSortBy?: string;
 }
 
 const style: any = (theme: Theme) => ({
@@ -189,6 +190,25 @@ class ChartDecisionFormComponent extends Component<PropWithStyles, IFormComponen
 
                         {
                             this.state.orderBySelectMenu &&
+                            this.createSelectMenu(
+                                this.handleSortBySelection,
+                                [
+                                    {
+                                        id: "sort-by-menu-1",
+                                        name: "ASC"
+                                    },
+                                    {
+                                        id: "sort-by-menu-2",
+                                        name: "DESC"
+                                    }
+                                ],
+                                "sort-by-menu", "id", "name", false,
+                                "chartDecision.form.selectedColumnMenu.label"
+                            )
+                        }
+
+                        {
+                            this.state.selectedSortBy &&
                             <FormControl fullWidth className={classes.input}>
                                 <InputLabel >
                                     {
@@ -252,6 +272,15 @@ class ChartDecisionFormComponent extends Component<PropWithStyles, IFormComponen
             }
         );
     }
+    private handleSortBySelection = (selectedItem: any) => {
+        this.setState(
+            {
+                selectedSortBy: selectedItem["name"]
+            }
+        );
+    }
+
+
 
     /**
      * Callback function of the draw chart button
@@ -277,7 +306,7 @@ class ChartDecisionFormComponent extends Component<PropWithStyles, IFormComponen
 
         getData(tablePathQueryStr, columns,
             selectedOrderBy ? selectedOrderBy : this.state.selectedDBMSModelList[0].column.name,
-            this.state.limit, "ASC").then((response: any) => {
+            this.state.limit, this.state.selectedSortBy).then((response: any) => {
                 console.log("get data service call completed : ", response);
                 this.drawChart(response);
             });
