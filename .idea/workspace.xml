@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f162d244-0e1e-492b-9803-ac65f63761ba" name="Default Changelist" comment=".idea files deleted">
-      <change beforePath="$PROJECT_DIR$/.idea/Arakat.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+    <list default="true" id="f162d244-0e1e-492b-9803-ac65f63761ba" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/components/PieCharts/pieChartSeries.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/components/PieCharts/pieChartSeries.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/components/XYCharts/xyChartSeries.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/components/XYCharts/xyChartSeries.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/components/appbar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/components/appbar/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/components/decisionForm/form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/components/decisionForm/form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/components/profile/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/components/profile/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/localization/translations/chart-decision/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/localization/translations/chart-decision/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/localization/translations/chart-decision/tr.json" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/localization/translations/chart-decision/tr.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/models/pieChartModels/pieChartConfig.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/models/pieChartModels/pieChartConfig.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/models/xyChartModels/xyChartConfig.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/models/xyChartModels/xyChartConfig.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/services/chartDecision/dagStats/api/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/services/chartDecision/dagStats/api/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/services/database/apps/getAllApps/api/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/services/database/apps/getAllApps/api/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/services/database/databaseColumn/api/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/services/database/databaseColumn/api/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arakat-frontend/src/views/main/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/arakat-frontend/src/views/main/index.tsx" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,7 +31,7 @@
     <session id="-1669310342">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.5" value="1" />
@@ -113,6 +123,7 @@
       <find>:)</find>
       <find>React.createClass</find>
       <find>example.hello.world</find>
+      <find>.idea</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -144,10 +155,10 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="260" />
-    <option name="y" value="20" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+    <option name="x" value="-8" />
+    <option name="y" value="-1088" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -224,8 +235,11 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.tslint" value="D:\Projects\Arakat\arakat-frontend\node_modules\tslint" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Ignored.Files" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="ts.external.directory.path" value="D:\Projects\Arakat\arakat-frontend\node_modules\typescript\lib" />
     <property name="typescript-compiler-editor-notification" value="false" />
   </component>
@@ -242,7 +256,7 @@
     </option>
   </component>
   <component name="SvnConfiguration">
-    <configuration />
+    <configuration>C:\Users\tr1b5167\AppData\Roaming\Subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -255,7 +269,7 @@
       <workItem from="1536043351756" duration="5467000" />
       <workItem from="1536154482224" duration="3000" />
       <workItem from="1543390007414" duration="397000" />
-      <workItem from="1543562747833" duration="5036000" />
+      <workItem from="1543562747833" duration="7373000" />
     </task>
     <task id="LOCAL-00001" summary="merge fix">
       <created>1543563281998</created>
@@ -271,17 +285,24 @@
       <option name="project" value="LOCAL" />
       <updated>1543579603310</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary=".idea files deleted">
+      <created>1543580136983</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1543580136983</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15079000" />
+    <option name="totallyTimeSpent" value="17416000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-1088" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17913593" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17913593" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" weight="0.329718" />
@@ -295,7 +316,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.62147504" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.329718" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.329718" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />

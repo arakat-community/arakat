@@ -54,7 +54,7 @@ const BreadCrumbsComponent: React.SFC<AllType> = ({classes, ...props}: AllType) 
     <List className={classes.root}>
         <NavLink
             to="/"
-            key="home-page"
+            key="home-page2"
         >
             <ListItem
                 className={classes.home}

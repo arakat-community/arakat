@@ -33,6 +33,7 @@ import { MapChartSeriesComponent } from "../MapChart/mapChartSeries";
 import { PieChartSeriesComponent } from "../PieCharts/pieChartSeries";
 import { XYChartSeriesComponent } from "../XYCharts/xyChartSeries";
 import { IStyle } from "../../models/styles/xyChartStyle";
+import { IPieChartConfig } from "../../models/pieChartModels/pieChartConfig";
 
 interface IFormProps {
     chartDecisionTree: IChartDecisionTreeModel[];
@@ -51,6 +52,7 @@ interface IFormComponentState {
     limit?: string;
     selectedOrderBy?: string;
     components: JSX.Element[];
+    orderBySelectMenu?: JSX.Element;
 }
 
 const style: any = (theme: Theme) => ({
@@ -180,17 +182,13 @@ class ChartDecisionFormComponent extends Component<PropWithStyles, IFormComponen
                         }
 
                         {
-                            this.state.selectedDBMSModelList.length >= 1 &&
-                            this.createSelectMenu(
-                                this.handleOrderBySelection,
-                                this.createSelectedColumnArray(),
-                                "selected-fields-menu", "id", "name", false,
-                                "chartDecision.form.selectedColumnMenu.label"
-                            )
+                            this.state.orderBySelectMenu &&
+                            this.state.orderBySelectMenu
+
                         }
 
                         {
-                            this.state.selectedDBMSModelList.length >= 1 &&
+                            this.state.orderBySelectMenu &&
                             <FormControl fullWidth className={classes.input}>
                                 <InputLabel >
                                     {
@@ -224,7 +222,6 @@ class ChartDecisionFormComponent extends Component<PropWithStyles, IFormComponen
                                 <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
                             </Button>
                         }
-
 
                     </Grid>
                 </Grid>
@@ -267,7 +264,7 @@ class ChartDecisionFormComponent extends Component<PropWithStyles, IFormComponen
         // chart series component will be rendered here
         let columns: string = "";
         let tablePathQueryStr: string = "";
-        const { selectedDBMSModelList } = this.state;
+        const { selectedDBMSModelList, selectedOrderBy } = this.state;
         selectedDBMSModelList.forEach(selectedDBMSModel => {
             const { column, tablePath } = selectedDBMSModel;
             tablePathQueryStr = encodeURIComponent(tablePath).replace(/%/g, '%25');
@@ -278,7 +275,8 @@ class ChartDecisionFormComponent extends Component<PropWithStyles, IFormComponen
             console.log("table path and columns : ", tablePathQueryStr, columns);
         });
 
-        getData(tablePathQueryStr, columns, this.state.selectedOrderBy,
+        getData(tablePathQueryStr, columns,
+            selectedOrderBy ? selectedOrderBy : this.state.selectedDBMSModelList[0].column.name,
             this.state.limit, "ASC").then((response: any) => {
                 console.log("get data service call completed : ", response);
                 this.drawChart(response);
@@ -295,11 +293,17 @@ class ChartDecisionFormComponent extends Component<PropWithStyles, IFormComponen
      * @param checkedTreeKeys keys checked inside tree data component
      */
     private onSelected = (checkedTreeKeys: string[]) => {
-        const selectedDBMSModelList: ISelectedIDBMSModel[] = [];
         const chartType = this.state.selectedChartDecision.key;
+        const selectedDBMSModelList: ISelectedIDBMSModel[] = [];
+        this.setState(
+            {
+                orderBySelectMenu: undefined
+            }
+        );
 
-        if ((chartType === ChartType.COLUMN_CHART
-            || chartType === ChartType.LINE_CHART) && checkedTreeKeys.length === 2) {
+        if (((chartType === ChartType.COLUMN_CHART || chartType === ChartType.LINE_CHART)
+            && checkedTreeKeys.length === 2) || (chartType === ChartType.PIE_CHART
+                && (checkedTreeKeys.length === 1 || checkedTreeKeys.length === 2))) {
 
             checkedTreeKeys.forEach(
                 checkedTreeKey => {
@@ -316,30 +320,22 @@ class ChartDecisionFormComponent extends Component<PropWithStyles, IFormComponen
             this.setState(
                 {
                     selectedDBMSModelList: selectedDBMSModelList,
+                }, () => {
+                    this.getSelectedColumnsInputList(selectedDBMSModelList);
+                    let columnOptionArray: any[] = this.createSelectedColumnArray();
+                    this.setState(
+                        {
+                            orderBySelectMenu: this.createSelectMenu(
+                                this.handleOrderBySelection,
+                                columnOptionArray,
+                                "selected-fields-menu", "id", "name", false,
+                                "chartDecision.form.selectedColumnMenu.label"
+                            )
+                        }
+                    );
                 }
             );
-            this.getSelectedColumnsInputList(selectedDBMSModelList);
-        }
 
-        else if (chartType === ChartType.PIE_CHART
-            && checkedTreeKeys.length === 1) {
-            checkedTreeKeys.forEach(
-                checkedTreeKey => {
-                    const selectedDBMSModel: ISelectedIDBMSModel = {
-                        appId: checkedTreeKey.split("-")[0],
-                        tablePath: checkedTreeKey.split("-")[1],
-                        column: {
-                            name: checkedTreeKey.split("-")[2],
-                        },
-                    };
-                    selectedDBMSModelList.push(selectedDBMSModel);
-                }
-            );
-            this.setState(
-                {
-                    selectedDBMSModelList: selectedDBMSModelList,
-                }
-            );
         }
     }
 
@@ -479,40 +475,34 @@ class ChartDecisionFormComponent extends Component<PropWithStyles, IFormComponen
         const chartType = this.state.selectedChartDecision.key;
         const rowData: IRowData[] = response;
         let data: any[] = [];
+        rowData.forEach(
+            (row: any) => {
+                let dataEntry = {};
+                row.forEach(column => {
+                    dataEntry[column.columnName] = column.value;
+                });
+                data.push(dataEntry);
+            }
+        );
 
         switch (chartType) {
-
-            case ChartType.BAR_CHART:
-                break;
-
-            case ChartType.BUBBLE_CHART:
-                break;
-
-            case ChartType.CIRCULAR_AREA_CHART:
-                break;
-
             case ChartType.COLUMN_CHART:
-                rowData.forEach(
-                    (row: any) => {
-                        let dataEntry = {};
-                        row.forEach(column => {
-                            dataEntry[column.columnName] = column.value;
-                        });
-                        data.push(dataEntry);
-                    }
-                );
                 const config = {
                     chartType: ChartGroupType.XY,
+                    categories: [
+                        {
+                            field: this.state.selectedDBMSModelList[0].column.name,
+                            text: this.state.selectedDBMSModelList[0].column.name,
+                        }
+                    ],
+                    value:
+                    {
+                        text: this.state.selectedDBMSModelList[1].column.name,
+                    },
                     chartSeries: [
                         {
-                            categoryX: this.state.selectedDBMSModelList[0].column.name,
-                            value: this.state.selectedDBMSModelList[1].column.name,
                             title: this.state.selectedDBMSModelList[0].tablePath,
                             type: XYChartType.COLUMNSERIES,
-                            valueAxis:
-                            {
-                                text: this.state.selectedDBMSModelList[1].column.name,
-                            },
                             style: {
                                 fill: "#ADD8E6",
                                 fontWeight: "600",
@@ -520,13 +510,8 @@ class ChartDecisionFormComponent extends Component<PropWithStyles, IFormComponen
                             },
                         },
                     ],
-                    categories: [
-                        {
-                            field: this.state.selectedDBMSModelList[0].column.name,
-                            text: this.state.selectedDBMSModelList[0].column.name,
-                        }
-                    ],
-                    tooltipText: this.state.selectedDBMSModelList[1].column.name + " data comparison",
+
+                    tooltipText: this.state.selectedDBMSModelList[0].tablePath,
                     data: data,
                     legend: {
                         position: LegendPosition.BOTTOM,
@@ -536,25 +521,24 @@ class ChartDecisionFormComponent extends Component<PropWithStyles, IFormComponen
                 this.pushChartComponent(config);
                 break;
 
-            case ChartType.COLUMN_HISTOGRAM:
-                break;
-
-            case ChartType.D3_AREA_CHART:
-                break;
-
             case ChartType.LINE_CHART:
                 const xyChartConfig = {
                     chartType: ChartGroupType.XY,
+                    categories: [
+                        {
+                            field: this.state.selectedDBMSModelList[0].column.name,
+                            text: this.state.selectedDBMSModelList[0].column.name,
+                        }
+                    ],
+                    value:
+                    {
+                        text: this.state.selectedDBMSModelList[1].column.name,
+                    },
                     chartSeries: [
                         {
-                            categoryX: "developer",
-                            value: "issues",
-                            title: "Issues Done",
-                            type: XYChartType.COLUMNSERIES,
-                            valueAxis:
-                            {
-                                text: "Issues done",
-                            },
+                            title: this.state.selectedDBMSModelList[0].tablePath,
+                            type: XYChartType.LINESERIES,
+
                             style: {
                                 fill: "#ADD8E6",
                                 fontWeight: "600",
@@ -562,40 +546,33 @@ class ChartDecisionFormComponent extends Component<PropWithStyles, IFormComponen
                             },
                         },
                     ],
-                    categories: [
-                        {
-                            field: "developer",
-                            text: "Developers",
-                        }
-                    ],
-                    tooltipText: "Developer/Issues Done Report",
+                    tooltipText: this.state.selectedDBMSModelList[0].tablePath,
                     data: data,
                     legend: {
                         position: LegendPosition.BOTTOM,
                     },
-                    is3D: true,
                 };
-                break;
-
-            case ChartType.LINE_HISTOGRAM:
+                this.pushChartComponent(xyChartConfig);
                 break;
 
             case ChartType.PIE_CHART:
-                break;
 
-            case ChartType.SCATTER_CHART:
-                break;
-
-            case ChartType.STACKED_AREA_CHART:
-                break;
-
-            case ChartType.STACKED_COLUMN_CHART:
-                break;
-
-            case ChartType.TABLE_CHART:
-                break;
-
-            case ChartType.VAR_WIDTH_COLUMN_CHART:
+                let category = this.state.selectedDBMSModelList[1] ?
+                    this.state.selectedDBMSModelList[1].column.name : undefined;
+                let val = this.state.selectedDBMSModelList[0].column.name;
+                let pieConfig: IPieChartConfig<any> = {
+                    chartType: ChartGroupType.PIE,
+                    data: data,
+                    chartSeries: [
+                        {
+                            value: val,
+                            category: category ? category : undefined,
+                            title: this.state.selectedDBMSModelList[0].tablePath
+                        }
+                    ],
+                    is3D: true
+                };
+                this.pushChartComponent(pieConfig);
                 break;
         }
 
@@ -813,36 +790,41 @@ class ChartDecisionFormComponent extends Component<PropWithStyles, IFormComponen
                         value={element.column.name}
                     />
                 </FormControl>
+                {
+                    modelList.length > 1 &&
+                    <Button variant="outlined"
+                        label={"chartDecision.form.inputFieldSwap"}
+                        type={ButtonType.action}
+                        aria-label="Add"
+                        className={classes.button}
+                        onClick={this.handleInputFieldSwap.bind(this, modelList, i)}
+                    >
+                        <SwapVert />
+                    </Button>
+                }
 
-                <Button variant="outlined"
-                    label={"chartDecision.form.inputFieldSwap"}
-                    type={ButtonType.action}
-                    aria-label="Add"
-                    className={classes.button}
-                    onClick={this.handleInputFieldSwap.bind(this, modelList, i)}
-                >
-                    <SwapVert />
-                </Button>
-
-                <FormControl fullWidth className={classes.input}>
-                    <InputLabel >
-                        {
-                            <FormattedMessage
-                                id="chartDecision.form.yAxis"
-                            />
-                        }
-                    </InputLabel>
-                    <Input
-                        key={`${index}-y-axis`}
-                        id={`${index}-y-axis`}
-                        className={classes.input}
-                        inputProps={{
-                            'aria-label': 'Description',
-                        }}
-                        disabled={true}
-                        value={nextElement.column.name}
-                    />
-                </FormControl>
+                {
+                    nextElement !== undefined &&
+                    <FormControl fullWidth className={classes.input}>
+                        <InputLabel >
+                            {
+                                <FormattedMessage
+                                    id="chartDecision.form.yAxis"
+                                />
+                            }
+                        </InputLabel>
+                        <Input
+                            key={`${index}-y-axis`}
+                            id={`${index}-y-axis`}
+                            className={classes.input}
+                            inputProps={{
+                                'aria-label': 'Description',
+                            }}
+                            disabled={true}
+                            value={nextElement.column.name}
+                        />
+                    </FormControl>
+                }
             </div>;
 
             tmpInputBoxList.push(inputBox);

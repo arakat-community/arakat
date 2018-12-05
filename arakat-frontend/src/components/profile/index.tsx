@@ -21,7 +21,7 @@ const styles: any = () => ({
         fontWeight: 600,
     },
     buttonSpan : {
-        color: 'black'   
+        color: 'black'
     }
 });
 
@@ -98,7 +98,7 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
                     <span
                         className = { classes.buttonSpan }
                     > 
-                        Load
+                        Yükle
                     </span>
                 </Button>
                 <Button
@@ -109,8 +109,8 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
                     <span
                         className = { classes.buttonSpan }
                     > 
-                        Save 
-                    </span>                    
+                        Kaydet
+                    </span>
                 </Button> 
                 <Button
                   aria-owns={anchorEl ? 'id' : null}
@@ -120,7 +120,7 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
                     <span
                         className = { classes.buttonSpan }
                     > 
-                        Run
+                        Çalıştır
                     </span>
                 </Button>                 
                 

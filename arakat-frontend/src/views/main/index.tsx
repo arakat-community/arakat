@@ -1,9 +1,8 @@
 import { Hidden, Theme, WithStyles, withStyles } from "@material-ui/core";
-import React, { Component, PureComponent } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { ITheme } from "../../common/models/theme";
-import drawer from "../../components/drawer";
 import VerticalDivider from "../../components/vertical-divider";
 import AppBar from "../../containers/appbar";
 import AppbarShortcutContainer from "../../containers/appbar-shortcut";
@@ -24,6 +23,7 @@ import { changeTheme } from "../../store/app/actions";
 import { IApplicationConfigState } from "../../store/app/types";
 import { changeDrawerIsOpen, fetchNodeTree } from "../../store/drawer/actions";
 import { IDrawerState } from "../../store/drawer/types";
+import { withRouter, RouteComponentProps } from "react-router";
 
 const style: any = (theme: Theme) => ({
     "@global": {
@@ -49,7 +49,7 @@ interface IDispatchProps {
     fetchNodeTree: () => void; // from props
 }
 
-type AllProps = IDispatchProps & IMainViewProps & WithStyles;
+type AllProps = IDispatchProps & IMainViewProps & WithStyles & RouteComponentProps<any>;
 
 /**
  * main view of application that contains layout and its related items
@@ -58,7 +58,7 @@ class MainView extends Component<AllProps, IMainViewState> {
     constructor(props: AllProps) {
         super(props);
 
-        const {locale} = props;
+        const { locale } = props;
 
         this.state = {
             locale,
@@ -69,7 +69,7 @@ class MainView extends Component<AllProps, IMainViewState> {
         this.props.fetchNodeTree();
     }
     public componentWillReceiveProps(nextProps: IMainViewProps): void {
-        const {locale} = this.state;
+        const { locale } = this.state;
         if (nextProps.locale.code !== locale.code) {
             this.setState({
                 locale: nextProps.locale,
@@ -81,9 +81,9 @@ class MainView extends Component<AllProps, IMainViewState> {
      * this function is used for demo only to show theme changes
      */
     public handleThemeChange = () => {
-        const {handleThemeChange, appConfig} = this.props;
-        const theme: ITheme =  {
-            type : appConfig.theme.type === "light" ? "dark" : "light",
+        const { handleThemeChange, appConfig } = this.props;
+        const theme: ITheme = {
+            type: appConfig.theme.type === "light" ? "dark" : "light",
         };
         handleThemeChange(theme);
     }
@@ -101,7 +101,7 @@ class MainView extends Component<AllProps, IMainViewState> {
                         onClose={this.handleDrawerCloseClick}
                         blackTheme={true}
                     >
-                        <NodeTreeContainer/>
+                        <NodeTreeContainer />
                     </DrawerContainer>
                     <AppBar
                         routes={dashboardRoutes}
@@ -131,7 +131,7 @@ class MainView extends Component<AllProps, IMainViewState> {
     }
 
     private handleDrawerCloseClick = () => {
-        if ( this.props.drawerState.isOpen === true) {
+        if (this.props.drawerState.isOpen === true) {
             this.props.changeDrawerIsOpen(false);
         } else {
             this.props.changeDrawerIsOpen(true);
@@ -140,7 +140,7 @@ class MainView extends Component<AllProps, IMainViewState> {
 }
 
 const mapStateToProps: (state: IApplicationState) => IMainViewProps = (state: IApplicationState):
-IMainViewProps => ({appConfig: state.appConfig, drawerState: state.drawer, locale: state.localization.locale});
+    IMainViewProps => ({ appConfig: state.appConfig, drawerState: state.drawer, locale: state.localization.locale });
 
 const mapDispatchToProps: (dispatch: Dispatch) => IDispatchProps = (dispatch: Dispatch): IDispatchProps => {
     return {
@@ -156,4 +156,5 @@ const mapDispatchToProps: (dispatch: Dispatch) => IDispatchProps = (dispatch: Di
     };
 };
 
-export default connect<IMainViewProps, IDispatchProps>(mapStateToProps, mapDispatchToProps)(withStyles(style, {withTheme: true})(MainView));
+const aa= withRouter(MainView);
+export default connect<IMainViewProps, IDispatchProps>(mapStateToProps, mapDispatchToProps)(withStyles(style, { withTheme: true })(aa));
