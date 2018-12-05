@@ -1,8 +1,5 @@
 package io.github.arakat.arakatcommunity.service;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.mongodb.*;
 import com.mongodb.util.JSON;
 import io.github.arakat.arakatcommunity.config.AppPropertyValues;
