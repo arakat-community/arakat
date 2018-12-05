@@ -5,10 +5,8 @@ import Draggable from "../draggable";
 
 const style: any = (theme: Theme) => ({
     root: {
-        fontSize: "1.25rem",
         backgroundColor: '#545C61',
         color: "white",
-        paddingTop: "8px",
     },
     nodeIcon : {
         float: 'left',
@@ -30,14 +28,20 @@ const DraggableNodeComponent: React.SFC<AllProps> = ({classes, ...props}: AllPro
     const draggableItem = {
         node_id: props.nodeID,
     };
+    
     return (
         <div
             className={classes.root}
             style={{
-                paddingLeft: ( props.depth + 2) * 2 + "vw",
+                paddingLeft: ( props.depth + 2) + "vw",
                 paddingTop: '15px'
             }}
-        >               
+        >   
+            <img
+                src='/assets/images/iconmonstr-circle-1.svg'
+                alt="logo"
+                className={classes.nodeIcon}
+            />           
             <Draggable
                 type={DraggableType.Node}
                 item={draggableItem}

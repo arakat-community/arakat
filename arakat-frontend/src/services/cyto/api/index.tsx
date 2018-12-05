@@ -45,7 +45,16 @@ export const saveGraph: (graph: any) => AxiosPromise<any> = (graph: any) => {
  */
 export const fetchGraphs: () => AxiosPromise<any[]> = () => {
     return (
-        new Request<any[]>(Api.Backend, "arakat-java-service/get-graphs/").get()
+        new Request<any[]>(Api.Backend, "arakat-java-service/get-graphs").get()
+    );
+};
+
+/**
+ * fetch graphs
+ */
+export const fetchGraph: (mongoId: string) => AxiosPromise<any> = (mongoId) => {
+    return (
+        new Request<any>(Api.Backend, `arakat-java-service/load-graph/${mongoId}`).get()
     );
 };
 

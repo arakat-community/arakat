@@ -5,6 +5,7 @@ import { IMenuItem } from "../../common/models/menu/item";
 const style: any = (theme: Theme) => ({
     root: {
         fontSize: "1.25rem",
+        color: 'white' // hides language changer.
     },
 });
 

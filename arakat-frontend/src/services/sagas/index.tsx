@@ -7,6 +7,8 @@ import { runGraphWatcher } from "../cyto/saga/graph-run";
 import { saveGraphWatcher } from "../cyto/saga/graph-save";
 import { nodeTreeFetchWatcher } from "../drawer/saga/nodetree-fetch";
 import { graphsFetchWatcher } from "../cyto/saga/graphs-fetch";
+import { graphFetchWatcher } from "../cyto/saga/graph-fetch";
+
 
 /**
  * configuration for sagas
@@ -21,5 +23,6 @@ export default function* rootSaga() {
       fork(runGraphWatcher),
       fork(saveGraphWatcher),
       fork(graphsFetchWatcher),
+      fork(graphFetchWatcher),
     ];
   }

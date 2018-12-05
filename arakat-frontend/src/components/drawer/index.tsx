@@ -7,7 +7,7 @@ const drawerBackgroundColor = '#545C61'
 const style: any = (theme: Theme) => ({
     root: {
         backgroundColor: drawerBackgroundColor,
-        width: theme.spacing.unit * 35,
+        width: theme.spacing.unit * 40,
         height: "100vh",
         outline: "none",
         overflowY: "auto",

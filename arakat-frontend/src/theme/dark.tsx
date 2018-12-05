@@ -14,8 +14,10 @@ export const darkTheme: ThemeOptions = {
         },        
         MuiDialog: {
             paper: {
-                backgroundColor: '#545C61',
-                outline: 'none'
+                backgroundColor: '#303030',
+                outline: 'none',
+                boxShadow: 'none',
+                overflowX: 'hidden'
             }
         },
         MuiDrawer: {

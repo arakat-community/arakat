@@ -59,7 +59,8 @@ class LoadedGraphsDialogComponent extends React.PureComponent<AllTypes, ILoadedG
     public handleGraphSelect = value => () => {
         console.log('value: ');
         console.log(value);
-
+        this.props.fetchGraph(value.mongoId);
+        this.handleClose();
     }
     public getLoadedGraphs = () => {
         const { classes, loadedGraphs } = this.props;

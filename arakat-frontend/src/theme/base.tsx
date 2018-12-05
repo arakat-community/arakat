@@ -13,7 +13,8 @@ export const baseTheme: (locale: ILocalizationLanguage) => ThemeOptions = (local
             },
             MuiButton: {
                 root: {
-                    fontSize: "1.25rem",
+                    fontSize: "1rem",
+                    color: 'black', // TODO: visible now.
                 },
                 textPrimary: {
                     color: "#2196f3",
@@ -31,7 +32,7 @@ export const baseTheme: (locale: ILocalizationLanguage) => ThemeOptions = (local
             },
             MuiInput: {
                 root: {
-                    fontSize: "1.6rem",
+                    fontSize: "1.4rem",
                 },
             },
             MuiMenuItem: {
@@ -41,7 +42,7 @@ export const baseTheme: (locale: ILocalizationLanguage) => ThemeOptions = (local
             },
             MuiPaper: {
                 root: {
-                    padding: 12,
+                    padding: 12
                 },
             },
             MuiListItemText: {
@@ -117,9 +118,17 @@ export const baseTheme: (locale: ILocalizationLanguage) => ThemeOptions = (local
                     fontSize: "1rem",
                 },
             },
+            MuiDialogActions: {
+                root: {
+                    marginTop: '8vh',
+                    marginRight: '43px',
+                    marginLeft: '43px'
+                }
+            }
         },
         typography: {
-            fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+            fontFamily: "Lemon Milk, Sans-Serif",
+
         },
     };
 
