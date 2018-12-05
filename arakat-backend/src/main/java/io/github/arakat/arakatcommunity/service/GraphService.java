@@ -1,10 +1,14 @@
 package io.github.arakat.arakatcommunity.service;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.mongodb.*;
 import com.mongodb.util.JSON;
 import io.github.arakat.arakatcommunity.config.AppPropertyValues;
 import io.github.arakat.arakatcommunity.exception.GraphNotFoundException;
 import io.github.arakat.arakatcommunity.exception.GraphRunFailedException;
+import io.github.arakat.arakatcommunity.model.IdSequence;
 import io.github.arakat.arakatcommunity.model.TablePath;
 import io.github.arakat.arakatcommunity.model.Task;
 import io.github.arakat.arakatcommunity.model.response.GraphResponse;
@@ -19,6 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -60,6 +67,14 @@ public class GraphService {
         graphJson.put("dag_properties", dagProperties);
 
         return graphJson;
+    }
+
+    public DBObject addConfigToDagPropertiesDBObject(DBObject graph) {
+        DBObject dagProps = (DBObject) graph.get("dag_properties");
+        dagProps.put("bash_command", appPropertyValues.getBashCommand());
+        graph.put("dag_properties", dagProps);
+
+        return graph;
     }
 
     public String postGraphAndDagPropsToCore(String graphToPost) {
@@ -165,21 +180,52 @@ public class GraphService {
 //        mongoTemplate.insert(doc);
     }
 
+    // TODO: adam id yollamayi unutursa ve graph onceden database'de varsa sikinti
     public String saveTempGraph(String graph) {
         Document document = Document.parse(graph);
-        mongoTemplate.insert(document, "tempGraph");
-        return document.getObjectId("_id").toString();
+        String idToReturn;
+        Object graphId = document.get("id");
+        if (graphId == null) {
+            mongoTemplate.insert(document, "tempGraph");
+            idToReturn = document.getObjectId("_id").toString();
+        }
+        else {
+            Query query = new Query(Criteria.where("id").is(graphId.toString()));
+            Update update = new Update();
+            update.set("graph", document.get("graph"));
+            update.set("dag_properties", document.get("dag_properties"));
+            mongoTemplate.upsert(query, update, "tempGraph");
+            idToReturn = document.getObjectId("id").toString();
+        }
+
+        return idToReturn;
     }
 
-    public JSONObject getGraphById(String id) throws GraphNotFoundException {
+    public DBObject loadGraph(String id) throws GraphNotFoundException {
+        DBObject resultGraph = getGraphById(id);
+        DBObject resultTempGraph = getTempGraphById(id);
+        DBObject graphToReturn;
+
+        if (resultGraph == null && resultTempGraph == null) {
+            throw new GraphNotFoundException(id);
+        } else if (resultGraph == null) {
+            graphToReturn = resultTempGraph;
+        } else {
+            graphToReturn = resultGraph;
+        }
+
+        return graphToReturn;
+    }
+
+    private DBObject getGraphById(String id) {
         return fetchOneGraph("graph", id);
     }
 
-    public JSONObject getTempGraphById(String id) throws GraphNotFoundException {
+    private DBObject getTempGraphById(String id) {
         return fetchOneGraph("tempGraph", id);
     }
 
-    private JSONObject fetchOneGraph(String collectionName, String id) throws GraphNotFoundException {
+    private DBObject fetchOneGraph(String collectionName, String id) {
         DB db = mongoConnectionUtils.initializeMongoConnection();
         DBCollection graphCollection = db.getCollection(collectionName);
 
@@ -189,13 +235,13 @@ public class GraphService {
         query.put("_id", new ObjectId(id));
         fields.put("_id", 0);
 
-        DBObject cursor = graphCollection.findOne(query, fields);
-
-        if (cursor == null) {
-            throw new GraphNotFoundException(id);
-        }
-
-        return new JSONObject(JSON.serialize(cursor));
+        return graphCollection.findOne(query, fields);
+//        if (cursor != null) {
+//            JsonElement element = new JsonPrimitive(JSON.serialize(cursor));
+//            return element.getAsJsonObject();
+//        }
+//
+//        return null;
     }
 
     public List<GraphResponse> getAllGraphs() throws GraphNotFoundException {
