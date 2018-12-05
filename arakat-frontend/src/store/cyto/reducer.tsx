@@ -127,8 +127,6 @@ const reducer: Reducer<ICytoState> = (state: ICytoState = initialState, action: 
                 graph: action.payload.graph
             }
         case '@@cyto/RUN_GRAPH':
-            console.log('graph: ');
-            console.log(action.payload.graph);                        
             return {
                 ...state,
             }
