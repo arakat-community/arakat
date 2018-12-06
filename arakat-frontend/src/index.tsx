@@ -20,7 +20,7 @@ const applicationInitialState: IApplicationState = {
         appBrand: "ARAKAT",
         appName: "",
         theme: {
-            type: "dark",
+            type: "light",
         },
     },
     drawer: {

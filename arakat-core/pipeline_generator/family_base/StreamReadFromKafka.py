@@ -22,13 +22,13 @@ def generate_code(args):
         if(error == ErrorTypes.NO_ERROR):
             my_args = {"node_id": node["id"], "shared_function_set": shared_function_set, "additional_local_code": additional_local_code, "errors": errors}
             # Must be a valid schema at this point.
-            additional_code, param_string = CodeGenerationUtils.handle_parameter(node["parameter"]["schema"], my_args)
+            param_string = CodeGenerationUtils.handle_parameter(node["parameters"]["schema"], my_args)
             gen_code=[]
-            gen_code.extend(additional_code)
 
             gen_code.append("df_" + node["id"] + ' = spark.readStream.format("kafka").option("kafka.bootstrap.servers", ')
             gen_code.append(CodeGenerationUtils.handle_primitive(node["parameters"]["host"]["value"] + ":" + node["parameters"]["port"]["value"]) + ")")
-            gen_code.append('.option("subscribe", ' + CodeGenerationUtils.handle_primitive(node["parameters"]["topic"]["value"] + ")"))
+            gen_code.append('.option("subscribe", ' + CodeGenerationUtils.handle_primitive(node["parameters"]["topic"]["value"])  + ")")
+            gen_code.append('.option("startingOffsets", ' + CodeGenerationUtils.handle_primitive(node["parameters"]["startingOffsets"]["value"]) + ")")
             gen_code.append('.load().select(from_json(col("value").cast("string"), '+ param_string +")")
             # For streams, we will use timestamp as a key while writing to kafka topic in case.
             gen_code.extend(['.alias("value"), "timestamp").select("value.*", "timestamp")', os.linesep])

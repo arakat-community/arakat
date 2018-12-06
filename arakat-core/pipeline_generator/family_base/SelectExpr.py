@@ -26,13 +26,12 @@ def generate_code(args):
         gen_code=[]
 
         shared_function_set.add(SharedFunctionTypes.SELECT_EXPR_HELPERS)
-        gen_code.append("df_" + node["id"] + "=" + df_name + ".selectExpr(")
 
+        gen_code.extend(["expressions_" + node["id"] + "=[]", os.linesep])
         for expr in node["parameters"]["expressions"]["value"]:
-            gen_code.extend(['single_select_expr_generator('+ CodeGenerationUtils.handle_parameter(expr["input_cols"], my_args) +', ' + CodeGenerationUtils.handle_parameter(expr["output_cols"], my_args) + ', '+ CodeGenerationUtils.handle_parameter(expr["operation"], my_args) +')', ', '])
+            gen_code.extend(["expressions_" + node["id"] + ".extend(", 'single_select_expr_generator('+ CodeGenerationUtils.handle_parameter(expr["input_cols"], my_args) +', ' + CodeGenerationUtils.handle_parameter(expr["output_cols"], my_args) + ', '+ CodeGenerationUtils.handle_parameter(expr["operation"], my_args) +'))', os.linesep])
 
-        gen_code.pop()
-        gen_code.extend([")", os.linesep])
+        gen_code.extend(["df_" + node["id"] + "=" + df_name + ".selectExpr(" + "*expressions_" + node["id"] + ")", os.linesep])
 
         final_code = CodeGenerationUtils.merge_with_additional_code(gen_code, additional_local_code)
 

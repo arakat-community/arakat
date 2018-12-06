@@ -1,8 +1,7 @@
 package io.github.arakat.arakatcommunity.utils;
 
-import io.github.arakat.arakatcommunity.model.BaseResponse;
-import io.github.arakat.arakatcommunity.model.Meta;
-import org.json.JSONArray;
+import io.github.arakat.arakatcommunity.model.response.BaseResponse;
+import io.github.arakat.arakatcommunity.model.response.Meta;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -14,6 +13,7 @@ public class ApiResponseUtils {
     private static final String USER_MESSAGE_SUCCESS = "%s operation successful.";
     private static final String USER__MESSAGE_ERROR = "Error! %s while performing %s.";
     private static final String USER__MESSAGE_SERVICE_NOT_AVAILABLE = "Server is not currently available. Please try again later.";
+    private static final String USER__MESSAGE_RESOURCE_NOT_FOUND = "Given resource could not found!";
 
     /* OPERATION MESSAGES FOR THE DEVELOPER */
     private static final String DEV_MESSAGE_SUCCESS = "%s operation is successful on %s object.";
@@ -62,5 +62,9 @@ public class ApiResponseUtils {
 
     public static String getDevMessageError() {
         return DEV_MESSAGE_ERROR;
+    }
+
+    public static String getUserMessageResourceNotFound() {
+        return USER__MESSAGE_RESOURCE_NOT_FOUND;
     }
 }

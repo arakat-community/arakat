@@ -1,8 +1,8 @@
-import { 
-    Button, 
-    WithStyles, 
+import {
+    Button,
+    WithStyles,
     withStyles,
- } from "@material-ui/core";
+} from "@material-ui/core";
 import React, { Component } from "react";
 
 const styles: any = () => ({
@@ -20,8 +20,8 @@ const styles: any = () => ({
     title: {
         fontWeight: 600,
     },
-    buttonSpan : {
-        color: 'black'   
+    buttonSpan: {
+        color: 'black'
     }
 });
 
@@ -61,16 +61,16 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
         this.props.setIsGraphPropertiesDialogOpen(true);
     }
 
-      /**
-       * closes menu on item selected
-       */
+    /**
+     * closes menu on item selected
+     */
     public handleClose = (event: any) => {
         this.setState({ anchorEl: null, selectedItem: event.currentTarget.textContent });
-      }
+    }
 
-    
+
     public checkIfGraphIsLoaded = () => {
-        if( this.props.graph.dag_properties ) {
+        if (this.props.graph.dag_properties) {
             this.props.saveGraph(this.props.graph);
         } else {
             this.props.setIsAboutToSave(true);
@@ -86,47 +86,46 @@ class ProfileMenuComponent extends Component<Props, IProfileMenuState> {
      * renders output
      */
     public render(): JSX.Element {
-        const {anchorEl} = this.state;
+        const { anchorEl } = this.state;
         const { classes } = this.props;
         return (
             <>
                 <Button
-                  aria-owns={anchorEl ? 'id' : null}
-                  aria-haspopup="true"
-                  onClick={this.openLoadedGraphsDialog}
+                    aria-owns={anchorEl ? 'id' : null}
+                    aria-haspopup="true"
+                    onClick={this.openLoadedGraphsDialog}
                 >
                     <span
-                        className = { classes.buttonSpan }
-                    > 
+                        className={classes.buttonSpan}
+                    >
                         Yükle
                     </span>
                 </Button>
                 <Button
-                  aria-owns={anchorEl ? 'id' : null}
-                  aria-haspopup="true"
-                  onClick={this.checkIfGraphIsLoaded}
+                    aria-owns={anchorEl ? 'id' : null}
+                    aria-haspopup="true"
+                    onClick={this.openGraphPropertiesDialogForRun}
                 >
                     <span
-                        className = { classes.buttonSpan }
-                    > 
-                        Kaydet 
-                    </span>                    
-                </Button> 
-                <Button
-                  aria-owns={anchorEl ? 'id' : null}
-                  aria-haspopup="true"
-                  onClick={this.openGraphPropertiesDialogForRun}
-                >
-                    <span
-                        className = { classes.buttonSpan }
-                    > 
+                        className={classes.buttonSpan}
+                    >
                         Çalıştır
                     </span>
-                </Button>                 
-                
+                </Button>
+                <Button
+                    aria-owns={anchorEl ? 'id' : null}
+                    aria-haspopup="true"
+                    onClick={this.checkIfGraphIsLoaded}
+                >
+                    <span
+                        className={classes.buttonSpan}
+                    >
+                        Kaydet
+                    </span>
+                </Button>
             </>
         );
     }
 }
 
-export default withStyles(styles, {withTheme: true})(ProfileMenuComponent);
+export default withStyles(styles, { withTheme: true })(ProfileMenuComponent);

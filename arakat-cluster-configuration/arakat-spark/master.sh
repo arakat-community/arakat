@@ -15,7 +15,7 @@ ln -sf /dev/stdout $SPARK_MASTER_LOG/spark-master.out
 cd /spark/bin && /spark/sbin/../bin/spark-class org.apache.spark.deploy.master.Master \
     --ip $SPARK_MASTER_HOST --port $SPARK_MASTER_PORT --webui-port $SPARK_MASTER_WEBUI_PORT >> $SPARK_MASTER_LOG/spark-master.out & 
 echo "BEKLE" 
-/spark/bin/spark-submit /SparkOperator.py
+/spark/bin/spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0 /SparkOperator.py
 
 
 

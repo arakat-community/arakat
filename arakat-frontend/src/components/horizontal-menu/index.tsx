@@ -4,7 +4,7 @@ import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 import classnames from "classnames";
-import React, { Component, PureComponent } from "react";
+import React, { PureComponent } from "react";
 import { NavLink } from "react-router-dom";
 import { IRouteGroup } from "../../common/models/route/group";
 import { IRouteItem } from "../../common/models/route/item";
@@ -58,7 +58,7 @@ class HorizontalMenuComponent extends PureComponent<AllProps, IHorizontalMenuSta
      * renders output
      */
     public render(): JSX.Element {
-        const {classes, routes} = this.props;
+        const { classes, routes } = this.props;
 
         return (
             <>
@@ -75,7 +75,7 @@ class HorizontalMenuComponent extends PureComponent<AllProps, IHorizontalMenuSta
 
     private renderMainMenu: any = (routeGroups: IRouteGroup[], classes) => (
         routeGroups.map((routeGroup, index) =>
-           (
+            (
                 <ListItem
                     key={index}
                     button={true}
@@ -105,37 +105,37 @@ class HorizontalMenuComponent extends PureComponent<AllProps, IHorizontalMenuSta
     private renderSubMenu: any = (routesGroups: IRouteGroup[], classes) => (
         routesGroups.map((routeGroup, routeGroupIndex) =>
             (
-                    <Popper
-                        open={this.state.openedMenu === `${routeGroupIndex.toString()}`}
-                        anchorEl={refs[routeGroupIndex]}
-                        transition={true}
-                        disablePortal={true}
-                        placement="bottom-start"
-                        className={classnames({
-                            [classes.submenu]: true,
-                            [classes.hide]: this.state.openedMenu !== `${routeGroupIndex.toString()}`,
-                        })}
-                    >
-                        {({ TransitionProps, placement }) => (
-                            <Grow
-                                timeout={{
-                                    enter: 600,
-                                }}
-                                {...TransitionProps}
-                                style={{ transformOrigin: placement === "bottom" ? "center top" : "center bottom" }}
-                            >
-                                <Paper>
-                                    {
-                                        routeGroup.routes.map((route: IRouteItem, routeIndex) => (
-                                            <ClickAwayListener
-                                                onClickAway={this.handleMenuClose}
+                <Popper
+                    open={this.state.openedMenu === `${routeGroupIndex.toString()}`}
+                    anchorEl={refs[routeGroupIndex]}
+                    transition={true}
+                    disablePortal={true}
+                    placement="bottom-start"
+                    className={classnames({
+                        [classes.submenu]: true,
+                        [classes.hide]: this.state.openedMenu !== `${routeGroupIndex.toString()}`,
+                    })}
+                >
+                    {({ TransitionProps, placement }) => (
+                        <Grow
+                            timeout={{
+                                enter: 600,
+                            }}
+                            {...TransitionProps}
+                            style={{ transformOrigin: placement === "bottom" ? "center top" : "center bottom" }}
+                        >
+                            <Paper>
+                                {
+                                    routeGroup.routes.map((route: IRouteItem, routeIndex) => (
+                                        <ClickAwayListener
+                                            onClickAway={this.handleMenuClose}
+                                        >
+                                            <List
+                                                component="nav"
+                                                style={{
+                                                    marginTop: 9,
+                                                }}
                                             >
-                                                <List
-                                                    component="nav"
-                                                    style={{
-                                                        marginTop: 9,
-                                                    }}
-                                                >
                                                 <NavLink
                                                     to={route.path}
                                                     key={routeIndex}
@@ -150,25 +150,25 @@ class HorizontalMenuComponent extends PureComponent<AllProps, IHorizontalMenuSta
                                                         <ListItemText
                                                             disableTypography={true}
                                                             primary={
-                                                                        <Typography
-                                                                            variant="body1"
-                                                                            gutterBottom={true}
-                                                                        >
-                                                                            {route.name}
-                                                                        </Typography>
-                                                                    }
+                                                                <Typography
+                                                                    variant="body1"
+                                                                    gutterBottom={true}
+                                                                >
+                                                                    {route.name}
+                                                                </Typography>
+                                                            }
                                                             className={classes.item}
                                                         />
                                                     </ListItem>
                                                 </NavLink>
-                                                </List>
-                                            </ClickAwayListener>
-                                        ))
-                                    }
-                                </Paper>
-                            </Grow>
-                        )}
-                    </Popper>
+                                            </List>
+                                        </ClickAwayListener>
+                                    ))
+                                }
+                            </Paper>
+                        </Grow>
+                    )}
+                </Popper>
             ),
         )
     )
@@ -191,4 +191,4 @@ class HorizontalMenuComponent extends PureComponent<AllProps, IHorizontalMenuSta
     }
 }
 
-export default withStyles(styles, {withTheme: true})(HorizontalMenuComponent);
+export default withStyles(styles, { withTheme: true })(HorizontalMenuComponent);

@@ -47,6 +47,9 @@ public class AppPropertyValues {
     @Value("${airflow.dag.logs.file.path}")
     private String airflowDagLogsFilePath;
 
+    @Value("${spark.logs.file.path}")
+    private String sparkLogsFilePath;
+
     @Value("${spark.hdfs.helper.url}")
     private String sparkHdfsHelperUrl;
 
@@ -61,6 +64,9 @@ public class AppPropertyValues {
 
     @Value("${spark.hdfs.helper.get.data.endpoint}")
     private String sparkHdfsHelperGetDataEndpoint;
+
+    @Value("${spark.hdfs.helper.get.raw.data.endpoint}")
+    private String sparkHdfsHelperGetRawDataEndpoint;
 
     @Value("${spark.hdfs.helper.get.spark.log.endpoint}")
     private String sparkHdfsHelperGetSparkLogEndpoint;
@@ -124,6 +130,10 @@ public class AppPropertyValues {
         return airflowDagLogsFilePath;
     }
 
+    public String getSparkLogsFilePath() {
+        return sparkLogsFilePath;
+    }
+
     public String getSparkHdfsHelperUrl() {
         return sparkHdfsHelperUrl;
     }
@@ -150,5 +160,9 @@ public class AppPropertyValues {
 
     public String getBashCommand() {
         return bashCommand;
+    }
+
+    public String getSparkHdfsHelperGetRawDataEndpoint() {
+        return sparkHdfsHelperGetRawDataEndpoint;
     }
 }

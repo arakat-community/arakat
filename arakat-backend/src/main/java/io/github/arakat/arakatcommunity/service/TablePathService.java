@@ -1,7 +1,7 @@
 package io.github.arakat.arakatcommunity.service;
 
 import io.github.arakat.arakatcommunity.config.AppPropertyValues;
-import io.github.arakat.arakatcommunity.model.ColumnResponse;
+import io.github.arakat.arakatcommunity.model.response.ColumnResponse;
 import io.github.arakat.arakatcommunity.model.TablePath;
 import io.github.arakat.arakatcommunity.repository.TablePathRepository;
 import io.github.arakat.arakatcommunity.utils.RequestUtils;
@@ -57,22 +57,58 @@ public class TablePathService {
         return requestUtils.sendPostRequest(uri, map);
     }
 
-    public JSONObject getDataBySpecificQuery(String tablePath, String columns) {
+    public List<List<ColumnResponse>> getRawData(String tablePath) {
+        String uri = appPropertyValues.getSparkHdfsHelperUrl() + ":" + appPropertyValues.getSparkHdfsHelperPort()
+                + "/" + appPropertyValues.getSparkHdfsHelperGetRawDataEndpoint();
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("path", tablePath);
+
+        JSONObject response = new JSONObject(requestUtils.sendPostRequest(uri, map).toString());
+
+        return returnColumnResponseFromRawJson(response);
+    }
+
+    public List<List<ColumnResponse>> getDataBySpecificQuery(String tablePath, String columns, String orderByColumn,
+                                                       String sortBy, int limit) {
         String uri = appPropertyValues.getSparkHdfsHelperUrl() + ":" + appPropertyValues.getSparkHdfsHelperPort()
                 + "/" + appPropertyValues.getSparkHdfsHelperGetDataEndpoint();
 
         String tableTempView = FilenameUtils.getBaseName(tablePath);
-        String query = "SELECT " + columns + " FROM " + tableTempView;
+        String query = "SELECT " + columns + " FROM " + tableTempView + " ORDER BY " + orderByColumn + " " + sortBy +
+                " LIMIT " + limit;
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("query", query);
         map.add("table", tableTempView);
         map.add("path", tablePath);
         map.add("selectItem", columns);
+        JSONObject response = new JSONObject(requestUtils.sendPostRequest(uri, map).toString());
 
-        Object response = requestUtils.sendPostRequest(uri, map);
+        return returnColumnResponseFromRawJson(response);
+    }
 
-        return new JSONObject(response.toString());
+    private List<List<ColumnResponse>> returnColumnResponseFromRawJson(JSONObject response) {
+
+        JSONArray jsonArray = (JSONArray) response.get("data");
+        List<List<ColumnResponse>> responseList = new ArrayList<>();
+
+        for (Object o : jsonArray) {
+            JSONArray columns = (JSONArray) o;
+            List<ColumnResponse> columnResponseList = new ArrayList<>();
+            for (Object column : columns) {
+                JSONObject columnObject = (JSONObject) column;
+
+                ColumnResponse columnResponse = new ColumnResponse(columnObject.get("column").toString(), null,
+                        columnObject.get("value").toString());
+
+                columnResponseList.add(columnResponse);
+            }
+
+            responseList.add(columnResponseList);
+        }
+
+        return responseList;
     }
 
     public List<ColumnResponse> getTableColumnsWithTypes(String tablePath) {
@@ -85,11 +121,11 @@ public class TablePathService {
         JSONArray response = new JSONArray(requestUtils.sendPostRequest(uri, map).toString());
         List<ColumnResponse> columnResponseList = new ArrayList<>();
 
-        for(Object column : response) {
+        for (Object column : response) {
             String columnName = new JSONObject(column.toString()).get("column").toString();
             String columnType = new JSONObject(column.toString()).get("columnType").toString();
 
-            columnResponseList.add(new ColumnResponse(columnName, columnType));
+            columnResponseList.add(new ColumnResponse(columnName, columnType, null));
         }
 
         return columnResponseList;

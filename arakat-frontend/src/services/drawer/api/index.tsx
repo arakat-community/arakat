@@ -8,6 +8,6 @@ import Request from "../../request";
  */
 export const fetchNodeTree: () => AxiosPromise<INodeTree> = () => {
     return (
-        new Request<INodeTree>(Api.Backend, "arakat-java-service/get-categories").get()
+        new Request<INodeTree>("", Api.Backend + "arakat-java-service/get-categories").get()
     );
 };

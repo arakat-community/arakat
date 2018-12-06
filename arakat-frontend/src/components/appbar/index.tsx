@@ -1,10 +1,23 @@
 import Img from "@fdmg/ts-react-image";
-import { AppBar as MuiAppBar, Button, Theme, Toolbar, Typography, WithStyles, withStyles } from "@material-ui/core";
+import { AppBar as MuiAppBar, Button, Theme, Toolbar, WithStyles, withStyles, ListItem, ListItemText } from "@material-ui/core";
 import React from "react";
 import { IRouteGroup } from "../../common/models/route/group";
 import HorizontalMenuComponent from "../horizontal-menu";
+import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
+import { History } from "history";
 
 const styles: any = (theme: Theme) => ({
+    sidebarClosed: {
+        width: `calc(100% - ${(theme.spacing.unit * 7)}px)`,
+        [theme.breakpoints.up("sm")]: {
+            width: `calc(100% - ${(theme.spacing.unit * 8)}px)`,
+        },
+    },
+    sidebarPinned: {
+        [theme.breakpoints.up("sm")]: {
+            width: `calc(100% - ${(theme.spacing.unit * 32)}px)`,
+        },
+    },
     toolbarRightItems: {
         alignItems: "center",
         display: "flex",
@@ -28,9 +41,13 @@ export interface IAppBarProps {
     onLogoClick: () => void;
 }
 
-type PropsWithStyle = IAppBarProps & WithStyles<"toolbarRightItems" | "logo" | "navigation">;
+type PropsWithStyle = RouteComponentProps<any> & IAppBarProps & WithStyles<"sidebarClosed" | "sidebarPinned" | "toolbarRightItems" | "logo" | "navigation">;
 
-const AppBar: React.SFC<IAppBarProps> = ({classes, ...props}: PropsWithStyle) => (
+const navigate = (history: History, link) => {
+    history.go(link)
+}
+
+const AppBar: React.SFC<PropsWithStyle> = ({ classes, ...props }: PropsWithStyle) => (
     <MuiAppBar
         position="absolute"
     >
@@ -45,6 +62,36 @@ const AppBar: React.SFC<IAppBarProps> = ({classes, ...props}: PropsWithStyle) =>
                     className={classes.logo}
                 />
             </Button>
+            <div style={{ display: "flex" }}>
+                <NavLink
+                    to="/"
+                    key="home-page1"
+                    id="home-page1"
+                    onClick={navigate.bind(this, props.history, "/")}
+                >
+                    <ListItem
+                        button={true}
+                    >
+                        <ListItemText
+                            primary={"Çizge Akışı Oluşturma"}
+                        />
+                    </ListItem>
+                </NavLink>
+                <NavLink
+                    to="/chart-decision"
+                    key="home-page"
+                    id="home-page"
+                    onClick={navigate.bind(this, props.history, "/chart-decision")}
+                >
+                    <ListItem
+                        button={true}
+                    >
+                        <ListItemText
+                            primary={"Sonuç Görüntüleme"}
+                        />
+                    </ListItem>
+                </NavLink>
+            </div>
             <div
                 className={classes.navigation}
             >
@@ -61,4 +108,4 @@ const AppBar: React.SFC<IAppBarProps> = ({classes, ...props}: PropsWithStyle) =>
     </MuiAppBar>
 );
 
-export default withStyles(styles, {withTheme: true})(AppBar);
+export default withStyles(styles, { withTheme: true })(withRouter(AppBar));

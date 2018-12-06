@@ -3,28 +3,23 @@ body {
 }
 
 title {
-    color: white;
     font-size: 1.4rem;
 }   
 
 h1 {
-    color: white;
     text-align: center;
 }
 
 h2 {
-    color: white;
     text-align: center;
 }
 
 h3 {
-    color: white;
     text-align: center;
     font-weight: 550;
 }
 
 h4 {
-    color: white;
     text-align: center;
 
 }

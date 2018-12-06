@@ -74,15 +74,15 @@ class MessageBoxComponent extends Component<IMessageBoxProps, IMessageBoxState> 
                         type === MessageBoxType.confirmation ? (
                             <>
                                 <Button onClick={this.handleClose} color="primary">
-                                    <FormattedMessage id="dialog.button.cancel"/>
+                                    <FormattedMessage id="dialog.button.cancel" />
                                 </Button>
                                 <Button onClick={this.handleAgreeAndClose} color="primary" autoFocus={true}>
-                                    <FormattedMessage id="dialog.button.agree"/>
+                                    <FormattedMessage id="dialog.button.agree" />
                                 </Button>
                             </>
                         ) : (
                                 <Button onClick={this.handleClose} color="primary" autoFocus={true}>
-                                    <FormattedMessage id="dialog.button.ok"/>
+                                    <FormattedMessage id="dialog.button.ok" />
                                 </Button>
                             )
                     }

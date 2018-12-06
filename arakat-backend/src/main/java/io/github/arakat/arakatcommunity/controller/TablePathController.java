@@ -1,23 +1,17 @@
 package io.github.arakat.arakatcommunity.controller;
 
-import io.github.arakat.arakatcommunity.model.BaseResponse;
-import io.github.arakat.arakatcommunity.model.ColumnResponse;
+import io.github.arakat.arakatcommunity.model.response.BaseResponse;
+import io.github.arakat.arakatcommunity.model.response.ColumnResponse;
 import io.github.arakat.arakatcommunity.model.Task;
 import io.github.arakat.arakatcommunity.repository.TaskRepository;
 import io.github.arakat.arakatcommunity.service.TablePathService;
 import io.github.arakat.arakatcommunity.utils.ApiResponseUtils;
 import io.github.arakat.arakatcommunity.utils.RequestUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -37,7 +31,6 @@ public class TablePathController {
     @RequestMapping(value = "/get-columns-by-table-path/{tablePath}", produces = { "application/json" },
             method = RequestMethod.GET)
     public ResponseEntity<BaseResponse> getColumnsByTablePath(@PathVariable String tablePath) {
-//        Object columns = tablePathService.getColumnsByTablePath(requestUtils.reformatUrl(tablePath));
         List<ColumnResponse> columns = tablePathService.getTableColumnsWithTypes(requestUtils.reformatUrl(tablePath));
 
         return ApiResponseUtils.createResponseEntity(200,
@@ -51,7 +44,7 @@ public class TablePathController {
     public ResponseEntity<BaseResponse> getTablePathsByTaskId(@PathVariable Long taskId) {
         Task resultTask = taskRepository.findByTaskId(taskId);
 
-        if(resultTask == null) {
+        if (resultTask == null) {
             return ApiResponseUtils.createResponseEntity(404,
                     String.format(ApiResponseUtils.getUserMessageError(), "Could not found any task with given task id", "Get table paths by task id"),
                     String.format(ApiResponseUtils.getDevMessageError(), "Could not found any task with given task id", "Get table paths by task id", "TablePath"),
@@ -66,12 +59,26 @@ public class TablePathController {
 
     @RequestMapping(value = "/get-data/{tablePath}/{columns}", produces = {"application/json"},
             method = RequestMethod.GET)
-    public ResponseEntity<BaseResponse> getData(@PathVariable String tablePath, @PathVariable String columns) {
-        JSONObject queryResult = tablePathService.getDataBySpecificQuery(requestUtils.reformatUrl(tablePath), columns);
+    public ResponseEntity<BaseResponse> getData(@PathVariable String tablePath, @PathVariable String columns,
+                                                @RequestParam("orderBy") String orderByColumn, @RequestParam("sortBy") String sortBy,
+                                                @RequestParam("limit") int limit) {
+        List<List<ColumnResponse>> data = tablePathService.getDataBySpecificQuery(requestUtils.reformatUrl(tablePath), columns,
+                orderByColumn, sortBy, limit);
 
         return ApiResponseUtils.createResponseEntity(200,
                 String.format(ApiResponseUtils.getUserMessageSuccess(), "Get table paths by task id"),
                 String.format(ApiResponseUtils.getDevMessageSuccess(), "Get table paths by task id", "TablePath"),
-                queryResult.toString(), HttpStatus.OK);
+                data, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/get-raw-data/{tablePath}/", produces = {"application/json"},
+            method = RequestMethod.GET)
+    public ResponseEntity<BaseResponse> getRawData(@PathVariable String tablePath) {
+        List<List<ColumnResponse>> data = tablePathService.getRawData(requestUtils.reformatUrl(tablePath));
+
+        return ApiResponseUtils.createResponseEntity(200,
+                String.format(ApiResponseUtils.getUserMessageSuccess(), "Get table paths by task id"),
+                String.format(ApiResponseUtils.getDevMessageSuccess(), "Get table paths by task id", "TablePath"),
+                data, HttpStatus.OK);
     }
 }

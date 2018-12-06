@@ -46,7 +46,7 @@ def __generate_initialization_codes(graph):
     initialization_code.extend(["from pyspark import SQLContext", os.linesep])
     initialization_code.extend(["from pyspark.sql.types import *", os.linesep])
     initialization_code.extend(["import pyspark.sql.functions as F", os.linesep])
-    initialization_code.extend(["from pyspark.sql.functions import col, udf, lag, date_add, explode, lit, concat, unix_timestamp, sum, abs", os.linesep])
+    initialization_code.extend(["from pyspark.sql.functions import col, size, from_json, to_json, window, udf, lag, date_add, explode, lit, concat, unix_timestamp, sum, abs", os.linesep])
 
 
     import_set=set()

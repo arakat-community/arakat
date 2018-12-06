@@ -9,7 +9,7 @@ const style: any = (theme: Theme) => ({
             margin: 0,
         },
         html: {
-            // fontSize: "62.5%",
+            fontSize: "16px",
         },
         main: {
             display: "block",

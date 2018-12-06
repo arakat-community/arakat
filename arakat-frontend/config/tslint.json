@@ -1,6 +1,9 @@
 {
-    "defaultSeverity": "warning",
-    "extends": ["tslint:recommended", "tslint-react"],
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
     "rules": {
         "indent": [
             true,
@@ -40,10 +43,5 @@
         "no-console":false,
         "no-debugger":true
     },
-    "rulesDirectory": [],
-    "linterOptions": {
-        "exclude": [
-            "src/**/*.spec.tsx"
-        ]
-    }
+    "rulesDirectory": []
 }

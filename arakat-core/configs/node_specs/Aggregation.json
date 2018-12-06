@@ -35,7 +35,9 @@
               "max",
               "min",
               "sum",
-              "count"
+              "count",
+              "countDistinct",
+              "collect_set"
             ]
           },
           "output_column": {
