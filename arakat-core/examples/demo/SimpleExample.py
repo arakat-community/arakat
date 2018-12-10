@@ -21,7 +21,7 @@ data={
                 "file_type": "csv",
                 "parameters": {
                     "path": {"value": "hdfs://namenode:9000/Demo/SimpleExample/data/wine_data.csv", "type": "string"},
-                    "header": {"value": True, "type": "boolean"},
+                    "header": {"value": False, "type": "boolean"},
                     "sep": {"value": ",", "type": "string"},
                     "quote": {"value": '\\\"', "type": "string"}
                 }
