@@ -1,11 +1,10 @@
 package io.github.arakat.arakatcommunity.service;
 
 import com.mongodb.*;
-import com.mongodb.util.JSON;
 import io.github.arakat.arakatcommunity.config.AppPropertyValues;
+import io.github.arakat.arakatcommunity.exception.AppIdAlreadyExistsException;
 import io.github.arakat.arakatcommunity.exception.GraphNotFoundException;
 import io.github.arakat.arakatcommunity.exception.GraphRunFailedException;
-import io.github.arakat.arakatcommunity.model.IdSequence;
 import io.github.arakat.arakatcommunity.model.TablePath;
 import io.github.arakat.arakatcommunity.model.Task;
 import io.github.arakat.arakatcommunity.model.response.GraphResponse;
@@ -161,42 +160,57 @@ public class GraphService {
         return taskErrors.length() == 0 && schedulerErrors.length() == 0;
     }
 
-    public void saveGraph(String graph) {
+    public void saveGraph(String graph) throws AppIdAlreadyExistsException {
         Document document = Document.parse(graph);
+        Document dagProperties = (Document) document.get("dag_properties");
+        Object appId = dagProperties.get("app_id");
+
+        DB db = mongoConnectionUtils.initializeMongoConnection();
+        DBCollection graphCollection = db.getCollection("graph");
+
+        BasicDBObject query = new BasicDBObject();
+        BasicDBObject fields = new BasicDBObject();
+
+        query.put("dag_properties.app_id", appId.toString());
+        fields.put("_id", 0);
+
+        DBObject fetchedGraph = graphCollection.findOne(query, fields);
+
+        if (fetchedGraph != null) {
+            throw new AppIdAlreadyExistsException(appId.toString());
+        }
+
         mongoTemplate.insert(document, "graph");
-//        DB db = initializeMongoConnection();
-//        DBCollection graphCollection = db.getCollection("graph");
-//
-//        DBObject graphObject = (DBObject) JSON.parse(graph);
-//
-//        BasicDBObject doc = new BasicDBObject();
-//        doc.put("name.first", "First Name");
-//        doc.put("name.last", "Last Name");
-//        graphCollection.update(new BasicDBObject("_id", "jo"), doc);
-//        graphCollection.save(doc);
-//        mongoTemplate.insert(doc);
     }
 
-    // TODO: adam id yollamayi unutursa ve graph onceden database'de varsa sikinti
-    public String saveTempGraph(String graph) {
-        Document document = Document.parse(graph);
-        String idToReturn;
-        Object graphId = document.get("id");
-        if (graphId == null) {
-            mongoTemplate.insert(document, "tempGraph");
-            idToReturn = document.getObjectId("_id").toString();
-        }
-        else {
-            Query query = new Query(Criteria.where("id").is(graphId.toString()));
-            Update update = new Update();
-            update.set("graph", document.get("graph"));
-            update.set("dag_properties", document.get("dag_properties"));
-            mongoTemplate.upsert(query, update, "tempGraph");
-            idToReturn = document.getObjectId("id").toString();
-        }
+//    public void saveGraph(String graph) {
+//        Document document = Document.parse(graph);
+//        Document dagProperties = (Document) document.get("dag_properties");
+//        Object appId = dagProperties.get("app_id");
+//
+//        Query query = new Query(Criteria.where("dag_properties.app_id").is(appId));
+//
+//        Update update = new Update();
+//        update.set("graph", document.get("graph"));
+//        update.set("dag_properties", dagProperties);
+//
+//        mongoTemplate.upsert(query, update, "graph");
+//    }
 
-        return idToReturn;
-    }
+//    public void saveTempGraph(String graph) {
+//        Document document = Document.parse(graph);
+//        Object graphId = document.get("id");
+//        if (graphId == null) {
+//            mongoTemplate.insert(document, "tempGraph");
+//        }
+//        else {
+//            Query query = new Query(Criteria.where("id").is(graphId.toString()));
+//            Update update = new Update();
+//            update.set("graph", document.get("graph"));
+//            update.set("dag_properties", document.get("dag_properties"));
+//            mongoTemplate.upsert(query, update, "tempGraph");
+//        }
+//    }
 
     public DBObject loadGraph(String id) throws GraphNotFoundException {
         DBObject resultGraph = getGraphById(id);
@@ -233,12 +247,6 @@ public class GraphService {
         fields.put("_id", 0);
 
         return graphCollection.findOne(query, fields);
-//        if (cursor != null) {
-//            JsonElement element = new JsonPrimitive(JSON.serialize(cursor));
-//            return element.getAsJsonObject();
-//        }
-//
-//        return null;
     }
 
     public List<GraphResponse> getAllGraphs() throws GraphNotFoundException {

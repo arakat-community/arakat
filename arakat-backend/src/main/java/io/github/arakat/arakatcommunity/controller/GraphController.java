@@ -1,6 +1,7 @@
 package io.github.arakat.arakatcommunity.controller;
 
 import com.mongodb.DBObject;
+import io.github.arakat.arakatcommunity.exception.AppIdAlreadyExistsException;
 import io.github.arakat.arakatcommunity.exception.GraphNotFoundException;
 import io.github.arakat.arakatcommunity.exception.GraphRunFailedException;
 import io.github.arakat.arakatcommunity.model.response.BaseResponse;
@@ -59,6 +60,11 @@ public class GraphController {
                     e.getMessage(),
                     e.getMessage(),
                     null, HttpStatus.BAD_REQUEST);
+        } catch (AppIdAlreadyExistsException e) {
+            return ApiResponseUtils.createResponseEntity(400,
+                    e.getMessage(),
+                    e.getMessage(),
+                    null, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {
             return ApiResponseUtils.createResponseEntity(500,
                     e.getMessage(),
@@ -88,10 +94,12 @@ public class GraphController {
     @RequestMapping(value = "/save-temp-graph", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> saveGraph(@RequestBody String graph) {
         try {
+            graphService.saveGraph(graph);
+
             return ApiResponseUtils.createResponseEntity(200,
                     "Save graph",
                     "Save graph",
-                    graphService.saveTempGraph(graph), HttpStatus.OK);
+                    null, HttpStatus.OK);
         } catch (Exception e) {
             return ApiResponseUtils.createResponseEntity(404,
                     e.getMessage(),
