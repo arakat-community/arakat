@@ -1,0 +1,119 @@
+{
+  "node_id": 26,
+  "name": "Çok Katmanlı Perseptron Sınıflandırıcı",
+  "category": 11,
+  "node_type": 0,
+  "family": 6,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": true,
+  "is_splitter": false,
+  "produces_model": true,
+  "estimator_name": "MultilayerPerceptronClassifier",
+  "parameter_props": {
+    "parameters": {
+      "featuresCol": {
+        "visible_name": "Öznitelikler Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "features"
+      },
+      "labelCol": {
+        "visible_name": "Etiket Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "label"
+      },
+      "predictionCol": {
+        "visible_name": "Tahmin Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "prediction"
+      },
+      "rawPredictionCol": {
+        "visible_name": "Ham Tahmin Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "rawPrediction"
+      },
+      "probabilityCol": {
+        "visible_name": "Olasılık Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "probability"
+      },
+      "layers": {
+        "visible_name": "Katmanlar",
+        "type_constraint": [
+          "array[integer]"
+        ],
+        "default": [
+          2,
+          2,
+          2
+        ]
+      },
+      "maxIter": {
+        "visible_name": "Maksimum İterasyon Sayısı",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "maxIter >= 0",
+        "default": 100
+      },
+      "tol": {
+        "visible_name": "Yakınsama Toleransı",
+        "type_constraint": [
+          "float",
+          "double"
+        ],
+        "piecewise_constraint": "tol >= 0",
+        "default": 0.000001
+      },
+      "stepSize": {
+        "visible_name": "Adım Büyüklüğü",
+        "type_constraint": [
+          "double"
+        ],
+        "piecewise_constraint": "stepSize >= 0",
+        "default": 0.3
+      },
+      "solver": {
+        "visible_name": "Çözücü",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "l-bfgs",
+          "gd"
+        ],
+        "default": "l-bfgs"
+      },
+      "seed": {
+        "visible_name": "Başlangıç Değeri",
+        "type_constraint": [
+          "integer"
+        ],
+        "optional": true
+      },
+      "blockSize": {
+        "visible_name": "Blok Boyutu",
+        "type_constraint": [
+          "integer"
+        ],
+        "piecewise_constraint": "blockSize >= 10 AND blockSize <= 1000",
+        "optional": true
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [0,1,4,5,10,11,13,21]
+}

@@ -96,7 +96,7 @@
     "webpack": "4.19.0",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.7"
+    "webpack-dev-server": "^3.1.11"
   },
   "dependencies": {
     "@amcharts/amcharts4": "^4.0.0-beta.50",
@@ -107,7 +107,7 @@
     "@material-ui/core": "^3.0.3",
     "@material-ui/icons": "^3.0.1",
     "@types/cytoscape": "^3.2.7",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "classnames": "^2.2.5",
     "cytoscape": "^3.2.16",
     "cytoscape-cose-bilkent": "^4.0.0",
@@ -123,7 +123,7 @@
     "jsonexport": "^2.3.0",
     "jspdf": "^1.4.1",
     "jss-rtl": "^0.2.3",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.13",
     "material-ui-color-picker": "^2.1.1",
     "mousetrap": "^1.6.2",
     "rc-menu": "^7.4.9",

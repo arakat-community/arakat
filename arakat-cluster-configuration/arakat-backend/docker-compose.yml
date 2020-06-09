@@ -22,10 +22,9 @@ services:
       - ../scripts/airflow_dags:/airflow_dag
       - ../scripts/spark_code/:/spark_codes
       - ../spark_logs/:/spark_logs
-      - ../../arakat-core/configs/node_specs/:/node_specs
+      - ../../arakat-core/src/configs/node_specs_en/:/node_specs
 
 networks:
   sparkNet:
     external:
       name: arakatnetwork
-

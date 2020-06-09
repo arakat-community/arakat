@@ -1,0 +1,88 @@
+{
+  "node_id": 38,
+  "name": "Select",
+  "category": 2,
+  "node_type": 0,
+  "family": 23,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "parameter_props": {
+    "parameters": {
+      "expressions": {
+        "type_constraint": [
+          "array[object]"
+        ],
+        "object_info": {
+          "operation": {
+            "visible_name": "İşlem",
+            "type_constraint": [
+              "string"
+            ],
+            "set_constraint": [
+              "Identity",
+              "+",
+              "*",
+              "abs",
+              "round",
+              "dayofmonth",
+              "dayofweek",
+              "dayofyear",
+              "concat"
+            ],
+            "default": "Identity"
+          },
+          "input_cols": {
+            "visible_name": "Girdi Sütunları",
+            "type_constraint": [
+              "array[string]",
+              "regex",
+              "template",
+              "ALL"
+            ],
+            "special_requirements": {"regex": "column_selector_regex", "template": "column_selector_template", "ALL": "column_selector_ALL"}
+          },
+          "output_cols": {
+            "visible_name": "Çıktı Sütunları",
+            "type_constraint": [
+              "array[string]",
+              "template"
+            ],
+            "optional": true,
+            "special_requirements": {"template": "column_selector_template"}
+          }
+        }
+      }      
+    },
+    "lookup_table": {
+        "v1": {
+          "trace": "expressions-object_info-output_cols",
+          "field": "type"
+        },
+        "v2": {
+          "trace": "expressions-object_info-input_cols",
+          "field": "type"
+        },
+        "v3": {
+          "trace": "expressions-object_info-output_cols",
+          "field": "length"
+        },
+        "v4": {
+          "trace": "expressions-object_info-input_cols",
+          "field": "length"
+        },
+        "v5": {
+          "const": "array[string]"
+        }
+
+      },
+      "relational_constraints": [
+        "((v1 == v5) AND (v2 == v5)) => ((v3 == 0) OR (v3 == v4))"
+      ],
+      "visibility_constraints": [
+      ]
+  },
+  "df_constraints": []
+}

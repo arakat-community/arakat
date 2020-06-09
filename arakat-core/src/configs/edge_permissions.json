@@ -1,0 +1,124 @@
+{
+  "edge_permissions": {
+    "0": {
+      "produces": [{"type":"dataframe", "compatibility":["batch"]}],
+      "takes": []
+    },
+    "1": {
+      "produces": [{"type":"dataframe", "compatibility":["batch"]}],
+      "takes": []
+    },
+    "2": {
+      "produces": [],
+      "takes": [{"type":"dataframe", "compatibility":["batch"]}]
+    },
+    "3": {
+      "produces": [],
+      "takes": [{"type":"dataframe", "compatibility":["batch"]}]
+    },
+    "4": {
+      "produces": [{"type":"dataframe", "compatibility":["batch"]}, {"type":"model"}],
+      "takes": [{"type":"dataframe", "compatibility":["batch"]}]
+    },
+    "5": {
+      "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch", "stream"]}]
+    },
+    "6": {
+      "produces": [{"type":"dataframe", "compatibility":["batch"]}, {"type":"model"}, {"type": "pipeline"}, {"type": "cv"}],
+      "takes": [{"type":"dataframe", "compatibility":["batch"]}, {"type": "pipeline"}]
+    },
+    "7": {
+      "produces": [{"type":"dataframe", "compatibility":["batch"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch"]}, {"type": "cv"}]
+    },
+    "8": {
+      "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch", "stream"], "additional_parameters":["order"]}]
+    },
+    "9": {
+      "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch", "stream"]}, {"type":"model"}]
+    },
+    "10": {
+      "produces": [{"type":"model"}],
+      "takes": []
+    },
+    "11": {
+      "produces": [],
+      "takes": [{"type":"model"}]
+    },
+    "12": {
+      "produces": [{"type":"dataframe", "compatibility":["batch"]}, {"type":"model"}],
+      "takes": [{"type":"dataframe", "compatibility":["batch"]}]
+    },
+    "13": {
+      "produces": [{"type":"dataframe", "compatibility":["batch"], "additional_parameters":["portion"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch"]}]
+    },
+    "14": {
+      "produces": [{"type":"dataframe", "compatibility":["stream"]}],
+      "takes": []
+    },
+    "15": {
+      "produces": [{"type":"dataframe", "compatibility":["stream"]}],
+      "takes": []
+    },
+    "16": {
+      "produces": [],
+      "takes": [{"type":"dataframe", "compatibility":["stream"]}]
+    },
+    "17": {
+      "produces": [],
+      "takes": [{"type":"dataframe", "compatibility":["stream"]}]
+    },
+    "18": {
+      "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}, {"type": "pipeline"}],
+      "takes": [{"type":"dataframe", "compatibility":["batch", "stream"]}, {"type": "pipeline"}]
+    },
+    "19": {
+      "produces": [{"type":"pipeline"}],
+      "takes": [{"type":"model"}, {"type":"pipeline"}]
+    },
+    "20": {
+      "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch", "stream"]}]
+    },
+    "21": {
+      "produces": [{"type":"dataframe", "compatibility":["batch"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch"]}]
+    },
+    "22": {
+      "produces": [{"type":"dataframe", "compatibility":["batch"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch"]}]
+    },
+    "23": {
+      "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch", "stream"]}]
+    },
+    "24": {
+      "produces": [{"type":"dataframe", "compatibility":["batch"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch"]}]
+    },
+    "25": {
+      "produces": [{"type":"dataframe", "compatibility":["batch"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch"]}]
+    },
+    "26": {
+      "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch", "stream"]}]
+    },
+    "27": {
+      "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch", "stream"]}]
+    },
+    "28": {
+      "produces": [{"type":"dataframe", "compatibility":["batch", "stream"]}],
+      "takes": [{"type":"dataframe", "compatibility":["batch", "stream"]}]
+    }
+  },
+  "parameter_info":{
+    "portion": {"type": "integer", "piecewise_constraint": "portion >= 0"},
+    "order": {"type": "integer", "piecewise_constraint": "order >= 0"}
+  }
+}

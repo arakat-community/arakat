@@ -1,0 +1,47 @@
+{
+  "node_id": 1,
+  "name": "İkili Sınıflandırma Değerlendirici",
+  "category": 12,
+  "node_type": 0,
+  "family": 7,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "evaluator_name": "BinaryClassificationEvaluator",
+  "parameter_props": {
+    "parameters": {
+      "rawPredictionCol": {
+        "visible_name": "Ham Tahmin Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "rawPrediction"
+      },
+      "labelCol": {
+        "visible_name": "Etiket Sütunu",
+        "type_constraint": [
+          "string"
+        ],
+        "default": "label"
+      },
+      "metricName": {
+        "visible_name": "Ölçü İsmi",
+        "type_constraint": [
+          "string"
+        ],
+        "set_constraint": [
+          "areaUnderROC",
+          "areaUnderPR"
+        ],
+        "default": "areaUnderROC"
+      }
+    },
+    "relational_constraints": [
+    ],
+    "visibility_constraints": [
+    ]
+  },
+  "df_constraints": [3,4,7,10,13]
+}

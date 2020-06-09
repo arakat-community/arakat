@@ -1,4 +1,4 @@
-from pipeline_generator.generators import PipelineGenerator
+from src.pipeline_generator.generators import PipelineGenerator
 
 # Although UI may send all node-specs, in this example I will omit some of them...
 
@@ -22,7 +22,7 @@ data={
                     "can_infer_schema": True,
                     "file_type": "csv",
                     "parameters": {
-                        "path": {"value": "file:///usr/local/spark_code/train.csv", "type": "string"},
+                        "path": {"value": "hdfs://namenode:9000/examples/general/data/train.csv", "type": "string"},
                         "header": {"value": True, "type": "boolean"},
                         "sep": {"value": ",", "type": "string"},
                         "quote": {"value": '\\\"', "type": "string"}
@@ -45,7 +45,7 @@ data={
                     "can_infer_schema": True,
                     "file_type": "csv",
                     "parameters": {
-                        "path": {"value": "file:///usr/local/spark_code/tjoin.csv", "type": "string"},
+                        "path": {"value": "hdfs://namenode:9000/examples/general/data/tjoin.csv", "type": "string"},
                         "header": {"value": True, "type": "boolean"},
                         "sep": {"value": ",", "type": "string"},
                         "quote": {"value": '\\\"', "type": "string"}
@@ -205,7 +205,7 @@ data={
                     "is_splitter": False,
                     "produces_model": False,
                     "parameters": {
-                        "model_path": {"value": "hdfs://namenode:9000/example5/model_1/", "type": "string"}
+                        "model_path": {"value": "hdfs://namenode:9000/examples/general/example5/results/model_1/", "type": "string"}
                     },
                 },
 
@@ -290,7 +290,7 @@ data={
                     "is_splitter": False,
                     "produces_model": False,
                     "parameters": {
-                        "model_path": {"value": "hdfs://namenode:9000/example5/model_2/", "type": "string"}
+                        "model_path": {"value": "hdfs://namenode:9000/examples/general/example5/results/model_2/", "type": "string"}
                     },
                 },
             "node15":
@@ -362,7 +362,7 @@ data={
                     "produces_model": False,
                     "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "hdfs://namenode:9000/example5/EvalResult2.parquet", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/examples/general/example5/results/EvalResult2.parquet", "type": "string"}
                     }
                 },
 
@@ -382,7 +382,7 @@ data={
                     "produces_model": False,
                     "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "hdfs://namenode:9000/example5/test.parquet", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/examples/general/example5/results/test.parquet", "type": "string"}
                     }
                 },
 
@@ -403,7 +403,7 @@ data={
                     "can_infer_schema": False,
                     "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "hdfs://namenode:9000/example5/test.parquet", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/examples/general/example5/results/test.parquet", "type": "string"}
                     }
                 },
                 "node21":
@@ -421,7 +421,7 @@ data={
                     "is_splitter": False,
                     "produces_model": True,
                     "parameters": {
-                        "model_path": {"value": "hdfs://namenode:9000/example5/model_1/", "type": "string"},
+                        "model_path": {"value": "hdfs://namenode:9000/examples/general/example5/results/model_1/", "type": "string"},
                         "model_type": {"value": "PipelineModel", "type": "string"}
                     }
                 },
@@ -456,7 +456,7 @@ data={
                     "is_splitter": False,
                     "produces_model": True,
                     "parameters": {
-                        "model_path": {"value": "hdfs://namenode:9000/example5/model_2/", "type": "string"},
+                        "model_path": {"value": "hdfs://namenode:9000/examples/general/example5/results/model_2/", "type": "string"},
                         "model_type": {"value": "CrossValidatorModel", "type": "string"}
                     }
                 },
@@ -513,7 +513,7 @@ data={
                     "produces_model": False,
                     "file_type": "csv",
                     "parameters": {
-                        "path": {"value": "hdfs://namenode:9000/example5/EvalResult3.csv", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/examples/general/example5/results/EvalResult3.csv", "type": "string"}
                     }
                 },
             "task1": {

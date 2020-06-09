@@ -5,6 +5,8 @@ services:
     networks:
       - sparknetwork
     volumes:
+      - ~/Desktop/git/Demo:/demo-data
+      - ~/Desktop/git/examples:/example-data
       - namenode:/hadoop/dfs/name
     environment:
       - CLUSTER_NAME=test

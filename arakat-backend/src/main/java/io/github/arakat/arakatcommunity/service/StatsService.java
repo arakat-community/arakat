@@ -1,6 +1,7 @@
 package io.github.arakat.arakatcommunity.service;
 
 import io.github.arakat.arakatcommunity.config.AppPropertyValues;
+import io.github.arakat.arakatcommunity.model.response.DagStats;
 import io.github.arakat.arakatcommunity.utils.FileOperationUtils;
 import io.github.arakat.arakatcommunity.utils.RequestUtils;
 import org.json.JSONArray;
@@ -10,14 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,11 +32,27 @@ public class StatsService {
         this.requestUtils = requestUtils;
     }
 
-    public JSONArray getDAGStatsFromAirflow(String dagId) throws IOException {
+    public List<DagStats> getDAGStatsFromAirflow(String dagId) throws IOException {
         String url = appPropertyValues.getAirflowUrl() + ":" + appPropertyValues.getAirflowPort() +
                 appPropertyValues.getAirflowDagStatusPath();
 
-        return getStatsById(url, dagId);
+        List<DagStats> dagStats = new ArrayList<>();
+        JSONArray result = getStatsById(url, dagId);
+
+        if (result == null) {
+            return null;
+        }
+
+        for (Object o : result) {
+            JSONObject stat = (JSONObject) o;
+            dagStats.add(new DagStats(stat.get("color").toString(),
+                    (int) stat.get("count"),
+                    stat.get("state").toString(),
+                    stat.get("dag_id").toString()));
+
+        }
+
+        return dagStats;
     }
 
     public JSONArray getTaskStatsFromAirflow(String taskId) throws IOException {

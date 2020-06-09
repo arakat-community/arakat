@@ -1,4 +1,4 @@
-from pipeline_generator.generators import PipelineGenerator
+from src.pipeline_generator.generators import PipelineGenerator
 
 # Although UI may send all node-specs, in this example I will omit some of them...
 
@@ -22,7 +22,7 @@ data={
                     "can_infer_schema": True,
                     "file_type": "csv",
                     "parameters": {
-                        "path": {"value": "file:///usr/local/spark_code/train.csv", "type": "string"},
+                        "path": {"value": "hdfs://namenode:9000/examples/general/data/train.csv", "type": "string"},
                         "header": {"value": True, "type": "boolean"},
                         "sep": {"value": ",", "type": "string"},
                         "quote": {"value": '\\\"', "type": "string"}
@@ -211,7 +211,7 @@ data={
                     "is_splitter": False,
                     "produces_model": False,
                     "parameters": {
-                        "model_path": {"value": "hdfs://namenode:9000/example2/model/", "type": "string"}
+                        "model_path": {"value": "hdfs://namenode:9000/examples/general/example2/results/model/", "type": "string"}
                     },
                 },
             "node11":
@@ -267,7 +267,7 @@ data={
                     "produces_model": False,
                     "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "hdfs://namenode:9000/example2/EvalResult1.parquet", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/examples/general/example2/results/EvalResult1.parquet", "type": "string"}
                     }
                 },
             "node14":
@@ -286,7 +286,7 @@ data={
                     "produces_model": False,
                     "file_type": "parquet",
                     "parameters": {
-                        "path": {"value": "hdfs://namenode:9000/example2/EvalResult2.parquet", "type": "string"}
+                        "path": {"value": "hdfs://namenode:9000/examples/general/example2/results/EvalResult2.parquet", "type": "string"}
                     }
                 },
             "task1": {

@@ -1,0 +1,4 @@
+/WiredTiger
+/WiredTiger.lock
+/WiredTiger.turtle
+*.lock

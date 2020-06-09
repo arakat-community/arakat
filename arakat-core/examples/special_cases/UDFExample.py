@@ -1,4 +1,5 @@
-from pipeline_generator.generators import PipelineGenerator
+from src.pipeline_generator.generators import PipelineGenerator
+
 data={
     "graph":{
         "nodes": {
