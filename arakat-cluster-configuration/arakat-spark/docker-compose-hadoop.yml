@@ -4,10 +4,7 @@ services:
     image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
     networks:
       - sparknetwork
-    volumes:
-      - ~/Desktop/git/Demo:/demo-data
-      - ~/Desktop/git/examples:/example-data
-      - namenode:/hadoop/dfs/name
+
     environment:
       - CLUSTER_NAME=test
     env_file:
@@ -19,21 +16,20 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
+
   datanode:
     image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
     networks:
       - sparknetwork
     volumes:
-      - datanode:/hadoop/dfs/data
+      - ./datanode:/hadoop/dfs/data
     env_file:
       - ./hadoop.env
     environment:
       SERVICE_PRECONDITION: "namenode:50070"
+      CLUSTER_NAME: "test"
     ports:
       - "50010:50010"
-#  deploy:
-      # mode global will deploy one datanode per docker swarm node
-#      mode: global
     
       
 volumes:

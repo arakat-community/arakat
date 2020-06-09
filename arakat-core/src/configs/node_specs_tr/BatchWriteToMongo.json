@@ -1,0 +1,51 @@
+{
+  "node_id": 84,
+  "name": "MongoDB'ye toplu yazma",
+  "category": 1,
+  "node_type": 0,
+  "family": 2,
+  "compatible_with_stream": false,
+  "compatible_stream_output_modes": [],
+  "compatible_with_spark_pipeline": false,
+  "is_splitter": false,
+  "produces_model": false,
+  "file_type": "com.mongodb.spark.sql",
+  "parameter_props": {
+    "parameters": {
+      "uri": {
+        "visible_name": "Host",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "database": {
+        "visible_name": "Database",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "collection": {
+        "visible_name": "Collection",
+        "type_constraint": [
+          "string"
+        ]
+      },
+      "mode": {
+        "visible_name": "Mode",
+        "type_constraint": [
+          "string"
+        ],
+         "default": "append"
+      }
+    },
+    "relational_constraints": [
+
+    ],
+    "visibility_constraints": [
+
+    ]
+  },
+  "df_constraints": [
+
+  ]
+}
