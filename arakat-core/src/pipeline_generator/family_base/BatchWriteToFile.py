@@ -26,6 +26,7 @@ def generate_code(args):
 
         final_code = CodeGenerationUtils.merge_with_additional_code(gen_code, additional_local_code)
 
-        args["additional_info"]["written_tables"].append({"table_path": node["parameters"]["path"]["value"]})
+        if "path" in node["parameters"]:
+            args["additional_info"]["written_tables"].append({"table_path": node["parameters"]["path"]["value"]})
 
     return final_code, shared_function_set, error
