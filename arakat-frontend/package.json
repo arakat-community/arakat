@@ -123,7 +123,7 @@
     "jsonexport": "^2.3.0",
     "jspdf": "^1.4.1",
     "jss-rtl": "^0.2.3",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.19",
     "material-ui-color-picker": "^2.1.1",
     "mousetrap": "^1.6.2",
     "rc-menu": "^7.4.9",
