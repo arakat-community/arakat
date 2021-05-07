@@ -121,7 +121,7 @@
     "intl": "^1.2.5",
     "jslint": "^0.12.0",
     "jsonexport": "^2.3.0",
-    "jspdf": "^1.4.1",
+    "jspdf": "^2.3.1",
     "jss-rtl": "^0.2.3",
     "lodash": "^4.17.13",
     "material-ui-color-picker": "^2.1.1",
